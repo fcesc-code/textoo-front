@@ -80,6 +80,9 @@ images/
 media/
 assets/
 
+#lighthouse reports
+#reports/
+
 #project versions, copies and temporary folders
 backup/
 versions/
