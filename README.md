@@ -26,6 +26,9 @@ _deploy status badge_
 
 ## How to use this code
 
+Download or clone the repository. Then, install the dependencies using `npm install`. To start the app in development mode run `npm run dev` and open your browser on
+[localhost](http://localhost:4200). For further commands, see the commands section below.
+
 Content lives inside the `src/` folder. If you do not want to change the configuration or are unsure about what you are doing, do not edit files outside the `src/` folder.
 
 Always run the following commands during the development stage and for production builds. Please note that it is expected that all projects built with this boilerplate are compiled using `npm run build` before they are published.
@@ -94,6 +97,7 @@ Check out the how to report a vulnerability in our supported versions in the [SE
 - [HTML](https://html.spec.whatwg.org/)
 - [YAML](https://yaml.org/) for GitHub actions
 - [markjs](https://markjs.io/) for markdown rendering
+- [husky](https://www.npmjs.com/package/husky) to use git hooks for continuous integration
 
 ### VSCode extensions
 
@@ -120,36 +124,36 @@ Quality gate main indicators:
 
 | parameter                                                                                                       | target   | current                    |
 | --------------------------------------------------------------------------------------------------------------- | -------- | -------------------------- |
-| web standards                                                                                                   |
+| **Web standards**                                                                                               |
 | [HTML Validator](https://jigsaw.w3.org/css-validator/)                                                          | 0 errors | _under development_ errors |
 | [css validator](https://jigsaw.w3.org/css-validator/)                                                           | 0 errors | _under development_ errors |
-| unit testing                                                                                                    |
+| **Unit testing**                                                                                                |
 | [Jasmine](https://jasmine.github.io/) statements                                                                | > 70%    | _under development_        |
 | [Jasmine](https://jasmine.github.io/) branches                                                                  | > 70%    | _under development_        |
 | [Jasmine](https://jasmine.github.io/) lines                                                                     | > 70%    | _under development_        |
 | [Jasmine](https://jasmine.github.io/) functions                                                                 | > 70%    | _under development_        |
-| integration testing                                                                                             |
+| **Component testing**                                                                                           |
+| Components                                                                                                      | > 70%    | _under development_        |
+| **Integration testing**                                                                                         |
 | API calls                                                                                                       | 100%     | _under development_        |
-| code quality metrics                                                                                            |
+| **Quality**                                                                                                     |
 | [Sonarqube](https://www.sonarqube.org/) bugs                                                                    | 0        | _under development_        |
 | [Sonarqube](https://www.sonarqube.org/) code smells                                                             | 0        | _under development_        |
 | [Sonarqube](https://www.sonarqube.org/) code duplication                                                        | < 10%    | _under development_%       |
-| [Lighthouse](https://developers.google.com/web/tools/lighthouse)                                                | > 95/100 | _under development_/100    |
-| security metrics                                                                                                |
+| [Lighthouse](https://developers.google.com/web/tools/lighthouse) best practices metric                          | > 95/100 | _under development_/100    |
+| **Security**                                                                                                    |
 | [Dependabot security alerts](https://github.blog/2020-06-01-keep-all-your-packages-up-to-date-with-dependabot/) | 0        | _under development_        |
 | [CodeQL](https://github.com/github/codeql)                                                                      | 0        | _under development_        |
 | [Sonarqube](https://www.sonarqube.org/) vulnerabilities                                                         | 0        | _under development_        |
 | [Sonarqube](https://www.sonarqube.org/) security hotspots                                                       | 0        | _under development_        |
-| Linters                                                                                                         |
+| **Linters**                                                                                                     |
 | [ESLint](https://eslint.org/) errors (js)                                                                       | 0        | _under development_        |
-| [ESLint](https://eslint.org/) warnings (js)                                                                     | not set  | _under development_        |
 | [Stylelint](https://stylelint.io/) errors (sass)                                                                | 0        | _under development_        |
-| [Stylelint](https://stylelint.io/) warnings (sass)                                                              | not set  | _under development_        |
-| Accessibility                                                                                                   |
-| [WAVE](https://wave.webaim.org/) accessibility validator                                                        | 0 errors | _under development_ errors |
-| [Lighthouse](https://developers.google.com/web/tools/lighthouse)                                                | > 90/100 | _under development_/100    |
-| Performance                                                                                                     |
-| [Lighthouse](https://developers.google.com/web/tools/lighthouse)                                                | > 90/100 | _under development_/100    |
+| **Accessibility**                                                                                               |
+| [WAVE](https://wave.webaim.org/) accessibility validator                                                        | 0        | _under development_ errors |
+| [Lighthouse](https://developers.google.com/web/tools/lighthouse) accessibility metric                           | > 90/100 | _under development_/100    |
+| **Performance**                                                                                                 |
+| [Lighthouse](https://developers.google.com/web/tools/lighthouse) performance metric                             | > 90/100 | _under development_/100    |
 | First contentful paint                                                                                          | not set  | _under development_        |
 | Speed Index                                                                                                     | not set  | _under development_        |
 | Largest contentful paint                                                                                        | not set  | _under development_        |
@@ -161,6 +165,10 @@ Quality gate main indicators:
 | Lazy loading secondary scripts                                                                                  | yes      | _under development_        |
 | Lazy loading angular modules                                                                                    | yes      | _under development_        |
 | Progressive web app                                                                                             | yes      | _under development_        |
+| **SEO**                                                                                                         |
+| [Lighthouse](https://developers.google.com/web/tools/lighthouse) SEO metric                                     | > 90/100 | _under development_/100    |
+
+_\* Warnings are not included in these metrics._
 
 ### Content
 
@@ -199,7 +207,9 @@ Releases' schedule:
 ## Credits
 
 Professor: César Pablo Córcoles Briongos.
+
 Tutor: Carles Arnal Castello.
+
 Wherever appropriate, credit is given to author as a comment in specific file.
 
 ## Author
