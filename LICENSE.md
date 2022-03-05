@@ -1,34 +1,34 @@
 # Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License
 
-[CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode)
-[العربية](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.ar)
-[čeština](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.cs)
-[Deutsch](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.de)
-[Ελληνικά](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.el)
-[Español](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.es)
-[euskara](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.eu)
-[suomeksi](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.fi)
-[français](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.fr)
-[hrvatski](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.hr)
-[Bahasa Indonesia](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.id)
-[italiano](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.it)
-[日本語](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.ja)
-[한국어](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.ko)
-[Lietuvių](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.lt)
-[latviski](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.lv)
-[te reo Māori](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.mi)
-[Nederlands](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.nl)
-[norsk](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.no)
-[polski](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.pl)
-[português](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.pt)
-[română](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.ro)
-[русский](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.ru)
-[Slovenščina](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.sl)
-[svenska](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.sv)
-[Türkçe](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.tr)
-[українська](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.uk)
-[中文](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.zh-Hans)
-[華語](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.zh-Hant)
+[CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode) -
+[العربية](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.ar) -
+[čeština](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.cs) -
+[Deutsch](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.de) -
+[Ελληνικά](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.el) -
+[Español](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.es) -
+[euskara](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.eu) -
+[suomeksi](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.fi) -
+[français](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.fr) -
+[hrvatski](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.hr) -
+[Bahasa Indonesia](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.id) -
+[italiano](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.it) -
+[日本語](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.ja) -
+[한국어](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.ko) -
+[Lietuvių](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.lt) -
+[latviski](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.lv) -
+[te reo Māori](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.mi) -
+[Nederlands](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.nl) -
+[norsk](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.no) -
+[polski](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.pl) -
+[português](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.pt) -
+[română](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.ro) -
+[русский](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.ru) -
+[Slovenščina](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.sl) -
+[svenska](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.sv) -
+[Türkçe](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.tr) -
+[українська](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.uk) -
+[中文](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.zh-Hans) -
+[華語](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.zh-Hant) -
 
 By exercising the Licensed Rights (defined below), You accept and agree to be bound by the terms and conditions of this Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License ("Public License"). To the extent this Public License may be interpreted as a contract, You are granted the Licensed Rights in consideration of Your acceptance of these terms and conditions, and the Licensor grants You such rights in consideration of benefits the Licensor receives from making the Licensed Material available under these terms and conditions.
 
@@ -60,22 +60,33 @@ k. **You** means the individual or entity exercising the Licensed Rights under t
 
 a. **License grant.**
 
-    1. Subject to the terms and conditions of this Public License, the Licensor hereby grants You a worldwide, royalty-free, non-sublicensable, non-exclusive, irrevocable license to exercise the Licensed Rights in the Licensed Material to:
-        A. reproduce and Share the Licensed Material, in whole or in part, for NonCommercial purposes only; and
-        B. produce and reproduce, but not Share, Adapted Material for NonCommercial purposes only.
-    2. *Exceptions and Limitations*. For the avoidance of doubt, where Exceptions and Limitations apply to Your use, this Public License does not apply, and You do not need to comply with its terms and conditions.
-    3. *Term*. The term of this Public License is specified in Section 6(a).
-    4. *Media and formats; technical modifications allowed*. The Licensor authorizes You to exercise the Licensed Rights in all media and formats whether now known or hereafter created, and to make technical modifications necessary to do so. The Licensor waives and/or agrees not to assert any right or authority to forbid You from making technical modifications necessary to exercise the Licensed Rights, including technical modifications necessary to circumvent Effective Technological Measures. For purposes of this Public License, simply making modifications authorized by this Section 2(a)(4) never produces Adapted Material.
-    5. *Downstream recipients*.
-        A: *Offer from the Licensor* – Licensed Material. Every recipient of the Licensed Material automatically receives an offer from the Licensor to exercise the Licensed Rights under the terms and conditions of this Public License.
-        B: *No downstream restrictions*. You may not offer or impose any additional or different terms or conditions on, or apply any Effective Technological Measures to, the Licensed Material if doing so restricts exercise of the Licensed Rights by any recipient of the Licensed Material.
-    6. *No endorsement*. Nothing in this Public License constitutes or may be construed as permission to assert or imply that You are, or that Your use of the Licensed Material is, connected with, or sponsored, endorsed, or granted official status by, the Licensor or others designated to receive attribution as provided in Section 3(a)(1)(A)(i).
+1. Subject to the terms and conditions of this Public License, the Licensor hereby grants You a worldwide, royalty-free, non-sublicensable, non-exclusive, irrevocable license to exercise the Licensed Rights in the Licensed Material to:
+
+   A. reproduce and Share the Licensed Material, in whole or in part, for NonCommercial purposes only; and
+
+   B. produce and reproduce, but not Share, Adapted Material for NonCommercial purposes only.
+
+2. _Exceptions and Limitations_. For the avoidance of doubt, where Exceptions and Limitations apply to Your use, this Public License does not apply, and You do not need to comply with its terms and conditions.
+
+3. _Term_. The term of this Public License is specified in Section 6(a).
+
+4. _Media and formats; technical modifications allowed_. The Licensor authorizes You to exercise the Licensed Rights in all media and formats whether now known or hereafter created, and to make technical modifications necessary to do so. The Licensor waives and/or agrees not to assert any right or authority to forbid You from making technical modifications necessary to exercise the Licensed Rights, including technical modifications necessary to circumvent Effective Technological Measures. For purposes of this Public License, simply making modifications authorized by this Section 2(a)(4) never produces Adapted Material.
+
+5. _Downstream recipients_.
+
+   A. _Offer from the Licensor_ – Licensed Material. Every recipient of the Licensed Material automatically receives an offer from the Licensor to exercise the Licensed Rights under the terms and conditions of this Public License.
+
+   B. _No downstream restrictions_. You may not offer or impose any additional or different terms or conditions on, or apply any Effective Technological Measures to, the Licensed Material if doing so restricts exercise of the Licensed Rights by any recipient of the Licensed Material.
+
+6. _No endorsement_. Nothing in this Public License constitutes or may be construed as permission to assert or imply that You are, or that Your use of the Licensed Material is, connected with, or sponsored, endorsed, or granted official status by, the Licensor or others designated to receive attribution as provided in Section 3(a)(1)(A)(i).
 
 b. **Other rights.**
 
-    1. Moral rights, such as the right of integrity, are not licensed under this Public License, nor are publicity, privacy, and/or other similar personality rights; however, to the extent possible, the Licensor waives and/or agrees not to assert any such rights held by the Licensor to the limited extent necessary to allow You to exercise the Licensed Rights, but not otherwise.
-    2. Patent and trademark rights are not licensed under this Public License.
-    3. To the extent possible, the Licensor waives any right to collect royalties from You for the exercise of the Licensed Rights, whether directly or through a collecting society under any voluntary or waivable statutory or compulsory licensing scheme. In all other cases the Licensor expressly reserves any right to collect such royalties, including when the Licensed Material is used other than for NonCommercial purposes.
+1. Moral rights, such as the right of integrity, are not licensed under this Public License, nor are publicity, privacy, and/or other similar personality rights; however, to the extent possible, the Licensor waives and/or agrees not to assert any such rights held by the Licensor to the limited extent necessary to allow You to exercise the Licensed Rights, but not otherwise.
+
+2. Patent and trademark rights are not licensed under this Public License.
+
+3. To the extent possible, the Licensor waives any right to collect royalties from You for the exercise of the Licensed Rights, whether directly or through a collecting society under any voluntary or waivable statutory or compulsory licensing scheme. In all other cases the Licensor expressly reserves any right to collect such royalties, including when the Licensed Material is used other than for NonCommercial purposes.
 
 ## Section 3 – License Conditions
 
@@ -83,18 +94,29 @@ Your exercise of the Licensed Rights is expressly made subject to the following 
 
 a. **Attribution.**
 
-    1. If You Share the Licensed Material, You must:
-        A. retain the following if it is supplied by the Licensor with the Licensed Material:
-            i. identification of the creator(s) of the Licensed Material and any others designated to receive attribution, in any reasonable manner requested by the Licensor (including by pseudonym if designated);
-            ii. a copyright notice;
-            iii. a notice that refers to this Public License;
-            iv. a notice that refers to the disclaimer of warranties;
-            v. a URI or hyperlink to the Licensed Material to the extent reasonably practicable;
-        B. indicate if You modified the Licensed Material and retain an indication of any previous modifications; and
-        C. indicate the Licensed Material is licensed under this Public License, and include the text of, or the URI or hyperlink to, this Public License.
-    For the avoidance of doubt, You do not have permission under this Public License to Share Adapted Material.
-    2. You may satisfy the conditions in Section 3(a)(1) in any reasonable manner based on the medium, means, and context in which You Share the Licensed Material. For example, it may be reasonable to satisfy the conditions by providing a URI or hyperlink to a resource that includes the required information.
-    3. If requested by the Licensor, You must remove any of the information required by Section 3(a)(1)(A) to the extent reasonably practicable.
+1. If You Share the Licensed Material, You must:
+
+   A. retain the following if it is supplied by the Licensor with the Licensed Material:
+
+   i. identification of the creator(s) of the Licensed Material and any others designated to receive attribution, in any reasonable manner requested by the Licensor (including by pseudonym if designated);
+
+   ii. a copyright notice;
+
+   iii. a notice that refers to this Public License;
+
+   iv. a notice that refers to the disclaimer of warranties;
+
+   v. a URI or hyperlink to the Licensed Material to the extent reasonably practicable;
+
+   B. indicate if You modified the Licensed Material and retain an indication of any previous modifications; and
+
+   C. indicate the Licensed Material is licensed under this Public License, and include the text of, or the URI or hyperlink to, this Public License.
+
+   For the avoidance of doubt, You do not have permission under this Public License to Share Adapted Material.
+
+2. You may satisfy the conditions in Section 3(a)(1) in any reasonable manner based on the medium, means, and context in which You Share the Licensed Material. For example, it may be reasonable to satisfy the conditions by providing a URI or hyperlink to a resource that includes the required information.
+
+3. If requested by the Licensor, You must remove any of the information required by Section 3(a)(1)(A) to the extent reasonably practicable.
 
 ## Section 4 – Sui Generis Database Rights
 
