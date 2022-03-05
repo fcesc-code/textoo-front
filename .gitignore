@@ -46,7 +46,14 @@ logs/
 /connect.lock
 testem.log
 
+#husky
+.husky/_
+
 #caches
+#angular
+.angular/cache/**/*
+.angular
+/.angular
 #npm
 .npm
 #eslint
