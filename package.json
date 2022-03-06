@@ -15,7 +15,7 @@
     "report:dev": "npm-run-all report:clean report:gen-dev-browser",
     "report:gen-pwa-ci": "npx lighthouse https://127.0.0.1:8080/ --output-path=./reports/index.html --view --chrome-flags=--headless",
     "report:gen-dev-browser": "npx lighthouse http://localhost:4200/ --output-path=./reports/index.html --view",
-    "clean:build": "rimraf dist",
+    "clean:build": "rimraf dist/",
     "clean:report": "rimraf reports/index.html",
     "clean:cache": "rimraf .angular/cache/",
     "clean:ci": "rimraf dist/",

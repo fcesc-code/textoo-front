@@ -1,6 +1,16 @@
 {
   "root": true,
-  "ignorePatterns": ["projects/**/*"],
+  "ignorePatterns": [
+    "**/dist/**/*",
+    "**/cache/**/*",
+    "**/node_modules/**/*",
+    "**/.firebase/**/*",
+    "**/.angular/**/*",
+    "**/.vscode/**/*",
+    "**/keys/**/*",
+    "**/coverage/**/*",
+    "**/assets/**/*"
+  ],
   "overrides": [
     {
       "files": ["*.ts"],

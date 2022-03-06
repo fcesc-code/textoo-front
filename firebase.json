@@ -1,10 +1,8 @@
 {
   "hosting": {
-    "target": "frontend",
-    "public": "dist/frontend",
-    "ignore": [
-      "**/.*"
-    ],
+    "target": "textoo",
+    "public": "dist/textoo",
+    "ignore": ["**/.*", "**/node_modules/**", "**/.angular/cache/**"],
     "headers": [
       {
         "source": "*.[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].+(css|js)",
