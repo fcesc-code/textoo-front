@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "textoo": {
+      "hosting": {
+        "frontend": [
+          "textoo-fcd1f"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "textoo"
+  }
+}

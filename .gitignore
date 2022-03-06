@@ -186,6 +186,8 @@ temp/
 *secret*.*
 *KEYS*.*
 *keys*.*
+secrets/
+keys/
 
 # Sass
 .sass-cache/
@@ -280,3 +282,8 @@ pids
 *.pid
 *.seed
 *.pid.lock
+
+# Firebase
+.firebase/
+*-debug.log
+.runtimeconfig.json
