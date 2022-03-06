@@ -5,18 +5,23 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:clean": "rimraf dist",
     "watch": "ng build --watch --configuration development",
-    "lint": "ng lint",
+    "lint:ts": "ng lint",
+    "lint:ci-ts": "ng lint --fix",
     "test": "ng test",
     "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
     "serve:dev": "ng serve --configuration development -o",
-    "report": "npm-run-all report:clean report:generate",
-    "report:generate": "npx lighthouse https://127.0.0.1:8080/ --output-path ./reports/index.html --view --chrome-flags=--headless",
-    "report:clean": "rimraf reports/index.html",
-    "cache:clean": "rimraf .angular/cache/13.2.5/",
+    "report:pwa": "npm-run-all report:clean report:gen-pwa-ci",
+    "report:dev": "npm-run-all report:clean report:gen-dev-browser",
+    "report:gen-pwa-ci": "npx lighthouse https://127.0.0.1:8080/ --output-path=./reports/index.html --view --chrome-flags=--headless",
+    "report:gen-dev-browser": "npx lighthouse http://localhost:4200/ --output-path=./reports/index.html --view",
+    "clean:build": "rimraf dist/",
+    "clean:report": "rimraf reports/index.html",
+    "clean:cache": "rimraf .angular/cache/",
+    "clean:ci": "rimraf dist/",
     "prepare": "husky install",
-    "clean": "npm-run-all build:clean report:clean cache:clean"
+    "clean": "npm-run-all clean:build clean:report clean:cache",
+    "ci": "npm-run-all lint:ci test:ci clean:ci"
   },
   "private": true,
   "dependencies": {
@@ -24,10 +29,13 @@
     "@angular/common": "~13.2.0",
     "@angular/compiler": "~13.2.0",
     "@angular/core": "~13.2.0",
+    "@angular/fire": "^7.2.1",
     "@angular/forms": "~13.2.0",
     "@angular/platform-browser": "~13.2.0",
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
+    "firebase": "^9.4.0",
+    "rxfire": "^6.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
@@ -45,7 +53,10 @@
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.13.0",
+    "autoprefixer": "^10.4.2",
     "eslint": "^8.10.0",
+    "eslint-plugin-tailwindcss": "^3.5.0",
+    "firebase": "^9.6.8",
     "husky": "^7.0.4",
     "jasmine-core": "~4.0.0",
     "karma": "~6.3.0",
@@ -55,7 +66,34 @@
     "karma-jasmine-html-reporter": "~1.7.0",
     "lighthouse": "^9.4.0",
     "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.7",
     "rimraf": "^3.0.2",
+    "tailwindcss": "^3.0.23",
     "typescript": "~4.5.2"
-  }
+  },
+  "engines": {
+    "node": "16.13.2",
+    "npm": "8.5.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fcesc-code/textoo-front.git"
+  },
+  "author": {
+    "name": "Francesc Brugarolas",
+    "url": "https://github.com/fcesc-code"
+  },
+  "description": "Language activities for teachers and lerners.",
+  "license": "CC-BY-NC-ND-4.0",
+  "bugs": {
+    "url": "https://github.com/fcesc-code/textoo-front.git/issues"
+  },
+  "homepage": "https://github.com/fcesc-code/textoo-front.git#readme",
+  "keywords": [
+    "Typescript",
+    "Angular",
+    "sass",
+    "tailwind",
+    "UOC"
+  ]
 }
