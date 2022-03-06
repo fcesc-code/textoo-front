@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "target": "textoo",
+    "target": "frontend",
     "public": "dist/textoo",
     "ignore": ["**/.*", "**/node_modules/**", "**/.angular/cache/**"],
     "headers": [
