@@ -36,6 +36,8 @@
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
     "@angular/service-worker": "~13.2.0",
+    "@ngrx/effects": "^13.0.2",
+    "@ngrx/store": "^13.0.2",
     "firebase": "^9.4.0",
     "rxfire": "^6.0.0",
     "rxjs": "~7.5.0",
