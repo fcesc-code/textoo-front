@@ -7,6 +7,8 @@ export abstract class Activity {
   protected language!: SupportedLanguages;
   protected task!: string;
   protected font!: Font;
+  protected title!: string;
+  protected keywords!: string[];
 
   constructor() {
     this.id = null;
@@ -48,6 +50,12 @@ export abstract class Activity {
   }
   setLanguage(language: SupportedLanguages) {
     this.language = language;
+  }
+  getTitle(): string {
+    return this.title;
+  }
+  setTitle(title: string) {
+    this.title = title;
   }
   getScores(): Score {
     return this.score;
@@ -111,6 +119,19 @@ export abstract class Activity {
     if (this.font.author === '' || this.font.author === null) {
       this.font.display = false;
     }
+  }
+  getKeywords(): string[] {
+    return this.keywords;
+  }
+  addKeyword(newKeyword: string) {
+    this.keywords = Array.from(
+      new Set([...this.keywords, newKeyword.toLowerCase()])
+    );
+  }
+  removeKeyword(removedKeyword: string) {
+    this.keywords = [...this.keywords].filter(
+      (keyword) => keyword !== removedKeyword.toLowerCase()
+    );
   }
 }
 
