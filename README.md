@@ -38,15 +38,21 @@ Always run the following commands during the development stage and for productio
 Main commands:
 | Command | Description |
 | --- | --- |
-| `npm run dev` | Runs a local web server for development and opens the browser to display it. Automatically compiles styles and scripts whenever a file in `src/` is changed, and live reloads the browser. This is what _must be run_ on the development stage. |
-| `npm run build` | Compiles and minifies and optimizes the files in the assets folder. The generated compiled and optimized files are located in the `dist/` folder. This is what _must be run_ before publishing the project. This is also the build command to be run by external deployment services such as Netlify. The publishable files are then located in the `dist/` folder. |
-| `npm run clean` | Deletes the current `/dist` folder and cache folders. |
+| `npm run dev` | Runs a local web server for development and opens the browser to display it. Automatically compiles styles and scripts whenever a file in `src/` is changed, and live reloads the browser. This is what _must be run_ on the development stage. Alternatively, you can use `npm run serve:dev`. |
+| `npm run serve:pwa` | Runs a local web server for development and opens the browser to display it. Automatically compiles styles and scripts whenever a file in `src/` is changed, and live reloads the browser. This server can run in parallel to regular development server above. It is used to test the pwa in the development stage. |
+| `npm run build` | Compiles and minifies and optimizes the files in the assets folder. The generated compiled and optimized files are located in the `dist/textoo` folder. This is what _must be run_ before publishing the project. This is also the build command to be run by external deployment services such as Netlify. The publishable files are then located in the `dist/` folder. |
+| `npm run clean` | Deletes the current `dist/`, `cache/` and `report/` folders. You can delete any of the mentioned directories by the corresponding script: `npm run clean:<content>`, for example `npm run clean:cache` to delete the cache. |
 | `npm run lint` | Runs ESLint for javascript and html files, showing a report. If you are using VSCode, the extension for ESLint works too. |
-| `npm run lintfix` | Runs ESLint aud automatically fixes the warnings and errors that can be fixed. |
-| `npm run test` | Displays a success message if everything is working as expected. |
-| `npm run twatch` | Runs jest in watch mode, so that tests are re-run if a file is modified. |
-| `npm run tcoverage` | Runs jest and produces a coverage report. |
-| `npm run tdev` | Runs jest in watch mode and produces a coverage report as well. |
+| `npm run lint:ci` | Runs ESLint aud automatically fixes the warnings and errors that can be fixed. |
+| `npm run test` | Runs the tests and opens jasmine in a browser, so that tests are re-run if a file is modified. Recommended option for development. |
+| `npm run test:ci` | Runs the tests once and returns an exit code, so that it can be integrated in a CI pipeline. Option for continuous integration. |
+| `npm run test:coverage` | Runs the tests once and generates a coverage report in lcov and html formats. Lcov is used for code scanner sonarqube. |
+| `npm run ci` | Runs `lint`, `test`, `clean` and `build` scripts sequentially, this is rather to integrate in a CI process but can also be run manually. |
+| `npm run report:dev` | Runs lighthouse and generates a report. Note that for the
+report to be generated, the development server must be running. This command will
+not test the pwa. |
+| `npm run report:pwa` | Runs lighthouse on the pwa and generates a report. Note that for the report to be generated, the pwa server must be running. This command will only test the pwa. |
+| `npm run prepare` | Runs husky installation. Use this script only when installing this repository for the first time. Once executed, hooks will run before each commit (lint) and before each push (test). |
 
 ## License
 
@@ -74,6 +80,7 @@ Check out the how to report a vulnerability in our supported versions in the [SE
 - [Angular](https://angular.io/) framework
 - [Angular CLI](https://angular.io/cli)
 - [RxJS](https://rxjs.dev/guide/overview) library for reactive programming with Angular
+- [ngrx](https://ngrx.io/) library to implement reactive state for angular applications
 - [Typescript](https://www.typescriptlang.org/)
 - [Jasmine](https://jasmine.github.io/) test framework
 - [Karma](https://karma-runner.github.io/) test runner
@@ -121,52 +128,51 @@ Check out the how to report a vulnerability in our supported versions in the [SE
 ### Quality gate
 
 Quality gate main indicators:
-
-| parameter                                                                                                       | target   | current                    |
-| --------------------------------------------------------------------------------------------------------------- | -------- | -------------------------- |
-| **Web standards**                                                                                               |
-| [HTML Validator](https://jigsaw.w3.org/css-validator/)                                                          | 0 errors | _under development_ errors |
-| [css validator](https://jigsaw.w3.org/css-validator/)                                                           | 0 errors | _under development_ errors |
-| **Unit testing**                                                                                                |
-| [Jasmine](https://jasmine.github.io/) statements                                                                | > 70%    | _under development_        |
-| [Jasmine](https://jasmine.github.io/) branches                                                                  | > 70%    | _under development_        |
-| [Jasmine](https://jasmine.github.io/) lines                                                                     | > 70%    | _under development_        |
-| [Jasmine](https://jasmine.github.io/) functions                                                                 | > 70%    | _under development_        |
-| **Component testing**                                                                                           |
-| Components                                                                                                      | > 70%    | _under development_        |
-| **Integration testing**                                                                                         |
-| API calls                                                                                                       | 100%     | _under development_        |
-| **Quality**                                                                                                     |
-| [Sonarqube](https://www.sonarqube.org/) bugs                                                                    | 0        | _under development_        |
-| [Sonarqube](https://www.sonarqube.org/) code smells                                                             | 0        | _under development_        |
-| [Sonarqube](https://www.sonarqube.org/) code duplication                                                        | < 10%    | _under development_%       |
-| [Lighthouse](https://developers.google.com/web/tools/lighthouse) best practices metric                          | > 95/100 | _under development_/100    |
-| **Security**                                                                                                    |
-| [Dependabot security alerts](https://github.blog/2020-06-01-keep-all-your-packages-up-to-date-with-dependabot/) | 0        | _under development_        |
-| [CodeQL](https://github.com/github/codeql)                                                                      | 0        | _under development_        |
-| [Sonarqube](https://www.sonarqube.org/) vulnerabilities                                                         | 0        | _under development_        |
-| [Sonarqube](https://www.sonarqube.org/) security hotspots                                                       | 0        | _under development_        |
-| **Linters**                                                                                                     |
-| [ESLint](https://eslint.org/) errors (js)                                                                       | 0        | _under development_        |
-| [Stylelint](https://stylelint.io/) errors (sass)                                                                | 0        | _under development_        |
-| **Accessibility**                                                                                               |
-| [WAVE](https://wave.webaim.org/) accessibility validator                                                        | 0        | _under development_ errors |
-| [Lighthouse](https://developers.google.com/web/tools/lighthouse) accessibility metric                           | > 90/100 | _under development_/100    |
-| **Performance**                                                                                                 |
-| [Lighthouse](https://developers.google.com/web/tools/lighthouse) performance metric                             | > 90/100 | _under development_/100    |
-| First contentful paint                                                                                          | not set  | _under development_        |
-| Speed Index                                                                                                     | not set  | _under development_        |
-| Largest contentful paint                                                                                        | not set  | _under development_        |
-| Time to interactive                                                                                             | not set  | _under development_        |
-| Total blocking time                                                                                             | not set  | _under development_        |
-| Cumulative layout shift                                                                                         | not set  | _under development_        |
-| bundle size                                                                                                     | < 500kB  | _under development_        |
-| Lazy loading images                                                                                             | yes      | _under development_        |
-| Lazy loading secondary scripts                                                                                  | yes      | _under development_        |
-| Lazy loading angular modules                                                                                    | yes      | _under development_        |
-| Progressive web app                                                                                             | yes      | _under development_        |
-| **SEO**                                                                                                         |
-| [Lighthouse](https://developers.google.com/web/tools/lighthouse) SEO metric                                     | > 90/100 | _under development_/100    |
+| parameter | target | current |
+| --- | --- | --- |
+| **Web standards** |
+| [HTML Validator](https://jigsaw.w3.org/css-validator/) | 0 errors | _under development_ errors |
+| [css validator](https://jigsaw.w3.org/css-validator/) | 0 errors | _under development_ errors |
+| **Unit testing** |
+| [Jasmine](https://jasmine.github.io/) statements | > 70% | _under development_ |
+| [Jasmine](https://jasmine.github.io/) branches | > 70% | _under development_ |
+| [Jasmine](https://jasmine.github.io/) lines | > 70% | _under development_ |
+| [Jasmine](https://jasmine.github.io/) functions | > 70% | _under development_ |
+| **Component testing** |
+| Components | > 70% | _under development_|
+| **Integration testing** |
+| API calls | 100% | _under development_ |
+| **Quality** |
+| [Sonarqube](https://www.sonarqube.org/) bugs | 0 | _under development_ |
+| [Sonarqube](https://www.sonarqube.org/) code smells | 0 | _under development_ |
+| [Sonarqube](https://www.sonarqube.org/) code duplication | < 10% | _under development_% |
+| [Lighthouse](https://developers.google.com/web/tools/lighthouse) best practices metric | > 95/100 | _under development_/100 |
+| **Security** |
+| [Dependabot security alerts](https://github.blog/2020-06-01-keep-all-your-packages-up-to-date-with-dependabot/) | 0 | _under development_ |
+| [CodeQL](https://github.com/github/codeql) | 0 | _under development_ |
+| [Sonarqube](https://www.sonarqube.org/) vulnerabilities | 0 | _under development_ |
+| [Sonarqube](https://www.sonarqube.org/) security hotspots | 0 | _under development_ |
+| **Linters** |
+| [ESLint](https://eslint.org/) errors (ts) | 0 | _under development_ |
+| [Stylelint](https://stylelint.io/) errors (sass) | 0 | _not active_ |
+| **Accessibility** |
+| [WAVE](https://wave.webaim.org/) accessibility validator | 0 | _under development_ errors |
+| [Lighthouse](https://developers.google.com/web/tools/lighthouse) accessibility metric | > 90/100 | _under development_/100 |
+| **Performance** |
+| [Lighthouse](https://developers.google.com/web/tools/lighthouse) performance metric | > 90/100 | _under development_/100 |
+| First contentful paint | not set | _under development_ |
+| Speed Index | not set | _under development_ |
+| Largest contentful paint | not set | _under development_ |
+| Time to interactive | not set | _under development_ |
+| Total blocking time | not set | _under development_ |
+| Cumulative layout shift | not set | _under development_ |
+| bundle size | < 500kB | _under development_ |
+| Lazy loading images | yes | _under development_ |
+| Lazy loading secondary scripts | yes | _under development_ |
+| Lazy loading angular modules | yes | _under development_ |
+| Progressive web app | yes | _under development_ |
+| **SEO** |
+| [Lighthouse](https://developers.google.com/web/tools/lighthouse) SEO metric | > 90/100 | _under development_/100 |
 
 _\* Warnings are not included in these metrics._
 
