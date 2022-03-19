@@ -41,25 +41,19 @@ export class ActivitiesService {
   initializeActivity(
     activity: any
   ): ActivityBestOption | ActivitySelectText | ActivityTransformAspect {
-    console.log(`starting with type: ${activity.type}`);
     switch (activity.type) {
       case ActivityType.BEST_OPTION:
-        console.log('initializing best-option');
         this.currentActivity = new ActivityBestOption({ ...activity });
         break;
       case ActivityType.SELECT_TEXT:
-        console.log('initializing select-text');
         this.currentActivity = new ActivitySelectText({ ...activity });
         break;
       case ActivityType.TRANSFORM_ASPECT:
-        console.log('initializing transform-aspect');
         this.currentActivity = new ActivityTransformAspect({ ...activity });
         break;
       default:
-        console.log('initializing default');
         break;
     }
-    console.warn(`Deep back from service:`, this.currentActivity);
     return this.currentActivity;
   }
 }

@@ -1,13 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { PlayActivityComponent } from './play-select-text.component';
+import { PlaySelectTextComponent } from './play-select-text.component';
 import { ActivitiesService } from '../../services/activities.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('PlayComponent', () => {
-  let component: PlayActivityComponent;
-  let fixture: ComponentFixture<PlayActivityComponent>;
+  let component: PlaySelectTextComponent;
+  let fixture: ComponentFixture<PlaySelectTextComponent>;
   class TemporalComponentForRoutes {}
   let activitiesService: ActivitiesService;
 
@@ -16,7 +16,7 @@ describe('PlayComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PlayActivityComponent],
+      declarations: [PlaySelectTextComponent],
       imports: [
         RouterTestingModule.withRoutes([
           {
@@ -32,7 +32,7 @@ describe('PlayComponent', () => {
 
   beforeEach(() => {
     activitiesService = TestBed.inject(ActivitiesService);
-    fixture = TestBed.createComponent(PlayActivityComponent);
+    fixture = TestBed.createComponent(PlaySelectTextComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

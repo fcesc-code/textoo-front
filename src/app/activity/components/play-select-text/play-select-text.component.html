@@ -1,6 +1,6 @@
 <h2>{{ this.activity?.title }}</h2>
 <h3>{{ this.activity?.task }}</h3>
-<pre>{{ this.activity?.text }}</pre>
+<pre [id]="this.idSelector">{{ this.activity?.text }}</pre>
 <footer *ngIf="this.activity.font.display">
   <p>{{ this.activity.font.author }}</p>
   <p>

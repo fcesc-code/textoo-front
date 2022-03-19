@@ -77,3 +77,9 @@ export interface ActivitySelectTextConstructor extends ActivityConstructor {
   timestamps: Timestamps;
   keywords: string[];
 }
+
+export interface TextSelection {
+  selected: string;
+  start: number;
+  end: number;
+}
