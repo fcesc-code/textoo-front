@@ -1,16 +1,22 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ActivitiesService } from '../../services/activities.service';
 import { ActivityBestOption } from 'src/app/models/ActivityBestOption.dto';
 import { ActivitySelectText } from 'src/app/models/ActivitySelectText.dto';
 import { ActivityTransformAspect } from 'src/app/models/ActivityTransformAspect.dto';
 import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-play-activity',
   templateUrl: './play-activity.component.html',
   styleUrls: ['./play-activity.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlayActivityComponent implements OnInit, OnDestroy {
   activity$!: Subscription;
@@ -52,16 +58,12 @@ export class PlayActivityComponent implements OnInit, OnDestroy {
   }
 
   classInitializer(activity: any): void {
-    switch (activity.type) {
-      case 'best-option':
-        this.activity = new ActivityBestOption();
-        break;
-      case 'select-text':
-        this.activity = new ActivitySelectText();
-        break;
-      case 'transform-aspect':
-        this.activity = new ActivityTransformAspect();
-        break;
-    }
+    console.group('classInitializer');
+    console.log(`classInitializer called with`, activity);
+    const ACTIVITY = this.activitiesService.initializeActivity(activity);
+    console.log(`classInitializer got from service:`, ACTIVITY);
+    this.activity = ACTIVITY;
+    console.log(`classInitializer saved activity in component:`, this.activity);
+    console.groupEnd();
   }
 }

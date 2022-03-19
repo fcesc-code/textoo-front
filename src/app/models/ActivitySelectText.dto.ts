@@ -1,40 +1,79 @@
-import { Activity } from './Activity.dto';
+import {
+  Activity,
+  ActivityConstructor,
+  ActivityType,
+  Timestamps,
+} from './Activity.dto';
 
 export class ActivitySelectText extends Activity {
-  private text!: string;
-  private positions!: Position[];
+  private _text!: string;
+  private _positions!: Position[];
 
-  constructor() {
-    super();
-    this.id = null;
-    const creationTime = new Date();
-    this.timestamps = {
-      created: creationTime,
-      modified: creationTime,
-    };
-  }
-
-  getText(): string {
-    return this.text;
-  }
-  setText(text: string) {
+  constructor({
+    language,
+    author,
+    task,
+    font,
+    title,
+    activityId,
+    scores,
+    keywords,
+    timestamps,
+    text,
+    positions,
+  }: ActivitySelectTextConstructor) {
+    super({
+      type: ActivityType.SELECT_TEXT,
+      language,
+      author,
+      task,
+      font,
+      title,
+      activityId,
+      scores,
+    });
+    this.keywords = keywords;
+    this.timestamps = timestamps;
     this.text = text;
+    this.positions = positions;
   }
-  getPositions(): Position[] {
-    return this.positions;
+
+  get text(): string {
+    return this._text;
   }
-  setPosition(position: Position) {
-    const stringifiedPositions = [...this.positions].map((element) =>
+  set text(text: string) {
+    this._text = text;
+  }
+  get positions(): Position[] {
+    return this._positions;
+  }
+  set positions(positions: Position[]) {
+    this._positions = positions;
+  }
+  addPosition(position: Position) {
+    const stringifiedPositions = [...this._positions].map((element) =>
       JSON.stringify(element)
     );
     const stringifiedNewPosition = JSON.stringify(position);
-    this.positions = Array.from(
+    this._positions = Array.from(
       new Set([...stringifiedPositions, stringifiedNewPosition])
     ).map((element) => JSON.parse(element));
+  }
+  removePosition(position: Position) {
+    this._positions = [...this._positions].filter(
+      (element) => JSON.stringify(element) !== JSON.stringify(position)
+    );
   }
 }
 
 export interface Position {
   start: number;
   end: number;
+}
+
+export interface ActivitySelectTextConstructor extends ActivityConstructor {
+  text: string;
+  positions: Position[];
+  timestamps: Timestamps;
+  keywords: string[];
 }

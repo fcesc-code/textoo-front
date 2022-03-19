@@ -1,135 +1,153 @@
 export abstract class Activity {
-  protected id!: string | null;
-  protected timestamps!: Timestamps;
-  protected type!: ActivityType;
-  protected score!: Score;
-  protected author!: string;
-  protected language!: SupportedLanguages;
-  protected task!: string;
-  protected font!: Font;
-  protected title!: string;
-  protected keywords!: string[];
+  protected _id!: string | null;
+  protected _timestamps!: Timestamps;
+  protected _type!: ActivityType;
+  protected _scores!: Score;
+  protected _author!: string;
+  protected _language!: SupportedLanguages;
+  protected _task!: string;
+  protected _font!: Font;
+  protected _title!: string;
+  protected _keywords!: string[];
 
-  constructor() {
-    this.id = null;
-    this.setTimeStamps();
-    this.score.timesPlayed = 0;
-    this.font.display = false;
+  constructor({
+    type,
+    language,
+    author,
+    task,
+    font,
+    title,
+    scores,
+  }: AbstractActivityConstructor) {
+    this._id = null;
+    this._type = type;
+    this._language = language;
+    this._author = author;
+    this._task = task;
+    this._font = font;
+    this._title = title;
+    this._scores = scores;
   }
 
-  getId(): string {
-    return this.id === null ? '' : this.id;
+  get id(): string {
+    return this._id === null ? '' : this._id;
   }
-  setId(id: string) {
-    if (this.id === null) {
-      this.id = id;
+  set id(id: string) {
+    if (this._id === null) {
+      this._id = id;
     } else {
       throw new Error('ID already set');
     }
   }
-  getType(): ActivityType {
-    return this.type;
+  get type(): ActivityType {
+    return this._type;
   }
-  setType(type: ActivityType) {
-    this.type = type;
+  set type(type: ActivityType) {
+    this._type = type;
   }
-  getAuthor(): string {
-    return this.author;
+  get author(): string {
+    return this._author;
   }
-  setAuthor(id: string) {
-    this.author = id;
+  set author(id: string) {
+    this._author = id;
   }
-  getTask(): string {
-    return this.task;
+  get task(): string {
+    return this._task;
   }
-  setTask(task: string) {
-    this.task = task;
+  set task(task: string) {
+    this._task = task;
   }
-  getLanguage(): SupportedLanguages {
-    return this.language;
+  get language(): SupportedLanguages {
+    return this._language;
   }
-  setLanguage(language: SupportedLanguages) {
-    this.language = language;
+  set language(language: SupportedLanguages) {
+    this._language = language;
   }
-  getTitle(): string {
-    return this.title;
+  get title(): string {
+    return this._title;
   }
-  setTitle(title: string) {
-    this.title = title;
+  set title(title: string) {
+    this._title = title;
   }
-  getScores(): Score {
-    return this.score;
+  get scores(): Score {
+    return this._scores;
   }
-  setScores({
-    correctAnswers,
-    incorrectAnswers,
+  set scores({
+    // correctAnswers,
+    // incorrectAnswers,
     timeToComplete,
     questions,
     scorePerQuestion,
   }: Score) {
-    this.score.timeToComplete = timeToComplete;
-    this.score.scorePerQuestion = scorePerQuestion;
-    this.score.questions = questions;
-    this.score.correctAnswers = correctAnswers;
-    this.score.incorrectAnswers = incorrectAnswers;
-    this.score.timesPlayed++;
+    this._scores.timeToComplete = timeToComplete;
+    this._scores.scorePerQuestion = scorePerQuestion;
+    this._scores.questions = questions;
+    // this._scores.correctAnswers = correctAnswers;
+    // this._scores.incorrectAnswers = incorrectAnswers;
+    // this._scores.timesPlayed++;
 
-    this.score.unansweredAnswers =
-      this.score.questions -
-      (this.score.correctAnswers + this.score.incorrectAnswers);
-    this.score.maxPossibleScore =
-      this.score.questions * this.score.scorePerQuestion;
-    this.score.lastScore = this.score.currentScore;
-    this.score.currentScore =
-      this.score.correctAnswers * this.score.scorePerQuestion;
-    if (this.score.currentScore > this.score.bestScore) {
-      this.score.bestScore = this.score.currentScore;
+    // this._scores.unansweredAnswers =
+    //   this._scores.questions -
+    //   (this._scores.correctAnswers + this._scores.incorrectAnswers);
+    this._scores.maxPossibleScore =
+      this._scores.questions * this._scores.scorePerQuestion;
+    // this._scores.lastScore = this._scores.currentScore;
+    // this._scores.currentScore =
+    //   this._scores.correctAnswers * this._scores.scorePerQuestion;
+    // if (this._scores.currentScore > this._scores.bestScore) {
+    //   this._scores.bestScore = this._scores.currentScore;
+    // }
+    // const currentAverageScore: number =
+    //   typeof this._scores.averageScore === 'number' &&
+    //   !isNaN(this._scores.averageScore)
+    //     ? this._scores.averageScore
+    //     : 0;
+    // if (currentAverageScore === 0) {
+    //   this._scores.averageScore = this._scores.currentScore;
+    // } else {
+    //   (currentAverageScore * this._scores.timesPlayed +
+    //     this._scores.currentScore * (this._scores.timesPlayed - 1)) /
+    //     ((this._scores.timesPlayed - 1) * this._scores.timesPlayed);
+    // }
+  }
+  get timestamps(): Timestamps {
+    return this._timestamps;
+  }
+  set timestamps(timestamps: Timestamps) {
+    this._timestamps = timestamps;
+  }
+  createTimestamps(date: Date) {
+    if (this._timestamps.created === null) {
+      this._timestamps.created = new Date(date);
     }
-    const currentAverageScore: number =
-      typeof this.score.averageScore === 'number' &&
-      !isNaN(this.score.averageScore)
-        ? this.score.averageScore
-        : 0;
-    if (currentAverageScore === 0) {
-      this.score.averageScore = this.score.currentScore;
-    } else {
-      (currentAverageScore * this.score.timesPlayed +
-        this.score.currentScore * (this.score.timesPlayed - 1)) /
-        ((this.score.timesPlayed - 1) * this.score.timesPlayed);
+    this._timestamps.modified = new Date(date);
+  }
+  get font(): Font {
+    return this._font;
+  }
+  set font({ display, author, year, work, reference }: Font) {
+    this._font.display = display;
+    this._font.author = author;
+    this._font.year = year;
+    this._font.work = work;
+    this._font.reference = reference;
+    if (this._font.author === '' || this._font.author === null) {
+      this._font.display = false;
     }
   }
-  getTimestamps(): Timestamps {
-    return this.timestamps;
+  get keywords(): string[] {
+    return this._keywords;
   }
-  setTimeStamps() {
-    if (this.timestamps.created === null) {
-      return (this.timestamps.created = new Date());
-    }
-    return (this.timestamps.modified = new Date());
-  }
-  getFont(): Font {
-    return this.font;
-  }
-  setFont({ display, author, year, work, reference }: Font) {
-    this.font.display = display;
-    this.font.author = author;
-    this.font.year = year;
-    this.font.work = work;
-    this.font.reference = reference;
-    if (this.font.author === '' || this.font.author === null) {
-      this.font.display = false;
-    }
-  }
-  getKeywords(): string[] {
-    return this.keywords;
+  set keywords(keywords: string[]) {
+    this._keywords = keywords;
   }
   addKeyword(newKeyword: string) {
-    this.keywords = Array.from(
-      new Set([...this.keywords, newKeyword.toLowerCase()])
+    this._keywords = Array.from(
+      new Set([...this._keywords, newKeyword.toLowerCase()])
     );
   }
   removeKeyword(removedKeyword: string) {
-    this.keywords = [...this.keywords].filter(
+    this._keywords = [...this._keywords].filter(
       (keyword) => keyword !== removedKeyword.toLowerCase()
     );
   }
@@ -142,17 +160,17 @@ export interface Timestamps {
 
 export interface Score {
   maxPossibleScore: number;
-  currentScore: number;
-  lastScore: number;
-  bestScore: number;
-  averageScore: number;
-  correctAnswers: number;
-  incorrectAnswers: number;
-  unansweredAnswers: number;
+  // currentScore: number;
+  // lastScore: number;
+  // bestScore: number;
+  // averageScore: number;
+  // correctAnswers: number;
+  // incorrectAnswers: number;
+  // unansweredAnswers: number;
   questions: number;
   scorePerQuestion: number;
   timeToComplete: number;
-  timesPlayed: number;
+  // timesPlayed: number;
 }
 
 export interface Font {
@@ -163,23 +181,37 @@ export interface Font {
   reference: string;
 }
 
+export interface ActivityConstructor {
+  language: SupportedLanguages;
+  task: string;
+  font: Font;
+  title: string;
+  author: string;
+  activityId?: string;
+  scores: Score;
+}
+
+interface AbstractActivityConstructor extends ActivityConstructor {
+  type: ActivityType;
+}
+
 export enum ActivityType {
-  'select_text',
-  'fill_gaps',
-  'best_option',
-  'intruder_option',
-  'correct_text',
-  'order_elements',
-  'associate_headlines',
-  'translate_text',
-  'flexive_words',
-  'remove_surplus_words',
-  'add_missing_words',
-  'transform_aspect',
+  SELECT_TEXT = 'select_text',
+  FILL_GAPS = 'fill_gaps',
+  BEST_OPTION = 'best_option',
+  INTRUDER_OPTION = 'intruder_option',
+  CORRECT_TEXT = 'correct_text',
+  ORDER_ELEMENTS = 'order_elements',
+  ASSOCIATE_HEADLINES = 'associate_headlines',
+  TRANSLATE_TEXT = 'translate_text',
+  FLEXIVE_WORDS = 'flexive_words',
+  REMOVE_SURPLUS_WORDS = 'remove_surplus_words',
+  ADD_MISSING_WORDS = 'add_missing_words',
+  TRANSFORM_ASPECT = 'transform_aspect',
 }
 
 export enum SupportedLanguages {
-  'es',
-  'ca',
-  'en',
+  ES = 'es',
+  CA = 'ca',
+  EN = 'en',
 }

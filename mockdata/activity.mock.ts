@@ -21,17 +21,18 @@ export const MOCK_ACTIVITY_SELECT_TEXT = {
     timesPlayed: 0,
   },
   language: 'ca',
+  title: `Ho veus clar?`,
   task: `Selecciona totes les paradoxes del text`,
   text: `És quan dormo que hi veig clar
-  Foll d'una dolça metzina,
-  Amb perles a cada mà
-  Visc al cor d'una petxina,
-  Só la font del comellar
-  I el jaç de la salvatgina,
-  -O la lluna que s'afina
-  En morir carena enllà.
-  És quan dormo que hi veig clar
-  Foll d'una dolça metzina.`,
+Foll d'una dolça metzina,
+Amb perles a cada mà
+Visc al cor d'una petxina,
+Só la font del comellar
+I el jaç de la salvatgina,
+-O la lluna que s'afina
+En morir carena enllà.
+És quan dormo que hi veig clar
+Foll d'una dolça metzina.`,
   positions: [
     { start: 0, end: 30 },
     { start: 219, end: 249 },
@@ -40,7 +41,7 @@ export const MOCK_ACTIVITY_SELECT_TEXT = {
     display: true,
     author: 'Joan Vicenç Foix',
     year: 1953,
-    work: '',
+    work: 'Poemes',
     reference: 'https://ca.wikipedia.org/wiki/Josep_Vicen%C3%A7_Foix_i_Mas',
   },
 };
@@ -67,6 +68,7 @@ export const MOCK_ACTIVITY_BEST_OPTION = {
     timesPlayed: 0,
   },
   language: 'ca',
+  title: `Qui l'encerta l'endevina`,
   task: `Tria l'expressió correcta`,
   text: `1. Duia pantalons curts, és a dir, que no encara els dotze anys.
   2. S'han suspès tots els vols de la boira.
@@ -149,6 +151,7 @@ export const MOCK_ACTIVITY_TRANSFORM_ASPECT = {
     timesPlayed: 0,
   },
   language: 'ca',
+  title: `La veu passiva`,
   task: `Transforma la oració següent a veu passiva`,
   text: `1. Quan escoltava la ràdio va sentir una forta explosió.
   2. Els dos germans van votar a favor d'aprovar la llei.`,

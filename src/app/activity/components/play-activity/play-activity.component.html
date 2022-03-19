@@ -1,5 +1,15 @@
-<!-- <h2>{{ this.activity.getTitle() }}</h2>
-<h3>{{ this.activity.getTask() }}</h3>
-<p>{{ this.activity.getText() }}</p> -->
-<p>Some text in the play-activity component</p>
+<h2>{{ this.activity?.title }}</h2>
+<h3>{{ this.activity?.task }}</h3>
+<pre>{{ this.activity?.text }}</pre>
+<footer *ngIf="this.activity.font.display">
+  <p>{{ this.activity.font.author }}</p>
+  <p>
+    <a href="{{ this.activity.font.reference }}">{{
+      this.activity.font.work
+    }}</a
+    ><time [dateTime]="this.activity.font.year">{{
+      this.activity.font.year
+    }}</time>
+  </p>
+</footer>
 <app-validate-activity></app-validate-activity>
