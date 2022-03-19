@@ -9,16 +9,16 @@ import { ActivityBestOption } from 'src/app/models/ActivityBestOption.dto';
 import { ActivitySelectText } from 'src/app/models/ActivitySelectText.dto';
 import { ActivityTransformAspect } from 'src/app/models/ActivityTransformAspect.dto';
 import { Subscription } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+// import { tap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-play-activity',
-  templateUrl: './play-activity.component.html',
-  styleUrls: ['./play-activity.component.sass'],
+  templateUrl: './play-select-text.component.html',
+  styleUrls: ['./play-select-text.component.sass'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PlayActivityComponent implements OnInit, OnDestroy {
+export class PlaySelectTextComponent implements OnInit, OnDestroy {
   activity$!: Subscription;
   activity!: ActivityBestOption | ActivitySelectText | ActivityTransformAspect;
 
@@ -32,14 +32,13 @@ export class PlayActivityComponent implements OnInit, OnDestroy {
       this.activatedRoute.snapshot.paramMap.get('id');
 
     if (activityId) {
-      console.log('activity id detected:', activityId);
       this.activity$ = this.activitiesService
         .getActivity(activityId)
-        .pipe(
-          tap((data) => {
-            console.table(data);
-          })
-        )
+        // .pipe(
+        //   tap((data) => {
+        //     console.table(data);
+        //   })
+        // )
         .subscribe(
           (
             activity:
@@ -58,12 +57,7 @@ export class PlayActivityComponent implements OnInit, OnDestroy {
   }
 
   classInitializer(activity: any): void {
-    console.group('classInitializer');
-    console.log(`classInitializer called with`, activity);
     const ACTIVITY = this.activitiesService.initializeActivity(activity);
-    console.log(`classInitializer got from service:`, ACTIVITY);
     this.activity = ACTIVITY;
-    console.log(`classInitializer saved activity in component:`, this.activity);
-    console.groupEnd();
   }
 }

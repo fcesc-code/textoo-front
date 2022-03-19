@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { PlayActivityComponent } from './play-activity.component';
+import { PlayActivityComponent } from './play-select-text.component';
 import { ActivitiesService } from '../../services/activities.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 

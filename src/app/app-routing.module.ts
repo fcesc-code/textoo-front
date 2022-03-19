@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 /* impoer shared module components */
 import { HomeComponent } from './shared/home/home.component';
 /* import activity module components */
-import { PlayActivityComponent } from './activity/components/play-activity/play-activity.component';
+import { PlaySelectTextComponent } from './activity/components/play-activity/play-select-text.component';
 import { ValidateActivityComponent } from './activity/components/validate-activity/validate-activity.component';
 
 const routes: Routes = [
@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'play/:id',
-    component: PlayActivityComponent,
+    component: PlaySelectTextComponent,
   },
   {
     path: 'validate/:id',
