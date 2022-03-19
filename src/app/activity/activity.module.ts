@@ -5,10 +5,16 @@ import { PlaySelectTextComponent } from './components/play-select-text/play-sele
 import { ValidateActivityComponent } from './components/validate-activity/validate-activity.component';
 import { ActivitiesService } from './services/activities.service';
 import { AppRoutingModule } from '../app-routing.module';
+import { HighlightTextPipe } from '../shared/pipes/highlight-text.pipe';
 
 @NgModule({
-  declarations: [PlaySelectTextComponent, ValidateActivityComponent],
+  declarations: [
+    PlaySelectTextComponent,
+    ValidateActivityComponent,
+    HighlightTextPipe,
+  ],
   imports: [CommonModule, AppRoutingModule],
   providers: [ActivitiesService],
+  exports: [],
 })
 export class ActivityModule {}
