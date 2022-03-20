@@ -1,0 +1,23 @@
+<section class="mx-4 p-4">
+  <h1
+    class="my-4 text-teal-900 font-bold tracking-wide text-3xl text-center drop-shadow-md shadow-teal-700"
+  >
+    TEXTOO!
+  </h1>
+  <p class="mb-4">
+    This is the home component. This site is currently under construction. In
+    the meanwhile, do you want to play to try it out?
+  </p>
+  <ul class="mx-4">
+    <a
+      [routerLink]="['/play/select-text', selectTextActivity]"
+      class="block max-w-4xl my-2 py-2 px-4 rounded-lg shadow-md hover:bg-red-300 hover:shadow-md hover:shadow-red-200"
+      >Play a select-text activity</a
+    >
+    <a
+      [routerLink]="['/play/best-option', bestOptionActivity]"
+      class="block max-w-4xl my-2 py-2 px-4 rounded-lg shadow-md hover:bg-red-300 hover:shadow-md hover:shadow-red-200"
+      >Play a best-option activity</a
+    >
+  </ul>
+</section>
