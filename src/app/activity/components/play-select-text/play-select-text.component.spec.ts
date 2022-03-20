@@ -20,7 +20,7 @@ describe('PlayComponent', () => {
       imports: [
         RouterTestingModule.withRoutes([
           {
-            path: `play/${MOCK_ACTIVITY}`,
+            path: `play/selected-text/${MOCK_ACTIVITY}`,
             component: TemporalComponentForRoutes,
           },
         ]),
@@ -37,14 +37,14 @@ describe('PlayComponent', () => {
     fixture.detectChanges();
   });
 
-  xit(`${TESTED} > should create`, () => {
+  xit(`${TESTED}:1 > should create`, () => {
     component.ngOnInit();
     // hi ha un problema amb el mètode onDestroy, al text no carrega la subscripció i al destroy la crida sobre undefined.
     // més info: https://angular.io/guide/testing-components-scenarios
     expect(component).toBeTruthy();
   });
 
-  xit(`${TESTED} > should load post if a postId is provided`, () => {
+  xit(`${TESTED}:2 > should load post if a postId is provided`, () => {
     // const activitiesService =
     //   fixture.debugElement.injector.get(ActivitiesService);
     const spy = spyOn(activitiesService, 'getActivity').and.callThrough();
