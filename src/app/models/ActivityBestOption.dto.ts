@@ -74,6 +74,7 @@ export interface Question_ActivityBestOption {
 export interface Option_ActivityBestOption {
   text: string;
   correct: boolean;
+  index: number;
 }
 
 export interface ActivityBestOptionConstructor extends ActivityConstructor {
@@ -81,4 +82,10 @@ export interface ActivityBestOptionConstructor extends ActivityConstructor {
   questions: Question_ActivityBestOption[];
   keywords: string[];
   timestamps: Timestamps;
+}
+
+export interface OptionSelection {
+  position: number;
+  option: string;
+  index: number;
 }

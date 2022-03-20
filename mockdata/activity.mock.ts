@@ -71,52 +71,52 @@ export const MOCK_ACTIVITY_BEST_OPTION = {
   title: `Qui l'encerta l'endevina`,
   task: `Tria l'expressió correcta`,
   text: `1. Duia pantalons curts, és a dir, que no encara els dotze anys.
-  2. S'han suspès tots els vols de la boira.
-  3. Proposem un enfocament les polítiques de mercat.
-  4. A la nit podríem fer peix de carn.
-  5. plovia, vam jugar el partit.
-  6. estaliat, ara no té més diners que el sou.`,
+2. S'han suspès tots els vols la boira.
+3. Proposem un enfocament les polítiques de mercat.
+4. A la nit podríem fer peix de carn.
+5. plovia, vam jugar el partit.
+6. estaliat, ara no té més diners que el sou.`,
   questions: [
     {
       position: 41,
       options: [
-        { text: 'hauria fet', correct: false },
-        { text: 'devia haver fet', correct: true },
+        { text: 'hauria fet', correct: false, index: 1 },
+        { text: 'devia haver fet', correct: true, index: 2 },
       ],
     },
     {
-      position: 100,
+      position: 98,
       options: [
-        { text: 'degut a', correct: false },
-        { text: 'a cause de', correct: true },
+        { text: 'degut a', correct: false, index: 1 },
+        { text: 'a causa de', correct: true, index: 2 },
       ],
     },
     {
-      position: 139,
+      position: 137,
       options: [
-        { text: 'en base a', correct: false },
-        { text: 'a partir de', correct: true },
+        { text: 'en base a', correct: false, index: 1 },
+        { text: 'a partir de', correct: true, index: 2 },
       ],
     },
     {
-      position: 197,
+      position: 195,
       options: [
-        { text: 'enlloc', correct: false },
-        { text: 'en lloc de', correct: true },
+        { text: 'enlloc', correct: false, index: 1 },
+        { text: 'en lloc de', correct: true, index: 2 },
       ],
     },
     {
-      position: 213,
+      position: 210,
       options: [
-        { text: 'malgrat', correct: false },
-        { text: 'malgrat que', correct: true },
+        { text: 'malgrat', correct: false, index: 1 },
+        { text: 'malgrat que', correct: true, index: 2 },
       ],
     },
     {
-      position: 213,
+      position: 245,
       options: [
-        { text: 'Al no haver', correct: false },
-        { text: 'Com que no ha', correct: true },
+        { text: 'Al no haver', correct: false, index: 1 },
+        { text: 'Com que no ha', correct: true, index: 2 },
       ],
     },
   ],

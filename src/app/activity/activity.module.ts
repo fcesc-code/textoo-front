@@ -6,7 +6,7 @@ import { ValidateActivityComponent } from './components/validate-activity/valida
 import { ActivitiesService } from './services/activities.service';
 import { AppRoutingModule } from '../app-routing.module';
 import { HighlightTextPipe } from '../shared/pipes/highlight-text.pipe';
-import { PlayBestOptionComponent } from './play-best-option/play-best-option.component';
+import { PlayBestOptionComponent } from './components/play-best-option/play-best-option.component';
 
 @NgModule({
   declarations: [
