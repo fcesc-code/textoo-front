@@ -48,9 +48,7 @@ Main commands:
 | `npm run test:ci` | Runs the tests once and returns an exit code, so that it can be integrated in a CI pipeline. Option for continuous integration. |
 | `npm run test:coverage` | Runs the tests once and generates a coverage report in lcov and html formats. Lcov is used for code scanner sonarqube. |
 | `npm run ci` | Runs `lint`, `test`, `clean` and `build` scripts sequentially, this is rather to integrate in a CI process but can also be run manually. |
-| `npm run report:dev` | Runs lighthouse and generates a report. Note that for the
-report to be generated, the development server must be running. This command will
-not test the pwa. |
+| `npm run report:dev` | Runs lighthouse and generates a report. Note that for the report to be generated, the development server must be running. This command will not test the pwa. |
 | `npm run report:pwa` | Runs lighthouse on the pwa and generates a report. Note that for the report to be generated, the pwa server must be running. This command will only test the pwa. |
 | `npm run prepare` | Runs husky installation. Use this script only when installing this repository for the first time. Once executed, hooks will run before each commit (lint) and before each push (test). |
 

@@ -10,6 +10,8 @@ import {
   UserTrackingService,
 } from '@angular/fire/analytics';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { ActivityModule } from './activity/activity.module';
+import { SharedModule } from './shared/shared.module';
 // import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
 // import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 
@@ -23,10 +25,12 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
     // provideAnalytics(() => getAnalytics()),
-    // provideFirestore(() => getFirestore())
+    // provideFirestore(() => getFirestore()),
+    ActivityModule,
+    SharedModule,
   ],
   providers: [ScreenTrackingService, UserTrackingService],
   bootstrap: [AppComponent],
