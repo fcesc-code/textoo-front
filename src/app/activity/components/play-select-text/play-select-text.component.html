@@ -1,20 +1,22 @@
-<h2>{{ this.activity?.title }}</h2>
-<h3>{{ this.activity?.task }}</h3>
+<h2 class="font-bold text-xl py-3 text-center">
+  {{ this.activity?.title }}
+</h2>
+<h3 class="mb-2">{{ this.activity?.task }}</h3>
 <pre
   *ngIf="this.activity.text"
   [id]="this.idSelector"
   [innerHtml]="this.activity.text | highlightText: this.selectedText"
   class="leading-relaxed"
 ></pre>
-<footer *ngIf="this.activity.font.display">
-  <p>{{ this.activity.font.author }}</p>
-  <p>
+<footer *ngIf="this.activity.font.display" class="my-4">
+  <p class="italic text-right">{{ this.activity.font.author }}</p>
+  <p class="text-right">
     <a href="{{ this.activity.font.reference }}">{{
       this.activity.font.work
     }}</a
-    ><time [dateTime]="this.activity.font.year">{{
-      this.activity.font.year
-    }}</time>
+    ><time [dateTime]="this.activity.font.year"
+      >, {{ this.activity.font.year }}</time
+    >
   </p>
 </footer>
 <app-validate-activity></app-validate-activity>
