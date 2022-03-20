@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.sass'],
 })
 export class HomeComponent {
-  randomActivity: string = '9e26ab71-a2d0-43b5-b0fa-38910b7ebe1b';
+  selectTextActivity: string = '9e26ab71-a2d0-43b5-b0fa-38910b7ebe1b';
+  bestOptionActivity: string = '120460f9-5a23-4050-95a9-4f9d1de87672';
 
   constructor() {}
 }

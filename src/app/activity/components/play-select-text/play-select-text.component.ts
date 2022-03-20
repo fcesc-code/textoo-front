@@ -9,7 +9,15 @@ import { ActivitiesService } from '../../services/activities.service';
 import { ActivityBestOption } from 'src/app/models/ActivityBestOption.dto';
 import { ActivitySelectText } from 'src/app/models/ActivitySelectText.dto';
 import { ActivityTransformAspect } from 'src/app/models/ActivityTransformAspect.dto';
-import { debounceTime, filter, fromEvent, map, Subscription, tap } from 'rxjs';
+import {
+  debounceTime,
+  filter,
+  fromEvent,
+  map,
+  merge,
+  Subscription,
+  tap,
+} from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { TextSelection } from 'src/app/models/ActivitySelectText.dto';
 import { CustomArrayMethods } from 'src/app/shared/utils/arrays';
@@ -57,7 +65,9 @@ export class PlaySelectTextComponent
 
   ngAfterViewInit(): void {
     console.log('Entering AfterViewInit');
-    this.UIevents$ = fromEvent(document, 'mouseup')
+    const UItouchEvents$ = fromEvent(document, 'touchend');
+    const UImouseEvents$ = fromEvent(document, 'mouseup');
+    this.UIevents$ = merge(UItouchEvents$, UImouseEvents$)
       .pipe(
         debounceTime(500),
         filter(() => document.getSelection()?.toString() !== ''),
