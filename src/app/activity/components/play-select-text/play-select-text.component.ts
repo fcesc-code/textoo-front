@@ -17,7 +17,7 @@ import { TextSelection } from 'src/app/models/ActivitySelectText.dto';
   selector: 'app-play-select-text',
   templateUrl: './play-select-text.component.html',
   styleUrls: ['./play-select-text.component.sass'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class PlaySelectTextComponent
   implements OnInit, OnDestroy, AfterViewInit

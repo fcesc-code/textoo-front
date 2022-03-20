@@ -3,7 +3,8 @@
 <pre
   *ngIf="this.activity.text"
   [id]="this.idSelector"
-  [innerHtml]="this.activity.text || '' | highlightText: this.selectedText"
+  [innerHtml]="this.activity.text | highlightText: this.selectedText"
+  class="leading-relaxed"
 ></pre>
 <footer *ngIf="this.activity.font.display">
   <p>{{ this.activity.font.author }}</p>
