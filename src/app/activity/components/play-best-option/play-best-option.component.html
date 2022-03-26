@@ -6,7 +6,7 @@
   <pre
     *ngIf="this.activity.text"
     [id]="this.idSelector"
-    [innerHtml]="this.textWithQuestions"
+    [innerHtml]="this.textWithQuestions | addOptionSelector: this.questions"
     class="leading-relaxed"
   ></pre>
   <footer *ngIf="this.activity.font.display" class="my-4">

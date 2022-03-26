@@ -85,35 +85,35 @@ export const MOCK_ACTIVITY_BEST_OPTION = {
       ],
     },
     {
-      position: 98,
+      position: 94,
       options: [
         { text: 'degut a', correct: false, index: 1 },
         { text: 'a causa de', correct: true, index: 2 },
       ],
     },
     {
-      position: 137,
+      position: 130,
       options: [
         { text: 'en base a', correct: false, index: 1 },
         { text: 'a partir de', correct: true, index: 2 },
       ],
     },
     {
-      position: 195,
+      position: 185,
       options: [
         { text: 'enlloc', correct: false, index: 1 },
         { text: 'en lloc de', correct: true, index: 2 },
       ],
     },
     {
-      position: 210,
+      position: 197,
       options: [
-        { text: 'malgrat', correct: false, index: 1 },
-        { text: 'malgrat que', correct: true, index: 2 },
+        { text: 'Malgrat', correct: false, index: 1 },
+        { text: 'Malgrat que', correct: true, index: 2 },
       ],
     },
     {
-      position: 245,
+      position: 229,
       options: [
         { text: 'Al no haver', correct: false, index: 1 },
         { text: 'Com que no ha', correct: true, index: 2 },
