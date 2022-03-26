@@ -3,12 +3,17 @@
     {{ this.activity?.title }}
   </h2>
   <h3 class="mb-2">{{ this.activity?.task }}</h3>
-  <pre
+  <section
     *ngIf="this.activity.text"
     [id]="this.idSelector"
-    [innerHtml]="this.activity.text | highlightText: this.selectedText"
+    [innerHtml]="
+      this.activity.text
+        | highlightText: this.selectedText
+        | improveBreaklines
+        | sanitize
+    "
     class="leading-relaxed"
-  ></pre>
+  ></section>
   <footer *ngIf="this.activity.font.display" class="my-4">
     <p class="italic text-left">{{ this.activity.font.author }}</p>
     <p class="text-left">

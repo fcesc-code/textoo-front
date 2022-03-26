@@ -7,7 +7,7 @@ import { PREFIX, SUFFIX } from './highlight-text.marks';
   name: 'highlightText',
 })
 export class HighlightTextPipe implements PipeTransform {
-  transform(text: string, selections: TextSelection[]): SafeHtml {
+  transform(text: string, selections: TextSelection[]): string {
     let pointer = 0;
     let highlightedText = '';
     const PREFIX_EXP = new RegExp(PREFIX, 'gi');
