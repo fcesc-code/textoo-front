@@ -1,11 +1,7 @@
 import { AddOptionPipe } from './add-option.pipe';
 import { Question_ActivityBestOption } from 'src/app/models/ActivityBestOption.dto';
-import { DomSanitizer } from '@angular/platform-browser';
-import { TestBed } from '@angular/core/testing';
-import { SELECT, OPTION } from './add-option.marks';
 
 describe('AddOptionPipe', () => {
-  let sanitizer: DomSanitizer;
   let pipe: AddOptionPipe;
   const TITLE = 'AddOption pipe test';
   const MOCK_TEXT = `1. Duia pantalons curts, és a dir, que no encara els dotze anys.
@@ -60,11 +56,7 @@ describe('AddOptionPipe', () => {
   ];
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [AddOptionPipe],
-    });
-    sanitizer = TestBed.inject(DomSanitizer);
-    pipe = new AddOptionPipe(sanitizer);
+    pipe = new AddOptionPipe();
   });
 
   // TEST1: pipe should be instantiated with no errors
@@ -83,10 +75,6 @@ describe('AddOptionPipe', () => {
 
     const EXPECTED = TEXT.trim();
     const RESULT = pipe.transform(MOCK_TEXT, MOCK_QUESTIONS);
-    const STRINGIFIED_RESULT = RESULT.toString()
-      .replace('SafeValue must use [property]=binding: ', '')
-      .replace('(see https://g.co/ng/security#xss)', '')
-      .trim();
-    expect(STRINGIFIED_RESULT).toEqual(EXPECTED);
+    expect(RESULT).toEqual(EXPECTED);
   });
 });

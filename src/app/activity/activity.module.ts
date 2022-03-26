@@ -8,6 +8,8 @@ import { AppRoutingModule } from '../app-routing.module';
 import { HighlightTextPipe } from './pipes/highlight-text.pipe';
 import { AddOptionPipe } from './pipes/add-option.pipe';
 import { PlayBestOptionComponent } from './components/play-best-option/play-best-option.component';
+import { ImproveBreaklinesPipe } from './pipes/improve-breaklines.pipe';
+import { SanitizePipe } from './pipes/sanitize.pipe';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { PlayBestOptionComponent } from './components/play-best-option/play-best
     PlayBestOptionComponent,
     AddOptionPipe,
     ValidateActivityComponent,
+    ImproveBreaklinesPipe,
+    SanitizePipe,
   ],
   imports: [CommonModule, AppRoutingModule],
   providers: [ActivitiesService],

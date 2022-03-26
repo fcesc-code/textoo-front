@@ -1,15 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Question_ActivityBestOption } from 'src/app/models/ActivityBestOption.dto';
 import { SELECT, OPTION } from './add-option.marks';
-import { SafeHtml } from '@angular/platform-browser';
-import { DomSanitizer } from '@angular/platform-browser';
+// import { SafeHtml } from '@angular/platform-browser';
+// import { DomSanitizer } from '@angular/platform-browser';
 
 @Pipe({
   name: 'addOptionSelector',
 })
 export class AddOptionPipe implements PipeTransform {
-  constructor(private sanitizer: DomSanitizer) {}
-  transform(text: string, questions: Question_ActivityBestOption[]): SafeHtml {
+  // constructor(private sanitizer: DomSanitizer) {}
+  transform(text: string, questions: Question_ActivityBestOption[]): string {
     const TEXT = text;
 
     let pointer = 0;
@@ -26,7 +26,8 @@ export class AddOptionPipe implements PipeTransform {
     }
     textWithQuestions = `${textWithQuestions}${TEXT.slice(pointer)}`;
 
-    const RESULT = this.sanitizer.bypassSecurityTrustHtml(textWithQuestions);
-    return RESULT;
+    // const RESULT = this.sanitizer.bypassSecurityTrustHtml(textWithQuestions);
+    // return RESULT;
+    return textWithQuestions;
   }
 }
