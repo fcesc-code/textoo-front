@@ -5,8 +5,8 @@ import { PlaySelectTextComponent } from './components/play-select-text/play-sele
 import { ValidateActivityComponent } from './components/validate-activity/validate-activity.component';
 import { ActivitiesService } from './services/activities.service';
 import { AppRoutingModule } from '../app-routing.module';
-import { HighlightTextPipe } from '../shared/pipes/highlight-text.pipe';
-import { AddOptionPipe } from '../shared/pipes/add-option.pipe';
+import { HighlightTextPipe } from './pipes/highlight-text.pipe';
+import { AddOptionPipe } from './pipes/add-option.pipe';
 import { PlayBestOptionComponent } from './components/play-best-option/play-best-option.component';
 
 @NgModule({
