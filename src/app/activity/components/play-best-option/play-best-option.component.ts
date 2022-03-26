@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivitiesService } from '../../services/activities.service';
-import { ActivityBestOption } from 'src/app/models/ActivityBestOption.dto';
-import { ActivitySelectText } from 'src/app/models/ActivitySelectText.dto';
-import { ActivityTransformAspect } from 'src/app/models/ActivityTransformAspect.dto';
+import {
+  ActivityBestOption,
+  Question_ActivityBestOption,
+} from 'src/app/models/ActivityBestOption.dto';
 import {
   debounceTime,
   filter,
@@ -31,6 +32,7 @@ export class PlayBestOptionComponent
   selectedOptions!: OptionSelection[];
   idSelector: string = 'activityMainText';
   textWithQuestions!: string;
+  questions!: Question_ActivityBestOption[];
 
   constructor(
     private activitiesService: ActivitiesService,
@@ -49,7 +51,10 @@ export class PlayBestOptionComponent
         });
     }
     this.textWithQuestions = this.activity.text;
-    this.loadQuestions();
+    this.questions = CustomArrayMethods.arraySort(
+      this.activity?.questions || [],
+      'position'
+    );
   }
 
   ngAfterViewInit(): void {
@@ -65,34 +70,5 @@ export class PlayBestOptionComponent
     this.activity = this.activitiesService.initializeActivity(
       activity
     ) as ActivityBestOption;
-  }
-
-  loadQuestions(): void {
-    let questions = this.activity?.questions || [];
-    let sortedQuestions = CustomArrayMethods.arraySort(questions, 'position');
-    const TEXT = this.activity.text;
-
-    let pointer = 0;
-    let textWithQuestions = '';
-    const PREFIX_SELECT = '<select class="question">';
-    const SUFFIX_SELECT = '</select> ';
-    const PREFIX_OPTION = '<option class="option" value="';
-    const INFIX_OPTION = '">';
-    const SUFFIX_OPTION = '</option>';
-
-    for (let question of sortedQuestions) {
-      const leftSlice = TEXT.slice(pointer, question.position + 1);
-      textWithQuestions = `${textWithQuestions}${leftSlice}${PREFIX_SELECT}`;
-      console.log('Question: LS:', leftSlice);
-      for (let option of question.options) {
-        textWithQuestions = `${textWithQuestions}${PREFIX_OPTION}${option.text}${INFIX_OPTION}${option.text}${SUFFIX_OPTION}`;
-        console.log('Option:', option);
-      }
-      textWithQuestions = `${textWithQuestions}${SUFFIX_SELECT}`;
-      console.log('Parsed HTML text', textWithQuestions);
-      pointer = question.position;
-    }
-    textWithQuestions = `${textWithQuestions}${TEXT.slice(pointer)}`;
-    this.textWithQuestions = textWithQuestions;
   }
 }
