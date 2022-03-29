@@ -8,7 +8,14 @@ export class SanitizePipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {}
 
   transform(input: string): SafeHtml {
-    const RESULT = this.sanitizer.bypassSecurityTrustHtml(input);
+    const FILTERED_INPUT = input
+      .replace(/%3c/gi, '<')
+      .replace(/%3e/gi, '>')
+      .replace(/<\s*script\s*>.*/gim, '<script>')
+      .replace(/<\s*script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gim, '')
+      .replace(/<\s*script.+/gim, '')
+      .replace(/<\s*\/script\s*>/gim, '');
+    const RESULT = this.sanitizer.bypassSecurityTrustHtml(FILTERED_INPUT);
     return RESULT;
   }
 }

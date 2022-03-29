@@ -21,6 +21,7 @@ export class ActivitySelectText extends Activity {
     timestamps,
     text,
     positions,
+    id,
   }: ActivitySelectTextConstructor) {
     super({
       type: ActivityType.SELECT_TEXT,
@@ -31,6 +32,7 @@ export class ActivitySelectText extends Activity {
       title,
       activityId,
       scores,
+      id,
     });
     this.keywords = keywords;
     this.timestamps = timestamps;
@@ -69,6 +71,7 @@ export class ActivitySelectText extends Activity {
 export interface Position {
   start: number;
   end: number;
+  index: number;
 }
 
 export interface ActivitySelectTextConstructor extends ActivityConstructor {
@@ -82,4 +85,5 @@ export interface TextSelection {
   selected: string;
   start: number;
   end: number;
+  value?: boolean;
 }
