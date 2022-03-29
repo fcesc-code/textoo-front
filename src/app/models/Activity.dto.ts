@@ -18,8 +18,9 @@ export abstract class Activity {
     font,
     title,
     scores,
+    id,
   }: AbstractActivityConstructor) {
-    this._id = null;
+    this._id = id || null;
     this._type = type;
     this._language = language;
     this._author = author;
@@ -72,43 +73,12 @@ export abstract class Activity {
   get scores(): Score {
     return this._scores;
   }
-  set scores({
-    // correctAnswers,
-    // incorrectAnswers,
-    timeToComplete,
-    questions,
-    scorePerQuestion,
-  }: Score) {
+  set scores({ timeToComplete, questions, scorePerQuestion }: Score) {
     this._scores.timeToComplete = timeToComplete;
     this._scores.scorePerQuestion = scorePerQuestion;
     this._scores.questions = questions;
-    // this._scores.correctAnswers = correctAnswers;
-    // this._scores.incorrectAnswers = incorrectAnswers;
-    // this._scores.timesPlayed++;
-
-    // this._scores.unansweredAnswers =
-    //   this._scores.questions -
-    //   (this._scores.correctAnswers + this._scores.incorrectAnswers);
     this._scores.maxPossibleScore =
       this._scores.questions * this._scores.scorePerQuestion;
-    // this._scores.lastScore = this._scores.currentScore;
-    // this._scores.currentScore =
-    //   this._scores.correctAnswers * this._scores.scorePerQuestion;
-    // if (this._scores.currentScore > this._scores.bestScore) {
-    //   this._scores.bestScore = this._scores.currentScore;
-    // }
-    // const currentAverageScore: number =
-    //   typeof this._scores.averageScore === 'number' &&
-    //   !isNaN(this._scores.averageScore)
-    //     ? this._scores.averageScore
-    //     : 0;
-    // if (currentAverageScore === 0) {
-    //   this._scores.averageScore = this._scores.currentScore;
-    // } else {
-    //   (currentAverageScore * this._scores.timesPlayed +
-    //     this._scores.currentScore * (this._scores.timesPlayed - 1)) /
-    //     ((this._scores.timesPlayed - 1) * this._scores.timesPlayed);
-    // }
   }
   get timestamps(): Timestamps {
     return this._timestamps;
@@ -160,17 +130,9 @@ export interface Timestamps {
 
 export interface Score {
   maxPossibleScore: number;
-  // currentScore: number;
-  // lastScore: number;
-  // bestScore: number;
-  // averageScore: number;
-  // correctAnswers: number;
-  // incorrectAnswers: number;
-  // unansweredAnswers: number;
   questions: number;
   scorePerQuestion: number;
   timeToComplete: number;
-  // timesPlayed: number;
 }
 
 export interface Font {
@@ -182,6 +144,7 @@ export interface Font {
 }
 
 export interface ActivityConstructor {
+  id?: string;
   language: SupportedLanguages;
   task: string;
   font: Font;
