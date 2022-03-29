@@ -6,9 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivitiesService } from '../../services/activities.service';
-import { ActivityBestOption } from 'src/app/models/ActivityBestOption.dto';
 import { ActivitySelectText } from 'src/app/models/ActivitySelectText.dto';
-import { ActivityTransformAspect } from 'src/app/models/ActivityTransformAspect.dto';
 import {
   debounceTime,
   filter,
@@ -21,6 +19,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { TextSelection } from 'src/app/models/ActivitySelectText.dto';
 import { CustomArrayMethods } from 'src/app/shared/utils/arrays';
+import { Answer, AnswerOption, AnswerType } from 'src/app/models/Answer.dto';
 
 @Component({
   selector: 'app-play-select-text',
@@ -32,10 +31,12 @@ export class PlaySelectTextComponent
   implements OnInit, OnDestroy, AfterViewInit
 {
   activity$!: Subscription;
-  activity!: ActivityBestOption | ActivitySelectText | ActivityTransformAspect;
+  activity!: ActivitySelectText;
   UIevents$!: Subscription;
   selectedText!: TextSelection[];
   idSelector: string = 'activityMainText';
+  answers!: Answer;
+  completed: boolean = false;
 
   constructor(
     private activitiesService: ActivitiesService,
@@ -50,16 +51,9 @@ export class PlaySelectTextComponent
     if (activityId) {
       this.activity$ = this.activitiesService
         .getActivity(activityId)
-        .subscribe(
-          (
-            activity:
-              | ActivityBestOption
-              | ActivitySelectText
-              | ActivityTransformAspect
-          ) => {
-            this.classInitializer(activity);
-          }
-        );
+        .subscribe((activity: ActivitySelectText) => {
+          this.classInitializer(activity);
+        });
     }
   }
 
@@ -106,8 +100,10 @@ export class PlaySelectTextComponent
     this.UIevents$.unsubscribe();
   }
 
-  classInitializer(activity: any): void {
-    this.activity = this.activitiesService.initializeActivity(activity);
+  classInitializer(activity: ActivitySelectText): void {
+    this.activity = this.activitiesService.initializeActivity(
+      activity
+    ) as ActivitySelectText;
   }
 
   getTextSelection(): TextSelection {
@@ -128,7 +124,7 @@ export class PlaySelectTextComponent
     return {
       selected: selection.trim(),
       start: length !== 0 ? start + offsets.start : 0,
-      end: length !== 0 ? end - offsets.end - 1 : 0,
+      end: length !== 0 ? end - offsets.end : 0,
     };
   }
 
@@ -231,5 +227,75 @@ export class PlaySelectTextComponent
 
   getText(): string {
     return this.activity?.text ? this.activity.text : '';
+  }
+
+  setAnswers(): Answer {
+    let correct = 0;
+    let incorrect = 0;
+    let counter = this.activity.positions.length;
+    let answersMap = new Map(
+      this.activity.positions.map((position) => [
+        position.start,
+        { start: position.start, end: position.end, id: position.index },
+      ])
+    );
+    let userAnswers = CustomArrayMethods.arraySort(this.selectedText, 'start');
+    let formatedAnswers: AnswerOption[] = [];
+
+    for (let answer of userAnswers) {
+      let foundAnswer = answersMap.get(answer.start);
+      if (foundAnswer) {
+        if (
+          foundAnswer.start === answer.start &&
+          foundAnswer.end === answer.end
+        ) {
+          correct++;
+          formatedAnswers.push({
+            id: String(foundAnswer.id),
+            selected: answer.selected,
+            value: AnswerType.CORRECT,
+            position: {
+              start: Number(answer.start),
+              end: Number(answer.end),
+            },
+          });
+        } else {
+          incorrect++;
+          counter++;
+          formatedAnswers.push({
+            id: String(counter),
+            selected: answer.selected,
+            value: AnswerType.INCORRECT,
+            position: {
+              start: Number(answer.start),
+              end: Number(answer.end),
+            },
+          });
+        }
+      }
+    }
+
+    return new Answer({
+      total: this.activity?.positions?.length,
+      correct: correct,
+      incorrect: incorrect,
+      pointsPerQuestion: this.activity?.scores.scorePerQuestion,
+      activityId: this.activity?.id,
+      userId: 'MOCK_USER_ID',
+      answers: formatedAnswers,
+    });
+  }
+
+  getResults(): void {
+    this.answers = this.setAnswers();
+    console.log('answers', this.answers);
+    console.log('scores', this.answers.scores);
+    // console.log('time', this.answers.time);
+    // console.log('insights', this.answers.insights);
+    this.completed = true;
+  }
+
+  replay(): void {
+    this.completed = !this.completed;
   }
 }
