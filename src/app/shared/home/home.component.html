@@ -5,19 +5,20 @@
     TEXTOO!
   </h1>
   <p class="mb-4">
-    This is the home component. This site is currently under construction. In
-    the meanwhile, do you want to play to try it out?
+    Benvingut a textoo, una aplicació per aprendre (i ensenyar) llengua. Aquesta
+    pàgina està actualment en construcció, però pots provar algunes activitats
+    en català:
   </p>
   <ul class="mx-4">
     <a
       [routerLink]="['/play/select-text', selectTextActivity]"
       class="block max-w-4xl my-2 py-2 px-4 rounded-lg shadow-md hover:bg-red-300 hover:shadow-md hover:shadow-red-200"
-      >Play a select-text activity</a
+      >Troba les figures retòriques a un text</a
     >
     <a
       [routerLink]="['/play/best-option', bestOptionActivity]"
       class="block max-w-4xl my-2 py-2 px-4 rounded-lg shadow-md hover:bg-red-300 hover:shadow-md hover:shadow-red-200"
-      >Play a best-option activity</a
+      >Escull l'expressió més escaient</a
     >
   </ul>
 </section>

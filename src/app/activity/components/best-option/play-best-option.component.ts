@@ -1,19 +1,10 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-// import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivitiesService } from '../../services/activities.service';
 import {
   ActivityBestOption,
   Question_ActivityBestOption,
 } from 'src/app/models/ActivityBestOption.dto';
-import {
-  debounceTime,
-  filter,
-  fromEvent,
-  map,
-  merge,
-  Subscription,
-  tap,
-} from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { OptionSelection } from 'src/app/models/ActivityBestOption.dto';
 import { CustomArrayMethods } from 'src/app/shared/utils/arrays';
@@ -25,23 +16,19 @@ import { Answer, AnswerOption, AnswerType } from 'src/app/models/Answer.dto';
   templateUrl: './play-best-option.component.html',
   styleUrls: ['./play-best-option.component.sass'],
 })
-export class PlayBestOptionComponent
-  implements OnInit, OnDestroy, AfterViewInit
-{
+export class PlayBestOptionComponent implements OnInit, OnDestroy {
   activity$!: Subscription;
   activity!: ActivityBestOption;
-  // UIevents$!: Subscription;
   selectedOptions!: OptionSelection[];
   idSelector: string = 'activityMainText';
   textWithQuestions!: string;
   questions!: Question_ActivityBestOption[];
   answers!: Answer;
-
-  // form!: FormGroup;
+  completed: boolean = false;
 
   constructor(
     private activitiesService: ActivitiesService,
-    private activatedRoute: ActivatedRoute // private formBuilder: FormBuilder
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -60,19 +47,10 @@ export class PlayBestOptionComponent
       this.activity?.questions || [],
       'position'
     );
-
-    // this.form = new FormGroup({
-    //   questions: new FormArray([]),
-    // });
-  }
-
-  ngAfterViewInit(): void {
-    console.log('Afterviewinit');
   }
 
   ngOnDestroy(): void {
     this.activity$.unsubscribe();
-    // this.UIevents$.unsubscribe();
   }
 
   classInitializer(activity: any): void {
@@ -80,15 +58,6 @@ export class PlayBestOptionComponent
       activity
     ) as ActivityBestOption;
   }
-
-  // getQuestions(): FormArray {
-  //   return this.form.controls['questions'] as FormArray;
-  // }
-
-  // addQuestion(): void {
-  //   const questions = this.getQuestions();
-  //   this.formQuestions.push(this.createQuestion());
-  // }
 
   setAnswers(): Answer {
     let correct = 0;
@@ -111,10 +80,6 @@ export class PlayBestOptionComponent
           ])
         );
         const RESULT = OPTIONS.get(USER_ANSWER_TEXT);
-        console.log(
-          `QUESTION ${question.id} - ANSER PROVIDED: ${USER_ANSWER_TEXT} - ANSWER VALUE: ${RESULT?.value} - INDEX: ${RESULT?.index}`
-        );
-
         let value = AnswerType.UNANSWERED;
 
         if (RESULT !== undefined) {
@@ -133,7 +98,6 @@ export class PlayBestOptionComponent
         answers.push(answer);
       }
     }
-    console.info('about to return');
 
     return new Answer({
       total: this.questions?.length,
@@ -148,9 +112,11 @@ export class PlayBestOptionComponent
 
   getResults(): void {
     this.answers = this.setAnswers();
-    console.log('activity', this.activity);
-    console.log('scores', this.answers?.scores);
-    console.log('insights', this.answers?.insights);
-    console.log('time', this.answers?.time);
+    this.completed = true;
+  }
+
+  replay(): void {
+    console.log('Replay feature - not implemented.');
+    this.completed = !this.completed;
   }
 }

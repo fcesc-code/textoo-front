@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ValidateActivityComponent } from './validate-activity.component';
+import { ButtonComponent } from './button.component';
 
 describe('ValidateActivityComponent', () => {
-  let component: ValidateActivityComponent;
-  let fixture: ComponentFixture<ValidateActivityComponent>;
+  let component: ButtonComponent;
+  let fixture: ComponentFixture<ButtonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ValidateActivityComponent],
+      declarations: [ButtonComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ValidateActivityComponent);
+    fixture = TestBed.createComponent(ButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
