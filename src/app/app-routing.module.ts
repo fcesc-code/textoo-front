@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 /* impoer shared module components */
 import { HomeComponent } from './shared/home/home.component';
 /* import activity module components */
-import { PlaySelectTextComponent } from './activity/components/play-select-text/play-select-text.component';
-import { PlayBestOptionComponent } from './activity/components/play-best-option/play-best-option.component';
+import { PlaySelectTextComponent } from './activity/components/select-text/play-select-text.component';
+import { PlayBestOptionComponent } from './activity/components/best-option/play-best-option.component';
 import { ValidateActivityComponent } from './activity/components/validate-activity/validate-activity.component';
 
 const routes: Routes = [
