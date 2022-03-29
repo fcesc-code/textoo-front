@@ -24,8 +24,8 @@ En morir carena enllà.
 És quan dormo que hi veig clar
 Foll d'una dolça metzina.`,
   positions: [
-    { start: 0, end: 30 },
-    { start: 219, end: 249 },
+    { start: 0, end: 30, index: 1 },
+    { start: 203, end: 233, index: 2 },
   ],
   font: {
     display: true,

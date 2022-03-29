@@ -2,18 +2,35 @@
   <h2 class="font-bold text-xl py-3 text-center">
     {{ this.activity?.title }}
   </h2>
-  <h3 class="mb-2">{{ this.activity?.task }}</h3>
-  <section
-    *ngIf="this.activity.text"
-    [id]="this.idSelector"
-    [innerHtml]="
-      this.activity.text
-        | highlightText: this.selectedText
-        | improveBreaklines
-        | sanitize
-    "
-    class="leading-relaxed"
-  ></section>
+  <div *ngIf="this.activity.text && !this.completed">
+    <h3 class="mb-2">{{ this.activity?.task }}</h3>
+    <pre
+      *ngIf="this.activity.text"
+      [id]="this.idSelector"
+      [innerHtml]="
+        this.activity.text | highlightText: this.selectedText | sanitize
+      "
+      class="leading-relaxed"
+    ></pre>
+  </div>
+  <div *ngIf="this.completed && this.answers">
+    <h3 class="mb-2">Els teus resultats</h3>
+    <section>
+      <p>Preguntes:</p>
+      <p>
+        Correctes: {{ this.answers.scores.questions.correct }}
+        {{ this.answers.scores.rates.correct * 100 | number: "1.1-1" }} %
+      </p>
+      <p>
+        Incorrectes: {{ this.answers.scores.questions.incorrect }}
+        {{ this.answers.scores.rates.incorrect * 100 | number: "1.1-1" }} %
+      </p>
+      <p>
+        Total: {{ this.answers.scores.points.total }} /
+        {{ this.answers.scores.points.maxPoints }} punts.
+      </p>
+    </section>
+  </div>
   <footer *ngIf="this.activity.font.display" class="my-4">
     <p class="italic text-left">{{ this.activity.font.author }}</p>
     <p class="text-left">
@@ -25,5 +42,14 @@
       >
     </p>
   </footer>
-  <app-button text="validar"></app-button>
+  <app-button
+    *ngIf="!this.completed"
+    (click)="this.getResults()"
+    text="validar"
+  ></app-button>
+  <app-button
+    *ngIf="this.completed"
+    (click)="this.replay()"
+    text="tornar-hi"
+  ></app-button>
 </article>

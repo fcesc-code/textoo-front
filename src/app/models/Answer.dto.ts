@@ -162,6 +162,10 @@ export interface AnswerOption {
   id: string;
   selected: string;
   value: AnswerType;
+  position?: {
+    start: number;
+    end: number;
+  };
 }
 
 export enum AnswerType {
