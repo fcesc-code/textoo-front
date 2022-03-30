@@ -43,11 +43,13 @@
     </p>
   </footer>
   <app-button
+    id="showResults"
     *ngIf="!this.completed"
     (click)="this.getResults()"
     text="validar"
   ></app-button>
   <app-button
+    id="replayActivity"
     *ngIf="this.completed"
     (click)="this.replay()"
     text="tornar-hi"

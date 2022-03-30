@@ -4,8 +4,7 @@ import {
   MOCK_ACTIVITY_SELECT_TEXT,
   MOCK_ACTIVITY_TRANSFORM_ASPECT,
 } from 'mockdata/activity.mock';
-import { MOCK_USERS } from 'mockdata/user.mock';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ActivityType } from 'src/app/models/Activity.dto';
 import { ActivityBestOption } from 'src/app/models/ActivityBestOption.dto';
 import { ActivitySelectText } from 'src/app/models/ActivitySelectText.dto';
@@ -29,13 +28,9 @@ export class ActivitiesService {
     ];
   }
 
-  getActivity(id: string): any {
+  getActivity(id: string): Observable<any> {
     const MOCKDATA = this.activities.filter((activity) => activity.id === id);
     return of(MOCKDATA[0]);
-  }
-
-  getAuthor(id: string): any {
-    return [...MOCK_USERS].filter((user) => user.id === id)[0];
   }
 
   initializeActivity(
@@ -50,8 +45,6 @@ export class ActivitiesService {
         break;
       case ActivityType.TRANSFORM_ASPECT:
         this.currentActivity = new ActivityTransformAspect({ ...activity });
-        break;
-      default:
         break;
     }
     return this.currentActivity;
