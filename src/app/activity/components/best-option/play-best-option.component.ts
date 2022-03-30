@@ -117,7 +117,6 @@ export class PlayBestOptionComponent implements OnInit, OnDestroy {
   }
 
   replay(): void {
-    console.log('Replay feature - not implemented.');
     this.completed = !this.completed;
   }
 }

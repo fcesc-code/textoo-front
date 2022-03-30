@@ -58,14 +58,14 @@ export class PlaySelectTextComponent
   }
 
   ngAfterViewInit(): void {
-    console.log('Entering AfterViewInit');
+    // console.log('Entering AfterViewInit');
     const UItouchEvents$ = fromEvent(document, 'touchend');
     const UImouseEvents$ = fromEvent(document, 'mouseup');
     this.UIevents$ = merge(UItouchEvents$, UImouseEvents$)
       .pipe(
         debounceTime(500),
         filter(() => document.getSelection()?.toString() !== ''),
-        tap(() => console.log('passed filter: it has selected content')),
+        // tap(() => console.log('passed filter: it has selected content')),
         map((event) => {
           const { target } = event;
           return target as HTMLPreElement;
@@ -77,7 +77,7 @@ export class PlaySelectTextComponent
             document.getSelection()?.anchorNode?.parentElement?.id ===
             this.idSelector
         ),
-        tap(() => console.log('passed filter: it has the right parent')),
+        // tap(() => console.log('passed filter: it has the right parent')),
         map(this.getTextSelection),
         map((textSelection: TextSelection): TextSelection => {
           const realPosition = this.calculateRealPosition(this.activity.text);
@@ -90,7 +90,7 @@ export class PlaySelectTextComponent
         })
       )
       .subscribe((textSelection: TextSelection) => {
-        console.log('Adapted text selection:', textSelection);
+        // console.log('Adapted text selection:', textSelection);
         this.addSelection(textSelection);
       });
   }
