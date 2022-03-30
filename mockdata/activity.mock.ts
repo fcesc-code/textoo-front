@@ -56,7 +56,7 @@ S'han suspès tots els vols la boira.
 Proposem un enfocament les polítiques de mercat.
 A la nit podríem fer peix de carn.
 plovia, vam jugar el partit.
-estaliat, ara no té més diners que el sou.`,
+estalviat, ara no té més diners que el sou.`,
   questions: [
     {
       id: '1',
