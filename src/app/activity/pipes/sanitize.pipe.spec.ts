@@ -31,22 +31,6 @@ describe('SanitizePipe', () => {
       .replace('(see https://g.co/ng/security#xss)', '')
       .trim();
 
-    for (let i = 0; i < TEXT.length; i++) {
-      if (TEXT[i] !== STRINGIFIED_RESULT[i]) {
-        console.log(
-          `Pos.${i} > expected: ${TEXT[i]}${TEXT[i + 1]}${TEXT[i + 2]}${
-            TEXT[i + 3]
-          }${TEXT[i + 4]} !== received: ${STRINGIFIED_RESULT[i]}${
-            STRINGIFIED_RESULT[i + 1]
-          }${STRINGIFIED_RESULT[i + 2]}${STRINGIFIED_RESULT[i + 3]}${
-            STRINGIFIED_RESULT[i + 4]
-          }`
-        );
-        break;
-      }
-    }
-    console.info(STRINGIFIED_RESULT);
-
     expect(STRINGIFIED_RESULT).toEqual(EXPECTED);
   });
 
