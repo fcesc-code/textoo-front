@@ -34,19 +34,20 @@ export class PlayBestOptionComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.selectedOptions = [];
     const activityId = this.activatedRoute.snapshot.paramMap.get('id');
+    this.textWithQuestions = `Carregant l'activitat...`;
 
     if (activityId) {
       this.activity$ = this.activitiesService
         .getActivity(activityId)
         .subscribe((activity: ActivityBestOption) => {
           this.classInitializer(activity);
+          this.textWithQuestions = this.activity.text;
+          this.questions = CustomArrayMethods.arraySort(
+            this.activity.questions || [],
+            'position'
+          );
         });
     }
-    this.textWithQuestions = this.activity.text;
-    this.questions = CustomArrayMethods.arraySort(
-      this.activity?.questions || [],
-      'position'
-    );
   }
 
   ngOnDestroy(): void {
@@ -100,11 +101,11 @@ export class PlayBestOptionComponent implements OnInit, OnDestroy {
     }
 
     return new Answer({
-      total: this.questions?.length,
+      total: this.questions.length,
       correct: correct,
       incorrect: incorrect,
-      pointsPerQuestion: this.activity?.scores.scorePerQuestion,
-      activityId: this.activity?.id,
+      pointsPerQuestion: this.activity.scores.scorePerQuestion,
+      activityId: this.activity.id,
       userId: 'MOCK_USER_ID',
       answers: answers,
     });
