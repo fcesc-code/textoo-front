@@ -4,11 +4,11 @@ describe('ActivitiesService', () => {
   let TITLE = 'utils - custom array methods';
 
   it(`${TITLE} 1 > shoud find the max of a given property in an array of objects`, () => {
-    const EXPECTED = { name: 'Jack', age: 40 };
+    const EXPECTED = 40;
     const TEST = [
       { name: 'John', age: 20 },
       { name: 'Jane', age: 30 },
-      EXPECTED,
+      { name: 'Jack', age: EXPECTED },
     ];
 
     const RESULT = CustomArrayMethods.findMax(TEST, 'age');

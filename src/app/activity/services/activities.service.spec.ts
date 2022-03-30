@@ -71,7 +71,7 @@ describe('ActivitiesService', () => {
 
   it(`${TITLE} 4 > should create an instance of ActivityTransformAspect type`, () => {
     const EXPECTED = service.initializeActivity(
-      MOCK_ACTIVITY_BEST_OPTION
+      MOCK_ACTIVITY_TRANSFORM_ASPECT
     ) as ActivityTransformAspect;
     const EXPECTED_CONDITION = EXPECTED instanceof ActivityTransformAspect;
 
