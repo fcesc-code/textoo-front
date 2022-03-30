@@ -10,7 +10,7 @@
     "lint": "ng lint",
     "lint:ci": "ng lint --fix",
     "test": "ng test",
-    "test:coverage": "ng test --no-watch --coverage ",
+    "test:coverage": "ng test --no-watch --code-coverage ",
     "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
     "dev": "npm run serve:dev",
     "pwa": "npm run serve:pwa",
