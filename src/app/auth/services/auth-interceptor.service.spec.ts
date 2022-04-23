@@ -13,7 +13,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Activity } from '../../models/Activity.dto';
 
 describe('AUTH INTERCEPTOR SERVICE TEST SUITE', () => {
-  const tested = '[auth interceptor service]';
+  const TITLE = '[auth interceptor service]';
   let service: AuthInterceptorService;
   let activitiesService: ActivitiesService;
   let localStorageService: LocalStorageService;
@@ -55,12 +55,12 @@ describe('AUTH INTERCEPTOR SERVICE TEST SUITE', () => {
   });
 
   // TEST1: should be created
-  it(`${tested} > should be created`, () => {
+  it(`${TITLE} > should be created`, () => {
     expect(service).toBeTruthy();
   });
 
   // TEST2: intercept method
-  xit(`${tested} method: intercept > should set some headers for an authorized request`, () => {
+  xit(`${TITLE} method: intercept > should set some headers for an authorized request`, () => {
     // const mockPostsList: Activity[] = [];
     const mockUserId = 'b3e7a302-0052-4622-8781-dc7934e7bac5';
     localStorageService.set('user_id', mockAuthToken.user_id);

@@ -6,7 +6,7 @@ import { HomeComponent } from './shared/home/home.component';
 import { PlaySelectTextComponent } from './activity/components/select-text/play-select-text.component';
 import { PlayBestOptionComponent } from './activity/components/best-option/play-best-option.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,

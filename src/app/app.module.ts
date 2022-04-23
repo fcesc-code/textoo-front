@@ -26,6 +26,8 @@ import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 /*components*/
 import { AppComponent } from './app.component';
+/*animations*/
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 /*material global modules*/
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';

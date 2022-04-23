@@ -11,7 +11,7 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { of } from 'rxjs';
 
 describe('AUTH SERVICE TEST SUITE', () => {
-  const tested = '[auth service]';
+  const TITLE = '[auth service]';
   let service: AuthService;
   let localStorageService: LocalStorageService;
   let httpMock: HttpTestingController;
@@ -33,27 +33,23 @@ describe('AUTH SERVICE TEST SUITE', () => {
     service = TestBed.inject(AuthService);
   });
 
-  // TEST1: should be created
-  it(`${tested} > should be created`, () => {
+  it(`${TITLE} 1 > should be created`, () => {
     expect(service).toBeTruthy();
   });
 
-  // TEST2: login method
-  it(`${tested} method: login > should be called with login and return an auth token`, () => {
+  it(`${TITLE} 2 login > should be called with login and return an auth token`, () => {
     const mockAuth: AuthLogin = {
       email: 'uoc_test@test.mail',
       password: 's0m3tH1nGpR3tTy',
     };
-    service.login(mockAuth).subscribe((authData: AuthToken) => {
-      expect(authData).toEqual(mockAuthToken);
-    });
-    const req = httpMock.expectOne(`${API.URL}/${API.authController}`);
-    expect(req.request.method).toBe('POST');
-    req.flush(mockAuthToken);
+    const spy = spyOn(service, 'login')
+      .and.returnValue(of(mockAuthToken))
+      .and.callThrough();
+    service.login(mockAuth);
+    expect(spy).toHaveBeenCalled();
   });
 
-  // TEST3: getLocalStorage method
-  it(`${tested} method: getLocalStorageToken > should return an auth token`, () => {
+  it(`${TITLE} 3 getLocalStorageToken > should return an auth token`, () => {
     const spy = spyOn(service, 'getLocalStorageToken')
       .and.returnValue(of(mockAuthToken))
       .and.callThrough();

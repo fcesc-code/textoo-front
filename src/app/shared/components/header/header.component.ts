@@ -51,14 +51,6 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('register');
   }
 
-  adminPosts(): void {
-    this.router.navigateByUrl('posts');
-  }
-
-  adminCategories(): void {
-    this.router.navigateByUrl('categories');
-  }
-
   profile(): void {
     this.router.navigateByUrl('profile');
   }
