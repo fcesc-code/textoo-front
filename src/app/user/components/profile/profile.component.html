@@ -1,0 +1,131 @@
+<div style="margin-left: auto; margin-right: auto">
+  <p id="profileFeedback"></p>
+</div>
+<div>
+  <h1>Update your profile</h1>
+  <p id="toastMessage">Form submitted successfully.</p>
+  <form
+    class="form"
+    [formGroup]="profileForm"
+    (ngSubmit)="updateUser()"
+    aria-label="update user profile form"
+  >
+    <mat-form-field appearance="fill">
+      <mat-label>Alias</mat-label>
+      <input
+        matInput
+        type="text"
+        [formControl]="alias"
+        aria-required="true"
+        placeholder="Your alias..."
+      />
+      <mat-error *ngIf="alias.dirty && alias.hasError('required')">
+        Alias is required.
+      </mat-error>
+      <mat-error
+        *ngIf="
+          alias.dirty &&
+          alias.hasError('minlength') &&
+          !alias.hasError('required')
+        "
+      >
+        Alias must be at least 5 characters long.
+      </mat-error>
+      <mat-error
+        *ngIf="
+          alias.dirty &&
+          alias.hasError('maxlength') &&
+          !alias.hasError('required')
+        "
+      >
+        Alias can be max 25 characters long.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Avatar</mat-label>
+      <input
+        matInput
+        type="text"
+        [formControl]="avatar"
+        aria-required="true"
+        placeholder="Your alias..."
+      />
+      <mat-error *ngIf="avatar.dirty && avatar.hasError('required')">
+        Avatar is required.
+      </mat-error>
+      <mat-error
+        *ngIf="
+          avatar.dirty &&
+          avatar.hasError('minlength') &&
+          !avatar.hasError('required')
+        "
+      >
+        Avatar must be at least 5 characters long.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        type="email"
+        [formControl]="email"
+        aria-required="true"
+        placeholder="Your email..."
+        autocomplete="email"
+      />
+      <mat-error *ngIf="email.dirty && email.hasError('required')">
+        Email is required.
+      </mat-error>
+      <mat-error
+        *ngIf="
+          email.dirty && email.hasError('email') && !email.hasError('required')
+        "
+      >
+        Incorrect email format.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        type="password"
+        [formControl]="password"
+        aria-required="true"
+        placeholder="Your password..."
+        autocomplete="new-password"
+      />
+      <mat-error *ngIf="password.dirty && password.hasError('required')">
+        Password is required.
+      </mat-error>
+      <mat-error
+        *ngIf="
+          password.dirty &&
+          password.hasError('minlength') &&
+          !password.hasError('required')
+        "
+      >
+        Password must be at least 8 characters long.
+      </mat-error>
+      <mat-error
+        *ngIf="
+          password.dirty &&
+          password.hasError('maxlength') &&
+          !password.hasError('required')
+        "
+      >
+        Password can be max 16 characters long.
+      </mat-error>
+    </mat-form-field>
+    <div>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!profileForm.valid"
+        aria-label="update your profile"
+      >
+        Register
+      </button>
+    </div>
+  </form>
+</div>

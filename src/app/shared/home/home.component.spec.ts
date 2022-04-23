@@ -3,7 +3,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { HomeComponent } from './home.component';
 
-describe('HomeComponent', () => {
+describe('Shared > Components > Home', () => {
+  const TITLE = 'test';
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
 
@@ -20,7 +21,7 @@ describe('HomeComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it(`${TITLE} 1 > should create`, () => {
     expect(component).toBeTruthy();
   });
 });

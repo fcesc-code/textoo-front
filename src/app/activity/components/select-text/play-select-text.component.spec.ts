@@ -109,21 +109,15 @@ describe('PlaySelectTextComponent', () => {
     expect(component.completed).toBeFalse();
   });
 
-  xit(`${TITLE} 4 > should select some text and get the selected text`, () => {
+  it(`${TITLE} 4 > should select some text and get the selected text`, () => {
     const question = debugElement.query(By.css('#activityMainText'));
     const { x, y } = question.nativeElement.getBoundingClientRect();
     // console.log('COORDINATES', x, y);
     question.triggerEventHandler('mousedown', { pageX: x, pageY: y });
     fixture.detectChanges();
-    question.triggerEventHandler('mouseup', { pageX: x + 250, pageY: y });
+    question.triggerEventHandler('mouseup', { pageX: x + 250, pageY: y + 50 });
     fixture.detectChanges();
-    console.log('component.selectedText', component.selectedText);
-    // const validateButton = debugElement.query(By.css('#showResults'));
-    // validateButton.triggerEventHandler('click', null);
-    // const ANSWERS = component.answers.insights;
-    // // console.log('ANSWERS', ANSWERS);
-    // const INCORRECT_ANSWERS = ANSWERS.insights.incorrect.length;
-    // const EXPECTED_INCORRECT_ANSWERS = 1;
-    // expect(INCORRECT_ANSWERS).toEqual(EXPECTED_INCORRECT_ANSWERS);
+    const selection = component.getTextSelection();
+    expect(selection).not.toBeNull();
   });
 });

@@ -1,0 +1,64 @@
+<div class="header__icongroup">
+  <button
+    mat-icon-button
+    class="button__icon"
+    aria-label="Navigate home"
+    (click)="home()"
+  >
+    <mat-icon>home</mat-icon>
+  </button>
+  <button
+    *ngIf="showNoAuthSection"
+    mat-raised-button
+    class="button__text"
+    aria-label="Log in"
+    (click)="login()"
+  >
+    Login
+  </button>
+  <button
+    *ngIf="showNoAuthSection"
+    mat-icon-button
+    class="button__text"
+    aria-label="Register"
+    (click)="register()"
+  >
+    Register
+  </button>
+  <button
+    *ngIf="showAuthSection"
+    mat-icon-button
+    class="button__text"
+    aria-label="Manage posts"
+    (click)="adminPosts()"
+  >
+    Admin posts
+  </button>
+  <button
+    *ngIf="showAuthSection"
+    mat-icon-button
+    class="button__text"
+    aria-label="Manage categories"
+    (click)="adminCategories()"
+  >
+    Admin categories
+  </button>
+  <button
+    *ngIf="showAuthSection"
+    mat-icon-button
+    class="button__text"
+    aria-label="Manage profile"
+    (click)="profile()"
+  >
+    Profile
+  </button>
+  <button
+    *ngIf="showAuthSection"
+    mat-raised-button
+    class="button__text"
+    aria-label="Log out"
+    (click)="logout()"
+  >
+    Logout
+  </button>
+</div>
