@@ -1,1 +1,22 @@
-<router-outlet></router-outlet>
+<mat-toolbar>
+  <button
+    class="button__icon visibility--mobile"
+    aria-label="Menu button"
+    (click)="sidenav.toggle()"
+  >
+    <mat-icon class="visibility--mobile">menu</mat-icon>
+  </button>
+  <span class="visibility--nonmobile">Textoo</span>
+  <span class="spacer"></span>
+  <app-header class="visibility--nonmobile"></app-header>
+</mat-toolbar>
+<mat-sidenav-container hasBackdrop="true">
+  <mat-sidenav #sidenav mode="over" class="visibility--mobile">
+    <app-header class="visibility--mobile"></app-header>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<app-footer></app-footer>

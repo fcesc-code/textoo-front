@@ -1,0 +1,67 @@
+<div style="margin-left: auto; margin-right: auto">
+  <p id="loginFeedback"></p>
+</div>
+<div>
+  <form
+    class="form"
+    [formGroup]="loginForm"
+    (ngSubmit)="login()"
+    aria-label="login form"
+  >
+    <h1>Login</h1>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        type="email"
+        [formControl]="email"
+        aria-required="true"
+        placeholder="Your email..."
+        autocomplete="email"
+      />
+      <mat-error *ngIf="email.dirty && email.hasError('required')">
+        Email is required.
+      </mat-error>
+      <mat-error
+        *ngIf="
+          email.dirty && email.hasError('email') && !email.hasError('required')
+        "
+      >
+        Incorrect email format.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        [type]="hide ? 'password' : 'text'"
+        [formControl]="password"
+        aria-required="true"
+        placeholder="Your password..."
+        autocomplete="new-password"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+      <mat-error *ngIf="password.dirty && password.hasError('required')">
+        Password is required.
+      </mat-error>
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!loginForm.valid"
+      aria-label="log in"
+    >
+      Register
+    </button>
+  </form>
+</div>
