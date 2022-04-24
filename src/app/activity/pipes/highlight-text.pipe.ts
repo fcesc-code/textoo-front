@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
-import { TextSelection } from 'src/app/models/ActivitySelectText.dto';
+import { TextSelection } from '../models/ActivitySelectText.dto';
 import { PREFIX, SUFFIX } from './highlight-text.marks';
 
 @Pipe({

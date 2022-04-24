@@ -20,7 +20,7 @@ describe(`USER SERVICE TEST SUITE`, () => {
     userController: 'users',
   };
   const mockUserId = 'b3e7a302-0052-4622-8781-dc7934e7bac5';
-  const mockUser: UserDto = {
+  const mockUser: UserDto = new UserDto({
     _id: mockUserId,
     avatar: 'http://thispersondoesnotexist.com/image',
     alias: 'Murciano',
@@ -32,7 +32,7 @@ describe(`USER SERVICE TEST SUITE`, () => {
     likedActivities: ['b3e7a302-0052-4622-8781-dc7934e7bac6'],
     roles: [UserRoles.learner],
     activeGroups: ['b3e7a302-0052-4622-8781-dc7934e7bac7'],
-  };
+  });
 
   beforeEach(() => {
     TestBed.configureTestingModule({

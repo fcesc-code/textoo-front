@@ -4,7 +4,7 @@ import {
 } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { AuthLogin, AuthToken } from '../../models/Auth.dto';
+import { AuthLogin, AuthToken } from '../models/Auth.dto';
 
 import { AuthService } from './auth.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';

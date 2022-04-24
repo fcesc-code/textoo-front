@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AuthLogin, AuthToken } from '../../models/Auth.dto';
+import { AuthLogin, AuthToken } from '../models/Auth.dto';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { SharedService } from 'src/app/shared/services/shared.service';

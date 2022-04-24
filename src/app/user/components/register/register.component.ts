@@ -14,7 +14,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { USER_ACTIONS } from '../../actions/user.actions';
 import { UserRoles } from '../../../shared/interfaces/global.interfaces';
-import { SupportedLanguages } from 'src/app/models/Activity.dto';
+import { SupportedLanguages } from 'src/app/activity/models/Activity.dto';
 
 @Component({
   selector: 'app-register',
@@ -29,7 +29,9 @@ export class RegisterComponent {
   alias: FormControl;
   email: FormControl;
   password: FormControl;
-  roles: UserRoles;
+  roles: UserRoles[];
+  likedActivities: string[];
+  activeGroups: string[];
 
   registerForm: FormGroup;
   isValidForm: boolean | null;
@@ -48,13 +50,15 @@ export class RegisterComponent {
       password: '',
       preferences: { language: SupportedLanguages.CA },
       activeGroups: [],
-      roles: [UserRoles.learner],
+      roles: [UserRoles.learner.valueOf()],
       likedActivities: [],
     });
 
     this.isValidForm = null;
 
-    this.roles = UserRoles.learner;
+    this.roles = [UserRoles.learner];
+    this.likedActivities = [];
+    this.activeGroups = [];
     this.alias = new FormControl(this.registerUser.alias, [
       Validators.required,
       Validators.minLength(5),
@@ -80,12 +84,18 @@ export class RegisterComponent {
       password: this.password,
       preferences: this.preferences,
       avatar: this.avatar,
-      roles: this.roles,
     });
   }
 
   async register(): Promise<void> {
-    this.registerUser = this.registerForm.value;
+    this.registerUser = new NewUserDto({
+      ...this.registerForm.value,
+      likedActivities: this.likedActivities,
+      activeGroups: this.activeGroups,
+      roles: this.roles,
+    });
+
+    console.log('Registering user (before store): ', this.registerUser);
 
     this.store
       .select('user')

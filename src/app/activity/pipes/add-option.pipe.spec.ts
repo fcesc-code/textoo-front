@@ -1,5 +1,5 @@
 import { AddOptionPipe } from './add-option.pipe';
-import { Question_ActivityBestOption } from 'src/app/models/ActivityBestOption.dto';
+import { Question_ActivityBestOption } from '../models/ActivityBestOption.dto';
 
 describe('AddOptionPipe', () => {
   let pipe: AddOptionPipe;

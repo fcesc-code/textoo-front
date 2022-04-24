@@ -14,10 +14,11 @@ export class UserService {
 
   constructor(private http: HttpClient, private sharedService: SharedService) {
     this.controller = 'users';
-    this.urlBlogUocApi = 'http://localhost:3000/' + this.controller;
+    this.urlBlogUocApi = `/api/${this.controller}`;
   }
 
   register(user: NewUserDto): Observable<UserDto> {
+    console.log('user service was called with user: ', user);
     return this.http
       .post<UserDto>(this.urlBlogUocApi, user)
       .pipe(catchError(this.sharedService.handleError));

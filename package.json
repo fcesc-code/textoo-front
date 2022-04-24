@@ -14,7 +14,7 @@
     "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
     "dev": "npm run serve:dev",
     "pwa": "npm run serve:pwa",
-    "serve:dev": "ng serve --configuration development -o",
+    "serve:dev": "ng serve --proxy-config proxy.conf.json --configuration development -o ",
     "serve:pwa": "npx http-server dist/textoo/ -p 0 -o",
     "report:pwa": "npm-run-all clean:report report:gen-pwa-ci",
     "report:dev": "npm-run-all clean:report report:gen-dev-browser",

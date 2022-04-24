@@ -3,8 +3,8 @@ import { TestBed } from '@angular/core/testing';
 
 import { LocalStorageService } from './local-storage.service';
 
-describe('LOCAL STORAGE SERVICE TEST SUITE', () => {
-  const tested = '[local storage service]';
+describe('Shared > Service > LocalStorage', () => {
+  const TITLE = 'test';
   let service: LocalStorageService;
 
   beforeEach(() => {
@@ -15,13 +15,11 @@ describe('LOCAL STORAGE SERVICE TEST SUITE', () => {
     service = TestBed.inject(LocalStorageService);
   });
 
-  // TEST1: should be created
-  it(`${tested} > should be created`, () => {
+  it(`${TITLE} 1 > should be created`, () => {
     expect(service).toBeTruthy();
   });
 
-  // TEST2: set method
-  it(`${tested} method: set > should set a value`, () => {
+  it(`${TITLE} 2 set > should set a value`, () => {
     const mockData = {
       key: 'userId',
       value: 'b3e7a302-0052-4622-8781-dc7934e7bac5',
@@ -32,8 +30,7 @@ describe('LOCAL STORAGE SERVICE TEST SUITE', () => {
     expect(spy).toHaveBeenCalledWith(mockData.key, mockData.value);
   });
 
-  // TEST3: get method
-  it(`${tested} method: get > should get a value`, () => {
+  it(`${TITLE} 3 get > should get a value`, () => {
     const mockData = {
       key: 'userId',
       value: 'b3e7a302-0052-4622-8781-dc7934e7bac5',
@@ -44,8 +41,7 @@ describe('LOCAL STORAGE SERVICE TEST SUITE', () => {
     expect(spy).toHaveBeenCalledWith(mockData.key);
   });
 
-  // TEST4: remove method
-  it(`${tested} method: remove > should remove a key value pair`, () => {
+  it(`${TITLE} 4 remove > should remove a key value pair`, () => {
     const mockData = {
       key: 'userId',
       value: 'b3e7a302-0052-4622-8781-dc7934e7bac5',
@@ -57,7 +53,7 @@ describe('LOCAL STORAGE SERVICE TEST SUITE', () => {
   });
 
   // TEST5: check current get value after set
-  it(`${tested} integration > should get the same value that is set`, () => {
+  it(`${TITLE} 5 integration get > should get the same value that is set`, () => {
     const mockData = {
       key: 'userId',
       value: 'b3e7a302-0052-4622-8781-dc7934e7bac5',
@@ -68,7 +64,7 @@ describe('LOCAL STORAGE SERVICE TEST SUITE', () => {
   });
 
   // TEST6: check that get returns null after value is removed
-  it(`${tested} integration > should get null after value is removed`, () => {
+  it(`${TITLE} 6 integration get > should get null after value is removed`, () => {
     const mockData = {
       key: 'userId',
       value: 'b3e7a302-0052-4622-8781-dc7934e7bac5',

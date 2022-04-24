@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { AUTH_ACTIONS } from '../actions/auth.actions';
-import { AuthToken } from '../../models/Auth.dto';
+import { AuthToken } from '../models/Auth.dto';
 
 export interface AuthState {
   auth: AuthToken;

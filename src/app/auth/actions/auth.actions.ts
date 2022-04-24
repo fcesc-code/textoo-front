@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { AuthLogin, AuthToken } from '../../models/Auth.dto';
+import { AuthLogin, AuthToken } from '../models/Auth.dto';
 
 const PREFIX = '[AUTH]';
 

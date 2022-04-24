@@ -6,7 +6,7 @@ export interface Preferences {
 }
 
 export interface UserInfo {
-  id: string;
+  _id: string;
   alias: string;
   avatar: string;
   preferences: Preferences;
