@@ -1,4 +1,4 @@
-import { TextSelection } from 'src/app/models/ActivitySelectText.dto';
+import { TextSelection } from '../models/ActivitySelectText.dto';
 import { HighlightTextPipe } from './highlight-text.pipe';
 
 describe('HighlightTextPipe', () => {

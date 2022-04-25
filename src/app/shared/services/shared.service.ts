@@ -55,17 +55,18 @@ export class SharedService {
   }
 
   errorLog(error: ResponseError): void {
-    console.group(`%cERROR`, 'color: red');
-    console.error(`error: ${error.message}`);
-    console.table({
-      path: error.path,
-      timestamp: error.timestamp,
-      message: error.message,
-      messageDetail: error.messageDetail,
-      statusCode: error.statusCode,
-      method: error.method,
-    });
-    console.groupEnd();
+    // console.group(`%cERROR`, 'color: red');
+    // console.error(`error: ${error.message}`);
+    // console.table({
+    //   path: error.path,
+    //   timestamp: error.timestamp,
+    //   message: error.message,
+    //   messageDetail: error.messageDetail,
+    //   statusCode: error.statusCode,
+    //   method: error.method,
+    // });
+    // console.groupEnd();
+    console.log('Error logged in shared service.');
   }
 
   async wait(ms: number) {

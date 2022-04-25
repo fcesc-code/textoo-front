@@ -4,9 +4,9 @@ import {
   MOCK_ACTIVITY_SELECT_TEXT,
   MOCK_ACTIVITY_TRANSFORM_ASPECT,
 } from 'mockdata/activity.mock';
-import { ActivityBestOption } from 'src/app/models/ActivityBestOption.dto';
-import { ActivitySelectText } from 'src/app/models/ActivitySelectText.dto';
-import { ActivityTransformAspect } from 'src/app/models/ActivityTransformAspect.dto';
+import { ActivityBestOption } from '../models/ActivityBestOption.dto';
+import { ActivitySelectText } from '../models/ActivitySelectText.dto';
+import { ActivityTransformAspect } from '../models/ActivityTransformAspect.dto';
 
 import { ActivitiesService } from './activities.service';
 

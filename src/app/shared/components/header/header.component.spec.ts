@@ -7,6 +7,7 @@ import { of } from 'rxjs';
 import { HeaderComponent } from './header.component';
 import { routes } from 'src/app/app-routing.module';
 import { LocalStorageService } from '../../services/local-storage.service';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('HeaderComponent', () => {
   const TITLE = 'test';
@@ -22,6 +23,7 @@ describe('HeaderComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [HeaderComponent],
       imports: [HttpClientModule, RouterTestingModule.withRoutes(routes)],
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
 

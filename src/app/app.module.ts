@@ -63,6 +63,7 @@ import { MatIconModule } from '@angular/material/icon';
       maxAge: 25,
       logOnly: environment.production,
     }),
+    BrowserAnimationsModule,
     MatProgressSpinnerModule,
     MatSidenavModule,
     MatToolbarModule,

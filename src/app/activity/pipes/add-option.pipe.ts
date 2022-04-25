@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Question_ActivityBestOption } from 'src/app/models/ActivityBestOption.dto';
+import { Question_ActivityBestOption } from '../models/ActivityBestOption.dto';
 import { SELECT, OPTION, QUESTION } from './add-option.marks';
 
 @Pipe({

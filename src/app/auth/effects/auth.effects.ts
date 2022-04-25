@@ -5,7 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { exhaustMap, map, catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { AuthToken } from '../../models/Auth.dto';
+import { AuthToken } from '../models/Auth.dto';
 
 @Injectable()
 export class AuthEffects {

@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthLogin, AuthToken } from '../../../models/Auth.dto';
+import { AuthLogin, AuthToken } from '../../models/Auth.dto';
 import { AUTH_ACTIONS } from '../../actions/auth.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';

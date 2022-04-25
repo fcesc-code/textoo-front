@@ -5,10 +5,10 @@ import {
   MOCK_ACTIVITY_TRANSFORM_ASPECT,
 } from 'mockdata/activity.mock';
 import { Observable, of } from 'rxjs';
-import { ActivityType } from 'src/app/models/Activity.dto';
-import { ActivityBestOption } from 'src/app/models/ActivityBestOption.dto';
-import { ActivitySelectText } from 'src/app/models/ActivitySelectText.dto';
-import { ActivityTransformAspect } from 'src/app/models/ActivityTransformAspect.dto';
+import { ActivityType } from 'src/app/activity/models/Activity.dto';
+import { ActivityBestOption } from '../models/ActivityBestOption.dto';
+import { ActivitySelectText } from '../models/ActivitySelectText.dto';
+import { ActivityTransformAspect } from '../models/ActivityTransformAspect.dto';
 
 @Injectable({
   providedIn: 'root',

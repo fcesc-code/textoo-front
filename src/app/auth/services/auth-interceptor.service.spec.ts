@@ -4,13 +4,13 @@ import {
 } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { AuthToken } from '../../models/Auth.dto';
+import { AuthToken } from '../models/Auth.dto';
 
 import { AuthInterceptorService } from './auth-interceptor.service';
 import { ActivitiesService } from '../../activity/services/activities.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Activity } from '../../models/Activity.dto';
+import { Activity } from '../../activity/models/Activity.dto';
 
 describe('AUTH INTERCEPTOR SERVICE TEST SUITE', () => {
   const TITLE = '[auth interceptor service]';

@@ -3,13 +3,13 @@ import { ActivitiesService } from '../../services/activities.service';
 import {
   ActivityBestOption,
   Question_ActivityBestOption,
-} from 'src/app/models/ActivityBestOption.dto';
+} from '../../models/ActivityBestOption.dto';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { OptionSelection } from 'src/app/models/ActivityBestOption.dto';
+import { OptionSelection } from '../../models/ActivityBestOption.dto';
 import { CustomArrayMethods } from 'src/app/shared/utils/arrays';
 import { ID_PREFIX } from '../../pipes/add-option.marks';
-import { Answer, AnswerOption, AnswerType } from 'src/app/models/Answer.dto';
+import { Answer, AnswerOption, AnswerType } from '../../models/Answer.dto';
 
 @Component({
   selector: 'app-play-best-option',
