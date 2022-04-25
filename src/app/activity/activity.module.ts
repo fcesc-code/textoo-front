@@ -10,6 +10,7 @@ import { PlayBestOptionComponent } from './components/best-option/play-best-opti
 import { ImproveBreaklinesPipe } from './pipes/improve-breaklines.pipe';
 import { SanitizePipe } from './pipes/sanitize.pipe';
 import { SharedModule } from '../shared/shared.module';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { SharedModule } from '../shared/shared.module';
     AddOptionPipe,
     ImproveBreaklinesPipe,
     SanitizePipe,
+    DashboardComponent,
   ],
   imports: [CommonModule, AppRoutingModule, SharedModule],
   providers: [ActivitiesService],

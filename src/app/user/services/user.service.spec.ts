@@ -11,8 +11,8 @@ import {
   UserRoles,
 } from 'src/app/shared/interfaces/global.interfaces';
 
-describe(`USER SERVICE TEST SUITE`, () => {
-  const tested = '[user service]';
+describe(`User > Services > User`, () => {
+  const TITLE = 'test';
   let service: UserService;
   let httpMock: HttpTestingController;
   const API = {
@@ -49,22 +49,22 @@ describe(`USER SERVICE TEST SUITE`, () => {
   });
 
   // TEST1: service is created
-  it(`${tested} > should be created`, () => {
+  it(`${TITLE} 1 > should be created`, () => {
     expect(service).toBeTruthy();
   });
 
   // TEST2: register method
-  it(`${tested} method: register > is called with POST method and returns a user`, () => {
+  it(`${TITLE} 2 register > is called with POST method and returns a user`, () => {
     service.register(mockUser).subscribe((user: UserDto) => {
       expect(user).toEqual(mockUser);
     });
-    const req = httpMock.expectOne(`${API.URL}/${API.userController}`);
+    const req = httpMock.expectOne(`${API.URL}/${API.userController}/`);
     expect(req.request.method).toBe('POST');
     req.flush(mockUser);
   });
 
   // TEST3: updateUser method
-  it(`${tested} method: updateUser > is called with PUT method and returns the updated user`, () => {
+  it(`${TITLE} 3 updateUser > is called with PUT method and returns the updated user`, () => {
     service.updateUser(mockUserId, mockUser).subscribe((user: UserDto) => {
       expect(user).toEqual(mockUser);
     });
@@ -76,7 +76,7 @@ describe(`USER SERVICE TEST SUITE`, () => {
   });
 
   // TEST4: getUserById method
-  it(`${tested} method: getCategoryByIdPost > is called with GET method and returns the specific category`, () => {
+  it(`${TITLE} 4 getCategoryByIdPost > is called with GET method and returns the specific category`, () => {
     service.getUSerById(mockUserId).subscribe((user: UserDto) => {
       expect(user).toEqual(mockUser);
     });

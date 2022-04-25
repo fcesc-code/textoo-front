@@ -1,12 +1,18 @@
+import { HttpClientModule } from '@angular/common/http';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Store } from '@ngrx/store';
+import { of } from 'rxjs';
 import { AppComponent } from './app.component';
 
 describe('Root > AppComponent', () => {
   const TITLE = 'test';
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
+  const mockAuthStore = jasmine.createSpyObj('AuthStore', ['dispatch'], {
+    ath$: of([]),
+  });
 
   beforeEach(async () => {
     @Component({ selector: 'app-header', template: '' })
@@ -16,13 +22,14 @@ describe('Root > AppComponent', () => {
     class FooterStubComponent {}
 
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [HttpClientModule, RouterTestingModule],
       declarations: [AppComponent, HeaderStubComponent, FooterStubComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
 
   beforeEach(() => {
+    TestBed.overrideProvider(Store, { useValue: mockAuthStore });
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
