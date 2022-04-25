@@ -9,11 +9,13 @@ import { ActivityType } from 'src/app/activity/models/Activity.dto';
 import { ActivityBestOption } from '../models/ActivityBestOption.dto';
 import { ActivitySelectText } from '../models/ActivitySelectText.dto';
 import { ActivityTransformAspect } from '../models/ActivityTransformAspect.dto';
+import { API_ROUTES, API_CONTROLLERS } from 'src/routes/API_ROUTES';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ActivitiesService {
+  API: string;
   activities: any[];
   currentActivity!:
     | ActivityBestOption
@@ -26,6 +28,7 @@ export class ActivitiesService {
       MOCK_ACTIVITY_SELECT_TEXT,
       MOCK_ACTIVITY_TRANSFORM_ASPECT,
     ];
+    this.API = `${API_ROUTES.development}/${API_CONTROLLERS.activities}/`;
   }
 
   getActivity(id: string): Observable<any> {

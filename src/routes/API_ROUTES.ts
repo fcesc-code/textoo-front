@@ -8,4 +8,5 @@ export const API_CONTROLLERS = {
   records: 'records',
   groups: 'groups',
   users: 'users',
+  auth: 'auth',
 };

@@ -1,18 +1,49 @@
 <mat-toolbar>
-  <button
-    class="button__icon visibility--mobile"
-    aria-label="Menu button"
-    (click)="sidenav.toggle()"
-  >
-    <mat-icon class="visibility--mobile">menu</mat-icon>
-  </button>
-  <span class="visibility--nonmobile">Textoo</span>
-  <span class="spacer"></span>
-  <app-header class="visibility--nonmobile"></app-header>
+  <nav class="flex flex-row flex-nowrap justify-start items-center">
+    <div class="sm:visible md:hidden mx-2 leading-12">
+      <button
+        class="leading-12"
+        aria-label="Menu button"
+        (click)="sidenav.toggle()"
+      >
+        <mat-icon class="">menu</mat-icon>
+      </button>
+    </div>
+    <div class="visible cursor-pointer mx-2 leading-12" (click)="home()">
+      Textoo
+    </div>
+    <div class="sm:hidden md:visible mx-2">
+      <app-header class="sm:hidden md:visible"></app-header>
+    </div>
+  </nav>
 </mat-toolbar>
 <mat-sidenav-container hasBackdrop="true">
-  <mat-sidenav #sidenav mode="over" class="visibility--mobile">
-    <app-header class="visibility--mobile"></app-header>
+  <mat-sidenav
+    #sidenav
+    mode="over"
+    class="snap-none overflow-x-hidden overflow-y-auto sm:visible md:hidden"
+  >
+    <li
+      class="list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
+      (click)="login()"
+    >
+      <mat-icon aria-hidden="true" class="mx-4">verified_user</mat-icon
+      ><span class="px-2">Login</span>
+    </li>
+    <li
+      class="list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
+      (click)="register()"
+    >
+      <mat-icon aria-hidden="true" class="mx-4">create</mat-icon
+      ><span class="px-2">Register</span>
+    </li>
+    <li
+      class="list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
+      (click)="logout()"
+    >
+      <mat-icon aria-hidden="true" class="mx-4">power_settings_new</mat-icon
+      ><span class="px-2">Logout</span>
+    </li>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>

@@ -10,28 +10,28 @@ import { API_CONTROLLERS, API_ROUTES } from 'src/routes/API_ROUTES';
   providedIn: 'root',
 })
 export class UserService {
-  private urlBlogUocApi: string;
+  private API: string;
 
   constructor(private http: HttpClient, private sharedService: SharedService) {
-    this.urlBlogUocApi = `${API_ROUTES.development}/${API_CONTROLLERS.users}/`;
+    this.API = `${API_ROUTES.development}/${API_CONTROLLERS.users}`;
   }
 
   register(user: NewUserDto): Observable<UserDto> {
     console.log('user service was called with user: ', user);
     return this.http
-      .post<UserDto>(`${this.urlBlogUocApi}`, user)
+      .post<UserDto>(`${this.API}/`, user)
       .pipe(catchError(this.sharedService.handleError));
   }
 
   updateUser(userId: string, user: UserDto): Observable<UserDto> {
     return this.http
-      .put<UserDto>(`${this.urlBlogUocApi}/${userId}`, user)
+      .put<UserDto>(`${this.API}/${userId}`, user)
       .pipe(catchError(this.sharedService.handleError));
   }
 
   getUSerById(userId: string): Observable<UserDto> {
     return this.http
-      .get<UserDto>(`${this.urlBlogUocApi}/${userId}`)
+      .get<UserDto>(`${this.API}/${userId}`)
       .pipe(catchError(this.sharedService.handleError));
   }
 }

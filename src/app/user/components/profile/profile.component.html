@@ -18,6 +18,7 @@
         [formControl]="alias"
         aria-required="true"
         placeholder="Your alias..."
+        id="profileForm-alias"
       />
       <mat-error *ngIf="alias.dirty && alias.hasError('required')">
         Alias is required.
@@ -49,6 +50,7 @@
         [formControl]="avatar"
         aria-required="true"
         placeholder="Your alias..."
+        id="profileForm-avatar"
       />
       <mat-error *ngIf="avatar.dirty && avatar.hasError('required')">
         Avatar is required.
@@ -72,6 +74,7 @@
         aria-required="true"
         placeholder="Your email..."
         autocomplete="email"
+        id="profileForm-email"
       />
       <mat-error *ngIf="email.dirty && email.hasError('required')">
         Email is required.
@@ -93,6 +96,7 @@
         aria-required="true"
         placeholder="Your password..."
         autocomplete="new-password"
+        id="profileForm-password"
       />
       <mat-error *ngIf="password.dirty && password.hasError('required')">
         Password is required.
