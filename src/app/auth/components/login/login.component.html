@@ -8,7 +8,7 @@
     (ngSubmit)="login()"
     aria-label="login form"
   >
-    <h1>Login</h1>
+    <h1 class="font-bold text-xl pb-6 text-center">Login</h1>
     <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>
       <input
@@ -43,7 +43,8 @@
       <button
         mat-icon-button
         matSuffix
-        (click)="hide = !hide"
+        (click)="toggleHide()"
+        type="button"
         [attr.aria-label]="'Hide password'"
         [attr.aria-pressed]="hide"
       >
@@ -61,7 +62,7 @@
       [disabled]="!loginForm.valid"
       aria-label="log in"
     >
-      Register
+      Sign in
     </button>
   </form>
 </div>

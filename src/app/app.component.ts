@@ -1,4 +1,10 @@
-import { Component, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SpinnerService } from './shared/services/spinner.service';
 import { Router } from '@angular/router';
@@ -14,10 +20,12 @@ import { AUTH_ACTIONS } from './auth/actions/auth.actions';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass'],
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnDestroy, OnInit, OnChanges {
   title = 'textoo';
   isLoading: boolean;
   spinner_subscription: Subscription;
+  showAuthSection: boolean;
+  showNoAuthSection: boolean;
 
   constructor(
     private spinnerService: SpinnerService,
@@ -30,6 +38,30 @@ export class AppComponent implements OnDestroy {
     this.spinner_subscription = this.spinnerService.isLoading.subscribe(
       (status) => (this.isLoading = status)
     );
+    this.showAuthSection = false;
+    this.showNoAuthSection = true;
+  }
+
+  ngOnInit(): void {
+    if (this.localStorageService.get('user_id') !== undefined) {
+      this.showAuthSection = true;
+      this.showNoAuthSection = false;
+    } else {
+      this.showAuthSection = false;
+      this.showNoAuthSection = true;
+      this.router.navigateByUrl('home');
+    }
+  }
+
+  ngOnChanges(): void {
+    if (this.localStorageService.get('user_id') !== undefined) {
+      this.showAuthSection = true;
+      this.showNoAuthSection = false;
+    } else {
+      this.showAuthSection = false;
+      this.showNoAuthSection = true;
+      this.router.navigateByUrl('home');
+    }
   }
 
   ngOnDestroy() {

@@ -118,6 +118,7 @@ export class ProfileComponent implements OnInit {
               this.alias.setValue(alias);
               this.email.setValue(email);
               this.preferences.setValue(preferences);
+              this.password.setValue('');
               this._id = _id as string;
               this.roles = roles as UserRoles[];
               this.likedActivities = likedActivities as string[];
@@ -134,6 +135,9 @@ export class ProfileComponent implements OnInit {
             if (error) {
               this.sharedService.errorLog(error.error);
             }
+          },
+          error: (error): void => {
+            this.sharedService.errorLog(error);
           },
         });
 

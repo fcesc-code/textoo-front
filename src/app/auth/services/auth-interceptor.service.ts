@@ -29,6 +29,7 @@ export class AuthInterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     this.spinnerService.show();
     this.access_token = this.localStorageService.get('access_token');
+    console.log('OUTGOING REQUEST: ', req, this.access_token);
     if (this.access_token) {
       req = req.clone({
         setHeaders: {
@@ -38,6 +39,7 @@ export class AuthInterceptorService implements HttpInterceptor {
         },
       });
     }
+    console.log('OUTGOING REQUEST (updated) >>> ', req);
 
     return next.handle(req).pipe(finalize(() => this.spinnerService.hide()));
   }

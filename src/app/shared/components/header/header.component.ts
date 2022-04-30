@@ -52,7 +52,10 @@ export class HeaderComponent implements OnInit {
   }
 
   profile(): void {
-    this.router.navigateByUrl('profile');
+    const userId = this.localStorageService.get('user_id');
+    if (userId) {
+      this.router.navigateByUrl(`user/profile`);
+    }
   }
 
   logout(): void {

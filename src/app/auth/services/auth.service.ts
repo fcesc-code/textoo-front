@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthLogin, AuthToken } from '../models/Auth.dto';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { API_ROUTES, API_CONTROLLERS } from 'src/routes/API_ROUTES';
@@ -22,9 +22,10 @@ export class AuthService {
   }
 
   login(auth: AuthLogin): Observable<AuthToken> {
-    return this.http
-      .post<AuthToken>(this.API, auth)
-      .pipe(catchError(this.sharedService.handleError));
+    return this.http.post<AuthToken>(this.API, auth).pipe(
+      tap((data) => console.log('INCOMING', data)),
+      catchError(this.sharedService.handleError)
+    );
   }
 
   getLocalStorageToken(): Observable<AuthToken> {
