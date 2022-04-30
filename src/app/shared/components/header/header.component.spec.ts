@@ -52,7 +52,7 @@ describe('HeaderComponent', () => {
 
     component.profile();
     fixture.detectChanges();
-    expect(router.navigateByUrl).toHaveBeenCalledWith('profile');
+    expect(router.navigateByUrl).toHaveBeenCalledWith('user/profile');
 
     component.login();
     fixture.detectChanges();
