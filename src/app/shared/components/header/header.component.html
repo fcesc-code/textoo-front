@@ -1,35 +1,35 @@
-<div class="header__icongroup sm:hidden md:visible">
+<div class="flex flex-wrap justify-end items-center">
   <button
     *ngIf="showNoAuthSection"
-    mat-raised-button
-    class="button__text"
+    type="button"
+    class="hidden md:block px-4"
     aria-label="Log in"
     (click)="login()"
   >
-    Login
+    login
   </button>
   <button
     *ngIf="showNoAuthSection"
-    mat-icon-button
-    class="button__text"
+    type="button"
+    class="hidden md:block px-4"
     aria-label="Register"
     (click)="register()"
   >
-    Register
+    register
   </button>
   <button
     *ngIf="showAuthSection"
-    mat-icon-button
-    class="button__text"
+    type="button"
+    class="hidden md:block px-4"
     aria-label="Manage profile"
     (click)="profile()"
   >
-    Profile
+    profile
   </button>
   <button
     *ngIf="showAuthSection"
-    mat-raised-button
-    class="button__text"
+    type="button"
+    class="hidden md:block px-4"
     aria-label="Log out"
     (click)="logout()"
   >
