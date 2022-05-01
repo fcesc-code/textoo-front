@@ -50,9 +50,13 @@ describe('HeaderComponent', () => {
     fixture.detectChanges();
     expect(router.navigateByUrl).toHaveBeenCalledWith('register');
 
+    service.set('user_id', 'someId');
+    service.set('access_token', '1qwe0234asdf1234df');
     component.profile();
     fixture.detectChanges();
     expect(router.navigateByUrl).toHaveBeenCalledWith('user/profile');
+    service.remove('user_id');
+    service.remove('access_token');
 
     component.login();
     fixture.detectChanges();
