@@ -103,6 +103,25 @@
         You must select a preferred language
       </mat-error>
     </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>I want to</mat-label>
+      <mat-select
+        multiple
+        required
+        [formControl]="roles"
+        selected-options="this.roles"
+        aria-label="What are you going to do?"
+      >
+        <mat-option
+          *ngFor="let role of this.supportedRoles"
+          [value]="role.value"
+          >{{ role.activity }}</mat-option
+        >
+      </mat-select>
+      <mat-error *ngIf="roles.dirty && roles.hasError('required')">
+        You must select at least a role
+      </mat-error>
+    </mat-form-field>
     <!-- <mat-form-field appearance="fill">
       <mat-label>Password</mat-label>
       <input

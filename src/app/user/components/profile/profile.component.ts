@@ -16,7 +16,7 @@ import {
   SupportedLanguages,
   UserRoles,
 } from 'src/app/shared/interfaces/global.interfaces';
-import { LANGUAGES } from 'src/app/shared/constants/globals';
+import { LANGUAGES, USER_ROLES } from 'src/app/shared/constants/globals';
 
 @Component({
   selector: 'app-profile',
@@ -25,14 +25,15 @@ import { LANGUAGES } from 'src/app/shared/constants/globals';
 })
 export class ProfileComponent implements OnInit {
   supportedLanguages: any[] = LANGUAGES;
+  supportedRoles: any[] = USER_ROLES;
   profileUser: UserDto;
 
   avatar: FormControl;
   language: FormControl;
   alias: FormControl;
   email: FormControl;
+  roles: FormControl;
   // password: FormControl;
-  roles: UserRoles[];
   _id: string;
   likedActivities: string[];
   activeGroups: string[];
@@ -62,7 +63,7 @@ export class ProfileComponent implements OnInit {
     this.isValidForm = null;
 
     this._id = '';
-    this.roles = [UserRoles.learner];
+    this.roles = new FormControl(this.profileUser.roles, [Validators.required]);
     this.likedActivities = [];
     this.activeGroups = [];
     this.alias = new FormControl(this.profileUser.alias, [
@@ -87,10 +88,10 @@ export class ProfileComponent implements OnInit {
     this.profileForm = this.formBuilder.group({
       alias: this.alias,
       email: this.email,
-      // password: this.password,
       language: this.language,
       avatar: this.avatar,
       roles: this.roles,
+      // password: this.password,
     });
   }
   ngOnInit(): void {
@@ -119,17 +120,9 @@ export class ProfileComponent implements OnInit {
               this.language.setValue(preferences?.language);
               // this.password.setValue('');
               this._id = _id as string;
-              this.roles = roles as UserRoles[];
+              this.roles.setValue(roles);
               this.likedActivities = likedActivities as string[];
               this.activeGroups = activeGroups as string[];
-
-              this.profileForm = this.formBuilder.group({
-                avatar: this.avatar,
-                alias: this.alias,
-                language: this.language,
-                email: this.email,
-                // password: this.password,
-              });
             }
             if (error) {
               this.sharedService.errorLog(error.error);
