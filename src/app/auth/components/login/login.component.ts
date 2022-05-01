@@ -63,7 +63,6 @@ export class LoginComponent {
   }
 
   login(): void {
-    console.log('LOGIN METHOD WAS TRIGGERED');
     this.hide = true;
     this.loginUser = new AuthLogin(this.email.value, this.password.value);
 
@@ -111,12 +110,6 @@ export class LoginComponent {
       });
 
     if (this.loginForm.valid) {
-      console.log(
-        'STATUS >>> form:',
-        this.loginForm.valid,
-        ', hide: ',
-        this.hide
-      );
       this.store.dispatch(AUTH_ACTIONS.login({ auth: this.loginUser }));
     }
   }

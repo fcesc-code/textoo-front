@@ -103,11 +103,6 @@ describe('SanitizePipe', () => {
         .replace('SafeValue must use [property]=binding: ', '')
         .replace('(see https://g.co/ng/security#xss)', '')
         .trim();
-      // console.log(
-      //   `${test.test} >>> "${STRINGIFIED_RESULT}" =?= "${test.result}" >>> ${
-      //     STRINGIFIED_RESULT === test.result
-      //   }`
-      // );
       expect(STRINGIFIED_RESULT).toEqual(test.result);
     }
   });

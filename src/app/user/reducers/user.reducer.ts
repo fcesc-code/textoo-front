@@ -19,7 +19,6 @@ const userInitialState: UserState = {
 const _userReducer = createReducer(
   userInitialState,
   on(USER_ACTIONS.create, (state) => {
-    console.log('USER REDUCER, received create action with payload: ', state);
     return {
       ...state,
       loading: true,

@@ -95,8 +95,6 @@ export class RegisterComponent {
       roles: this.roles,
     });
 
-    console.log('Registering user (before store): ', this.registerUser);
-
     this.store
       .select('user')
       .pipe()

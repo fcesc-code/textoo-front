@@ -58,7 +58,6 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(USER_ACTIONS.create),
       concatMap((action) => {
-        console.log('user effect was called with user: ', action.user);
         return this.userService.register(action.user).pipe(
           map((user: NewUserDto) =>
             USER_ACTIONS.createSuccess({
