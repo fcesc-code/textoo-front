@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 /* impoer shared module components */
 import { HomeComponent } from './shared/home/home.component';
+import { MosaicComponent } from './activity/components/mosaic/mosaic.component';
 import { LoginComponent } from './auth/components/login/login.component';
 import { WelcomeComponent } from './auth/components/welcome/welcome.component';
 /* import user module components */
@@ -14,7 +15,7 @@ import { PlayBestOptionComponent } from './activity/components/best-option/play-
 export const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    component: MosaicComponent,
   },
   {
     path: 'login',

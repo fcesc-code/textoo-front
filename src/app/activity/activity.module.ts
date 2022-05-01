@@ -11,6 +11,7 @@ import { ImproveBreaklinesPipe } from './pipes/improve-breaklines.pipe';
 import { SanitizePipe } from './pipes/sanitize.pipe';
 import { SharedModule } from '../shared/shared.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { MosaicComponent } from './components/mosaic/mosaic.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     AddOptionPipe,
     ImproveBreaklinesPipe,
     SanitizePipe,
+    MosaicComponent,
     DashboardComponent,
   ],
   imports: [CommonModule, AppRoutingModule, SharedModule],

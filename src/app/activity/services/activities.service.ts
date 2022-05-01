@@ -4,35 +4,41 @@ import {
   MOCK_ACTIVITY_SELECT_TEXT,
   MOCK_ACTIVITY_TRANSFORM_ASPECT,
 } from 'mockdata/activity.mock';
-import { Observable, of } from 'rxjs';
+import { catchError, Observable, of, tap } from 'rxjs';
 import { ActivityType } from 'src/app/activity/models/Activity.dto';
 import { ActivityBestOption } from '../models/ActivityBestOption.dto';
 import { ActivitySelectText } from '../models/ActivitySelectText.dto';
 import { ActivityTransformAspect } from '../models/ActivityTransformAspect.dto';
 import { API_ROUTES, API_CONTROLLERS } from 'src/routes/API_ROUTES';
+import { HttpClient } from '@angular/common/http';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ActivitiesService {
   API: string;
+  mockActivities: any[];
   activities: any[];
   currentActivity!:
     | ActivityBestOption
     | ActivitySelectText
     | ActivityTransformAspect;
 
-  constructor() {
-    this.activities = [
+  constructor(private http: HttpClient, private sharedService: SharedService) {
+    this.mockActivities = [
       MOCK_ACTIVITY_BEST_OPTION,
       MOCK_ACTIVITY_SELECT_TEXT,
       MOCK_ACTIVITY_TRANSFORM_ASPECT,
     ];
-    this.API = `${API_ROUTES.development}/${API_CONTROLLERS.activities}/`;
+    this.activities = [];
+    this.API = `${API_ROUTES.development}/${API_CONTROLLERS.activities}`;
   }
 
   getActivity(id: string): Observable<any> {
-    const MOCKDATA = this.activities.filter((activity) => activity.id === id);
+    const MOCKDATA = this.mockActivities.filter(
+      (activity) => activity.id === id
+    );
     return of(MOCKDATA[0]);
   }
 
@@ -51,5 +57,11 @@ export class ActivitiesService {
         break;
     }
     return this.currentActivity;
+  }
+
+  getAllActivities(): Observable<any> {
+    return this.http
+      .get<any>(`${this.API}/all`)
+      .pipe(catchError(this.sharedService.handleError));
   }
 }
