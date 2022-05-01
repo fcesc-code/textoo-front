@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { formatDate } from '@angular/common';
 import {
   FormBuilder,
   FormControl,
@@ -17,7 +16,7 @@ import {
   SupportedLanguages,
   UserRoles,
 } from 'src/app/shared/interfaces/global.interfaces';
-import { HeaderMenusService } from 'src/app/shared/services/header-menus.service';
+import { LANGUAGES } from 'src/app/shared/constants/globals';
 
 @Component({
   selector: 'app-profile',
@@ -25,13 +24,14 @@ import { HeaderMenusService } from 'src/app/shared/services/header-menus.service
   styleUrls: ['./profile.component.sass'],
 })
 export class ProfileComponent implements OnInit {
+  supportedLanguages: any[] = LANGUAGES;
   profileUser: UserDto;
 
   avatar: FormControl;
-  preferences: FormControl;
+  language: FormControl;
   alias: FormControl;
   email: FormControl;
-  password: FormControl;
+  // password: FormControl;
   roles: UserRoles[];
   _id: string;
   likedActivities: string[];
@@ -43,7 +43,6 @@ export class ProfileComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private sharedService: SharedService,
-    private headerMenusService: HeaderMenusService,
     private localStorageService: LocalStorageService,
     private router: Router,
     private store: Store<AppState>
@@ -75,12 +74,12 @@ export class ProfileComponent implements OnInit {
       Validators.required,
       Validators.email,
     ]);
-    this.password = new FormControl(this.profileUser.password, [
-      Validators.required,
-      Validators.minLength(8),
-      Validators.maxLength(24),
-    ]);
-    this.preferences = new FormControl(this.profileUser.preferences, [
+    // this.password = new FormControl(this.profileUser.password, [
+    //   Validators.required,
+    //   Validators.minLength(8),
+    //   Validators.maxLength(24),
+    // ]);
+    this.language = new FormControl(this.profileUser.preferences.language, [
       Validators.required,
     ]);
     this.avatar = new FormControl(this.profileUser.avatar);
@@ -88,8 +87,8 @@ export class ProfileComponent implements OnInit {
     this.profileForm = this.formBuilder.group({
       alias: this.alias,
       email: this.email,
-      password: this.password,
-      preferences: this.preferences,
+      // password: this.password,
+      language: this.language,
       avatar: this.avatar,
       roles: this.roles,
     });
@@ -117,8 +116,8 @@ export class ProfileComponent implements OnInit {
               this.avatar.setValue(avatar);
               this.alias.setValue(alias);
               this.email.setValue(email);
-              this.preferences.setValue(preferences);
-              this.password.setValue('');
+              this.language.setValue(preferences?.language);
+              // this.password.setValue('');
               this._id = _id as string;
               this.roles = roles as UserRoles[];
               this.likedActivities = likedActivities as string[];
@@ -127,9 +126,9 @@ export class ProfileComponent implements OnInit {
               this.profileForm = this.formBuilder.group({
                 avatar: this.avatar,
                 alias: this.alias,
-                preferences: this.preferences,
+                language: this.language,
                 email: this.email,
-                password: this.password,
+                // password: this.password,
               });
             }
             if (error) {
@@ -184,5 +183,9 @@ export class ProfileComponent implements OnInit {
         );
       }
     }
+  }
+
+  compareLanguages(lang1: string, lang2: string): boolean {
+    return lang1 === lang2;
   }
 }

@@ -87,6 +87,23 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
+      <mat-label>Language</mat-label>
+      <mat-select
+        required
+        [formControl]="language"
+        aria-label="Select your preferred language"
+      >
+        <mat-option
+          *ngFor="let lang of this.supportedLanguages"
+          [value]="lang.short.toLowerCase()"
+          >{{ lang.long }}</mat-option
+        >
+      </mat-select>
+      <mat-error *ngIf="language.dirty && language.hasError('required')">
+        You must select a preferred language
+      </mat-error>
+    </mat-form-field>
+    <!-- <mat-form-field appearance="fill">
       <mat-label>Password</mat-label>
       <input
         matInput
@@ -118,7 +135,7 @@
       >
         Password can be max 16 characters long.
       </mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
     <div>
       <button
         mat-raised-button
