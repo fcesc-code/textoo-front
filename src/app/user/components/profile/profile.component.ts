@@ -5,13 +5,12 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { USER_ACTIONS } from '../../actions/user.actions';
-import { NewUserDto, UserDto } from 'src/app/user/models/user.dto';
+import { UserDto } from 'src/app/user/models/user.dto';
 import {
   SupportedLanguages,
   UserRoles,
@@ -34,7 +33,6 @@ export class ProfileComponent implements OnInit, AfterContentInit {
   email: FormControl;
   roles: FormControl;
   // password: FormControl;
-  _id: string;
   likedActivities: string[];
   activeGroups: string[];
 
@@ -45,7 +43,6 @@ export class ProfileComponent implements OnInit, AfterContentInit {
     private formBuilder: FormBuilder,
     private sharedService: SharedService,
     private localStorageService: LocalStorageService,
-    private router: Router,
     private store: Store<AppState>
   ) {
     this.profileUser = new UserDto({
@@ -62,7 +59,6 @@ export class ProfileComponent implements OnInit, AfterContentInit {
 
     this.isValidForm = null;
 
-    this._id = '';
     this.roles = new FormControl(this.profileUser.roles, [Validators.required]);
     this.likedActivities = [];
     this.activeGroups = [];
@@ -91,8 +87,8 @@ export class ProfileComponent implements OnInit, AfterContentInit {
       language: this.language,
       avatar: this.avatar,
       roles: this.roles,
-      // password: this.password,
     });
+    // password: this.password,
   }
   ngOnInit(): void {
     const userId = this.localStorageService.get('user_id');
@@ -102,7 +98,6 @@ export class ProfileComponent implements OnInit, AfterContentInit {
         next: ({ loaded, error, user }): void => {
           if (loaded) {
             const {
-              _id,
               avatar,
               alias,
               preferences,
@@ -116,7 +111,6 @@ export class ProfileComponent implements OnInit, AfterContentInit {
             this.email.setValue(email);
             this.language.setValue(preferences?.language);
             // this.password.setValue('');
-            this._id = _id as string;
             this.roles.setValue(roles);
             this.likedActivities = likedActivities as string[];
             this.activeGroups = activeGroups as string[];
