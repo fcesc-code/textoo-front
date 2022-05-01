@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 /* impoer shared module components */
 import { HomeComponent } from './shared/home/home.component';
 import { LoginComponent } from './auth/components/login/login.component';
+import { WelcomeComponent } from './auth/components/welcome/welcome.component';
 /* import user module components */
 import { ProfileComponent } from './user/components/profile/profile.component';
 import { RegisterComponent } from './user/components/register/register.component';
@@ -18,6 +19,10 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'welcome',
+    component: WelcomeComponent,
   },
   {
     path: 'register',

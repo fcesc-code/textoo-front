@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -23,7 +23,7 @@ import { LANGUAGES, USER_ROLES } from 'src/app/shared/constants/globals';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.sass'],
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, AfterContentInit {
   supportedLanguages: any[] = LANGUAGES;
   supportedRoles: any[] = USER_ROLES;
   profileUser: UserDto;
@@ -98,41 +98,45 @@ export class ProfileComponent implements OnInit {
     const userId = this.localStorageService.get('user_id');
 
     if (userId) {
-      this.store
-        .select('user')
-        .pipe()
-        .subscribe({
-          next: ({ loaded, error, user }): void => {
-            if (loaded) {
-              const {
-                _id,
-                avatar,
-                alias,
-                preferences,
-                email,
-                activeGroups,
-                likedActivities,
-                roles,
-              } = user;
-              this.avatar.setValue(avatar);
-              this.alias.setValue(alias);
-              this.email.setValue(email);
-              this.language.setValue(preferences?.language);
-              // this.password.setValue('');
-              this._id = _id as string;
-              this.roles.setValue(roles);
-              this.likedActivities = likedActivities as string[];
-              this.activeGroups = activeGroups as string[];
-            }
-            if (error) {
-              this.sharedService.errorLog(error.error);
-            }
-          },
-          error: (error): void => {
-            this.sharedService.errorLog(error);
-          },
-        });
+      this.store.select('user').subscribe({
+        next: ({ loaded, error, user }): void => {
+          if (loaded) {
+            const {
+              _id,
+              avatar,
+              alias,
+              preferences,
+              email,
+              activeGroups,
+              likedActivities,
+              roles,
+            } = user;
+            this.avatar.setValue(avatar);
+            this.alias.setValue(alias);
+            this.email.setValue(email);
+            this.language.setValue(preferences?.language);
+            // this.password.setValue('');
+            this._id = _id as string;
+            this.roles.setValue(roles);
+            this.likedActivities = likedActivities as string[];
+            this.activeGroups = activeGroups as string[];
+          }
+          if (error) {
+            this.sharedService.errorLog(error.error);
+          }
+        },
+        error: (error): void => {
+          this.sharedService.errorLog(error);
+        },
+      });
 
+      this.store.dispatch(USER_ACTIONS.getById({ userId: userId }));
+    }
+  }
+
+  ngAfterContentInit(): void {
+    const userId = this.localStorageService.get('user_id');
+    if (userId) {
       this.store.dispatch(USER_ACTIONS.getById({ userId: userId }));
     }
   }
@@ -142,37 +146,36 @@ export class ProfileComponent implements OnInit {
       return;
     }
 
-    this.profileUser = this.profileForm.value;
-
     const userId = this.localStorageService.get('user_id');
 
     if (userId) {
-      this.store
-        .select('user')
-        .pipe()
-        .subscribe({
-          next: async ({ error, loaded }): Promise<void> => {
-            if (loaded) {
-              await this.sharedService.managementToast(
-                'postFeedback',
-                loaded,
-                undefined
-              );
-            }
-            if (error) {
-              this.sharedService.errorLog(error.error);
-              await this.sharedService.managementToast(
-                'postFeedback',
-                loaded,
-                error.error
-              );
-            }
-          },
-        });
+      this.store.select('user').subscribe({
+        next: async ({ error, loaded }): Promise<void> => {
+          if (loaded) {
+            await this.sharedService.managementToast(
+              'postFeedback',
+              loaded,
+              undefined
+            );
+          }
+          if (error) {
+            this.sharedService.errorLog(error.error);
+            await this.sharedService.managementToast(
+              'postFeedback',
+              loaded,
+              error.error
+            );
+          }
+        },
+      });
 
       if (this.profileForm.valid) {
+        const updatedUser: UserDto = new UserDto({
+          ...this.profileUser,
+          preferences: { language: this.language.value as SupportedLanguages },
+        });
         this.store.dispatch(
-          USER_ACTIONS.update({ userId: userId, user: this.profileUser })
+          USER_ACTIONS.update({ userId: userId, user: updatedUser })
         );
       }
     }
