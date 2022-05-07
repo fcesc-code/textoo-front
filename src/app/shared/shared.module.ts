@@ -10,10 +10,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ButtonComponent } from './utils components/button/button.component';
+import { EditorComponent } from './components/editor/editor.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, ButtonComponent],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    ButtonComponent,
+    EditorComponent,
+  ],
   imports: [CommonModule, HttpClientModule, AppRoutingModule, MatIconModule],
-  exports: [ButtonComponent, HeaderComponent, FooterComponent],
+  exports: [ButtonComponent, HeaderComponent, FooterComponent, EditorComponent],
 })
 export class SharedModule {}

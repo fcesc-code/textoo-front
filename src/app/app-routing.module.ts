@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 /* impoer shared module components */
 import { LoginComponent } from './auth/components/login/login.component';
 import { WelcomeComponent } from './auth/components/welcome/welcome.component';
+import { EditorComponent } from './shared/components/editor/editor.component';
 /* import user module components */
 import { ProfileComponent } from './user/components/profile/profile.component';
 import { RegisterComponent } from './user/components/register/register.component';
@@ -44,6 +45,14 @@ export const routes: Routes = [
   {
     path: 'play/best_option/:id',
     component: PlayBestOptionComponent,
+  },
+  {
+    path: 'edit/select_text/:id',
+    component: EditorComponent,
+  },
+  {
+    path: 'edit/best_option/:id',
+    component: EditorComponent,
   },
   {
     path: '**',
