@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { ActivitiesService } from '../../services/activities.service';
 import { AsyncPipe } from '@angular/common';
+import { UserService } from 'src/app/user/services/user.service';
 
 @Component({
   selector: 'app-mosaic',
@@ -11,12 +12,15 @@ import { AsyncPipe } from '@angular/common';
 export class MosaicComponent implements OnDestroy {
   activities$: any;
   filteredActivities: any[];
+  authors: any[];
   subscription$: any;
   constructor(
     private activitiesService: ActivitiesService,
+    private userService: UserService,
     private sharedService: SharedService
   ) {
     this.filteredActivities = [];
+    this.authors = [];
     this.loadActivities();
   }
 
@@ -69,4 +73,12 @@ export class MosaicComponent implements OnDestroy {
       ? this.filteredActivities.length !== this.activities$.length
       : false;
   }
+
+  // getAuthorName(id: string): void {
+  //   this.userService.getUSerById(id).subscribe({
+  //     next: (data) => {
+  //       this.authors.push({ id, alias: data.alias });
+  //     },
+  //   });
+  // }
 }

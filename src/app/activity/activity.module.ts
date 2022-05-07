@@ -13,6 +13,8 @@ import { SharedModule } from '../shared/shared.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MosaicComponent } from './components/mosaic/mosaic.component';
 import { GetLanguagePipe } from './pipes/get-language-name.pipe';
+import { UserService } from '../user/services/user.service';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -26,8 +28,8 @@ import { GetLanguagePipe } from './pipes/get-language-name.pipe';
     MosaicComponent,
     DashboardComponent,
   ],
-  imports: [CommonModule, AppRoutingModule, SharedModule],
-  providers: [ActivitiesService],
+  imports: [CommonModule, RouterModule, AppRoutingModule, SharedModule],
+  providers: [ActivitiesService, UserService],
   exports: [],
 })
 export class ActivityModule {}

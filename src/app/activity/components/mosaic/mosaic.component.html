@@ -12,10 +12,12 @@
   </nav>
   <ul>
     <li *ngFor="let activity of this.filteredActivities" class="my-2 mx-4">
-      <h3 class="leading-12 font-semibold text-lg">{{ activity.title }}</h3>
-      <p>Activitat: {{ activity.task }}</p>
-      <p>Autor: {{ activity.author }}</p>
-      <p *ngIf="activity.font.author">Basat en: {{ activity.font.author }}</p>
+      <div [routerLink]="['/play/' + activity.type + '/' + activity._id]">
+        <h3 class="leading-12 font-semibold text-lg">{{ activity.title }}</h3>
+        <p>Activitat: {{ activity.task }}</p>
+        <p>Autor: {{ activity.author }}</p>
+        <p *ngIf="activity.font.author">Basat en: {{ activity.font.author }}</p>
+      </div>
       <ul class="flex flex-row justify-start items-center">
         <li
           class="inline-block px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-blue-300"

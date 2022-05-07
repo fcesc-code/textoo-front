@@ -34,11 +34,11 @@ export const routes: Routes = [
     component: ProfileComponent,
   },
   {
-    path: 'play/select-text/:id',
+    path: 'play/select_text/:id',
     component: PlaySelectTextComponent,
   },
   {
-    path: 'play/best-option/:id',
+    path: 'play/best_option/:id',
     component: PlayBestOptionComponent,
   },
   {

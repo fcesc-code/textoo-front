@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import {
-  MOCK_ACTIVITY_BEST_OPTION,
-  MOCK_ACTIVITY_SELECT_TEXT,
-  MOCK_ACTIVITY_TRANSFORM_ASPECT,
-} from 'mockdata/activity.mock';
-import { catchError, Observable, of, tap } from 'rxjs';
+// import {
+//   MOCK_ACTIVITY_BEST_OPTION,
+//   MOCK_ACTIVITY_SELECT_TEXT,
+//   MOCK_ACTIVITY_TRANSFORM_ASPECT,
+// } from 'mockdata/activity.mock';
+// import { catchError, Observable, of, tap } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 import { ActivityType } from 'src/app/activity/models/Activity.dto';
 import { ActivityBestOption } from '../models/ActivityBestOption.dto';
 import { ActivitySelectText } from '../models/ActivitySelectText.dto';
@@ -18,28 +19,34 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 })
 export class ActivitiesService {
   API: string;
-  mockActivities: any[];
-  activities: any[];
+  // mockActivities: any[];
+  // activities: any[];
   currentActivity!:
     | ActivityBestOption
     | ActivitySelectText
     | ActivityTransformAspect;
 
   constructor(private http: HttpClient, private sharedService: SharedService) {
-    this.mockActivities = [
-      MOCK_ACTIVITY_BEST_OPTION,
-      MOCK_ACTIVITY_SELECT_TEXT,
-      MOCK_ACTIVITY_TRANSFORM_ASPECT,
-    ];
-    this.activities = [];
+    // this.mockActivities = [
+    //   MOCK_ACTIVITY_BEST_OPTION,
+    //   MOCK_ACTIVITY_SELECT_TEXT,
+    //   MOCK_ACTIVITY_TRANSFORM_ASPECT,
+    // ];
+    // this.activities = [];
     this.API = `${API_ROUTES.development}/${API_CONTROLLERS.activities}`;
   }
 
-  getActivity(id: string): Observable<any> {
-    const MOCKDATA = this.mockActivities.filter(
-      (activity) => activity.id === id
-    );
-    return of(MOCKDATA[0]);
+  // getActivity(id: string): Observable<any> {
+  //   const MOCKDATA = this.mockActivities.filter(
+  //     (activity) => activity.id === id
+  //   );
+  //   return of(MOCKDATA[0]);
+  // }
+
+  getActivityById(id: string): Observable<any> {
+    return this.http
+      .get<any>(`${this.API}/${id}`)
+      .pipe(catchError(this.sharedService.handleError));
   }
 
   initializeActivity(

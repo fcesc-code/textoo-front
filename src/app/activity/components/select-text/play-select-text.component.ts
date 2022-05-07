@@ -48,9 +48,11 @@ export class PlaySelectTextComponent
     const activityId: string | null =
       this.activatedRoute.snapshot.paramMap.get('id');
 
+    console.log('YAY, activityId:', activityId);
+
     if (activityId) {
       this.activity$ = this.activitiesService
-        .getActivity(activityId)
+        .getActivityById(activityId)
         .subscribe((activity: ActivitySelectText) => {
           this.classInitializer(activity);
         });
