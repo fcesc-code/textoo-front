@@ -8,8 +8,9 @@ import { EditorComponent } from './shared/components/editor/editor.component';
 import { ProfileComponent } from './user/components/profile/profile.component';
 import { RegisterComponent } from './user/components/register/register.component';
 /* import activity module components */
-import { PlaySelectTextComponent } from './activity/components/select-text/play-select-text.component';
 import { PlayBestOptionComponent } from './activity/components/best-option/play-best-option.component';
+import { EditBestOptionComponent } from './activity/components/best-option/edit-best-option.component';
+import { PlaySelectTextComponent } from './activity/components/select-text/play-select-text.component';
 import { DashboardComponent } from './activity/components/dashboard/dashboard.component';
 import { MosaicComponent } from './activity/components/mosaic/mosaic.component';
 
@@ -52,7 +53,7 @@ export const routes: Routes = [
   },
   {
     path: 'edit/best_option/:id',
-    component: EditorComponent,
+    component: EditBestOptionComponent,
   },
   {
     path: '**',

@@ -1,1 +1,8 @@
 <p>Editor works!</p>
+<quill-editor
+  (onFocus)="focus($event)"
+  (onEditorChanged)="changedEditor($event)"
+  (onBlur)="blur($event)"
+  (onEditorCreated)="created($event)"
+>
+</quill-editor>

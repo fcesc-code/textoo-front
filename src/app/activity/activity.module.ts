@@ -16,6 +16,7 @@ import { GetLanguagePipe } from './pipes/get-language-name.pipe';
 import { UserService } from '../user/services/user.service';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { EditBestOptionComponent } from './components/best-option/edit-best-option.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { MatIconModule } from '@angular/material/icon';
     GetLanguagePipe,
     PlaySelectTextComponent,
     PlayBestOptionComponent,
+    EditBestOptionComponent,
     MosaicComponent,
     DashboardComponent,
   ],

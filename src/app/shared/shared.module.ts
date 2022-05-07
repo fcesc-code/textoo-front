@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from '../app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+/* Quill */
+import { QuillModule } from 'ngx-quill';
 /*Material*/
 // import { MatToolbarModule } from '@angular/material/toolbar';
 // import { MatSidenavModule } from '@angular/material/sidenav';
@@ -19,7 +21,13 @@ import { EditorComponent } from './components/editor/editor.component';
     ButtonComponent,
     EditorComponent,
   ],
-  imports: [CommonModule, HttpClientModule, AppRoutingModule, MatIconModule],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    AppRoutingModule,
+    MatIconModule,
+    QuillModule.forRoot(),
+  ],
   exports: [ButtonComponent, HeaderComponent, FooterComponent, EditorComponent],
 })
 export class SharedModule {}

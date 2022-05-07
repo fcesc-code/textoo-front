@@ -1,0 +1,7 @@
+<p>Edit best option component works!</p>
+<p>{{ this.text }}</p>
+
+<app-editor
+  [text]="this.text"
+  (editorResponse)="editorResponse($event)"
+></app-editor>
