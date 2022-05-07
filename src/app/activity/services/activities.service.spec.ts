@@ -37,7 +37,7 @@ describe('ActivitiesService', () => {
     let result;
     let condition;
     const subscription$ = service
-      .getActivity(MOCK_ID)
+      .getActivityById(MOCK_ID)
       .subscribe((activity: ActivityBestOption) => {
         result = service.initializeActivity(activity) as ActivityBestOption;
         condition = result instanceof ActivityBestOption;
@@ -60,7 +60,7 @@ describe('ActivitiesService', () => {
     let result;
     let condition;
     const subscription$ = service
-      .getActivity(MOCK_ID)
+      .getActivityById(MOCK_ID)
       .subscribe((activity: ActivitySelectText) => {
         result = service.initializeActivity(activity) as ActivitySelectText;
         condition = result instanceof ActivitySelectText;
@@ -83,7 +83,7 @@ describe('ActivitiesService', () => {
     let result;
     let condition;
     const subscription$ = service
-      .getActivity(MOCK_ID)
+      .getActivityById(MOCK_ID)
       .subscribe((activity: ActivityTransformAspect) => {
         result = service.initializeActivity(
           activity

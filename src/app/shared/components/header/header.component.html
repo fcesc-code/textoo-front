@@ -21,6 +21,15 @@
     *ngIf="showAuthSection"
     type="button"
     class="hidden md:block px-4"
+    aria-label="Your activities"
+    [routerLink]="['/activities/dashboard']"
+  >
+    les meves activitats
+  </button>
+  <button
+    *ngIf="showAuthSection"
+    type="button"
+    class="hidden md:block px-4"
     aria-label="Your groups"
     [routerLink]="['/groups']"
   >
@@ -33,7 +42,9 @@
     aria-label="Manage profile"
     (click)="profile()"
   >
-    perfil
+    <mat-icon class="leading-12 align-middle" title="perfil"
+      >account_circle</mat-icon
+    >
   </button>
   <button
     *ngIf="showAuthSection"
@@ -42,6 +53,8 @@
     aria-label="Log out"
     (click)="logout()"
   >
-    desconnexió
+    <mat-icon class="leading-12 align-middle" title="desconnexió"
+      >power_settings_new</mat-icon
+    >
   </button>
 </div>

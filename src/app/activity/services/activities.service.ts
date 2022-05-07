@@ -71,4 +71,10 @@ export class ActivitiesService {
       .get<any>(`${this.API}/all`)
       .pipe(catchError(this.sharedService.handleError));
   }
+
+  getAllActivitiesByUserId(id: string): Observable<any> {
+    return this.http
+      .get<any>(`${this.API}/byUser/${id}`)
+      .pipe(catchError(this.sharedService.handleError));
+  }
 }

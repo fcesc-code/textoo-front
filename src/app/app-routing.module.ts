@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 /* impoer shared module components */
-import { HomeComponent } from './shared/home/home.component';
-import { MosaicComponent } from './activity/components/mosaic/mosaic.component';
 import { LoginComponent } from './auth/components/login/login.component';
 import { WelcomeComponent } from './auth/components/welcome/welcome.component';
 /* import user module components */
@@ -11,6 +9,8 @@ import { RegisterComponent } from './user/components/register/register.component
 /* import activity module components */
 import { PlaySelectTextComponent } from './activity/components/select-text/play-select-text.component';
 import { PlayBestOptionComponent } from './activity/components/best-option/play-best-option.component';
+import { DashboardComponent } from './activity/components/dashboard/dashboard.component';
+import { MosaicComponent } from './activity/components/mosaic/mosaic.component';
 
 export const routes: Routes = [
   {
@@ -32,6 +32,10 @@ export const routes: Routes = [
   {
     path: 'user/profile',
     component: ProfileComponent,
+  },
+  {
+    path: 'activities/dashboard',
+    component: DashboardComponent,
   },
   {
     path: 'play/select_text/:id',

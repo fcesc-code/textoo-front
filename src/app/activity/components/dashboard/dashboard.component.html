@@ -1,1 +1,81 @@
-<p>dashboard works!</p>
+<div class="flex flex-col justify-start items-center mb-6">
+  <h1 class="font-bold text-2xl py-4 text-center text-emerald-900">
+    Les meves activitats
+  </h1>
+  <section class="sm:w-[90%] md:max-w-screen-sm">
+    <nav>
+      <ul>
+        <li
+          *ngIf="filtersApplied()"
+          class="inline-block px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-gray-50"
+          (click)="removeFilters()"
+        >
+          Borrar filtres
+        </li>
+      </ul>
+    </nav>
+    <ul>
+      <li
+        *ngFor="let activity of this.filteredActivities"
+        class="my-2 mx-4 border-2 border-slate-100 rounded-lg px-6 py-4 bg-white"
+      >
+        <div class="flex flex-row justify-between items-center h-full">
+          <section class="">
+            <h3 class="leading-12 font-semibold text-lg">
+              {{ activity.title }}
+            </h3>
+            <p>Activitat: {{ activity.task }}</p>
+            <p *ngIf="activity.font.author">
+              Basat en: {{ activity.font.author }}
+            </p>
+          </section>
+          <section class="flex flex-col justify-between items-end h-[100%]">
+            <div class="">
+              <mat-icon
+                [routerLink]="['/play/' + activity.type + '/' + activity._id]"
+                class="leading-12 align-middle ml-3 hover:text-teal-600"
+                title="juga"
+                >play_circle_outline</mat-icon
+              >
+              <mat-icon
+                class="leading-12 align-middle ml-3 hover:text-teal-600"
+                title="edita"
+                >edit</mat-icon
+              >
+              <mat-icon
+                class="leading-12 align-middle ml-3 hover:text-red-600"
+                title="esborra"
+                >delete</mat-icon
+              >
+            </div>
+            <p>creada: {{ activity.timestamps.created | date: "d.M.y" }}</p>
+            <p>
+              modificada: {{ activity.timestamps.modified | date: "d.M.y" }}
+            </p>
+          </section>
+        </div>
+        <ul class="flex flex-row justify-center items-center">
+          <li
+            class="inline-block px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-blue-300"
+            (click)="filterByLanguage(activity.language)"
+          >
+            {{ activity.language | getLanguage }}
+          </li>
+          <li
+            class="inline-block px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-red-300"
+            (click)="filterByType(activity.type)"
+          >
+            {{ activity.type }}
+          </li>
+          <li
+            *ngFor="let keyword of activity.keywords"
+            class="inline-block px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-emerald-200"
+            (click)="filterByKeyword(keyword)"
+          >
+            {{ keyword }}
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+</div>

@@ -15,20 +15,27 @@ import { MosaicComponent } from './components/mosaic/mosaic.component';
 import { GetLanguagePipe } from './pipes/get-language-name.pipe';
 import { UserService } from '../user/services/user.service';
 import { RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
-    PlaySelectTextComponent,
-    PlayBestOptionComponent,
     HighlightTextPipe,
     AddOptionPipe,
     ImproveBreaklinesPipe,
     SanitizePipe,
     GetLanguagePipe,
+    PlaySelectTextComponent,
+    PlayBestOptionComponent,
     MosaicComponent,
     DashboardComponent,
   ],
-  imports: [CommonModule, RouterModule, AppRoutingModule, SharedModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    AppRoutingModule,
+    SharedModule,
+    MatIconModule,
+  ],
   providers: [ActivitiesService, UserService],
   exports: [],
 })
