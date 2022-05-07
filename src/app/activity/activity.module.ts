@@ -12,6 +12,7 @@ import { SanitizePipe } from './pipes/sanitize.pipe';
 import { SharedModule } from '../shared/shared.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MosaicComponent } from './components/mosaic/mosaic.component';
+import { GetLanguagePipe } from './pipes/get-language-name.pipe';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { MosaicComponent } from './components/mosaic/mosaic.component';
     AddOptionPipe,
     ImproveBreaklinesPipe,
     SanitizePipe,
+    GetLanguagePipe,
     MosaicComponent,
     DashboardComponent,
   ],
