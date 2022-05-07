@@ -1,44 +1,54 @@
-<section>
-  <nav>
-    <ul>
-      <li
-        *ngIf="filtersApplied()"
-        class="inline-block px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-gray-50"
-        (click)="removeFilters()"
-      >
-        Borrar filtres
-      </li>
-    </ul>
-  </nav>
-  <ul>
-    <li *ngFor="let activity of this.filteredActivities" class="my-2 mx-4">
-      <div [routerLink]="['/play/' + activity.type + '/' + activity._id]">
-        <h3 class="leading-12 font-semibold text-lg">{{ activity.title }}</h3>
-        <p>Activitat: {{ activity.task }}</p>
-        <p>Autor: {{ activity.author }}</p>
-        <p *ngIf="activity.font.author">Basat en: {{ activity.font.author }}</p>
-      </div>
-      <ul class="flex flex-row justify-start items-center">
+<div class="flex flex-col justify-start items-center mb-6">
+  <h1 class="font-bold text-2xl py-4 text-center text-emerald-900">
+    Totes les activitats
+  </h1>
+  <section class="sm:w-[90%] md:max-w-screen-sm">
+    <nav>
+      <ul>
         <li
-          class="inline-block px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-blue-300"
-          (click)="filterByLanguage(activity.language)"
+          *ngIf="filtersApplied()"
+          class="inline-block px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-gray-50"
+          (click)="removeFilters()"
         >
-          {{ activity.language | getLanguage }}
-        </li>
-        <li
-          class="inline-block px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-red-300"
-          (click)="filterByType(activity.type)"
-        >
-          {{ activity.type }}
-        </li>
-        <li
-          *ngFor="let keyword of activity.keywords"
-          class="inline-block px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-emerald-200"
-          (click)="filterByKeyword(keyword)"
-        >
-          {{ keyword }}
+          Borrar filtres
         </li>
       </ul>
-    </li>
-  </ul>
-</section>
+    </nav>
+    <ul>
+      <li
+        *ngFor="let activity of this.filteredActivities"
+        class="my-2 mx-4 border-2 border-slate-100 rounded-lg px-6 py-4 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300"
+      >
+        <div [routerLink]="['/play/' + activity.type + '/' + activity._id]">
+          <h3 class="leading-12 font-semibold text-lg">{{ activity.title }}</h3>
+          <p>Activitat: {{ activity.task }}</p>
+          <p>Autor: {{ activity.author }}</p>
+          <p *ngIf="activity.font.author">
+            Basat en: {{ activity.font.author }}
+          </p>
+        </div>
+        <ul class="flex flex-row justify-start items-center">
+          <li
+            class="inline-block px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-blue-300"
+            (click)="filterByLanguage(activity.language)"
+          >
+            {{ activity.language | getLanguage }}
+          </li>
+          <li
+            class="inline-block px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-red-300"
+            (click)="filterByType(activity.type)"
+          >
+            {{ activity.type }}
+          </li>
+          <li
+            *ngFor="let keyword of activity.keywords"
+            class="inline-block px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-emerald-200"
+            (click)="filterByKeyword(keyword)"
+          >
+            {{ keyword }}
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+</div>
