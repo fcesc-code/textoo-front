@@ -28,7 +28,7 @@
     <li
       *ngIf="showNoAuthSection"
       class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
-      (click)="login()"
+      (click)="login(); sidenav.toggle()"
     >
       <mat-icon aria-hidden="true" class="mx-4">verified_user</mat-icon
       ><span class="px-2">connexió</span>
@@ -36,7 +36,7 @@
     <li
       *ngIf="showNoAuthSection"
       class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
-      (click)="register()"
+      (click)="register(); sidenav.toggle()"
     >
       <mat-icon aria-hidden="true" class="mx-4">create</mat-icon
       ><span class="px-2">registre</span>
@@ -45,6 +45,7 @@
       *ngIf="showAuthSection"
       class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
       [routerLink]="['/activities/dashboard']"
+      (click)="sidenav.toggle()"
     >
       <mat-icon aria-hidden="true" class="mx-4">play_circle_outline</mat-icon
       ><span class="px-2">les meves activitats</span>
@@ -53,6 +54,7 @@
       *ngIf="showAuthSection"
       class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
       [routerLink]="['/groups']"
+      (click)="sidenav.toggle()"
     >
       <mat-icon aria-hidden="true" class="mx-4">group_work</mat-icon
       ><span class="px-2">grups</span>
@@ -60,7 +62,7 @@
     <li
       *ngIf="showAuthSection"
       class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
-      (click)="profile()"
+      (click)="profile(); sidenav.toggle()"
     >
       <mat-icon aria-hidden="true" class="mx-4">account_circle</mat-icon
       ><span class="px-2">perfil</span>
