@@ -6,7 +6,7 @@
     aria-label="Log in"
     (click)="login()"
   >
-    login
+    connexió
   </button>
   <button
     *ngIf="showNoAuthSection"
@@ -15,7 +15,16 @@
     aria-label="Register"
     (click)="register()"
   >
-    register
+    registre
+  </button>
+  <button
+    *ngIf="showAuthSection"
+    type="button"
+    class="hidden md:block px-4"
+    aria-label="Your groups"
+    [routerLink]="['/groups']"
+  >
+    grups
   </button>
   <button
     *ngIf="showAuthSection"
@@ -24,7 +33,7 @@
     aria-label="Manage profile"
     (click)="profile()"
   >
-    profile
+    perfil
   </button>
   <button
     *ngIf="showAuthSection"
@@ -33,6 +42,6 @@
     aria-label="Log out"
     (click)="logout()"
   >
-    Logout
+    desconnexió
   </button>
 </div>
