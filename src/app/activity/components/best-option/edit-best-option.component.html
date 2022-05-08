@@ -1,7 +1,146 @@
-<p>Edit best option component works!</p>
-<p>{{ this.text }}</p>
-
-<app-editor
-  [text]="this.text"
-  (editorResponse)="editorResponse($event)"
-></app-editor>
+<article>
+  <h2 class="font-bold text-xl py-3 text-center">
+    Editor d'activitat tipus "{{ this.activity?.type }}"
+  </h2>
+  <section
+    class="mb-6 border-2 border-slate-100 rounded-lg px-6 pt-6 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300 lg:max-w-screen-lg mx-auto"
+  >
+    <h3
+      class="font-semibold text-lg pb-3 text-center sm:text-left text-emerald-900"
+    >
+      Dades principals
+    </h3>
+    <form
+      class="form"
+      [formGroup]="activityForm"
+      (ngSubmit)="save()"
+      aria-label="activity form"
+    >
+      <div class="flex flex-row justify-between items-center h-full">
+        <mat-form-field appearance="fill" style="width: 70%">
+          <mat-label>Títol</mat-label>
+          <input
+            matInput
+            type="text"
+            [formControl]="title"
+            aria-required="true"
+            placeholder="Escriu un títol..."
+            id="activityForm-title"
+          />
+          <mat-error *ngIf="title.dirty && title.hasError('required')">
+            Cal introduir un títol per l'activitat.
+          </mat-error>
+          <mat-error
+            *ngIf="
+              title.dirty &&
+              title.hasError('minlength') &&
+              !title.hasError('required')
+            "
+          >
+            El títol ha de constar d'almenys 10 caràcters.
+          </mat-error>
+          <mat-error
+            *ngIf="
+              title.dirty &&
+              title.hasError('maxlength') &&
+              !title.hasError('required')
+            "
+          >
+            El títol no pot excedir els 100 caràcters.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="width: 25%">
+          <mat-label>Idioma</mat-label>
+          <mat-select
+            required
+            [formControl]="language"
+            aria-label="Select your preferred language"
+          >
+            <mat-option
+              *ngFor="let lang of this.supportedLanguages"
+              [value]="lang.short.toLowerCase()"
+              >{{ lang.long }}</mat-option
+            >
+          </mat-select>
+          <mat-error *ngIf="language.dirty && language.hasError('required')">
+            Has d'indicar l'idioma de l'activitat.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="w-full">
+        <mat-form-field appearance="fill" style="width: 100%">
+          <mat-label>Enunciat</mat-label>
+          <input
+            matInput
+            type="text"
+            [formControl]="task"
+            aria-required="true"
+            placeholder="Descriu què cal fer per completar l'activitat"
+            id="activityForm-title"
+          />
+          <mat-error *ngIf="task.dirty && task.hasError('required')">
+            Cal introduir un enunciat per l'activitat.
+          </mat-error>
+          <mat-error
+            *ngIf="
+              task.dirty &&
+              task.hasError('minlength') &&
+              !task.hasError('required')
+            "
+          >
+            L'enunciat ha de constar d'almenys 20 caràcters.
+          </mat-error>
+          <mat-error
+            *ngIf="
+              task.dirty &&
+              task.hasError('maxlength') &&
+              !task.hasError('required')
+            "
+          >
+            L'enunciat no pot excedir els 300 caràcters.
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+  </section>
+  <section
+    class="mb-6 border-2 border-slate-100 rounded-lg px-6 pt-6 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300 lg:max-w-screen-lg mx-auto"
+  >
+    <h3
+      class="font-semibold text-lg pb-3 text-center sm:text-left text-emerald-900"
+    >
+      Text base
+    </h3>
+    <app-editor
+      style="padding-bottom: 1.5rem"
+      *ngIf="this.activity?.text"
+      [text]="this.textWithQuestions | addPlaceholderSelector: this.questions"
+      (editorResponse)="editorResponse($event)"
+    ></app-editor>
+  </section>
+  <section
+    class="mb-6 border-2 border-slate-100 rounded-lg px-6 pt-6 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300 lg:max-w-screen-lg mx-auto"
+  >
+    <h3
+      class="font-semibold text-lg pb-3 text-center sm:text-left text-emerald-900"
+    >
+      Qüestions
+    </h3>
+    <div *ngIf="this.questions" class="my-3">
+      <app-edit-question-best-option
+        *ngFor="let question of this.questions"
+        [question]="question"
+        (questionResponse)="questionResponse($event)"
+      ></app-edit-question-best-option>
+    </div>
+  </section>
+  <section
+    class="mb-6 border-2 border-slate-100 rounded-lg px-6 pt-6 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300 lg:max-w-screen-lg mx-auto"
+  >
+    <app-edit-font
+      *ngIf="this.activity"
+      [font]="this.activity.font"
+      (fontResponse)="fontResponse($event)"
+    ></app-edit-font>
+  </section>
+</article>

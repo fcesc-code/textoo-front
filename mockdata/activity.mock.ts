@@ -51,16 +51,16 @@ export const MOCK_ACTIVITY_BEST_OPTION = {
   language: 'ca',
   title: `Qui l'encerta l'endevina`,
   task: `Tria l'expressió correcta`,
-  text: `Duia pantalons curts, és a dir, que no encara els dotze anys.
-S'han suspès tots els vols la boira.
-Proposem un enfocament les polítiques de mercat.
-A la nit podríem fer peix de carn.
-plovia, vam jugar el partit.
-estalviat, ara no té més diners que el sou.`,
+  text: `<p>Duia pantalons curts, és a dir, que no encara els dotze anys.</p>
+<p>S'han suspès tots els vols la boira.</p>
+<p>Proposem un enfocament les polítiques de mercat.</p>
+<p>A la nit podríem fer peix de carn.</p>
+<p> plovia, vam jugar el partit.</p>
+<p> estalviat, ara no té més diners que el sou.</p>`,
   questions: [
     {
       id: '1',
-      position: 38,
+      position: 41,
       options: [
         { text: 'hauria fet', correct: false, index: 1 },
         { text: 'devia haver fet', correct: true, index: 2 },
@@ -68,7 +68,7 @@ estalviat, ara no té més diners que el sou.`,
     },
     {
       id: '2',
-      position: 88,
+      position: 97,
       options: [
         { text: 'degut a', correct: false, index: 1 },
         { text: 'a causa de', correct: true, index: 2 },
@@ -76,7 +76,7 @@ estalviat, ara no té més diners que el sou.`,
     },
     {
       id: '3',
-      position: 121,
+      position: 136,
       options: [
         { text: 'en base a', correct: false, index: 1 },
         { text: 'a partir de', correct: true, index: 2 },
@@ -84,7 +84,7 @@ estalviat, ara no té més diners que el sou.`,
     },
     {
       id: '4',
-      position: 173,
+      position: 194,
       options: [
         { text: 'enlloc', correct: false, index: 1 },
         { text: 'en lloc', correct: true, index: 2 },
@@ -92,7 +92,7 @@ estalviat, ara no té més diners que el sou.`,
     },
     {
       id: '5',
-      position: 183,
+      position: 210,
       options: [
         { text: 'Malgrat', correct: false, index: 1 },
         { text: 'Malgrat que', correct: true, index: 2 },
@@ -100,7 +100,7 @@ estalviat, ara no té més diners que el sou.`,
     },
     {
       id: '6',
-      position: 212,
+      position: 246,
       options: [
         { text: 'Al no haver', correct: false, index: 1 },
         { text: 'Com que no ha', correct: true, index: 2 },

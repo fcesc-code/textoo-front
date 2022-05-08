@@ -1,5 +1,5 @@
-<p>Editor works!</p>
 <quill-editor
+  [modules]="this.editorOptions"
   (onFocus)="focus($event)"
   (onEditorChanged)="changedEditor($event)"
   (onBlur)="blur($event)"
