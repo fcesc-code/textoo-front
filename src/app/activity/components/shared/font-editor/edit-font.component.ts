@@ -13,7 +13,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Font } from '../../models/Activity.dto';
+import { Font } from '../../../models/Activity.dto';
 
 @Component({
   selector: 'app-edit-font',

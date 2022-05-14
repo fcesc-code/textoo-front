@@ -1,0 +1,21 @@
+<form
+  class="form w-full flex flex-row justify-between"
+  [formGroup]="keywordsForm"
+  (ngSubmit)="save()"
+  aria-label="keywords form"
+>
+  <mat-form-field appearance="standard" style="width: 5rem" floatLabel="never">
+    <mat-label>Add new keyword <mat-icon>add</mat-icon></mat-label>
+    <input
+      matInput
+      type="text"
+      (keyup)="emit()"
+      [formControl]="newKeyword"
+      aria-required="true"
+      id="keywordsForm-text"
+    />
+  </mat-form-field>
+  <ul>
+    <li *ngFor="let keyword of keywords">{{ keyword }}</li>
+  </ul>
+</form>

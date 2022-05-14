@@ -21,6 +21,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+/* Quill */
+import { QuillModule } from 'ngx-quill';
 /* Components */
 import { MosaicComponent } from './components/mosaic/mosaic.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -29,7 +31,9 @@ import { EditBestOptionComponent } from './components/best-option/edit-best-opti
 import { EditQuestionBestOptionComponent } from './components/best-option/edit-question-best-option.component';
 import { EditOptionBestOptionComponent } from './components/best-option/edit-option-best-option.component';
 import { PlaySelectTextComponent } from './components/select-text/play-select-text.component';
-import { EditFontComponent } from './components/shared/edit-font.component';
+import { EditFontComponent } from './components/shared/font-editor/edit-font.component';
+import { KeywordsEditorComponent } from './components/shared/keywords-editor/keywords-editor.component';
+import { EditorComponent } from './components/shared/editor/editor.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +51,8 @@ import { EditFontComponent } from './components/shared/edit-font.component';
     EditOptionBestOptionComponent,
     PlaySelectTextComponent,
     EditFontComponent,
+    EditorComponent,
+    KeywordsEditorComponent,
   ],
   imports: [
     CommonModule,
@@ -59,6 +65,7 @@ import { EditFontComponent } from './components/shared/edit-font.component';
     MatSelectModule,
     MatButtonModule,
     SharedModule,
+    QuillModule.forRoot(),
   ],
   providers: [ActivitiesService, UserService],
   exports: [],
