@@ -20,7 +20,7 @@ import { Font } from '../../../models/Activity.dto';
   templateUrl: './edit-font.component.html',
   styleUrls: ['./edit-font.component.sass'],
 })
-export class EditFontComponent implements OnInit, OnChanges {
+export class EditFontComponent implements OnInit {
   emptyFont: Font = {
     author: '',
     work: '',
@@ -68,10 +68,6 @@ export class EditFontComponent implements OnInit, OnChanges {
   @Output() fontResponse: EventEmitter<Font> = new EventEmitter();
 
   ngOnInit(): void {
-    this.setFormValues();
-  }
-
-  ngOnChanges(): void {
     this.setFormValues();
   }
 

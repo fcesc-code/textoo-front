@@ -73,12 +73,9 @@ export abstract class Activity {
   get scores(): Score {
     return this._scores;
   }
-  set scores({ timeToComplete, questions, scorePerQuestion }: Score) {
+  set scores({ timeToComplete, scorePerQuestion }: Score) {
     this._scores.timeToComplete = timeToComplete;
     this._scores.scorePerQuestion = scorePerQuestion;
-    this._scores.questions = questions;
-    this._scores.maxPossibleScore =
-      this._scores.questions * this._scores.scorePerQuestion;
   }
   get timestamps(): Timestamps {
     return this._timestamps;
@@ -129,8 +126,6 @@ export interface Timestamps {
 }
 
 export interface Score {
-  maxPossibleScore: number;
-  questions: number;
   scorePerQuestion: number;
   timeToComplete: number;
 }
@@ -177,4 +172,11 @@ export enum SupportedLanguages {
   ES = 'es',
   CA = 'ca',
   EN = 'en',
+}
+
+export interface CommonData {
+  title: string;
+  task: string;
+  language: SupportedLanguages;
+  scores: Score;
 }

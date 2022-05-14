@@ -34,6 +34,7 @@ import { PlaySelectTextComponent } from './components/select-text/play-select-te
 import { EditFontComponent } from './components/shared/font-editor/edit-font.component';
 import { KeywordsEditorComponent } from './components/shared/keywords-editor/keywords-editor.component';
 import { EditorComponent } from './components/shared/text-editor/editor.component';
+import { EditCommonComponent } from './components/shared/edit-common/edit-common.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { EditorComponent } from './components/shared/text-editor/editor.componen
     EditFontComponent,
     EditorComponent,
     KeywordsEditorComponent,
+    EditCommonComponent,
   ],
   imports: [
     CommonModule,

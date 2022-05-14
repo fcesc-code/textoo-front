@@ -1,0 +1,86 @@
+<form class="form" [formGroup]="commonForm" aria-label="common form">
+  <div class="flex flex-row justify-between items-center h-full">
+    <mat-form-field appearance="standard" style="width: 70%">
+      <mat-label>Títol</mat-label>
+      <input
+        matInput
+        type="text"
+        (keyup)="this.emit()"
+        [formControl]="title"
+        aria-required="true"
+        placeholder="Escriu un títol..."
+        id="activityForm-title"
+      />
+      <mat-error *ngIf="title.dirty && title.hasError('required')">
+        Cal introduir un títol per l'activitat.
+      </mat-error>
+      <mat-error
+        *ngIf="
+          title.dirty &&
+          title.hasError('minlength') &&
+          !title.hasError('required')
+        "
+      >
+        El títol ha de constar d'almenys 10 caràcters.
+      </mat-error>
+      <mat-error
+        *ngIf="
+          title.dirty &&
+          title.hasError('maxlength') &&
+          !title.hasError('required')
+        "
+      >
+        El títol no pot excedir els 100 caràcters.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard" style="width: 25%">
+      <mat-label>Idioma</mat-label>
+      <mat-select
+        required
+        (changeSelect)="this.emit()"
+        [formControl]="language"
+        aria-label="Select your preferred language"
+      >
+        <mat-option
+          *ngFor="let lang of this.supportedLanguages"
+          [value]="lang.short.toLowerCase()"
+          >{{ lang.long }}</mat-option
+        >
+      </mat-select>
+      <mat-error *ngIf="language.dirty && language.hasError('required')">
+        Has d'indicar l'idioma de l'activitat.
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="w-full">
+    <mat-form-field appearance="standard" style="width: 100%">
+      <mat-label>Enunciat</mat-label>
+      <input
+        matInput
+        type="text"
+        (keyup)="this.emit()"
+        [formControl]="task"
+        aria-required="true"
+        placeholder="Descriu què cal fer per completar l'activitat"
+        id="activityForm-title"
+      />
+      <mat-error *ngIf="task.dirty && task.hasError('required')">
+        Cal introduir un enunciat per l'activitat.
+      </mat-error>
+      <mat-error
+        *ngIf="
+          task.dirty && task.hasError('minlength') && !task.hasError('required')
+        "
+      >
+        L'enunciat ha de constar d'almenys 20 caràcters.
+      </mat-error>
+      <mat-error
+        *ngIf="
+          task.dirty && task.hasError('maxlength') && !task.hasError('required')
+        "
+      >
+        L'enunciat no pot excedir els 300 caràcters.
+      </mat-error>
+    </mat-form-field>
+  </div>
+</form>

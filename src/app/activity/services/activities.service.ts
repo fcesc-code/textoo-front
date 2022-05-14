@@ -69,22 +69,13 @@ export class ActivitiesService {
   new(activity: any) {
     return {
       bestOption(): ActivityBestOption {
-        return new ActivityBestOption({
-          ...activity,
-          type: ActivityType.BEST_OPTION,
-        });
+        return new ActivityBestOption(activity);
       },
       selectText(): ActivitySelectText {
-        return new ActivitySelectText({
-          ...activity,
-          type: ActivityType.SELECT_TEXT,
-        });
+        return new ActivitySelectText(activity);
       },
       transformAspect(): ActivityTransformAspect {
-        return new ActivityTransformAspect({
-          ...activity,
-          type: ActivityType.TRANSFORM_ASPECT,
-        });
+        return new ActivityTransformAspect(activity);
       },
     };
   }
