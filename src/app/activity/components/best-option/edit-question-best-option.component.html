@@ -21,6 +21,12 @@
       Q.{{ this.id }}
     </p>
     <p class="self-center">pos. {{ this.position }}</p>
+    <mat-icon
+      class="hover:text-emerald-600 my-6 scale-125"
+      title="afegir opció"
+      (click)="addOption()"
+      >add</mat-icon
+    >
     <!-- <div class="">
       <mat-form-field appearance="fill" style="width: 5rem">
         <mat-label>Posició</mat-label>
@@ -44,6 +50,7 @@
       *ngFor="let option of this.options"
       [option]="option"
       (optionResponse)="optionResponse($event)"
+      (optionRemoved)="optionRemoved($event)"
     ></app-edit-option-best-option>
   </div>
 </form>

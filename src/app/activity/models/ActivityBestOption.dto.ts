@@ -92,3 +92,8 @@ export interface OptionSelection {
   option: string;
   index: number;
 }
+
+export interface OptionResponse {
+  option: Option_ActivityBestOption;
+  UIextraTime: boolean;
+}

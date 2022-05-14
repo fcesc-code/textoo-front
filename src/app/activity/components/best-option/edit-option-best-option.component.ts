@@ -5,8 +5,10 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Observable, of } from 'rxjs';
-import { Option_ActivityBestOption } from '../../models/ActivityBestOption.dto';
+import {
+  Option_ActivityBestOption,
+  OptionResponse,
+} from '../../models/ActivityBestOption.dto';
 
 @Component({
   selector: 'app-edit-option-best-option',
@@ -37,8 +39,8 @@ export class EditOptionBestOptionComponent implements OnInit {
     });
   }
   @Input() option: Option_ActivityBestOption = this.emptyOption;
-  @Output() optionResponse: EventEmitter<Option_ActivityBestOption> =
-    new EventEmitter();
+  @Output() optionResponse: EventEmitter<OptionResponse> = new EventEmitter();
+  @Output() optionRemoved: EventEmitter<number> = new EventEmitter();
 
   ngOnInit(): void {
     this.index.setValue(this.option.index);
@@ -46,17 +48,38 @@ export class EditOptionBestOptionComponent implements OnInit {
     this.correct.setValue(this.option.correct);
   }
 
-  emit(): void {
+  emit(optionResponse: OptionResponse): void {
+    this.optionResponse.emit(optionResponse);
+  }
+
+  updatedText(): void {
     if (this.optionForm.valid && this.optionForm.dirty) {
-      const updatedOption = {
-        index: this.index.value,
-        ...this.optionForm.value,
-      };
-      this.optionResponse.emit(updatedOption);
+      const updatedOption = this.buildUpdatedOption();
+      this.emit({
+        option: updatedOption,
+        UIextraTime: true,
+      });
     }
   }
 
-  save() {
-    this.emit();
+  updatedValue(): void {
+    if (this.optionForm.valid && this.optionForm.dirty) {
+      const updatedOption = this.buildUpdatedOption();
+      this.emit({
+        option: updatedOption,
+        UIextraTime: false,
+      });
+    }
+  }
+
+  buildUpdatedOption(): Option_ActivityBestOption {
+    return {
+      index: this.index.value,
+      ...this.optionForm.value,
+    };
+  }
+
+  removeOption() {
+    this.optionRemoved.emit(this.index.value);
   }
 }

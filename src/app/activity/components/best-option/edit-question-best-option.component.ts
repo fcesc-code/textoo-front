@@ -12,10 +12,11 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { debounce, Subject, Subscription, timer } from 'rxjs';
+import { debounce, map, Subject, Subscription, tap, timer } from 'rxjs';
 import {
   Option_ActivityBestOption,
   Question_ActivityBestOption,
+  OptionResponse,
 } from '../../models/ActivityBestOption.dto';
 
 @Component({
@@ -24,7 +25,7 @@ import {
   styleUrls: ['./edit-question-best-option.component.sass'],
 })
 export class EditQuestionBestOptionComponent implements OnInit, OnDestroy {
-  UISubject: Subject<Option_ActivityBestOption>;
+  UISubject: Subject<OptionResponse>;
   UISubscription$: Subscription;
   options: Option_ActivityBestOption[];
   valid: boolean;
@@ -53,12 +54,12 @@ export class EditQuestionBestOptionComponent implements OnInit, OnDestroy {
 
     this.valid = false;
 
-    this.UISubject = new Subject<Option_ActivityBestOption>();
+    this.UISubject = new Subject<OptionResponse>();
     this.UISubscription$ = this.UISubject.pipe(
-      debounce(() => timer(750))
+      debounce((response) => (response.UIextraTime ? timer(750) : timer(0))),
+      map((response) => response.option)
     ).subscribe({
       next: (updatedOption) => {
-        console.log('subscription ready to send >>> ', updatedOption);
         this.updateOptionsArray(updatedOption);
         this.atLeastOneOptionIsTrue();
         this.emit();
@@ -87,7 +88,6 @@ export class EditQuestionBestOptionComponent implements OnInit, OnDestroy {
         options: this.options,
         ...this.questionForm.value,
       };
-      console.log('here here, outgoing question >>> ', question);
       this.questionResponse.emit(question);
     }
   }
@@ -96,7 +96,7 @@ export class EditQuestionBestOptionComponent implements OnInit, OnDestroy {
     this.emit();
   }
 
-  optionResponse(updatedOption: Option_ActivityBestOption): void {
+  optionResponse(updatedOption: OptionResponse): void {
     this.UISubject.next(updatedOption);
   }
 
@@ -105,6 +105,22 @@ export class EditQuestionBestOptionComponent implements OnInit, OnDestroy {
       option.index !== updatedOption.index ? option : updatedOption
     );
     this.options = newOptions;
+  }
+
+  optionRemoved(index: number): void {
+    const newOptions = [...this.options].filter(
+      (option) => option.index !== index
+    );
+    this.options = newOptions;
+  }
+
+  addOption(): void {
+    const newOption: Option_ActivityBestOption = {
+      index: this.options.length + 1,
+      text: '',
+      correct: false,
+    };
+    this.options.push(newOption);
   }
 
   atLeastOneOptionIsTrue(): void {

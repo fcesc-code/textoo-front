@@ -1,7 +1,6 @@
 <form
-  class="form w-full flex flex-row justify-between"
+  class="form w-full flex flex-row justify-between items-center"
   [formGroup]="optionForm"
-  (ngSubmit)="save()"
   aria-label="option form"
 >
   <mat-form-field appearance="standard" style="width: 3rem" floatLabel="never">
@@ -23,7 +22,7 @@
     <input
       matInput
       type="text"
-      (keyup)="emit()"
+      (keyup)="updatedText()"
       [formControl]="text"
       aria-required="true"
       id="optionForm-text"
@@ -33,7 +32,7 @@
     <mat-label>Valor</mat-label>
     <mat-select
       required
-      (selectionChange)="emit()"
+      (selectionChange)="updatedValue()"
       [formControl]="correct"
       aria-label="Indicar si aquesta és la opció correcta"
       id="optionForm-correct"
@@ -46,4 +45,7 @@
       una opció certa.
     </mat-error>
   </mat-form-field>
+  <mat-icon class="ml-3 hover:text-red-600" (click)="removeOption()"
+    >delete</mat-icon
+  >
 </form>
