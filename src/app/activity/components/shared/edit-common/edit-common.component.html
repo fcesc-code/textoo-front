@@ -9,7 +9,7 @@
         [formControl]="title"
         aria-required="true"
         placeholder="Escriu un títol..."
-        id="activityForm-title"
+        id="commonForm-title"
       />
       <mat-error *ngIf="title.dirty && title.hasError('required')">
         Cal introduir un títol per l'activitat.
@@ -40,6 +40,7 @@
         (changeSelect)="this.emit()"
         [formControl]="language"
         aria-label="Select your preferred language"
+        id="commonForm-language"
       >
         <mat-option
           *ngFor="let lang of this.supportedLanguages"
@@ -62,7 +63,7 @@
         [formControl]="task"
         aria-required="true"
         placeholder="Descriu què cal fer per completar l'activitat"
-        id="activityForm-title"
+        id="commonForm-task"
       />
       <mat-error *ngIf="task.dirty && task.hasError('required')">
         Cal introduir un enunciat per l'activitat.
@@ -80,6 +81,52 @@
         "
       >
         L'enunciat no pot excedir els 300 caràcters.
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="w-full">
+    <mat-form-field appearance="standard" style="width: 30%">
+      <mat-label>Punts per qüestió</mat-label>
+      <input
+        matInput
+        type="number"
+        (keyup)="this.emit()"
+        [formControl]="scorePerQuestion"
+        aria-required="true"
+        placeholder="Punts per cada qüestió"
+        id="commonForm-pointsPerQuestion"
+      />
+      <mat-error *ngIf="task.dirty && task.hasError('required')">
+        Cal introduir una puntuació mínima diferent per a cada pregunta (nombre
+        enter).
+      </mat-error>
+      <mat-error
+        *ngIf="task.dirty && task.hasError('min') && !task.hasError('required')"
+      >
+        La puntuació mínima per pregunta ha de ser almenys 1 punt.
+      </mat-error>
+      <mat-error
+        *ngIf="task.dirty && task.hasError('max') && !task.hasError('required')"
+      >
+        La puntuació per pregunta no pot excedir els 50 punts.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard" style="width: 30%" class="ml-6">
+      <mat-label>Temps màxim per completar</mat-label>
+      <input
+        matInput
+        type="number"
+        (keyup)="this.emit()"
+        [formControl]="timeToComplete"
+        aria-required="true"
+        placeholder="Temps màxim per respondre"
+        id="commonForm-timeToComplete"
+      />
+      <mat-error *ngIf="timeToComplete.dirty && task.hasError('min')">
+        El temps mínim per a completar l'exercici no pot ser inferior a 1 minut.
+      </mat-error>
+      <mat-error *ngIf="timeToComplete.dirty && task.hasError('max')">
+        El temps màxim per a completar l'exercici no pot excedir els 5 minuts.
       </mat-error>
     </mat-form-field>
   </div>

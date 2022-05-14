@@ -50,6 +50,8 @@ export class EditCommonComponent implements OnInit {
     ]);
     this.scorePerQuestion = new FormControl(0, [
       Validators.required,
+      Validators.min(1),
+      Validators.max(10),
       Validators.pattern(/^[0-9]*$/),
     ]);
     this.timeToComplete = new FormControl(0, [Validators.pattern(/^[0-9]*$/)]);
@@ -63,6 +65,7 @@ export class EditCommonComponent implements OnInit {
     });
   }
   @Input() common: CommonData = this.emptyCommon;
+  @Input() questions: number = 0;
   @Output() commonResponse: EventEmitter<CommonData> = new EventEmitter();
 
   ngOnInit(): void {

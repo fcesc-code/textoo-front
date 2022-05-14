@@ -18,6 +18,7 @@
           language: this.activity.language,
           scores: this.activity.scores
         }"
+        [questions]="this.questions.length"
         (commonResponse)="commonResponse($event)"
       ></app-edit-common>
     </div>
