@@ -17,6 +17,7 @@ import {
   Option_ActivityBestOption,
   Question_ActivityBestOption,
   OptionResponse,
+  QuestionResponse,
 } from '../../models/ActivityBestOption.dto';
 
 @Component({
@@ -67,7 +68,7 @@ export class EditQuestionBestOptionComponent implements OnInit, OnDestroy {
     });
   }
   @Input() question: Question_ActivityBestOption = this.emtpyQuestion;
-  @Output() questionResponse: EventEmitter<Question_ActivityBestOption> =
+  @Output() questionResponse: EventEmitter<QuestionResponse> =
     new EventEmitter();
 
   ngOnInit(): void {
@@ -83,13 +84,19 @@ export class EditQuestionBestOptionComponent implements OnInit, OnDestroy {
 
   emit(): void {
     if (this.questionForm.valid && this.valid) {
-      let question = {
-        id: this.id,
-        options: this.options,
-        ...this.questionForm.value,
-      };
-      this.questionResponse.emit(question);
+      this.questionResponse.emit({
+        question: this.questionBuilder(),
+        deleted: false,
+      });
     }
+  }
+
+  questionBuilder(): Question_ActivityBestOption {
+    return {
+      id: this.id,
+      options: this.options,
+      ...this.questionForm.value,
+    };
   }
 
   save() {
@@ -121,6 +128,13 @@ export class EditQuestionBestOptionComponent implements OnInit, OnDestroy {
       correct: false,
     };
     this.options.push(newOption);
+  }
+
+  removeQuestion(): void {
+    this.questionResponse.emit({
+      question: this.questionBuilder(),
+      deleted: true,
+    });
   }
 
   atLeastOneOptionIsTrue(): void {

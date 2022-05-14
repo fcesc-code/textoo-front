@@ -7,7 +7,6 @@
   <form
     class="form flex flex-col justify-start items-center sm:flex-row sm:flex-wrap sm:justify-between"
     [formGroup]="fontForm"
-    (ngSubmit)="save()"
     aria-label="font form"
   >
     <div class="w-full sm:w-[37%] md:w-[18%]">
@@ -15,6 +14,7 @@
         <mat-label>A l'activitat</mat-label>
         <mat-select
           required
+          (selectionChange)="this.emit()"
           [formControl]="display"
           aria-label="Indicar si cal mostrar la font de l'activitat"
         >
@@ -32,6 +32,7 @@
         <input
           matInput
           type="text"
+          (keyup)="this.emit()"
           [formControl]="author"
           aria-required="true"
           placeholder="El nom de l'autor/a..."
@@ -51,6 +52,7 @@
         <input
           matInput
           type="text"
+          (keyup)="this.emit()"
           [formControl]="work"
           aria-required="true"
           placeholder="El nom de l'obra..."
@@ -70,6 +72,7 @@
         <input
           matInput
           type="text"
+          (keyup)="this.emit()"
           [formControl]="year"
           aria-required="true"
           placeholder="1984"
@@ -86,6 +89,7 @@
         <input
           matInput
           type="text"
+          (keyup)="this.emit()"
           [formControl]="reference"
           aria-required="true"
           placeholder="Una referència de l'obra..."

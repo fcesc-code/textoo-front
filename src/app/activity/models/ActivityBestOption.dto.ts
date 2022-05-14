@@ -97,3 +97,8 @@ export interface OptionResponse {
   option: Option_ActivityBestOption;
   UIextraTime: boolean;
 }
+
+export interface QuestionResponse {
+  question: Question_ActivityBestOption;
+  deleted: boolean;
+}

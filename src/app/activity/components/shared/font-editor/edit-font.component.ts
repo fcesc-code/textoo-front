@@ -88,8 +88,7 @@ export class EditFontComponent implements OnInit, OnChanges {
     this.disabled = !this.display.value;
   }
 
-  save() {
-    console.log('here here, outgoing font >>> ', this.fontForm.value);
+  emit() {
     this.fontResponse.emit(this.fontForm.value);
   }
 }

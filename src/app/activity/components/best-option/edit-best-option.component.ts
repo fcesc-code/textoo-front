@@ -3,9 +3,10 @@ import { ActivitiesService } from '../../services/activities.service';
 import {
   ActivityBestOption,
   Question_ActivityBestOption,
+  QuestionResponse,
 } from '../../models/ActivityBestOption.dto';
 import { Font, Timestamps } from '../../models/Activity.dto';
-import { debounce, Subject, Subscription, timer } from 'rxjs';
+import { debounce, map, Subject, Subscription, timer } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CustomArrayMethods } from 'src/app/shared/utils/arrays';
 import {
@@ -25,7 +26,7 @@ import { LANGUAGES } from 'src/app/shared/constants/globals';
 export class EditBestOptionComponent implements OnInit, OnDestroy {
   responseTime = 750;
 
-  UIQuestionSubject: Subject<Question_ActivityBestOption>;
+  UIQuestionSubject: Subject<QuestionResponse>;
   UIQuestionSubscription$: Subscription;
   UIFontSubject: Subject<Font>;
   UIFontSubscription$: Subscription;
@@ -37,8 +38,8 @@ export class EditBestOptionComponent implements OnInit, OnDestroy {
   activity$!: Subscription;
   activity!: ActivityBestOption;
 
-  textWithQuestions!: string;
   questions: Question_ActivityBestOption[];
+
   supportedLanguages: any[] = LANGUAGES;
 
   activityForm: FormGroup;
@@ -78,12 +79,19 @@ export class EditBestOptionComponent implements OnInit, OnDestroy {
       language: this.language,
     });
 
-    this.UIQuestionSubject = new Subject<Question_ActivityBestOption>();
-    this.UIQuestionSubscription$ = this.UIQuestionSubject.pipe(
-      debounce(() => timer(this.responseTime))
-    ).subscribe({
-      next: (updatedQuestion) => {
-        this.updateQuestionsArray(updatedQuestion);
+    this.UIQuestionSubject = new Subject<QuestionResponse>();
+    this.UIQuestionSubscription$ = this.UIQuestionSubject.pipe().subscribe({
+      next: (questionResponse) => {
+        const updatedQuestion = questionResponse.question;
+        if (questionResponse.deleted) {
+          this.questionRemoved(updatedQuestion.id);
+          this.activity.text = this.removeSpeciticPlaceHolder(
+            this.activity.text,
+            updatedQuestion.id
+          );
+        } else {
+          this.updateQuestionsArray(updatedQuestion);
+        }
       },
     });
 
@@ -106,9 +114,7 @@ export class EditBestOptionComponent implements OnInit, OnDestroy {
     });
 
     this.UIKeywordsSubject = new Subject<string[]>();
-    this.UIKeywordsSubscription$ = this.UIKeywordsSubject.pipe(
-      debounce(() => timer(this.responseTime))
-    ).subscribe({
+    this.UIKeywordsSubscription$ = this.UIKeywordsSubject.pipe().subscribe({
       next: (updatedKeywords: string[]) => {
         this.activity.keywords = updatedKeywords;
       },
@@ -117,7 +123,6 @@ export class EditBestOptionComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const activityId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.textWithQuestions = `Carregant l'activitat...`;
 
     if (activityId) {
       this.isNewActivity = false;
@@ -125,7 +130,6 @@ export class EditBestOptionComponent implements OnInit, OnDestroy {
         .getActivityById(activityId)
         .subscribe((activity: ActivityBestOption) => {
           this.activity = this.classInitializer(activity);
-          this.textWithQuestions = this.activity.text;
           this.keywords = this.activity.keywords;
           this.title.setValue(this.activity.title);
           this.task.setValue(this.activity.task);
@@ -164,8 +168,8 @@ export class EditBestOptionComponent implements OnInit, OnDestroy {
     this.UIKeywordsSubject.next(updatedKeywords);
   }
 
-  questionResponse(updatedQuestion: Question_ActivityBestOption): void {
-    this.UIQuestionSubject.next(updatedQuestion);
+  questionResponse(questionResponse: QuestionResponse): void {
+    this.UIQuestionSubject.next(questionResponse);
   }
 
   updateQuestionsArray(updatedQuestion: Question_ActivityBestOption): void {
@@ -212,5 +216,23 @@ export class EditBestOptionComponent implements OnInit, OnDestroy {
       /<strong style=\"background-color: yellow;\">PREGUNTA N\. [0-9]+<\/strong>/g
     );
     return text.replace(exp, '') || '';
+  }
+
+  removeSpeciticPlaceHolder(text: string, id: string): string {
+    const exp = new RegExp(
+      `<strong style=\\"background-color: yellow;\\">PREGUNTA N\\. ` +
+        String(id).trim() +
+        `<\\/strong>`,
+      'g'
+    );
+    console.log('current >>> ' + text);
+    console.log('updated >>> ' + text.replace(exp, ''));
+    return text.replace(exp, '') || '';
+  }
+
+  questionRemoved(questionId: string): void {
+    this.questions = this.questions.filter(
+      (question) => question.id !== questionId
+    );
   }
 }

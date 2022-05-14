@@ -128,7 +128,7 @@
     <app-editor
       style="padding-bottom: 1.5rem"
       *ngIf="this.activity?.text"
-      [text]="this.textWithQuestions | addPlaceholderSelector: this.questions"
+      [text]="this.activity.text | addPlaceholderSelector: this.questions"
       (editorResponse)="editorResponse($event)"
     ></app-editor>
   </section>
