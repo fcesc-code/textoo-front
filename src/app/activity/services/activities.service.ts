@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
 //   MOCK_ACTIVITY_TRANSFORM_ASPECT,
 // } from 'mockdata/activity.mock';
 // import { catchError, Observable, of, tap } from 'rxjs';
-import { catchError, Observable } from 'rxjs';
-import { ActivityType } from 'src/app/activity/models/Activity.dto';
+import { catchError, Observable, tap } from 'rxjs';
+import { ActivityType, Timestamps } from 'src/app/activity/models/Activity.dto';
 import { ActivityBestOption } from '../models/ActivityBestOption.dto';
 import { ActivitySelectText } from '../models/ActivitySelectText.dto';
 import { ActivityTransformAspect } from '../models/ActivityTransformAspect.dto';
@@ -44,9 +44,10 @@ export class ActivitiesService {
   // }
 
   getActivityById(id: string): Observable<any> {
-    return this.http
-      .get<any>(`${this.API}/${id}`)
-      .pipe(catchError(this.sharedService.handleError));
+    return this.http.get<any>(`${this.API}/${id}`).pipe(
+      tap((data) => console.log('incoming >>> ', data)),
+      catchError(this.sharedService.handleError)
+    );
   }
 
   initializeActivity(
@@ -64,6 +65,36 @@ export class ActivitiesService {
         break;
     }
     return this.currentActivity;
+  }
+
+  new(activity: any) {
+    return {
+      bestOption(): ActivityBestOption {
+        return new ActivityBestOption({
+          ...activity,
+          type: ActivityType.BEST_OPTION,
+        });
+      },
+      selectText(): ActivitySelectText {
+        return new ActivitySelectText({
+          ...activity,
+          type: ActivityType.SELECT_TEXT,
+        });
+      },
+      transformAspect(): ActivityTransformAspect {
+        return new ActivityTransformAspect({
+          ...activity,
+          type: ActivityType.TRANSFORM_ASPECT,
+        });
+      },
+    };
+  }
+
+  generateTiemstamps(): Timestamps {
+    return {
+      created: new Date(),
+      modified: new Date(),
+    };
   }
 
   getAllActivities(): Observable<any> {

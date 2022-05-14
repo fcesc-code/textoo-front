@@ -1,5 +1,5 @@
 export abstract class Activity {
-  protected _id!: string | null;
+  protected _id: string;
   protected _timestamps!: Timestamps;
   protected _type!: ActivityType;
   protected _scores!: Score;
@@ -18,9 +18,9 @@ export abstract class Activity {
     font,
     title,
     scores,
-    id,
+    _id,
   }: AbstractActivityConstructor) {
-    this._id = id || null;
+    this._id = _id;
     this._type = type;
     this._language = language;
     this._author = author;
@@ -31,10 +31,10 @@ export abstract class Activity {
   }
 
   get id(): string {
-    return this._id === null ? '' : this._id;
+    return this._id;
   }
   set id(id: string) {
-    if (this._id === null) {
+    if (this._id === null || this._id === undefined || this._id === '') {
       this._id = id;
     } else {
       throw new Error('ID already set');
@@ -144,7 +144,7 @@ export interface Font {
 }
 
 export interface ActivityConstructor {
-  id?: string;
+  _id: string;
   language: SupportedLanguages;
   task: string;
   font: Font;

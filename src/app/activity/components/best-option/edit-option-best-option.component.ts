@@ -1,17 +1,11 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Observable, of } from 'rxjs';
 import { Option_ActivityBestOption } from '../../models/ActivityBestOption.dto';
 
 @Component({
@@ -19,7 +13,7 @@ import { Option_ActivityBestOption } from '../../models/ActivityBestOption.dto';
   templateUrl: './edit-option-best-option.component.html',
   styleUrls: ['./edit-option-best-option.component.sass'],
 })
-export class EditOptionBestOptionComponent implements OnInit, OnChanges {
+export class EditOptionBestOptionComponent implements OnInit {
   emptyOption: Option_ActivityBestOption = {
     text: '',
     correct: false,
@@ -32,8 +26,6 @@ export class EditOptionBestOptionComponent implements OnInit, OnChanges {
   text: FormControl;
 
   constructor(private formBuilder: FormBuilder) {
-    this.option = this.emptyOption;
-
     this.text = new FormControl('', [Validators.required]);
     this.correct = new FormControl(false, [Validators.required]);
     this.index = new FormControl({ value: 0, disabled: true });
@@ -49,21 +41,22 @@ export class EditOptionBestOptionComponent implements OnInit, OnChanges {
     new EventEmitter();
 
   ngOnInit(): void {
-    this.setFormValues();
-  }
-
-  ngOnChanges(): void {
-    this.setFormValues();
-  }
-
-  setFormValues() {
-    // console.log('data received >>> ', this.option);
     this.index.setValue(this.option.index);
     this.text.setValue(this.option.text);
     this.correct.setValue(this.option.correct);
   }
 
+  emit(): void {
+    if (this.optionForm.valid && this.optionForm.dirty) {
+      const updatedOption = {
+        index: this.index.value,
+        ...this.optionForm.value,
+      };
+      this.optionResponse.emit(updatedOption);
+    }
+  }
+
   save() {
-    this.optionResponse.emit(this.optionForm.value);
+    this.emit();
   }
 }

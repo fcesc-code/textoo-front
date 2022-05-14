@@ -21,7 +21,7 @@ export class ActivityBestOption extends Activity {
     keywords,
     text,
     questions,
-    id,
+    _id,
   }: ActivityBestOptionConstructor) {
     super({
       type: ActivityType.BEST_OPTION,
@@ -32,7 +32,7 @@ export class ActivityBestOption extends Activity {
       title,
       activityId,
       scores,
-      id,
+      _id,
     });
     this.keywords = keywords;
     this.timestamps = timestamps;

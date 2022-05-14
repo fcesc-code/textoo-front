@@ -21,6 +21,7 @@ export class ActivityTransformAspect extends Activity {
     scores,
     text,
     questions,
+    _id,
   }: ActivityTransformAspectConstructor) {
     super({
       type: ActivityType.TRANSFORM_ASPECT,
@@ -31,6 +32,7 @@ export class ActivityTransformAspect extends Activity {
       title,
       activityId,
       scores,
+      _id,
     });
     this.keywords = keywords;
     this.timestamps = timestamps;

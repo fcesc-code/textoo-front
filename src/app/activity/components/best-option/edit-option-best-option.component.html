@@ -4,7 +4,7 @@
   (ngSubmit)="save()"
   aria-label="option form"
 >
-  <mat-form-field appearance="fill" style="width: 3rem">
+  <mat-form-field appearance="standard" style="width: 3rem" floatLabel="never">
     <mat-label>Index</mat-label>
     <input
       matInput
@@ -14,20 +14,26 @@
       id="optionForm-index"
     />
   </mat-form-field>
-  <mat-form-field appearance="fill" style="min-width: 15rem; width: 50%">
+  <mat-form-field
+    appearance="standard"
+    style="margin-right: 0.5rem; margin-left: 0.5rem; width: 65%"
+    floatLabel="never"
+  >
     <mat-label>Text</mat-label>
     <input
       matInput
       type="text"
+      (keyup)="emit()"
       [formControl]="text"
       aria-required="true"
       id="optionForm-text"
     />
   </mat-form-field>
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="standard" style="width: 8rem" floatLabel="never">
     <mat-label>Valor</mat-label>
     <mat-select
       required
+      (selectionChange)="emit()"
       [formControl]="correct"
       aria-label="Indicar si aquesta és la opció correcta"
       id="optionForm-correct"

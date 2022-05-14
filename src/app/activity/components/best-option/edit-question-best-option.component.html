@@ -4,7 +4,7 @@
   (ngSubmit)="save()"
   aria-label="font form"
 >
-  <div class="w-[10%] min-w-fit text-center">
+  <div class="w-[10%] min-w-fit text-center pt-7 pl-2">
     <!-- <div class="">
       <mat-form-field appearance="fill" style="width: 3rem">
         <mat-label>Id</mat-label>
@@ -17,8 +17,8 @@
         />
       </mat-form-field>
     </div> -->
-    <p class="font-bold text-2xl text-emerald-700 self-center">
-      Q {{ this.id }}
+    <p class="font-bold text-3xl text-emerald-700 self-center">
+      Q.{{ this.id }}
     </p>
     <p class="self-center">pos. {{ this.position }}</p>
     <!-- <div class="">
@@ -34,7 +34,11 @@
       </mat-form-field>
     </div> -->
   </div>
-  <div class="w-[88%] flex flex-col justify-between items-start">
+  <div class="w-[88%] flex flex-col justify-between items-start pb-2 pr-6">
+    <mat-error *ngIf="!valid" class="pt-6 pr-6 text-justify">
+      Atenció: almenys una de les opcions d'aquesta qüestió ha de ser certa.
+      Modifica les teves opcions o afegeix-ne una de nova que sigui certa.
+    </mat-error>
     <app-edit-option-best-option
       class="w-full"
       *ngFor="let option of this.options"

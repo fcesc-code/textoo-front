@@ -4,9 +4,9 @@ import {
   ActivityBestOption,
   Question_ActivityBestOption,
 } from '../../models/ActivityBestOption.dto';
-import { Subscription } from 'rxjs';
+import { Font, Timestamps } from '../../models/Activity.dto';
+import { debounce, Subject, Subscription, timer } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { OptionSelection } from '../../models/ActivityBestOption.dto';
 import { CustomArrayMethods } from 'src/app/shared/utils/arrays';
 import {
   FormBuilder,
@@ -23,13 +23,22 @@ import { LANGUAGES } from 'src/app/shared/constants/globals';
   styleUrls: ['./edit-best-option.component.sass'],
 })
 export class EditBestOptionComponent implements OnInit, OnDestroy {
+  responseTime = 750;
+
+  UIQuestionSubject: Subject<Question_ActivityBestOption>;
+  UIQuestionSubscription$: Subscription;
+  UIFontSubject: Subject<Font>;
+  UIFontSubscription$: Subscription;
+  UIKeywordsSubject: Subject<string[]>;
+  UIKeywordsSubscription$: Subscription;
+  UITextSubject: Subject<string>;
+  UITextSubscription$: Subscription;
+
   activity$!: Subscription;
   activity!: ActivityBestOption;
-  selectedOptions!: OptionSelection[];
-  idSelector: string = 'activityMainText';
+
   textWithQuestions!: string;
-  questions!: Question_ActivityBestOption[];
-  question: Question_ActivityBestOption;
+  questions: Question_ActivityBestOption[];
   supportedLanguages: any[] = LANGUAGES;
 
   activityForm: FormGroup;
@@ -37,20 +46,17 @@ export class EditBestOptionComponent implements OnInit, OnDestroy {
   task: FormControl;
   language: FormControl;
   keywords: string[];
-  text: string;
+
+  isNewActivity: boolean;
 
   constructor(
     private activitiesService: ActivitiesService,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder
   ) {
-    this.text = 'This is an initial placeholder text.';
-    this.question = {
-      id: '',
-      position: 0,
-      options: [],
-    };
+    this.questions = [];
     this.keywords = [];
+    this.isNewActivity = false;
 
     this.title = new FormControl('', [
       Validators.required,
@@ -66,21 +72,60 @@ export class EditBestOptionComponent implements OnInit, OnDestroy {
       Validators.required,
     ]);
 
-    this.activityForm = this.formBuilder.group({});
+    this.activityForm = this.formBuilder.group({
+      title: this.title,
+      task: this.task,
+      language: this.language,
+    });
+
+    this.UIQuestionSubject = new Subject<Question_ActivityBestOption>();
+    this.UIQuestionSubscription$ = this.UIQuestionSubject.pipe(
+      debounce(() => timer(this.responseTime))
+    ).subscribe({
+      next: (updatedQuestion) => {
+        this.updateQuestionsArray(updatedQuestion);
+      },
+    });
+
+    this.UITextSubject = new Subject<string>();
+    this.UITextSubscription$ = this.UITextSubject.pipe(
+      debounce(() => timer(this.responseTime))
+    ).subscribe({
+      next: (updatedText) => {
+        this.activity.text = updatedText;
+      },
+    });
+
+    this.UIFontSubject = new Subject<Font>();
+    this.UIFontSubscription$ = this.UIFontSubject.pipe(
+      debounce(() => timer(this.responseTime))
+    ).subscribe({
+      next: (updatedFont) => {
+        this.activity.font = updatedFont;
+      },
+    });
+
+    this.UIKeywordsSubject = new Subject<string[]>();
+    this.UIKeywordsSubscription$ = this.UIKeywordsSubject.pipe(
+      debounce(() => timer(this.responseTime))
+    ).subscribe({
+      next: (updatedKeywords: string[]) => {
+        this.activity.keywords = updatedKeywords;
+      },
+    });
   }
 
   ngOnInit(): void {
-    this.selectedOptions = [];
     const activityId = this.activatedRoute.snapshot.paramMap.get('id');
     this.textWithQuestions = `Carregant l'activitat...`;
 
     if (activityId) {
+      this.isNewActivity = false;
       this.activity$ = this.activitiesService
         .getActivityById(activityId)
         .subscribe((activity: ActivityBestOption) => {
-          this.classInitializer(activity);
+          this.activity = this.classInitializer(activity);
           this.textWithQuestions = this.activity.text;
-          this.text = this.activity.text;
           this.title.setValue(this.activity.title);
           this.task.setValue(this.activity.task);
           this.language.setValue(this.activity.language);
@@ -89,53 +134,82 @@ export class EditBestOptionComponent implements OnInit, OnDestroy {
             'position'
           );
         });
+    } else {
+      this.isNewActivity = true;
     }
   }
 
   ngOnDestroy(): void {
     this.activity$.unsubscribe();
+    this.UIQuestionSubscription$.unsubscribe();
+    this.UIFontSubscription$.unsubscribe();
+    this.UIKeywordsSubscription$.unsubscribe();
+    this.UITextSubscription$.unsubscribe();
   }
 
-  classInitializer(activity: any): void {
-    this.activity = this.activitiesService.initializeActivity(
-      activity
-    ) as ActivityBestOption;
+  classInitializer(activity: Partial<ActivityBestOption>): ActivityBestOption {
+    return this.activitiesService.new(activity).bestOption();
   }
 
   editorResponse(updatedText: string): void {
-    // console.log('here here, updatedText >>> ', updatedText);
-    this.text = updatedText;
+    this.UITextSubject.next(updatedText);
   }
 
-  fontResponse(font: any): void {
-    // console.log('parent receiving font >>> ', font);
-    this.activity.font = font;
+  fontResponse(font: Font): void {
+    this.UIFontSubject.next(font);
   }
 
-  questionResponse(question: Question_ActivityBestOption): void {
-    console.log('questionResponse received in parent >>> ', question);
+  keywordsResponse(updatedKeywords: string[]): void {
+    this.UIKeywordsSubject.next(updatedKeywords);
   }
 
-  updateActivity(): void {
-    if (this.activityForm.valid) {
-      console.log(
-        'creating new instance to be submitted >>> ',
-        this.activityForm.value
-      );
-      this.classInitializer({ ...this.activityForm.value });
+  questionResponse(updatedQuestion: Question_ActivityBestOption): void {
+    this.UIQuestionSubject.next(updatedQuestion);
+  }
+
+  updateQuestionsArray(updatedQuestion: Question_ActivityBestOption): void {
+    const newQuestions = [...this.questions].map((question) =>
+      question.id !== updatedQuestion.id ? question : updatedQuestion
+    );
+    this.questions = newQuestions;
+  }
+
+  createOrUpdate(): void {
+    if (this.activityForm.valid && !this.isNewActivity) {
+      let result = this.buildActivity();
+      console.log('updating activity >>> ', result);
+    }
+    if (this.activityForm.valid && this.isNewActivity) {
+      let result = this.buildActivity();
+      console.log('creating activity >>> ', result);
     }
   }
 
-  save(): void {
-    console.log('saving activity >>> ', this.activity);
+  buildActivity(): ActivityBestOption {
+    const text = this.removePlaceHolders(this.activity.text);
+    const newTimestamps: Timestamps = {
+      created: this.isNewActivity
+        ? new Date()
+        : this.activity.timestamps.created,
+      modified: new Date(),
+    };
+    return this.classInitializer({
+      ...this.activityForm.value,
+      _id: this.activity.id,
+      author: this.activity.author,
+      text: text,
+      keywords: this.activity.keywords,
+      font: this.activity.font,
+      questions: this.questions,
+      timestamps: newTimestamps,
+      scores: this.activity.scores,
+    });
   }
 
-  removePlaceHolders(): string {
+  removePlaceHolders(text: string): string {
     const exp = new RegExp(
       /<strong style=\"background-color: yellow;\">PREGUNTA N\. [0-9]+<\/strong>/g
     );
-    let result = this.text.replace(exp, '');
-    console.log('result >>> ', result);
-    return result;
+    return text.replace(exp, '') || '';
   }
 }
