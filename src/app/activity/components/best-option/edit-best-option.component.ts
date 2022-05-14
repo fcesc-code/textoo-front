@@ -126,6 +126,7 @@ export class EditBestOptionComponent implements OnInit, OnDestroy {
         .subscribe((activity: ActivityBestOption) => {
           this.activity = this.classInitializer(activity);
           this.textWithQuestions = this.activity.text;
+          this.keywords = this.activity.keywords;
           this.title.setValue(this.activity.title);
           this.task.setValue(this.activity.task);
           this.language.setValue(this.activity.language);

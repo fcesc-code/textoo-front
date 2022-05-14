@@ -1,7 +1,6 @@
 <article>
   <h2 class="font-bold text-xl py-3 text-center">
-    Editor d'activitat tipus "{{ this.activity?.type }}",
-    {{ this.activity?.id }}
+    Editor d'activitat tipus {{ this.activity?.type }}
   </h2>
   <section
     class="mb-6 border-2 border-slate-100 rounded-lg px-6 pt-6 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300 lg:max-w-screen-lg mx-auto"
@@ -103,6 +102,20 @@
         </mat-form-field>
       </div>
     </form>
+  </section>
+  <section
+    class="mb-6 border-2 border-slate-100 rounded-lg px-6 pt-6 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300 lg:max-w-screen-lg mx-auto"
+  >
+    <h3
+      class="font-semibold text-lg pb-3 text-center sm:text-left text-emerald-900"
+    >
+      Paraules clau
+    </h3>
+    <app-keywords-editor
+      *ngIf="this.activity"
+      [keywords]="this.keywords"
+      (keywordsResponse)="keywordsResponse($event)"
+    ></app-keywords-editor>
   </section>
   <section
     class="mb-6 border-2 border-slate-100 rounded-lg px-6 py-6 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300 lg:max-w-screen-lg mx-auto"

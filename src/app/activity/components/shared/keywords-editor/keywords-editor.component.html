@@ -4,18 +4,45 @@
   (ngSubmit)="save()"
   aria-label="keywords form"
 >
-  <mat-form-field appearance="standard" style="width: 5rem" floatLabel="never">
-    <mat-label>Add new keyword <mat-icon>add</mat-icon></mat-label>
-    <input
-      matInput
-      type="text"
-      (keyup)="emit()"
-      [formControl]="newKeyword"
-      aria-required="true"
-      id="keywordsForm-text"
-    />
-  </mat-form-field>
-  <ul>
-    <li *ngFor="let keyword of keywords">{{ keyword }}</li>
+  <div class="w-56">
+    <mat-form-field
+      appearance="standard"
+      style="width: 12rem"
+      floatLabel="never"
+    >
+      <mat-label>Afegir nova paraula clau</mat-label>
+      <input
+        matInput
+        type="text"
+        (keyup.enter)="addKeyword()"
+        [formControl]="newKeyword"
+        aria-required="true"
+        id="keywordsForm-text"
+      />
+      <mat-error *ngIf="newKeyword.dirty && newKeyword.hasError('pattern')">
+        Les paraules clau només poden contenir text.
+      </mat-error>
+    </mat-form-field>
+    <mat-icon
+      (click)="addKeyword()"
+      title="afegir paraula clau"
+      class="cursor-pointer align-baseline"
+      >add</mat-icon
+    >
+  </div>
+  <ul class="flex flex-row flex-wrap justify-end items-center w-[65%] ml-4">
+    <li
+      *ngFor="let keyword of keywords"
+      class="px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-emerald-200 leading-6 flex flex-row justify-center items-center"
+    >
+      <span>{{ keyword }}</span>
+      <span class="pl-3 leading-6" (click)="removeKeyword(keyword)"
+        ><mat-icon
+          class="leading-6 align-middle cursor-pointer"
+          title="esborrar paraula"
+          >delete</mat-icon
+        ></span
+      >
+    </li>
   </ul>
 </form>

@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 
 @Component({
-  selector: 'app-keywords-editor-option',
+  selector: 'app-keywords-editor',
   templateUrl: './keywords-editor.component.html',
   styleUrls: ['./keywords-editor.component.sass'],
 })
@@ -23,22 +23,32 @@ export class KeywordsEditorComponent implements OnInit {
     });
   }
   @Input() keywords: string[] = [];
-  @Output() keywordsEditorResponse: EventEmitter<string[]> = new EventEmitter();
+  @Output() keywordsResponse: EventEmitter<string[]> = new EventEmitter();
 
   ngOnInit(): void {
     console.log('hi worlds');
   }
 
   emit(): void {
-    if (this.keywordsForm.valid && this.keywordsForm.dirty) {
-      const updatedOption = {
-        ...this.keywordsForm.value,
-      };
-      this.keywordsEditorResponse.emit(updatedOption);
-    }
+    this.keywordsResponse.emit(this.keywords);
   }
 
   save() {
+    this.emit();
+  }
+
+  addKeyword() {
+    if (this.newKeyword.valid && this.newKeyword.dirty) {
+      if (!this.keywords.includes(this.newKeyword.value)) {
+        this.keywords.push(this.newKeyword.value);
+      }
+      this.newKeyword.reset();
+    }
+    this.emit();
+  }
+
+  removeKeyword(keyword: string) {
+    this.keywords = this.keywords.filter((k) => k !== keyword);
     this.emit();
   }
 }

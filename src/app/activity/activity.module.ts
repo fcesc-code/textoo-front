@@ -33,7 +33,7 @@ import { EditOptionBestOptionComponent } from './components/best-option/edit-opt
 import { PlaySelectTextComponent } from './components/select-text/play-select-text.component';
 import { EditFontComponent } from './components/shared/font-editor/edit-font.component';
 import { KeywordsEditorComponent } from './components/shared/keywords-editor/keywords-editor.component';
-import { EditorComponent } from './components/shared/editor/editor.component';
+import { EditorComponent } from './components/shared/text-editor/editor.component';
 
 @NgModule({
   declarations: [

@@ -44,10 +44,9 @@ export class ActivitiesService {
   // }
 
   getActivityById(id: string): Observable<any> {
-    return this.http.get<any>(`${this.API}/${id}`).pipe(
-      tap((data) => console.log('incoming >>> ', data)),
-      catchError(this.sharedService.handleError)
-    );
+    return this.http
+      .get<any>(`${this.API}/${id}`)
+      .pipe(catchError(this.sharedService.handleError));
   }
 
   initializeActivity(

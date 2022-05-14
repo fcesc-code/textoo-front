@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 /* impoer shared module components */
 import { LoginComponent } from './auth/components/login/login.component';
 import { WelcomeComponent } from './auth/components/welcome/welcome.component';
-import { EditorComponent } from './activity/components/shared/editor/editor.component';
+import { EditorComponent } from './activity/components/shared/text-editor/editor.component';
 /* import user module components */
 import { ProfileComponent } from './user/components/profile/profile.component';
 import { RegisterComponent } from './user/components/register/register.component';
