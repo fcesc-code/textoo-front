@@ -33,7 +33,7 @@ export class ActivitiesService {
     //   MOCK_ACTIVITY_TRANSFORM_ASPECT,
     // ];
     // this.activities = [];
-    this.API = `${API_ROUTES.development}/${API_CONTROLLERS.activities}`;
+    this.API = `${API_ROUTES.production}/${API_CONTROLLERS.activities}`;
   }
 
   // getActivity(id: string): Observable<any> {
