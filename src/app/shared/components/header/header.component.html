@@ -1,9 +1,9 @@
-<div class="flex flex-wrap justify-between items-center">
+<div id="top" class="flex flex-wrap justify-between items-center">
   <div class="flex flex-wrap justify-start items-center">
     <button
       *ngIf="showNoAuthSection"
       type="button"
-      class="hidden md:block px-4 hover:text-emerald-600"
+      class="hidden md:block px-4 hover:text-emerald-600 hover:font-semibold"
       aria-label="Connectar-me"
       [routerLink]="['/login']"
     >
@@ -12,7 +12,7 @@
     <button
       *ngIf="showNoAuthSection"
       type="button"
-      class="hidden md:block px-4 hover:text-emerald-600"
+      class="hidden md:block px-4 hover:text-emerald-600 hover:font-semibold"
       aria-label="Inscriure'm"
       [routerLink]="['/register']"
     >
@@ -21,7 +21,7 @@
     <button
       *ngIf="showAuthSection"
       type="button"
-      class="hidden md:block px-4 hover:text-emerald-600"
+      class="hidden md:block px-4 hover:text-emerald-600 hover:font-semibold"
       aria-label="Les meves activitats"
       [routerLink]="['/activities/dashboard']"
     >
@@ -30,7 +30,7 @@
     <button
       *ngIf="showAuthSection"
       type="button"
-      class="hidden md:block px-4 hover:text-emerald-600"
+      class="hidden md:block px-4 hover:text-emerald-600 hover:font-semibold"
       aria-label="Grups"
       [routerLink]="['/groups']"
     >
@@ -39,7 +39,7 @@
     <button
       *ngIf="showAuthSection"
       type="button"
-      class="hidden md:block px-4 hover:text-emerald-600"
+      class="hidden md:block px-4 hover:text-emerald-600 hover:font-semibold"
       aria-label="Unir-me a un joc"
       [routerLink]="['/join']"
     >
@@ -50,7 +50,7 @@
     <button
       *ngIf="showAuthSection"
       type="button"
-      class="hidden md:block px-4 hover:text-emerald-600"
+      class="hidden md:block px-4 hover:text-emerald-600 hover:font-semibold"
       aria-label="Gestionar perfil"
       [routerLink]="['/user/profile']"
     >
@@ -61,7 +61,7 @@
     <button
       *ngIf="showAuthSection"
       type="button"
-      class="hidden md:block px-4 hover:text-emerald-600"
+      class="hidden md:block px-4 hover:text-emerald-600 hover:font-semibold"
       aria-label="Desconnexió"
       (click)="logout()"
     >
