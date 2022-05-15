@@ -32,7 +32,6 @@ export class RegisterComponent {
   activeGroups: string[];
 
   registerForm: FormGroup;
-  isValidForm: boolean | null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -50,8 +49,6 @@ export class RegisterComponent {
       roles: [UserRoles.learner.valueOf()],
       likedActivities: [],
     });
-
-    this.isValidForm = null;
 
     this.roles = [UserRoles.learner];
     this.likedActivities = [];
