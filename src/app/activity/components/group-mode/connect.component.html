@@ -1,0 +1,50 @@
+<section>
+  <form
+    class="w-[85%] sm:w-[70%] md:w-[65%] lg:w-[58%] pb-6 flex flex-col justify-start items-center mb-6 border-2 border-slate-100 rounded-lg px-6 pt-6 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300 mx-auto mt-8"
+    [formGroup]="joinGroupForm"
+    (ngSubmit)="join()"
+    aria-label="join group form"
+  >
+    <h2 class="font-bold text-xl py-3 text-center px-6">
+      Unir-me a una activitat de grup
+    </h2>
+    <div
+      class="w-full flex flex-col sm:flex-row justify-start sm:justify-center items-center px-6"
+    >
+      <mat-form-field
+        appearance="standard"
+        style="width: 15rem; text-align: center; font-size: 18px"
+        class="sm:mr-8"
+      >
+        <mat-error *ngIf="accessCode.dirty && accessCode.hasError('required')">
+          Si no introdueixes el codi correctament, no podràs participar a
+          l'activitat.
+        </mat-error>
+        <mat-error
+          *ngIf="
+            accessCode.dirty &&
+            !accessCode.hasError('required') &&
+            accessCode.hasError('minlength')
+          "
+        >
+          Ops. El codi de l'activitat té almenys 6 caràcters.
+        </mat-error>
+        <mat-label>Codi accés</mat-label>
+        <input
+          matInput
+          type="text"
+          class="mx-6"
+          [formControl]="accessCode"
+          aria-required="true"
+          placeholder="Introdueix el codi d'accés"
+          id="joinGroupForm-accessCode"
+        />
+      </mat-form-field>
+      <app-button
+        class="w-58"
+        (click)="this.join(); $event.preventDefault()"
+        text="unir-me al grup"
+      ></app-button>
+    </div>
+  </form>
+</section>

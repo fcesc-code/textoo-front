@@ -1,38 +1,73 @@
-<div class="header__icongroup">
-  <button
-    *ngIf="showNoAuthSection"
-    mat-raised-button
-    class="button__text"
-    aria-label="Log in"
-    (click)="login()"
-  >
-    Login
-  </button>
-  <button
-    *ngIf="showNoAuthSection"
-    mat-icon-button
-    class="button__text"
-    aria-label="Register"
-    (click)="register()"
-  >
-    Register
-  </button>
-  <button
-    *ngIf="showAuthSection"
-    mat-icon-button
-    class="button__text"
-    aria-label="Manage profile"
-    (click)="profile()"
-  >
-    Profile
-  </button>
-  <button
-    *ngIf="showAuthSection"
-    mat-raised-button
-    class="button__text"
-    aria-label="Log out"
-    (click)="logout()"
-  >
-    Logout
-  </button>
+<div id="top" class="flex flex-wrap justify-between items-center">
+  <div class="flex flex-wrap justify-start items-center">
+    <button
+      *ngIf="showNoAuthSection"
+      type="button"
+      class="hidden md:block px-4 hover:text-emerald-600 hover:font-semibold"
+      aria-label="Connectar-me"
+      [routerLink]="['/login']"
+    >
+      connexió
+    </button>
+    <button
+      *ngIf="showNoAuthSection"
+      type="button"
+      class="hidden md:block px-4 hover:text-emerald-600 hover:font-semibold"
+      aria-label="Inscriure'm"
+      [routerLink]="['/register']"
+    >
+      registre
+    </button>
+    <button
+      *ngIf="showAuthSection"
+      type="button"
+      class="hidden md:block px-4 hover:text-emerald-600 hover:font-semibold"
+      aria-label="Les meves activitats"
+      [routerLink]="['/activities/dashboard']"
+    >
+      les meves activitats
+    </button>
+    <button
+      *ngIf="showAuthSection"
+      type="button"
+      class="hidden md:block px-4 hover:text-emerald-600 hover:font-semibold"
+      aria-label="Grups"
+      [routerLink]="['/groups']"
+    >
+      grups
+    </button>
+    <button
+      *ngIf="showAuthSection"
+      type="button"
+      class="hidden md:block px-4 hover:text-emerald-600 hover:font-semibold"
+      aria-label="Unir-me a un joc"
+      [routerLink]="['/join']"
+    >
+      unir-me a joc
+    </button>
+  </div>
+  <div class="flex flex-wrap justify-end items-center">
+    <button
+      *ngIf="showAuthSection"
+      type="button"
+      class="hidden md:block px-4 hover:text-emerald-600 hover:font-semibold"
+      aria-label="Gestionar perfil"
+      [routerLink]="['/user/profile']"
+    >
+      <mat-icon class="leading-12 align-middle" title="perfil"
+        >account_circle</mat-icon
+      >
+    </button>
+    <button
+      *ngIf="showAuthSection"
+      type="button"
+      class="hidden md:block px-4 hover:text-emerald-600 hover:font-semibold"
+      aria-label="Desconnexió"
+      (click)="logout()"
+    >
+      <mat-icon class="leading-12 align-middle" title="desconnexió"
+        >power_settings_new</mat-icon
+      >
+    </button>
+  </div>
 </div>

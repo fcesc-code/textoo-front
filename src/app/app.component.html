@@ -1,53 +1,105 @@
 <mat-toolbar>
-  <nav class="flex flex-row flex-nowrap justify-start items-center">
-    <div class="sm:visible md:hidden mx-2 leading-12">
-      <button
-        class="leading-12"
-        aria-label="Menu button"
-        (click)="sidenav.toggle()"
+  <header
+    class="w-full flex flex-row flex-nowrap justify-between items-center leading-10"
+  >
+    <div
+      class="w-full sm:w-[15%] flex flex-row flex-nowrap justify-start items-center leading-10"
+    >
+      <div class="mx-22">
+        <button
+          class="md:hidden"
+          aria-label="Menu button"
+          (click)="sidenav.toggle()"
+        >
+          <mat-icon class="leading-12 align-middle">menu</mat-icon>
+        </button>
+      </div>
+      <h1
+        class="visible cursor-pointer px-4 ml-2 leading-12"
+        [routerLink]="['/home']"
       >
-        <mat-icon class="">menu</mat-icon>
-      </button>
+        Textoo
+      </h1>
     </div>
-    <div class="visible cursor-pointer mx-2 leading-12" (click)="home()">
-      Textoo
-    </div>
-    <div class="sm:hidden md:visible mx-2">
-      <app-header class="sm:hidden md:visible"></app-header>
-    </div>
-  </nav>
+    <nav class="w-[30%] sm:w-[80%]">
+      <app-header></app-header>
+    </nav>
+  </header>
 </mat-toolbar>
 <mat-sidenav-container hasBackdrop="true">
   <mat-sidenav
     #sidenav
     mode="over"
-    class="snap-none overflow-x-hidden overflow-y-auto sm:visible md:hidden"
+    class="snap-none overflow-x-hidden overflow-y-auto md:hidden"
   >
     <li
-      class="list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
-      (click)="login()"
+      *ngIf="showNoAuthSection"
+      class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
+      [routerLink]="['/login']"
+      (click)="sidenav.toggle()"
     >
       <mat-icon aria-hidden="true" class="mx-4">verified_user</mat-icon
-      ><span class="px-2">Login</span>
+      ><span class="px-2">connexió</span>
     </li>
     <li
-      class="list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
-      (click)="register()"
+      *ngIf="showNoAuthSection"
+      class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
+      [routerLink]="['/register']"
+      (click)="sidenav.toggle()"
     >
       <mat-icon aria-hidden="true" class="mx-4">create</mat-icon
-      ><span class="px-2">Register</span>
+      ><span class="px-2">registre</span>
     </li>
     <li
-      class="list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
+      *ngIf="showAuthSection"
+      class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
+      [routerLink]="['/activities/dashboard']"
+      (click)="sidenav.toggle()"
+    >
+      <mat-icon aria-hidden="true" class="mx-4">play_circle_outline</mat-icon
+      ><span class="px-2">les meves activitats</span>
+    </li>
+    <li
+      *ngIf="showAuthSection"
+      class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
+      [routerLink]="['/groups']"
+      (click)="sidenav.toggle()"
+    >
+      <mat-icon aria-hidden="true" class="mx-4">group_work</mat-icon
+      ><span class="px-2">grups</span>
+    </li>
+    <li
+      *ngIf="showAuthSection"
+      class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
+      [routerLink]="['/join']"
+      (click)="sidenav.toggle()"
+    >
+      <mat-icon aria-hidden="true" class="mx-4">av_timer</mat-icon
+      ><span class="px-2">unir-me a un joc</span>
+    </li>
+    <li
+      *ngIf="showAuthSection"
+      class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
+      [routerLink]="['/user/profile']"
+      (click)="sidenav.toggle()"
+    >
+      <mat-icon aria-hidden="true" class="mx-4">account_circle</mat-icon
+      ><span class="px-2">perfil</span>
+    </li>
+    <li
+      *ngIf="showAuthSection"
+      class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
       (click)="logout()"
     >
       <mat-icon aria-hidden="true" class="mx-4">power_settings_new</mat-icon
-      ><span class="px-2">Logout</span>
+      ><span class="px-2">desconnexió</span>
     </li>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>
-    <router-outlet></router-outlet>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
   </mat-sidenav-content>
 </mat-sidenav-container>
 <app-footer></app-footer>

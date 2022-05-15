@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import {
   MOCK_ACTIVITY_BEST_OPTION,
@@ -7,7 +8,7 @@ import {
 import { ActivityBestOption } from '../models/ActivityBestOption.dto';
 import { ActivitySelectText } from '../models/ActivitySelectText.dto';
 import { ActivityTransformAspect } from '../models/ActivityTransformAspect.dto';
-
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivitiesService } from './activities.service';
 
 describe('ActivitiesService', () => {
@@ -15,7 +16,10 @@ describe('ActivitiesService', () => {
   let TITLE = 'activities service';
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+    });
     service = TestBed.inject(ActivitiesService);
   });
 
@@ -33,7 +37,7 @@ describe('ActivitiesService', () => {
     let result;
     let condition;
     const subscription$ = service
-      .getActivity(MOCK_ID)
+      .getActivityById(MOCK_ID)
       .subscribe((activity: ActivityBestOption) => {
         result = service.initializeActivity(activity) as ActivityBestOption;
         condition = result instanceof ActivityBestOption;
@@ -56,7 +60,7 @@ describe('ActivitiesService', () => {
     let result;
     let condition;
     const subscription$ = service
-      .getActivity(MOCK_ID)
+      .getActivityById(MOCK_ID)
       .subscribe((activity: ActivitySelectText) => {
         result = service.initializeActivity(activity) as ActivitySelectText;
         condition = result instanceof ActivitySelectText;
@@ -79,7 +83,7 @@ describe('ActivitiesService', () => {
     let result;
     let condition;
     const subscription$ = service
-      .getActivity(MOCK_ID)
+      .getActivityById(MOCK_ID)
       .subscribe((activity: ActivityTransformAspect) => {
         result = service.initializeActivity(
           activity

@@ -38,6 +38,6 @@ describe('Auth module > Components > Login', () => {
   it(`${TITLE} 2 > should display a button with 'Register' text`, () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const buttons = compiled.querySelectorAll('button');
-    expect(buttons[1].innerText.trim()).toContain('Register');
+    expect(buttons[1].innerText.trim()).toContain('Sign in');
   });
 });

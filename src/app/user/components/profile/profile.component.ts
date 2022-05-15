@@ -1,39 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import { formatDate } from '@angular/common';
+import { AfterContentInit, Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { USER_ACTIONS } from '../../actions/user.actions';
-import { NewUserDto, UserDto } from 'src/app/user/models/user.dto';
+import { UserDto } from 'src/app/user/models/user.dto';
 import {
   SupportedLanguages,
   UserRoles,
 } from 'src/app/shared/interfaces/global.interfaces';
-import { HeaderMenusService } from 'src/app/shared/services/header-menus.service';
+import { LANGUAGES, USER_ROLES } from 'src/app/shared/constants/globals';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.sass'],
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, AfterContentInit {
+  supportedLanguages: any[] = LANGUAGES;
+  supportedRoles: any[] = USER_ROLES;
   profileUser: UserDto;
 
   avatar: FormControl;
-  preferences: FormControl;
+  language: FormControl;
   alias: FormControl;
   email: FormControl;
-  password: FormControl;
-  roles: UserRoles[];
-  _id: string;
+  roles: FormControl;
+  // password: FormControl;
   likedActivities: string[];
   activeGroups: string[];
 
@@ -43,9 +42,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private sharedService: SharedService,
-    private headerMenusService: HeaderMenusService,
     private localStorageService: LocalStorageService,
-    private router: Router,
     private store: Store<AppState>
   ) {
     this.profileUser = new UserDto({
@@ -62,8 +59,7 @@ export class ProfileComponent implements OnInit {
 
     this.isValidForm = null;
 
-    this._id = '';
-    this.roles = [UserRoles.learner];
+    this.roles = new FormControl(this.profileUser.roles, [Validators.required]);
     this.likedActivities = [];
     this.activeGroups = [];
     this.alias = new FormControl(this.profileUser.alias, [
@@ -75,12 +71,12 @@ export class ProfileComponent implements OnInit {
       Validators.required,
       Validators.email,
     ]);
-    this.password = new FormControl(this.profileUser.password, [
-      Validators.required,
-      Validators.minLength(8),
-      Validators.maxLength(24),
-    ]);
-    this.preferences = new FormControl(this.profileUser.preferences, [
+    // this.password = new FormControl(this.profileUser.password, [
+    //   Validators.required,
+    //   Validators.minLength(8),
+    //   Validators.maxLength(24),
+    // ]);
+    this.language = new FormControl(this.profileUser.preferences.language, [
       Validators.required,
     ]);
     this.avatar = new FormControl(this.profileUser.avatar);
@@ -88,55 +84,53 @@ export class ProfileComponent implements OnInit {
     this.profileForm = this.formBuilder.group({
       alias: this.alias,
       email: this.email,
-      password: this.password,
-      preferences: this.preferences,
+      language: this.language,
       avatar: this.avatar,
       roles: this.roles,
     });
+    // password: this.password,
   }
   ngOnInit(): void {
     const userId = this.localStorageService.get('user_id');
 
     if (userId) {
-      this.store
-        .select('user')
-        .pipe()
-        .subscribe({
-          next: ({ loaded, error, user }): void => {
-            if (loaded) {
-              const {
-                _id,
-                avatar,
-                alias,
-                preferences,
-                email,
-                activeGroups,
-                likedActivities,
-                roles,
-              } = user;
-              this.avatar.setValue(avatar);
-              this.alias.setValue(alias);
-              this.email.setValue(email);
-              this.preferences.setValue(preferences);
-              this._id = _id as string;
-              this.roles = roles as UserRoles[];
-              this.likedActivities = likedActivities as string[];
-              this.activeGroups = activeGroups as string[];
+      this.store.select('user').subscribe({
+        next: ({ loaded, error, user }): void => {
+          if (loaded) {
+            const {
+              avatar,
+              alias,
+              preferences,
+              email,
+              activeGroups,
+              likedActivities,
+              roles,
+            } = user;
+            this.avatar.setValue(avatar);
+            this.alias.setValue(alias);
+            this.email.setValue(email);
+            this.language.setValue(preferences?.language);
+            // this.password.setValue('');
+            this.roles.setValue(roles);
+            this.likedActivities = likedActivities as string[];
+            this.activeGroups = activeGroups as string[];
+          }
+          if (error) {
+            this.sharedService.errorLog(error.error);
+          }
+        },
+        error: (error): void => {
+          this.sharedService.errorLog(error);
+        },
+      });
 
-              this.profileForm = this.formBuilder.group({
-                avatar: this.avatar,
-                alias: this.alias,
-                preferences: this.preferences,
-                email: this.email,
-                password: this.password,
-              });
-            }
-            if (error) {
-              this.sharedService.errorLog(error.error);
-            }
-          },
-        });
+      this.store.dispatch(USER_ACTIONS.getById({ userId: userId }));
+    }
+  }
 
+  ngAfterContentInit(): void {
+    const userId = this.localStorageService.get('user_id');
+    if (userId) {
       this.store.dispatch(USER_ACTIONS.getById({ userId: userId }));
     }
   }
@@ -146,39 +140,42 @@ export class ProfileComponent implements OnInit {
       return;
     }
 
-    this.profileUser = this.profileForm.value;
-
     const userId = this.localStorageService.get('user_id');
 
     if (userId) {
-      this.store
-        .select('user')
-        .pipe()
-        .subscribe({
-          next: async ({ error, loaded }): Promise<void> => {
-            if (loaded) {
-              await this.sharedService.managementToast(
-                'postFeedback',
-                loaded,
-                undefined
-              );
-            }
-            if (error) {
-              this.sharedService.errorLog(error.error);
-              await this.sharedService.managementToast(
-                'postFeedback',
-                loaded,
-                error.error
-              );
-            }
-          },
-        });
+      this.store.select('user').subscribe({
+        next: async ({ error, loaded }): Promise<void> => {
+          if (loaded) {
+            await this.sharedService.managementToast(
+              'postFeedback',
+              loaded,
+              undefined
+            );
+          }
+          if (error) {
+            this.sharedService.errorLog(error.error);
+            await this.sharedService.managementToast(
+              'postFeedback',
+              loaded,
+              error.error
+            );
+          }
+        },
+      });
 
       if (this.profileForm.valid) {
+        const updatedUser: UserDto = new UserDto({
+          ...this.profileUser,
+          preferences: { language: this.language.value as SupportedLanguages },
+        });
         this.store.dispatch(
-          USER_ACTIONS.update({ userId: userId, user: this.profileUser })
+          USER_ACTIONS.update({ userId: userId, user: updatedUser })
         );
       }
     }
+  }
+
+  compareLanguages(lang1: string, lang2: string): boolean {
+    return lang1 === lang2;
   }
 }

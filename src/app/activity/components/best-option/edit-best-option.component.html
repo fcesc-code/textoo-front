@@ -1,0 +1,89 @@
+<article>
+  <h2 class="font-bold text-xl py-3 text-center">
+    Editor d'activitat tipus {{ this.activity?.type }}
+  </h2>
+  <section
+    class="mb-6 border-2 border-slate-100 rounded-lg px-6 pt-6 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300 lg:max-w-screen-lg mx-auto"
+  >
+    <h3
+      class="font-semibold text-lg pb-3 text-center sm:text-left text-emerald-900"
+    >
+      Dades principals
+    </h3>
+    <div *ngIf="this.activity" class="my-3">
+      <app-edit-common
+        [common]="{
+          title: this.activity.title,
+          task: this.activity.task,
+          language: this.activity.language,
+          scores: this.activity.scores
+        }"
+        [questions]="this.questions.length"
+        (commonResponse)="commonResponse($event)"
+      ></app-edit-common>
+    </div>
+  </section>
+  <section
+    class="mb-6 border-2 border-slate-100 rounded-lg px-6 pt-6 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300 lg:max-w-screen-lg mx-auto"
+  >
+    <h3
+      class="font-semibold text-lg pb-3 text-center sm:text-left text-emerald-900"
+    >
+      Paraules clau
+    </h3>
+    <app-keywords-editor
+      *ngIf="this.activity"
+      [keywords]="this.keywords"
+      (keywordsResponse)="keywordsResponse($event)"
+    ></app-keywords-editor>
+  </section>
+  <section
+    class="mb-6 border-2 border-slate-100 rounded-lg px-6 py-6 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300 lg:max-w-screen-lg mx-auto"
+  >
+    <h3
+      class="font-semibold text-lg pb-3 text-center sm:text-left text-emerald-900"
+    >
+      Text base
+    </h3>
+    <app-editor
+      style="padding-bottom: 1.5rem"
+      *ngIf="this.activity?.text"
+      [text]="this.activity.text | addPlaceholderSelector: this.questions"
+      (editorResponse)="editorResponse($event)"
+    ></app-editor>
+  </section>
+  <section
+    class="mb-6 border-2 border-slate-100 rounded-lg px-6 pt-6 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300 lg:max-w-screen-lg mx-auto"
+  >
+    <h3
+      class="font-semibold text-lg pb-3 text-center sm:text-left text-emerald-900"
+    >
+      Qüestions
+    </h3>
+    <div *ngIf="this.questions" class="my-3">
+      <app-edit-question-best-option
+        *ngFor="let question of this.questions"
+        [question]="question"
+        (questionResponse)="questionResponse($event)"
+      ></app-edit-question-best-option>
+    </div>
+  </section>
+  <section
+    class="mb-6 border-2 border-slate-100 rounded-lg px-6 pt-6 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300 lg:max-w-screen-lg mx-auto"
+  >
+    <app-edit-font
+      *ngIf="this.activity"
+      [font]="this.activity.font"
+      (fontResponse)="fontResponse($event)"
+    ></app-edit-font>
+  </section>
+  <section
+    class="mb-6 border-2 border-slate-100 rounded-lg px-6 py-6 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300 lg:max-w-screen-lg mx-auto"
+  >
+    <app-button
+      id="showResults"
+      (click)="this.createOrUpdate()"
+      text="guardar"
+    ></app-button>
+  </section>
+</article>

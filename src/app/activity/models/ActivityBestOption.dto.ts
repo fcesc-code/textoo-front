@@ -21,7 +21,7 @@ export class ActivityBestOption extends Activity {
     keywords,
     text,
     questions,
-    id,
+    _id,
   }: ActivityBestOptionConstructor) {
     super({
       type: ActivityType.BEST_OPTION,
@@ -32,7 +32,7 @@ export class ActivityBestOption extends Activity {
       title,
       activityId,
       scores,
-      id,
+      _id,
     });
     this.keywords = keywords;
     this.timestamps = timestamps;
@@ -91,4 +91,14 @@ export interface OptionSelection {
   position: number;
   option: string;
   index: number;
+}
+
+export interface OptionResponse {
+  option: Option_ActivityBestOption;
+  UIextraTime: boolean;
+}
+
+export interface QuestionResponse {
+  question: Question_ActivityBestOption;
+  deleted: boolean;
 }

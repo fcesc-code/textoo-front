@@ -1,5 +1,5 @@
 export const API_ROUTES = {
-  production: 'https://textoo-backend.web.app',
+  production: 'https://europe-west1-textoo-backend.cloudfunctions.net/api',
   development: 'http://localhost:3000',
 };
 
