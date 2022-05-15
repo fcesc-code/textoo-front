@@ -1,6 +1,6 @@
 <mat-toolbar>
   <header
-    class="w-full flex flex-row flex-nowrap justify-between items-center leading-10"
+    class="w-full box-border flex flex-row flex-nowrap justify-between items-center leading-10"
   >
     <div
       class="w-full sm:w-[15%] flex flex-row flex-nowrap justify-start items-center leading-10"
@@ -95,7 +95,7 @@
       ><span class="px-2">desconnexió</span>
     </li>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content styles="width: 100vw; overflow:hidden">
     <mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>
     <main>
       <router-outlet></router-outlet>
