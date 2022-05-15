@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -13,13 +13,14 @@ import { AppState } from 'src/app/app.reducer';
 import { USER_ACTIONS } from '../../actions/user.actions';
 import { UserRoles } from '../../../shared/interfaces/global.interfaces';
 import { SupportedLanguages } from 'src/app/activity/models/Activity.dto';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.sass'],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnDestroy {
   registerUser: NewUserDto;
 
   avatar: FormControl;
@@ -32,6 +33,8 @@ export class RegisterComponent {
   activeGroups: string[];
 
   registerForm: FormGroup;
+
+  subscription!: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -81,6 +84,10 @@ export class RegisterComponent {
     });
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+  count = 0;
   async register(): Promise<void> {
     this.registerUser = new NewUserDto({
       ...this.registerForm.value,
@@ -89,9 +96,10 @@ export class RegisterComponent {
       roles: this.roles,
     });
 
-    this.store.select('user').subscribe({
+    this.subscription = this.store.select('user').subscribe({
       next: async ({ loaded, error }): Promise<void> => {
         if (loaded) {
+          console.log(`Success received (count:${this.count})>>> `, loaded);
           await this.sharedService.managementToast(
             'registerFeedback',
             loaded,
