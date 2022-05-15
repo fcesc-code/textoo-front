@@ -13,6 +13,7 @@ import { EditBestOptionComponent } from './activity/components/best-option/edit-
 import { PlaySelectTextComponent } from './activity/components/select-text/play-select-text.component';
 import { DashboardComponent } from './activity/components/dashboard/dashboard.component';
 import { MosaicComponent } from './activity/components/mosaic/mosaic.component';
+import { ConnectComponent } from './activity/components/group-mode/connect.component';
 
 export const routes: Routes = [
   {
@@ -54,6 +55,10 @@ export const routes: Routes = [
   {
     path: 'edit/best_option/:id',
     component: EditBestOptionComponent,
+  },
+  {
+    path: 'join',
+    component: ConnectComponent,
   },
   {
     path: '**',

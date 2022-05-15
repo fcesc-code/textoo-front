@@ -1,0 +1,33 @@
+<article>
+  <h2 class="font-bold text-xl py-3 text-center">
+    Unir-me a una activitat de grup
+  </h2>
+  <section
+    class="mb-6 border-2 border-slate-100 rounded-lg px-6 pt-6 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300 lg:max-w-screen-lg mx-auto"
+  >
+    <mat-form-field appearance="standard" style="width: 30%" class="ml-6">
+      <mat-label>Codi</mat-label>
+      <input
+        matInput
+        type="text"
+        [formControl]="accessCode"
+        aria-required="true"
+        placeholder="Introdueix el codi de l'activitat"
+        id="joinGroupForm-accessCode"
+      />
+      <mat-error *ngIf="accessCode.dirty && accessCode.hasError('required')">
+        Si no introdueixes el codi correctament, no podràs participar a
+        l'activitat.
+      </mat-error>
+    </mat-form-field>
+  </section>
+  <section
+    class="mb-6 border-2 border-slate-100 rounded-lg px-6 py-6 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300 lg:max-w-screen-lg mx-auto"
+  >
+    <app-button
+      id="showResults"
+      (click)="this.join()"
+      text="unir-me al grup"
+    ></app-button>
+  </section>
+</article>

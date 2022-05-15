@@ -35,6 +35,7 @@ import { EditFontComponent } from './components/shared/font-editor/edit-font.com
 import { KeywordsEditorComponent } from './components/shared/keywords-editor/keywords-editor.component';
 import { EditorComponent } from './components/shared/text-editor/editor.component';
 import { EditCommonComponent } from './components/shared/edit-common/edit-common.component';
+import { ConnectComponent } from './components/group-mode/connect.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { EditCommonComponent } from './components/shared/edit-common/edit-common
     EditorComponent,
     KeywordsEditorComponent,
     EditCommonComponent,
+    ConnectComponent,
   ],
   imports: [
     CommonModule,

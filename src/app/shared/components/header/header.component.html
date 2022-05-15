@@ -4,7 +4,7 @@
       *ngIf="showNoAuthSection"
       type="button"
       class="hidden md:block px-4"
-      aria-label="Log in"
+      aria-label="Connectar-me"
       (click)="login()"
     >
       connexió
@@ -13,7 +13,7 @@
       *ngIf="showNoAuthSection"
       type="button"
       class="hidden md:block px-4"
-      aria-label="Register"
+      aria-label="Inscriure'm"
       (click)="register()"
     >
       registre
@@ -22,7 +22,7 @@
       *ngIf="showAuthSection"
       type="button"
       class="hidden md:block px-4"
-      aria-label="Your activities"
+      aria-label="Les meves activitats"
       [routerLink]="['/activities/dashboard']"
     >
       les meves activitats
@@ -31,10 +31,19 @@
       *ngIf="showAuthSection"
       type="button"
       class="hidden md:block px-4"
-      aria-label="Your groups"
+      aria-label="Grups"
       [routerLink]="['/groups']"
     >
       grups
+    </button>
+    <button
+      *ngIf="showAuthSection"
+      type="button"
+      class="hidden md:block px-4"
+      aria-label="Unir-me a un joc"
+      [routerLink]="['/join']"
+    >
+      unir-me a joc
     </button>
   </div>
   <div class="flex flex-wrap justify-end items-center">
@@ -42,7 +51,7 @@
       *ngIf="showAuthSection"
       type="button"
       class="hidden md:block px-4"
-      aria-label="Manage profile"
+      aria-label="Gestionar perfil"
       (click)="profile()"
     >
       <mat-icon class="leading-12 align-middle" title="perfil"
@@ -53,7 +62,7 @@
       *ngIf="showAuthSection"
       type="button"
       class="hidden md:block px-4"
-      aria-label="Log out"
+      aria-label="Desconnexió"
       (click)="logout()"
     >
       <mat-icon class="leading-12 align-middle" title="desconnexió"
