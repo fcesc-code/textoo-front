@@ -1,33 +1,33 @@
-<mat-toolbar
-  style="top: 0; position: sticky; position: -webkit-sticky; z-index: 1000"
->
-  <header
-    class="w-full box-border flex flex-row flex-nowrap justify-between items-center leading-10"
-  >
+<header class="top-0 sticky">
+  <mat-toolbar>
     <div
-      class="w-full sm:w-[15%] flex flex-row flex-nowrap justify-start items-center leading-10"
+      class="w-full box-border flex flex-row flex-nowrap justify-between items-center leading-10"
     >
-      <div class="mx-22">
-        <button
-          class="md:hidden"
-          aria-label="Menu button"
-          (click)="sidenav.toggle()"
-        >
-          <mat-icon class="leading-12 align-middle">menu</mat-icon>
-        </button>
-      </div>
-      <h1
-        class="visible cursor-pointer px-4 ml-2 leading-12"
-        [routerLink]="['/home']"
+      <div
+        class="w-full sm:w-[15%] flex flex-row flex-nowrap justify-start items-center leading-10"
       >
-        Textoo
-      </h1>
+        <div class="mx-22">
+          <button
+            class="md:hidden"
+            aria-label="Menu button"
+            (click)="sidenav.toggle()"
+          >
+            <mat-icon class="leading-12 align-middle">menu</mat-icon>
+          </button>
+        </div>
+        <h1
+          class="visible cursor-pointer px-4 ml-2 leading-12"
+          [routerLink]="['/home']"
+        >
+          Textoo
+        </h1>
+      </div>
+      <nav class="w-[30%] sm:w-[80%]">
+        <app-header></app-header>
+      </nav>
     </div>
-    <nav class="w-[30%] sm:w-[80%]">
-      <app-header></app-header>
-    </nav>
-  </header>
-</mat-toolbar>
+  </mat-toolbar>
+</header>
 <mat-sidenav-container hasBackdrop="true">
   <mat-sidenav
     #sidenav
