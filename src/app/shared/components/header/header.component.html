@@ -1,60 +1,64 @@
-<div class="flex flex-wrap justify-end items-center">
-  <button
-    *ngIf="showNoAuthSection"
-    type="button"
-    class="hidden md:block px-4"
-    aria-label="Log in"
-    (click)="login()"
-  >
-    connexió
-  </button>
-  <button
-    *ngIf="showNoAuthSection"
-    type="button"
-    class="hidden md:block px-4"
-    aria-label="Register"
-    (click)="register()"
-  >
-    registre
-  </button>
-  <button
-    *ngIf="showAuthSection"
-    type="button"
-    class="hidden md:block px-4"
-    aria-label="Your activities"
-    [routerLink]="['/activities/dashboard']"
-  >
-    les meves activitats
-  </button>
-  <button
-    *ngIf="showAuthSection"
-    type="button"
-    class="hidden md:block px-4"
-    aria-label="Your groups"
-    [routerLink]="['/groups']"
-  >
-    grups
-  </button>
-  <button
-    *ngIf="showAuthSection"
-    type="button"
-    class="hidden md:block px-4"
-    aria-label="Manage profile"
-    (click)="profile()"
-  >
-    <mat-icon class="leading-12 align-middle" title="perfil"
-      >account_circle</mat-icon
+<div class="flex flex-wrap justify-between items-center">
+  <div class="flex flex-wrap justify-start items-center">
+    <button
+      *ngIf="showNoAuthSection"
+      type="button"
+      class="hidden md:block px-4"
+      aria-label="Log in"
+      (click)="login()"
     >
-  </button>
-  <button
-    *ngIf="showAuthSection"
-    type="button"
-    class="hidden md:block px-4"
-    aria-label="Log out"
-    (click)="logout()"
-  >
-    <mat-icon class="leading-12 align-middle" title="desconnexió"
-      >power_settings_new</mat-icon
+      connexió
+    </button>
+    <button
+      *ngIf="showNoAuthSection"
+      type="button"
+      class="hidden md:block px-4"
+      aria-label="Register"
+      (click)="register()"
     >
-  </button>
+      registre
+    </button>
+    <button
+      *ngIf="showAuthSection"
+      type="button"
+      class="hidden md:block px-4"
+      aria-label="Your activities"
+      [routerLink]="['/activities/dashboard']"
+    >
+      les meves activitats
+    </button>
+    <button
+      *ngIf="showAuthSection"
+      type="button"
+      class="hidden md:block px-4"
+      aria-label="Your groups"
+      [routerLink]="['/groups']"
+    >
+      grups
+    </button>
+  </div>
+  <div class="flex flex-wrap justify-end items-center">
+    <button
+      *ngIf="showAuthSection"
+      type="button"
+      class="hidden md:block px-4"
+      aria-label="Manage profile"
+      (click)="profile()"
+    >
+      <mat-icon class="leading-12 align-middle" title="perfil"
+        >account_circle</mat-icon
+      >
+    </button>
+    <button
+      *ngIf="showAuthSection"
+      type="button"
+      class="hidden md:block px-4"
+      aria-label="Log out"
+      (click)="logout()"
+    >
+      <mat-icon class="leading-12 align-middle" title="desconnexió"
+        >power_settings_new</mat-icon
+      >
+    </button>
+  </div>
 </div>
