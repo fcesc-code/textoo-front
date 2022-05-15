@@ -66,7 +66,7 @@ export class SharedService {
     //   method: error.method,
     // });
     // console.groupEnd();
-    console.log('Error logged in shared service.');
+    console.log('Error logged in shared service: ', error);
   }
 
   async wait(ms: number) {
