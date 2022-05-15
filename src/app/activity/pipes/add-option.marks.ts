@@ -26,3 +26,8 @@ export const QUESTION = {
   PREFIX: '<em>(',
   SUFFIX: ')</em>',
 };
+
+export const PLACEHOLDER = {
+  PREFIX: '<strong style="background-color:yellow">PREGUNTA N. ',
+  SUFFIX: '</strong>',
+};

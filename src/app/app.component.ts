@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { AfterContentInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SpinnerService } from './shared/services/spinner.service';
 import { Router } from '@angular/router';
@@ -14,10 +14,12 @@ import { AUTH_ACTIONS } from './auth/actions/auth.actions';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass'],
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnDestroy, OnInit, AfterContentInit {
   title = 'textoo';
   isLoading: boolean;
   spinner_subscription: Subscription;
+  showAuthSection: boolean;
+  showNoAuthSection: boolean;
 
   constructor(
     private spinnerService: SpinnerService,
@@ -30,26 +32,29 @@ export class AppComponent implements OnDestroy {
     this.spinner_subscription = this.spinnerService.isLoading.subscribe(
       (status) => (this.isLoading = status)
     );
+    this.showAuthSection = false;
+    this.showNoAuthSection = true;
+  }
+
+  ngOnInit(): void {
+    this.headerMenusService.headerManagement.subscribe(
+      (headerInfo: HeaderMenus) => {
+        if (headerInfo) {
+          this.showAuthSection = headerInfo.showAuthSection;
+          this.showNoAuthSection = headerInfo.showNoAuthSection;
+        }
+      }
+    );
+
+    this.refreshAuthStatus();
+  }
+
+  ngAfterContentInit(): void {
+    this.refreshAuthStatus();
   }
 
   ngOnDestroy() {
     this.spinner_subscription.unsubscribe();
-  }
-
-  home(): void {
-    this.router.navigateByUrl('home');
-  }
-
-  login(): void {
-    this.router.navigateByUrl('login');
-  }
-
-  register(): void {
-    this.router.navigateByUrl('register');
-  }
-
-  profile(): void {
-    this.router.navigateByUrl('profile');
   }
 
   logout(): void {
@@ -67,5 +72,23 @@ export class AppComponent implements OnDestroy {
     this.store.dispatch(AUTH_ACTIONS.logout());
 
     this.router.navigateByUrl('home');
+  }
+
+  refreshAuthStatus(): void {
+    const userId = this.localStorageService.get('user_id');
+    const token = this.localStorageService.get('access_token');
+    if (userId && token) {
+      const headerInfo: HeaderMenus = {
+        showAuthSection: true,
+        showNoAuthSection: false,
+      };
+      this.headerMenusService.headerManagement.next(headerInfo);
+    } else {
+      const headerInfo: HeaderMenus = {
+        showAuthSection: false,
+        showNoAuthSection: true,
+      };
+      this.headerMenusService.headerManagement.next(headerInfo);
+    }
   }
 }

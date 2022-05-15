@@ -18,7 +18,7 @@ export class AuthService {
     private http: HttpClient,
     private localStorageService: LocalStorageService
   ) {
-    this.API = `${API_ROUTES.development}/${API_CONTROLLERS.auth}/`;
+    this.API = `${API_ROUTES.production}/${API_CONTROLLERS.auth}/`;
   }
 
   login(auth: AuthLogin): Observable<AuthToken> {

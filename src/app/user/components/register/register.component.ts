@@ -7,8 +7,6 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NewUserDto } from '../../models/user.dto';
-import { HeaderMenusService } from 'src/app/shared/services/header-menus.service';
-import { HeaderMenus } from 'src/app/shared/models/header-menus.dto';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
@@ -34,12 +32,10 @@ export class RegisterComponent {
   activeGroups: string[];
 
   registerForm: FormGroup;
-  isValidForm: boolean | null;
 
   constructor(
     private formBuilder: FormBuilder,
     private sharedService: SharedService,
-    private headerMenusService: HeaderMenusService,
     private router: Router,
     private store: Store<AppState>
   ) {
@@ -53,8 +49,6 @@ export class RegisterComponent {
       roles: [UserRoles.learner.valueOf()],
       likedActivities: [],
     });
-
-    this.isValidForm = null;
 
     this.roles = [UserRoles.learner];
     this.likedActivities = [];
@@ -95,44 +89,27 @@ export class RegisterComponent {
       roles: this.roles,
     });
 
-    console.log('Registering user (before store): ', this.registerUser);
-
-    this.store
-      .select('user')
-      .pipe()
-      .subscribe({
-        next: async ({ loaded, error }): Promise<void> => {
-          if (loaded) {
-            await this.sharedService.managementToast(
-              'registerFeedback',
-              loaded,
-              undefined
-            );
-            const headerInfo: HeaderMenus = {
-              showAuthSection: false,
-              showNoAuthSection: true,
-            };
-
-            this.headerMenusService.headerManagement.next(headerInfo);
-            this.registerForm.reset();
-            this.router.navigateByUrl('home');
-          }
-          if (error) {
-            const headerInfo: HeaderMenus = {
-              showAuthSection: false,
-              showNoAuthSection: true,
-            };
-            this.headerMenusService.headerManagement.next(headerInfo);
-
-            this.sharedService.errorLog(error.error);
-            await this.sharedService.managementToast(
-              'registerFeedback',
-              loaded,
-              error.error
-            );
-          }
-        },
-      });
+    this.store.select('user').subscribe({
+      next: async ({ loaded, error }): Promise<void> => {
+        if (loaded) {
+          await this.sharedService.managementToast(
+            'registerFeedback',
+            loaded,
+            undefined
+          );
+          this.registerForm.reset();
+          this.router.navigateByUrl('welcome');
+        }
+        if (error) {
+          this.sharedService.errorLog(error.error);
+          await this.sharedService.managementToast(
+            'registerFeedback',
+            loaded,
+            error.error
+          );
+        }
+      },
+    });
 
     if (this.registerForm.valid) {
       this.store.dispatch(

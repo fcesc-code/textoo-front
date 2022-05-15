@@ -2,7 +2,7 @@
   <h2 class="font-bold text-xl py-3 text-center">
     {{ this.activity?.title }}
   </h2>
-  <div *ngIf="this.activity.text && !this.completed">
+  <div *ngIf="this.activity?.text && !this.completed">
     <h3 class="mb-2">{{ this.activity?.task }}</h3>
     <pre
       *ngIf="this.activity.text"
@@ -31,7 +31,7 @@
       </p>
     </section>
   </div>
-  <footer *ngIf="this.activity.font.display" class="my-4">
+  <footer *ngIf="this.activity?.font?.display" class="my-4">
     <p class="italic text-left">{{ this.activity.font.author }}</p>
     <p class="text-left">
       <a href="{{ this.activity.font.reference }}">{{
@@ -53,5 +53,11 @@
     *ngIf="this.completed"
     (click)="this.replay()"
     text="tornar-hi"
+  ></app-button>
+  <app-button
+    id="moreActivities"
+    *ngIf="this.completed"
+    [routerLink]="['/']"
+    text="més activitats"
   ></app-button>
 </article>

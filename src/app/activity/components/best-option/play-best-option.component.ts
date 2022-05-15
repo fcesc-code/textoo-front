@@ -38,7 +38,7 @@ export class PlayBestOptionComponent implements OnInit, OnDestroy {
 
     if (activityId) {
       this.activity$ = this.activitiesService
-        .getActivity(activityId)
+        .getActivityById(activityId)
         .subscribe((activity: ActivityBestOption) => {
           this.classInitializer(activity);
           this.textWithQuestions = this.activity.text;

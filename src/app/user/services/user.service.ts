@@ -13,11 +13,10 @@ export class UserService {
   private API: string;
 
   constructor(private http: HttpClient, private sharedService: SharedService) {
-    this.API = `${API_ROUTES.development}/${API_CONTROLLERS.users}`;
+    this.API = `${API_ROUTES.production}/${API_CONTROLLERS.users}`;
   }
 
   register(user: NewUserDto): Observable<UserDto> {
-    console.log('user service was called with user: ', user);
     return this.http
       .post<UserDto>(`${this.API}/`, user)
       .pipe(catchError(this.sharedService.handleError));

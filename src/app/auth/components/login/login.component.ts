@@ -27,7 +27,6 @@ export class LoginComponent {
 
   email: FormControl;
   password: FormControl;
-
   loginForm: FormGroup;
 
   subscription: any;
@@ -64,6 +63,7 @@ export class LoginComponent {
   }
 
   login(): void {
+    this.hide = true;
     this.loginUser = new AuthLogin(this.email.value, this.password.value);
 
     let headerInfo: HeaderMenus;
@@ -109,6 +109,12 @@ export class LoginComponent {
         },
       });
 
-    this.store.dispatch(AUTH_ACTIONS.login({ auth: this.loginUser }));
+    if (this.loginForm.valid) {
+      this.store.dispatch(AUTH_ACTIONS.login({ auth: this.loginUser }));
+    }
+  }
+
+  toggleHide(): void {
+    this.hide = !this.hide;
   }
 }

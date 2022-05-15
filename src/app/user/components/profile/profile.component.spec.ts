@@ -1,6 +1,6 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { forwardRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
@@ -25,6 +25,13 @@ describe('User > Components > Profile', () => {
     await TestBed.configureTestingModule({
       declarations: [ProfileComponent],
       imports: [RouterTestingModule, ReactiveFormsModule],
+      providers: [
+        {
+          provide: NG_VALUE_ACCESSOR,
+          useExisting: forwardRef(() => 'roles'),
+          multi: true,
+        },
+      ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
@@ -50,23 +57,23 @@ describe('User > Components > Profile', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  it(`${TITLE} 3 profileForm > form should have 4 input elements`, () => {
+  it(`${TITLE} 3 profileForm > form should have 3 input elements`, () => {
     const formElement =
       fixture.debugElement.nativeElement.querySelector('form');
     const inputElements = formElement.querySelectorAll('input');
-    expect(inputElements.length).toEqual(4);
+    expect(inputElements.length).toEqual(3);
   });
 
   it(`${TITLE} 4 profileForm > form should be valid if inputs are valid`, () => {
-    const spy = spyOn(localStorage, 'get')
-      .and.returnValue(mockAuthToken.user_id)
-      .and.callThrough();
+    // const spy = spyOn(localStorage, 'get')
+    //   .and.returnValue(mockAuthToken.user_id)
+    //   .and.callThrough();
     const formElement =
       fixture.debugElement.nativeElement.querySelector('form');
     const aliasInput = formElement.querySelector('#profileForm-alias');
     const avatarInput = formElement.querySelector('#profileForm-avatar');
     const emailInput = formElement.querySelector('#profileForm-email');
-    const passwordInput = formElement.querySelector('#profileForm-password');
+    // const passwordInput = formElement.querySelector('#profileForm-password');
     aliasInput.value = 'testalias';
     aliasInput.dispatchEvent(new Event('input'));
     fixture.detectChanges();
@@ -76,8 +83,8 @@ describe('User > Components > Profile', () => {
     emailInput.value = 'testemail@mail.me';
     emailInput.dispatchEvent(new Event('input'));
     fixture.detectChanges();
-    passwordInput.value = 'testpassword';
-    passwordInput.dispatchEvent(new Event('input'));
+    // passwordInput.value = 'testpassword';
+    // passwordInput.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     fixture
       .whenStable()

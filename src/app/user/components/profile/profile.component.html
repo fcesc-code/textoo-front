@@ -2,14 +2,13 @@
   <p id="profileFeedback"></p>
 </div>
 <div>
-  <h1>Update your profile</h1>
-  <p id="toastMessage">Form submitted successfully.</p>
   <form
     class="form"
     [formGroup]="profileForm"
     (ngSubmit)="updateUser()"
     aria-label="update user profile form"
   >
+    <h1 class="font-bold text-xl pb-6 text-center">Update your profile</h1>
     <mat-form-field appearance="fill">
       <mat-label>Alias</mat-label>
       <input
@@ -88,6 +87,42 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
+      <mat-label>Language</mat-label>
+      <mat-select
+        required
+        [formControl]="language"
+        aria-label="Select your preferred language"
+      >
+        <mat-option
+          *ngFor="let lang of this.supportedLanguages"
+          [value]="lang.short.toLowerCase()"
+          >{{ lang.long }}</mat-option
+        >
+      </mat-select>
+      <mat-error *ngIf="language.dirty && language.hasError('required')">
+        You must select a preferred language
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>I want to</mat-label>
+      <mat-select
+        multiple
+        required
+        [formControl]="roles"
+        selected-options="this.roles"
+        aria-label="What are you going to do?"
+      >
+        <mat-option
+          *ngFor="let role of this.supportedRoles"
+          [value]="role.value"
+          >{{ role.activity }}</mat-option
+        >
+      </mat-select>
+      <mat-error *ngIf="roles.dirty && roles.hasError('required')">
+        You must select at least a role
+      </mat-error>
+    </mat-form-field>
+    <!-- <mat-form-field appearance="fill">
       <mat-label>Password</mat-label>
       <input
         matInput
@@ -119,7 +154,7 @@
       >
         Password can be max 16 characters long.
       </mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
     <div>
       <button
         mat-raised-button
@@ -128,7 +163,7 @@
         [disabled]="!profileForm.valid"
         aria-label="update your profile"
       >
-        Register
+        Update
       </button>
     </div>
   </form>

@@ -1,5 +1,5 @@
 export abstract class Activity {
-  protected _id!: string | null;
+  protected _id: string;
   protected _timestamps!: Timestamps;
   protected _type!: ActivityType;
   protected _scores!: Score;
@@ -18,9 +18,9 @@ export abstract class Activity {
     font,
     title,
     scores,
-    id,
+    _id,
   }: AbstractActivityConstructor) {
-    this._id = id || null;
+    this._id = _id;
     this._type = type;
     this._language = language;
     this._author = author;
@@ -31,10 +31,10 @@ export abstract class Activity {
   }
 
   get id(): string {
-    return this._id === null ? '' : this._id;
+    return this._id;
   }
   set id(id: string) {
-    if (this._id === null) {
+    if (this._id === null || this._id === undefined || this._id === '') {
       this._id = id;
     } else {
       throw new Error('ID already set');
@@ -73,12 +73,9 @@ export abstract class Activity {
   get scores(): Score {
     return this._scores;
   }
-  set scores({ timeToComplete, questions, scorePerQuestion }: Score) {
+  set scores({ timeToComplete, scorePerQuestion }: Score) {
     this._scores.timeToComplete = timeToComplete;
     this._scores.scorePerQuestion = scorePerQuestion;
-    this._scores.questions = questions;
-    this._scores.maxPossibleScore =
-      this._scores.questions * this._scores.scorePerQuestion;
   }
   get timestamps(): Timestamps {
     return this._timestamps;
@@ -129,8 +126,6 @@ export interface Timestamps {
 }
 
 export interface Score {
-  maxPossibleScore: number;
-  questions: number;
   scorePerQuestion: number;
   timeToComplete: number;
 }
@@ -144,7 +139,7 @@ export interface Font {
 }
 
 export interface ActivityConstructor {
-  id?: string;
+  _id: string;
   language: SupportedLanguages;
   task: string;
   font: Font;
@@ -177,4 +172,11 @@ export enum SupportedLanguages {
   ES = 'es',
   CA = 'ca',
   EN = 'en',
+}
+
+export interface CommonData {
+  title: string;
+  task: string;
+  language: SupportedLanguages;
+  scores: Score;
 }

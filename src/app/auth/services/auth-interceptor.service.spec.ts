@@ -76,7 +76,7 @@ describe('AUTH INTERCEPTOR SERVICE TEST SUITE', () => {
       `${API.URL}/${API.userController}/${API.activityController}/${mockUserId}`
     );
     // httpRequest.flush(mockPostsList);
-    console.log('HERE', httpRequest);
+    // console.log('HERE', httpRequest);
     expect(httpRequest.request.headers.get('Content-Type')).toBe(
       'application/json; charset=utf-8'
     );

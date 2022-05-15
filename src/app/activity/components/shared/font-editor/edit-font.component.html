@@ -1,0 +1,107 @@
+<section>
+  <h3
+    class="font-semibold text-lg pb-3 text-center sm:text-left text-emerald-900"
+  >
+    Font en la qual es basa l'activitat
+  </h3>
+  <form
+    class="form flex flex-col justify-start items-center sm:flex-row sm:flex-wrap sm:justify-between"
+    [formGroup]="fontForm"
+    aria-label="font form"
+  >
+    <div class="w-full sm:w-[37%] md:w-[18%]">
+      <mat-form-field appearance="standard" style="width: 100%">
+        <mat-label>A l'activitat</mat-label>
+        <mat-select
+          required
+          (selectionChange)="this.emit()"
+          [formControl]="display"
+          aria-label="Indicar si cal mostrar la font de l'activitat"
+        >
+          <mat-option [value]="true">mostrar la font</mat-option>
+          <mat-option [value]="false">no mostrar la font</mat-option>
+        </mat-select>
+        <mat-error *ngIf="display.dirty && display.hasError('required')">
+          Has d'indicar si cal citar la font de l'activitat.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="w-full sm:w-[58%] md:w-[30%]">
+      <mat-form-field appearance="standard" style="width: 100%">
+        <mat-label>Autor</mat-label>
+        <input
+          matInput
+          type="text"
+          (keyup)="this.emit()"
+          [formControl]="author"
+          aria-required="true"
+          placeholder="El nom de l'autor/a..."
+          id="fontyForm-author"
+        />
+        <mat-error *ngIf="author.dirty && author.hasError('minlength')">
+          El nom de l'autor ha de constar d'almenys 3 caràcters.
+        </mat-error>
+        <mat-error *ngIf="author.dirty && author.hasError('maxlength')">
+          El nom no pot excedir els 80 caràcters.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="w-full sm:w-[70%] md:w-[30%]">
+      <mat-form-field appearance="standard" style="width: 100%">
+        <mat-label>Obra</mat-label>
+        <input
+          matInput
+          type="text"
+          (keyup)="this.emit()"
+          [formControl]="work"
+          aria-required="true"
+          placeholder="El nom de l'obra..."
+          id="fontForm-author"
+        />
+        <mat-error *ngIf="work.dirty && work.hasError('minlength')">
+          El nom de l'obra ha de constar d'almenys 3 caràcters.
+        </mat-error>
+        <mat-error *ngIf="work.dirty && work.hasError('maxlength')">
+          El nom de l'obra no pot excedir els 150 caràcters.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="w-full sm:w-[25%] md:w-[12%]">
+      <mat-form-field appearance="standard" style="width: 100%">
+        <mat-label>Any</mat-label>
+        <input
+          matInput
+          type="text"
+          (keyup)="this.emit()"
+          [formControl]="year"
+          aria-required="true"
+          placeholder="1984"
+          id="fontForm-author"
+        />
+        <mat-error *ngIf="year.dirty && year.hasError('pattern')">
+          L'any ha de ser un nombre enter.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="w-full">
+      <mat-form-field appearance="standard" style="width: 100%">
+        <mat-label>Referècnia</mat-label>
+        <input
+          matInput
+          type="text"
+          (keyup)="this.emit()"
+          [formControl]="reference"
+          aria-required="true"
+          placeholder="Una referència de l'obra..."
+          id="fontForm-author"
+        />
+        <mat-error *ngIf="reference.dirty && reference.hasError('minlength')">
+          El nom de la referència ha de constar d'almenys 5 caràcters.
+        </mat-error>
+        <mat-error *ngIf="reference.dirty && reference.hasError('maxlength')">
+          El nom de la referència no pot excedir els 150 caràcters.
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</section>

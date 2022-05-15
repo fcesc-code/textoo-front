@@ -1,0 +1,51 @@
+<form
+  class="form w-full flex flex-row justify-between items-center"
+  [formGroup]="optionForm"
+  aria-label="option form"
+>
+  <mat-form-field appearance="standard" style="width: 3rem" floatLabel="never">
+    <mat-label>Index</mat-label>
+    <input
+      matInput
+      type="text"
+      [formControl]="index"
+      aria-required="true"
+      id="optionForm-index"
+    />
+  </mat-form-field>
+  <mat-form-field
+    appearance="standard"
+    style="margin-right: 0.5rem; margin-left: 0.5rem; width: 65%"
+    floatLabel="never"
+  >
+    <mat-label>Text</mat-label>
+    <input
+      matInput
+      type="text"
+      (keyup)="updatedText()"
+      [formControl]="text"
+      aria-required="true"
+      id="optionForm-text"
+    />
+  </mat-form-field>
+  <mat-form-field appearance="standard" style="width: 8rem" floatLabel="never">
+    <mat-label>Valor</mat-label>
+    <mat-select
+      required
+      (selectionChange)="updatedValue()"
+      [formControl]="correct"
+      aria-label="Indicar si aquesta és la opció correcta"
+      id="optionForm-correct"
+    >
+      <mat-option [value]="true">cert</mat-option>
+      <mat-option [value]="false">fals</mat-option>
+    </mat-select>
+    <mat-error *ngIf="correct.dirty && correct.hasError('required')">
+      Has d'indicar si aquesta opció és certa o falsa. Hi ha d'haver com a mínim
+      una opció certa.
+    </mat-error>
+  </mat-form-field>
+  <mat-icon class="ml-3 hover:text-red-600" (click)="removeOption()"
+    >delete</mat-icon
+  >
+</form>
