@@ -14,7 +14,10 @@
           <mat-icon class="leading-12 align-middle">menu</mat-icon>
         </button>
       </div>
-      <h1 class="visible cursor-pointer px-4 ml-2 leading-12" (click)="home()">
+      <h1
+        class="visible cursor-pointer px-4 ml-2 leading-12"
+        [routerLink]="['/home']"
+      >
         Textoo
       </h1>
     </div>
@@ -32,7 +35,8 @@
     <li
       *ngIf="showNoAuthSection"
       class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
-      (click)="login(); sidenav.toggle()"
+      [routerLink]="['/login']"
+      (click)="sidenav.toggle()"
     >
       <mat-icon aria-hidden="true" class="mx-4">verified_user</mat-icon
       ><span class="px-2">connexió</span>
@@ -40,7 +44,8 @@
     <li
       *ngIf="showNoAuthSection"
       class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
-      (click)="register(); sidenav.toggle()"
+      [routerLink]="['/register']"
+      (click)="sidenav.toggle()"
     >
       <mat-icon aria-hidden="true" class="mx-4">create</mat-icon
       ><span class="px-2">registre</span>
@@ -75,7 +80,8 @@
     <li
       *ngIf="showAuthSection"
       class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
-      (click)="profile(); sidenav.toggle()"
+      [routerLink]="['/user/profile']"
+      (click)="sidenav.toggle()"
     >
       <mat-icon aria-hidden="true" class="mx-4">account_circle</mat-icon
       ><span class="px-2">perfil</span>

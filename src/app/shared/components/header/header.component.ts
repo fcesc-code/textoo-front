@@ -39,25 +39,6 @@ export class HeaderComponent implements OnInit {
     );
   }
 
-  home(): void {
-    this.router.navigateByUrl('home');
-  }
-
-  login(): void {
-    this.router.navigateByUrl('login');
-  }
-
-  register(): void {
-    this.router.navigateByUrl('register');
-  }
-
-  profile(): void {
-    const userId = this.localStorageService.get('user_id');
-    if (userId) {
-      this.router.navigateByUrl(`user/profile`);
-    }
-  }
-
   logout(): void {
     this.localStorageService.remove('user_id');
     this.localStorageService.remove('access_token');
