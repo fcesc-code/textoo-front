@@ -1,23 +1,5 @@
-<div id="top" class="flex flex-wrap justify-between items-center">
+<div class="flex flex-wrap justify-between items-center">
   <div class="flex flex-wrap justify-start items-center">
-    <button
-      *ngIf="showNoAuthSection"
-      type="button"
-      class="hidden md:block px-4 hover:text-emerald-600 hover:font-semibold"
-      aria-label="Connectar-me"
-      [routerLink]="['/login']"
-    >
-      connexió
-    </button>
-    <button
-      *ngIf="showNoAuthSection"
-      type="button"
-      class="hidden md:block px-4 hover:text-emerald-600 hover:font-semibold"
-      aria-label="Inscriure'm"
-      [routerLink]="['/register']"
-    >
-      registre
-    </button>
     <button
       *ngIf="showAuthSection"
       type="button"
@@ -67,6 +49,26 @@
     >
       <mat-icon class="leading-12 align-middle" title="desconnexió"
         >power_settings_new</mat-icon
+      >
+    </button>
+    <button
+      *ngIf="showNoAuthSection"
+      type="button"
+      class="hidden md:block px-4 hover:text-emerald-600 hover:font-semibold"
+      aria-label="Inscriure'm"
+      [routerLink]="['/register']"
+    >
+      registre
+    </button>
+    <button
+      *ngIf="showNoAuthSection"
+      type="button"
+      class="hidden md:block px-4 hover:text-emerald-600 hover:font-semibold"
+      aria-label="Connectar-me"
+      [routerLink]="['/login']"
+    >
+      <mat-icon class="leading-12 align-middle" title="connexió"
+        >login</mat-icon
       >
     </button>
   </div>

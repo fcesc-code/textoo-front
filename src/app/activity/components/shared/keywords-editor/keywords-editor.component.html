@@ -1,5 +1,5 @@
 <form
-  class="form w-full flex flex-row justify-between"
+  class="form w-full flex flex-col sm:flex-row sm:flex-wrap justify-start sm:justify-between items-center"
   [formGroup]="keywordsForm"
   (ngSubmit)="save()"
   aria-label="keywords form"
@@ -30,10 +30,12 @@
       >add</mat-icon
     >
   </div>
-  <ul class="flex flex-row flex-wrap justify-end items-center w-[65%] ml-4">
+  <ul
+    class="flex flex-col sm:flex-row sm:flex-wrap justify-start sm:justify-end items-center w-[65%] sm:ml-4"
+  >
     <li
       *ngFor="let keyword of keywords"
-      class="px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-emerald-200 leading-6 flex flex-row justify-center items-center"
+      class="px-2 py-1 mr-2 rounded-md drop-shadow-lg bg-emerald-200 leading-6 flex flex-row justify-center items-center"
     >
       <span>{{ keyword }}</span>
       <span class="pl-3 leading-6" (click)="removeKeyword(keyword)"

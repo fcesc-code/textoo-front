@@ -17,6 +17,7 @@ export class UserService {
   }
 
   register(user: NewUserDto): Observable<UserDto> {
+    console.log('user service was called to register new user >>> ', user);
     return this.http
       .post<UserDto>(`${this.API}/`, user)
       .pipe(catchError(this.sharedService.handleError));
