@@ -1,10 +1,4 @@
 import { Injectable } from '@angular/core';
-// import {
-//   MOCK_ACTIVITY_BEST_OPTION,
-//   MOCK_ACTIVITY_SELECT_TEXT,
-//   MOCK_ACTIVITY_TRANSFORM_ASPECT,
-// } from 'mockdata/activity.mock';
-// import { catchError, Observable, of, tap } from 'rxjs';
 import { catchError, Observable, tap } from 'rxjs';
 import { ActivityType, Timestamps } from 'src/app/activity/models/Activity.dto';
 import { ActivityBestOption } from '../models/ActivityBestOption.dto';
@@ -19,29 +13,14 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 })
 export class ActivitiesService {
   API: string;
-  // mockActivities: any[];
-  // activities: any[];
   currentActivity!:
     | ActivityBestOption
     | ActivitySelectText
     | ActivityTransformAspect;
 
   constructor(private http: HttpClient, private sharedService: SharedService) {
-    // this.mockActivities = [
-    //   MOCK_ACTIVITY_BEST_OPTION,
-    //   MOCK_ACTIVITY_SELECT_TEXT,
-    //   MOCK_ACTIVITY_TRANSFORM_ASPECT,
-    // ];
-    // this.activities = [];
     this.API = `${API_ROUTES.production}/${API_CONTROLLERS.activities}`;
   }
-
-  // getActivity(id: string): Observable<any> {
-  //   const MOCKDATA = this.mockActivities.filter(
-  //     (activity) => activity.id === id
-  //   );
-  //   return of(MOCKDATA[0]);
-  // }
 
   getActivityById(id: string): Observable<any> {
     return this.http

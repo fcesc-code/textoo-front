@@ -67,7 +67,7 @@ describe('AUTH INTERCEPTOR SERVICE TEST SUITE', () => {
     localStorageService.set('access_token', mockAuthToken.access_token);
 
     activitiesService
-      .getActivity(mockUserId)
+      .getActivityById(mockUserId)
       .subscribe((activities: Activity[]) => {
         expect(activities.length).toBe(0);
       });

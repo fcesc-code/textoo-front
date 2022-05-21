@@ -20,6 +20,13 @@ import { ActivatedRoute } from '@angular/router';
 import { TextSelection } from '../../models/ActivitySelectText.dto';
 import { CustomArrayMethods } from 'src/app/shared/utils/arrays';
 import { Answer, AnswerOption, AnswerType } from '../../models/Answer.dto';
+import { textSelection } from './play-select-text.get-selection-utils';
+import {
+  addSelection,
+  mergeAdjacents,
+  orderSelectionArray,
+  removeSubsets,
+} from './play-select-text.selections-utils';
 
 @Component({
   selector: 'app-play-select-text',
@@ -34,7 +41,13 @@ export class PlaySelectTextComponent
   activity!: ActivitySelectText;
   UIevents$!: Subscription;
   selectedText!: TextSelection[];
-  idSelector: string = 'activityMainText';
+  idMainSelector: string = 'activityMainText';
+  idSecondarySelector: string = 'activitySecondaryText';
+  idSecondarySelectorExp: RegExp = new RegExp(
+    `${this.idSecondarySelector}-[0-9]+`,
+    ''
+  );
+  idHighlightedSelector: string = 'activityHighlightedText';
   answers!: Answer;
   completed: boolean = false;
 
@@ -48,8 +61,6 @@ export class PlaySelectTextComponent
     const activityId: string | null =
       this.activatedRoute.snapshot.paramMap.get('id');
 
-    console.log('YAY, activityId:', activityId);
-
     if (activityId) {
       this.activity$ = this.activitiesService
         .getActivityById(activityId)
@@ -60,40 +71,34 @@ export class PlaySelectTextComponent
   }
 
   ngAfterViewInit(): void {
-    // console.log('Entering AfterViewInit');
     const UItouchEvents$ = fromEvent(document, 'touchend');
     const UImouseEvents$ = fromEvent(document, 'mouseup');
     this.UIevents$ = merge(UItouchEvents$, UImouseEvents$)
       .pipe(
         debounceTime(500),
-        filter(() => document.getSelection()?.toString() !== ''),
-        // tap(() => console.log('passed filter: it has selected content')),
-        map((event) => {
-          const { target } = event;
-          return target as HTMLPreElement;
+        map((): Selection => {
+          const selection: Selection | null = window.getSelection();
+          return selection as Selection;
         }),
-        // filter((target) => target.id === this.idSelector),
-        // tap(() => console.log('passed filter: it has the right id')),
-        filter(
-          () =>
-            document.getSelection()?.anchorNode?.parentElement?.id ===
-            this.idSelector
-        ),
-        // tap(() => console.log('passed filter: it has the right parent')),
-        map(this.getTextSelection),
-        map((textSelection: TextSelection): TextSelection => {
-          const realPosition = this.calculateRealPosition(this.activity.text);
-          const adaptedTextSelection: TextSelection = {
-            selected: textSelection.selected,
-            start: realPosition + textSelection.start,
-            end: realPosition + textSelection.end,
-          };
-          return adaptedTextSelection;
-        })
+        filter((data: any) => data !== undefined || data !== null),
+        filter((selection: Selection) => {
+          const directParentId = selection?.anchorNode?.parentElement?.id || '';
+          const isMainSelector = directParentId === this.idMainSelector;
+          const isSecondarySelector = this.idSecondarySelectorExp.test(
+            directParentId || ''
+          );
+          const isHighlightedSelector =
+            directParentId === this.idHighlightedSelector;
+          return isMainSelector || isSecondarySelector || isHighlightedSelector;
+        }),
+        filter((selection: Selection) => !selection.isCollapsed),
+        map(
+          (selection: Selection): TextSelection =>
+            this.getTextSelection(selection)
+        )
       )
       .subscribe((textSelection: TextSelection) => {
-        // console.log('Adapted text selection:', textSelection);
-        this.addSelection(textSelection);
+        this.updateSelectionArray(textSelection);
       });
   }
 
@@ -108,123 +113,17 @@ export class PlaySelectTextComponent
     ) as ActivitySelectText;
   }
 
-  getTextSelection(): TextSelection {
-    const selection = document.getSelection()?.toString() || '';
-    let offsets = {
-      start: 0,
-      end: 0,
-    };
-    if (selection.length !== 0) {
-      offsets.start = selection.length - selection.trimStart().length;
-      offsets.end = selection.length - selection.trimEnd().length;
-    }
-    const anchor = document.getSelection()?.anchorOffset || 0;
-    const focus = document.getSelection()?.focusOffset || 0;
-    const start = Math.min(anchor, focus);
-    const end = Math.max(anchor, focus);
-    const length = end - start;
-    return {
-      selected: selection.trim(),
-      start: length !== 0 ? start + offsets.start : 0,
-      end: length !== 0 ? end - offsets.end : 0,
-    };
+  getTextSelection(selection: Selection): TextSelection {
+    return textSelection(selection, this.activity?.text);
   }
 
-  // considerPreviousSelections(baseText: string): Function {
-  //   // let previousPrefixes = [ ...this.selectedText ].filter( ( selection ) => selection.start < textSelection.start )
-  //   function calculateRealPosition(
-  //     textSelection: TextSelection
-  //   ): TextSelection {
-  //     const endText =
-  //       document.getSelection()?.anchorNode?.nodeValue?.toString() || '';
-  //     const expression = new RegExp(endText, '');
-  //     const realPosition = baseText?.match(expression)?.index || 0;
-  //     console.log('realPosition:', realPosition);
-  //     const adaptedTextSelection = {
-  //       ...textSelection,
-  //       start: realPosition + textSelection.start,
-  //       end: realPosition + textSelection.end,
-  //     };
-  //     return adaptedTextSelection;
-  //   }
-  //   return calculateRealPosition;
-  // }
-  calculateRealPosition(baseText: string): number {
-    const endText =
-      document.getSelection()?.anchorNode?.nodeValue?.toString() || '';
-    const expression = new RegExp(endText, '');
-    const realPosition = baseText?.match(expression)?.index || 0;
-    console.log('realPosition:', realPosition);
-    return realPosition;
-  }
-
-  addSelection(newSelection: TextSelection): void {
-    /* first checks colliding selections */
-    let nonCollidingSelections: TextSelection[] = [];
-    let collidingSelections: TextSelection[] = [newSelection];
-    const allCurrentlySelected: TextSelection[] = this.selectedText || [];
-    for (let selection of allCurrentlySelected) {
-      const collidingLeftOverlap =
-        newSelection.start < selection.end && selection.end < newSelection.end; // new selection overlaps with the right side of an existing selection
-      const collidingRightOverlap =
-        selection.start < newSelection.end &&
-        newSelection.start < selection.start; // new selection overlaps with the left side of an existing selection
-      const collidingSuperset =
-        newSelection.start <= selection.start &&
-        selection.end <= newSelection.end; // an existing selection is a subset of the new selection
-      const collidingSubset =
-        selection.start < newSelection.start &&
-        newSelection.end < selection.end; // the new selection is a subset of an existing selection
-      const collisionCriteria =
-        collidingLeftOverlap ||
-        collidingRightOverlap ||
-        collidingSuperset ||
-        collidingSubset;
-      const filterCriterion =
-        newSelection.start === selection.start &&
-        newSelection.end === selection.end;
-      if (!filterCriterion) {
-        collisionCriteria
-          ? (collidingSelections = [
-              ...collidingSelections,
-              selection,
-            ] as TextSelection[])
-          : (nonCollidingSelections = [
-              ...nonCollidingSelections,
-              selection,
-            ] as TextSelection[]);
-      }
-    }
-    /* merge any colliding selections into one */
-    let mergedCollidingSelections: TextSelection[] = [];
-    let start: number = -1;
-    let end: number = -1;
-    for (let collidingSelection of collidingSelections) {
-      start =
-        start > -1
-          ? Math.min(start, collidingSelection.start)
-          : collidingSelection.start;
-      end =
-        end > -1
-          ? Math.max(end, collidingSelection.end)
-          : collidingSelection.end;
-    }
-    mergedCollidingSelections = [
-      ...mergedCollidingSelections,
-      {
-        start,
-        end,
-        selected: this.activity.text.slice(start, end + 1),
-      },
-    ];
-    /* create the new slections array */
-    const result = [
-      ...nonCollidingSelections,
-      ...mergedCollidingSelections,
-    ] as TextSelection[];
-    /* sort the selections */
-    this.selectedText = CustomArrayMethods.arraySort(result, 'start');
-    console.log('after checking collisions:', this.selectedText);
+  updateSelectionArray(newSelection: TextSelection): void {
+    const newArray = addSelection(newSelection, this.selectedText);
+    const orderedArray = orderSelectionArray(newArray);
+    const withoutSubsets = removeSubsets(orderedArray);
+    const mergedAdjacents = mergeAdjacents(withoutSubsets);
+    console.log('current >>> ', mergedAdjacents);
+    this.selectedText = mergedAdjacents;
   }
 
   getText(): string {
@@ -292,12 +191,14 @@ export class PlaySelectTextComponent
     this.answers = this.setAnswers();
     console.log('answers', this.answers);
     console.log('scores', this.answers.scores);
-    // console.log('time', this.answers.time);
-    // console.log('insights', this.answers.insights);
     this.completed = true;
   }
 
   replay(): void {
     this.completed = !this.completed;
+  }
+
+  removeSelections(): void {
+    this.selectedText = [];
   }
 }

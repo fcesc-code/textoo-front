@@ -40,28 +40,28 @@ describe('HeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it(`${TITLE} 2 > should navigate to different destinations`, () => {
-    spyOn(router, 'navigateByUrl').and.returnValue(Promise.resolve(true));
-    component.home();
-    fixture.detectChanges();
-    expect(router.navigateByUrl).toHaveBeenCalledWith('home');
+  // it(`${TITLE} 2 > should navigate to different destinations`, () => {
+  //   spyOn(router, 'navigateByUrl').and.returnValue(Promise.resolve(true));
+  //   component.home();
+  //   fixture.detectChanges();
+  //   expect(router.navigateByUrl).toHaveBeenCalledWith('home');
 
-    component.register();
-    fixture.detectChanges();
-    expect(router.navigateByUrl).toHaveBeenCalledWith('register');
+  //   component.register();
+  //   fixture.detectChanges();
+  //   expect(router.navigateByUrl).toHaveBeenCalledWith('register');
 
-    service.set('user_id', 'someId');
-    service.set('access_token', '1qwe0234asdf1234df');
-    component.profile();
-    fixture.detectChanges();
-    expect(router.navigateByUrl).toHaveBeenCalledWith('user/profile');
-    service.remove('user_id');
-    service.remove('access_token');
+  //   service.set('user_id', 'someId');
+  //   service.set('access_token', '1qwe0234asdf1234df');
+  //   component.profile();
+  //   fixture.detectChanges();
+  //   expect(router.navigateByUrl).toHaveBeenCalledWith('user/profile');
+  //   service.remove('user_id');
+  //   service.remove('access_token');
 
-    component.login();
-    fixture.detectChanges();
-    expect(router.navigateByUrl).toHaveBeenCalledWith('login');
-  });
+  //   component.login();
+  //   fixture.detectChanges();
+  //   expect(router.navigateByUrl).toHaveBeenCalledWith('login');
+  // });
 
   it(`${TITLE} 3 > should remove data from local storage when logout is called`, () => {
     service.set('user_id', 'someId');
