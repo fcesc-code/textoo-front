@@ -46,6 +46,12 @@
     </p>
   </footer>
   <app-button
+    id="removeSelections"
+    *ngIf="!this.completed"
+    (click)="this.removeSelections()"
+    text="esborrar selecció"
+  ></app-button>
+  <app-button
     id="showResults"
     *ngIf="!this.completed"
     (click)="this.getResults()"

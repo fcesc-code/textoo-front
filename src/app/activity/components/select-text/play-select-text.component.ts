@@ -197,4 +197,8 @@ export class PlaySelectTextComponent
   replay(): void {
     this.completed = !this.completed;
   }
+
+  removeSelections(): void {
+    this.selectedText = [];
+  }
 }
