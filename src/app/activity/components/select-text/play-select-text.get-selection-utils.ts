@@ -78,6 +78,31 @@ function buildCustomSelection(
     cleanPieces.find((piece) => piece.startParentNumber === anchorParentNumber)
       ?.start || 0;
 
+  const anchorExp = new RegExp(
+    selection?.anchorNode?.parentElement?.innerText || '',
+    'g'
+  );
+  const anchorSuperParentString =
+    selection?.anchorNode?.parentElement?.parentElement?.innerText || '';
+  const anchorParentMatches = Array.from(
+    anchorSuperParentString.matchAll(anchorExp)
+  );
+  const anchorHighlightedOffset = anchorHighlighted
+    ? anchorParentMatches[0]?.index || 0
+    : 0; // compte, no funciona si hi ha parents iguals al superparent, pot fallar
+  // console.log(
+  //   'anchorData >>> ',
+  //   anchor,
+  //   anchorParentOffset,
+  //   anchorParentMatches[0].index
+  // );
+  console.log(
+    'anchorHighlightedOffset >>> ',
+    anchorExp,
+    anchorParentMatches,
+    anchorHighlightedOffset
+  );
+
   const focus = selection?.focusOffset || 0;
   const focusHighlighted =
     selection?.focusNode?.parentElement?.id === ID_HIGHLIGHT;
@@ -93,6 +118,19 @@ function buildCustomSelection(
     cleanPieces.find((piece) => piece.startParentNumber === focusParentNumber)
       ?.start || 0;
 
+  const focusExp = new RegExp(
+    selection?.focusNode?.parentElement?.innerText || '',
+    'g'
+  );
+  const focusSuperParentString =
+    selection?.focusNode?.parentElement?.parentElement?.innerText || '';
+  const focusParentMatches = Array.from(
+    focusSuperParentString.matchAll(focusExp)
+  );
+  const focusHighlightedOffset = focusHighlighted
+    ? focusParentMatches[0]?.index || 0
+    : 0;
+
   const CONDITIONS = {
     sameParentLTR: anchorParentNumber === focusParentNumber && anchor < focus,
     sameParentRTL: anchorParentNumber === focusParentNumber && anchor > focus,
@@ -107,8 +145,8 @@ function buildCustomSelection(
     result.endParent = focusParent;
     result.startParentNumber = anchorParentNumber;
     result.endParentNumber = focusParentNumber;
-    result.startParentOffset = anchorParentOffset;
-    result.endParentOffset = focusParentOffset;
+    result.startParentOffset = anchorParentOffset + anchorHighlightedOffset;
+    result.endParentOffset = focusParentOffset + anchorHighlightedOffset;
   }
   if (CONDITIONS.sameParentRTL || CONDITIONS.differentParentsRTL) {
     result.start = focus;
@@ -117,10 +155,11 @@ function buildCustomSelection(
     result.endParent = anchorParent;
     result.startParentNumber = focusParentNumber;
     result.endParentNumber = anchorParentNumber;
-    result.startParentOffset = focusParentOffset;
-    result.endParentOffset = anchorParentOffset;
+    result.startParentOffset = focusParentOffset + focusHighlightedOffset;
+    result.endParentOffset = anchorParentOffset + focusHighlightedOffset;
   }
 
+  console.log('calculation >>> ', result);
   return result;
 }
 
