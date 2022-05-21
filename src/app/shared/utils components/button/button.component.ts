@@ -8,4 +8,5 @@ import { Component, Input } from '@angular/core';
 export class ButtonComponent {
   constructor() {}
   @Input() text = '';
+  @Input() disabled = false;
 }
