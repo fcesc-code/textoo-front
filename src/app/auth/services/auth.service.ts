@@ -22,6 +22,7 @@ export class AuthService {
   }
 
   login(auth: AuthLogin): Observable<AuthToken> {
+    console.log('login auth service >>> ', auth);
     return this.http
       .post<AuthToken>(this.API, auth)
       .pipe(catchError(this.sharedService.handleError));

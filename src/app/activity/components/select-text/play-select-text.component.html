@@ -4,14 +4,17 @@
   </h2>
   <div *ngIf="this.activity?.text && !this.completed">
     <h3 class="mb-2">{{ this.activity?.task }}</h3>
-    <pre
+    <section
       *ngIf="this.activity.text"
-      [id]="this.idSelector"
+      [id]="this.idMainSelector"
       [innerHtml]="
-        this.activity.text | highlightText: this.selectedText | sanitize
+        this.activity.text
+          | highlightText: this.selectedText
+          | improveBreaklines
+          | sanitize
       "
       class="leading-relaxed"
-    ></pre>
+    ></section>
   </div>
   <div *ngIf="this.completed && this.answers">
     <h3 class="mb-2">Els teus resultats</h3>
