@@ -18,19 +18,19 @@ export function removeSubsets(arr: TextSelection[]): TextSelection[] {
   const subsets: number[] = [];
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr.length; j++) {
-      if (j === i) {
-      } else {
-        let first = arr[i].start < arr[j].start ? arr[i] : arr[j];
-        let last = arr[i].start < arr[j].start ? arr[j] : arr[i];
-        let index = arr[i].start < arr[j].start ? j : i;
-        if (first.start <= last.start && last.end <= first.end) {
-          if (!subsets.includes(index)) subsets.push(index);
-        }
+      if (j !== i) {
+        const condition = arr[i].start < arr[j].start;
+        let first = condition ? arr[i] : arr[j];
+        let last = condition ? arr[j] : arr[i];
+        let index = condition ? j : i;
+
+        const isSubset = first.start <= last.start && last.end <= first.end;
+        if (isSubset) subsets.push(index);
       }
     }
   }
-  subsets.sort();
-  return arr.filter((e, i) => !subsets.includes(i));
+  const orderdUniqueSubsets = Array.from(new Set(subsets)).sort();
+  return arr.filter((e, i) => !orderdUniqueSubsets.includes(i));
 }
 
 export function mergeAdjacents(arr: TextSelection[]): TextSelection[] {
