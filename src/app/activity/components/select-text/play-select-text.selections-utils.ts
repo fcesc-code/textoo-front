@@ -31,9 +31,9 @@ export function removeSubsets(arr: TextSelection[]): TextSelection[] {
   }
   const orderedUniqueSubsets = Array.from(new Set(subsets)).sort();
   const result = arr.filter((e, i) => !orderedUniqueSubsets.includes(i));
-  console.log('origin >>> ', arr);
-  console.log('subsets >>> ', orderedUniqueSubsets);
-  console.log('result >>> ', result);
+  // console.log('origin >>> ', arr);
+  // console.log('subsets >>> ', orderedUniqueSubsets);
+  // console.log('result >>> ', result);
   return result;
 }
 
@@ -45,11 +45,11 @@ export function mergeAdjacents(arr: TextSelection[]): TextSelection[] {
     let first = arr[i];
     let next = arr[i + 1];
     if (skip) {
-      skip = false;
       if (i === arr.length - 2) results.push(next);
+      skip = false;
       continue;
     }
-    if (first.end + 1 === next.start) {
+    if (first.end + 1 > next.start) {
       const merged: TextSelection = {
         start: first.start,
         end: next.end,

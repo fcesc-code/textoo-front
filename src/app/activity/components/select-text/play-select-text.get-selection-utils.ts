@@ -130,6 +130,12 @@ function buildCustomSelection(
   const focusHighlightedOffset = focusHighlighted
     ? focusParentMatches[0]?.index || 0
     : 0;
+  console.log(
+    'focusHighlightedOffset >>> ',
+    focusExp,
+    focusParentMatches,
+    focusHighlightedOffset
+  );
 
   const CONDITIONS = {
     sameParentLTR: anchorParentNumber === focusParentNumber && anchor < focus,

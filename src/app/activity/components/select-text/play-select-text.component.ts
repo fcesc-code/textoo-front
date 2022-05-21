@@ -91,6 +91,7 @@ export class PlaySelectTextComponent
             directParentId === this.idHighlightedSelector;
           return isMainSelector || isSecondarySelector || isHighlightedSelector;
         }),
+        filter((selection: Selection) => !selection.isCollapsed),
         map(
           (selection: Selection): TextSelection =>
             this.getTextSelection(selection)
