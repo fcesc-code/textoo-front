@@ -1,8 +1,13 @@
-<article class="max-w-5xl overflow-hidden shadow-lg m-4 p-6">
+<article
+  class="mx-auto overflow-hidden shadow-lg m-4 p-6 w-[95%] sm:w-[80%] md:w-[71%] lg:w-[65%]"
+>
   <h2 class="font-bold text-xl py-3 text-center">
     {{ this.activity?.title }}
   </h2>
-  <div *ngIf="this.activity?.text && !this.completed">
+  <div
+    *ngIf="this.activity?.text && !this.completed"
+    class="mx-auto w-[95%] sm:w-[82%] md:w-[60%]"
+  >
     <h3 class="mb-2">{{ this.activity?.task }}</h3>
     <section
       *ngIf="this.activity.text"
@@ -16,7 +21,10 @@
       class="leading-relaxed"
     ></section>
   </div>
-  <div *ngIf="this.completed && this.answers">
+  <div
+    *ngIf="this.completed && this.answers"
+    class="mx-auto w-[95%] sm:w-[82%] md:w-[60%]"
+  >
     <h3 class="mb-2">Els teus resultats</h3>
     <section>
       <p>Preguntes:</p>
@@ -34,7 +42,10 @@
       </p>
     </section>
   </div>
-  <footer *ngIf="this.activity?.font?.display" class="my-4">
+  <footer
+    *ngIf="this.activity?.font?.display"
+    class="mx-auto w-[95%] sm:w-[82%] md:w-[60%] my-4"
+  >
     <p class="italic text-left">{{ this.activity.font.author }}</p>
     <p class="text-left">
       <a href="{{ this.activity.font.reference }}">{{
@@ -45,28 +56,36 @@
       >
     </p>
   </footer>
-  <app-button
-    id="removeSelections"
-    *ngIf="!this.completed"
-    (click)="this.removeSelections()"
-    text="esborrar selecció"
-  ></app-button>
-  <app-button
-    id="showResults"
-    *ngIf="!this.completed"
-    (click)="this.getResults()"
-    text="validar"
-  ></app-button>
-  <app-button
-    id="replayActivity"
-    *ngIf="this.completed"
-    (click)="this.replay()"
-    text="tornar-hi"
-  ></app-button>
-  <app-button
-    id="moreActivities"
-    *ngIf="this.completed"
-    [routerLink]="['/']"
-    text="més activitats"
-  ></app-button>
+  <div
+    class="flex flex-col justify-start items-center sm:flex-row sm:justify-center"
+  >
+    <app-button
+      class="my-2 mx-3"
+      id="removeSelections"
+      *ngIf="!this.completed"
+      (click)="this.removeSelections()"
+      text="esborrar selecció"
+    ></app-button>
+    <app-button
+      class="my-2 mx-3"
+      id="showResults"
+      *ngIf="!this.completed"
+      (click)="this.getResults()"
+      text="validar"
+    ></app-button>
+    <app-button
+      class="my-2 mx-3"
+      id="replayActivity"
+      *ngIf="this.completed"
+      (click)="this.replay()"
+      text="tornar-hi"
+    ></app-button>
+    <app-button
+      class="my-2 mx-3"
+      id="moreActivities"
+      *ngIf="this.completed"
+      [routerLink]="['/']"
+      text="més activitats"
+    ></app-button>
+  </div>
 </article>
