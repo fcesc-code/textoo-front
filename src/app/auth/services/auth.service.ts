@@ -22,18 +22,39 @@ export class AuthService {
   }
 
   login(auth: AuthLogin): Observable<AuthToken> {
-    console.log('login auth service >>> ', auth);
     return this.http
       .post<AuthToken>(this.API, auth)
       .pipe(catchError(this.sharedService.handleError));
   }
 
   getLocalStorageToken(): Observable<AuthToken> {
-    const user_id = this.localStorageService.get('user_id') || '';
-    const access_token = this.localStorageService.get('access_token') || '';
+    const { userId, accessToken } = this.getUser();
     return of({
-      user_id: user_id,
-      access_token: access_token,
+      userId: userId,
+      accessToken: accessToken,
     });
+  }
+
+  getUser(): AuthToken {
+    const userData: AuthToken = {
+      userId: this.localStorageService.get('userId') || '',
+      accessToken: this.localStorageService.get('accessToken') || '',
+    };
+    return userData;
+  }
+
+  getToken(): string {
+    return this.localStorageService.get('accessToken') || '';
+  }
+
+  setUser(user: AuthToken): void {
+    const { userId, accessToken } = user;
+    this.localStorageService.set('userId', userId);
+    this.localStorageService.set('accessToken', accessToken);
+  }
+
+  removeUser(): void {
+    this.localStorageService.remove('userId');
+    this.localStorageService.remove('accessToken');
   }
 }

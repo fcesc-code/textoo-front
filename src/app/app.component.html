@@ -98,8 +98,8 @@
     </li>
   </mat-sidenav>
   <mat-sidenav-content styles="width: 100vw; overflow:hidden">
-    <mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>
-    <main>
+    <main class="w-full flex flex-col justify-start items-center">
+      <mat-spinner *ngIf="isLoading" diameter="60" class="py-3"></mat-spinner>
       <router-outlet></router-outlet>
     </main>
   </mat-sidenav-content>

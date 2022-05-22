@@ -6,6 +6,7 @@ import { LocalStorageService } from '../../services/local-storage.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { AUTH_ACTIONS } from 'src/app/auth/actions/auth.actions';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private headerMenusService: HeaderMenusService,
     private localStorageService: LocalStorageService,
+    private authService: AuthService,
     private store: Store<AppState>
   ) {
     this.showAuthSection = false;
@@ -40,8 +42,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(): void {
-    this.localStorageService.remove('user_id');
-    this.localStorageService.remove('access_token');
+    this.authService.removeUser();
     this.localStorageService.remove('lang');
 
     const headerInfo: HeaderMenus = {

@@ -6,9 +6,23 @@ import { HeaderMenus } from '../models/header-menus.dto';
   providedIn: 'root',
 })
 export class HeaderMenusService {
+  private = {
+    showAuthSection: true,
+    showNoAuthSection: false,
+  };
+  public = {
+    showAuthSection: false,
+    showNoAuthSection: true,
+  };
+
   headerManagement: BehaviorSubject<HeaderMenus> =
-    new BehaviorSubject<HeaderMenus>({
-      showAuthSection: false,
-      showNoAuthSection: true,
-    });
+    new BehaviorSubject<HeaderMenus>(this.public);
+
+  authorize() {
+    this.headerManagement.next(this.private);
+  }
+
+  unauthorize() {
+    this.headerManagement.next(this.public);
+  }
 }

@@ -17,8 +17,8 @@ describe('User > Components > Profile', () => {
     ath$: of([]),
   });
   const mockAuthToken: AuthToken = {
-    user_id: 'this is a string',
-    access_token: 'this is another test string',
+    userId: 'this is a string',
+    accessToken: 'this is another test string',
   };
 
   beforeEach(async () => {
@@ -50,9 +50,9 @@ describe('User > Components > Profile', () => {
 
   it(`${TITLE} 2 getLocalStorageUserId > should return a userId`, () => {
     const spy = spyOn(localStorage, 'get')
-      .and.returnValue(mockAuthToken.user_id)
+      .and.returnValue(mockAuthToken.userId)
       .and.callThrough();
-    localStorage.get('user_id');
+    localStorage.get('userId');
     component.updateUser();
     expect(spy).toHaveBeenCalled();
   });
@@ -66,7 +66,7 @@ describe('User > Components > Profile', () => {
 
   it(`${TITLE} 4 profileForm > form should be valid if inputs are valid`, () => {
     // const spy = spyOn(localStorage, 'get')
-    //   .and.returnValue(mockAuthToken.user_id)
+    //   .and.returnValue(mockAuthToken.userId)
     //   .and.callThrough();
     const formElement =
       fixture.debugElement.nativeElement.querySelector('form');

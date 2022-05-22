@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from './app.reducer';
 import { HeaderMenus } from './shared/models/header-menus.dto';
 import { AUTH_ACTIONS } from './auth/actions/auth.actions';
+import { AuthService } from './auth/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +27,7 @@ export class AppComponent implements OnDestroy, OnInit, AfterContentInit {
     private router: Router,
     private headerMenusService: HeaderMenusService,
     private localStorageService: LocalStorageService,
+    private authService: AuthService,
     private store: Store<AppState>
   ) {
     this.isLoading = false;
@@ -58,37 +60,19 @@ export class AppComponent implements OnDestroy, OnInit, AfterContentInit {
   }
 
   logout(): void {
-    this.localStorageService.remove('user_id');
-    this.localStorageService.remove('access_token');
+    this.authService.removeUser();
     this.localStorageService.remove('lang');
-
-    const headerInfo: HeaderMenus = {
-      showAuthSection: false,
-      showNoAuthSection: true,
-    };
-
-    this.headerMenusService.headerManagement.next(headerInfo);
-
+    this.headerMenusService.unauthorize();
     this.store.dispatch(AUTH_ACTIONS.logout());
-
     this.router.navigateByUrl('home');
   }
 
   refreshAuthStatus(): void {
-    const userId = this.localStorageService.get('user_id');
-    const token = this.localStorageService.get('access_token');
-    if (userId && token) {
-      const headerInfo: HeaderMenus = {
-        showAuthSection: true,
-        showNoAuthSection: false,
-      };
-      this.headerMenusService.headerManagement.next(headerInfo);
+    const { userId, accessToken } = this.authService.getUser();
+    if (userId && accessToken) {
+      this.headerMenusService.authorize();
     } else {
-      const headerInfo: HeaderMenus = {
-        showAuthSection: false,
-        showNoAuthSection: true,
-      };
-      this.headerMenusService.headerManagement.next(headerInfo);
+      this.headerMenusService.unauthorize();
     }
   }
 }

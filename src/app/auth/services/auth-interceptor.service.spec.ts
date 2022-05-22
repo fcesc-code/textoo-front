@@ -8,7 +8,7 @@ import { AuthToken } from '../models/Auth.dto';
 
 import { AuthInterceptorService } from './auth-interceptor.service';
 import { ActivitiesService } from '../../activity/services/activities.service';
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Activity } from '../../activity/models/Activity.dto';
 
@@ -16,7 +16,7 @@ describe('AUTH INTERCEPTOR SERVICE TEST SUITE', () => {
   const TITLE = '[auth interceptor service]';
   let service: AuthInterceptorService;
   let activitiesService: ActivitiesService;
-  let localStorageService: LocalStorageService;
+  let authService: AuthService;
   let httpMock: HttpTestingController;
   const API = {
     URL: 'http://localhost:3000',
@@ -25,8 +25,8 @@ describe('AUTH INTERCEPTOR SERVICE TEST SUITE', () => {
     userController: 'users',
   };
   const mockAuthToken: AuthToken = {
-    user_id: 'this is a string',
-    access_token: 'this is another test string',
+    userId: 'this is a string',
+    accessToken: 'this is another test string',
   };
 
   beforeEach(() => {
@@ -35,7 +35,7 @@ describe('AUTH INTERCEPTOR SERVICE TEST SUITE', () => {
       providers: [
         AuthInterceptorService,
         ActivitiesService,
-        LocalStorageService,
+        AuthService,
         {
           provide: HTTP_INTERCEPTORS,
           useClass: AuthInterceptorService,
@@ -45,7 +45,7 @@ describe('AUTH INTERCEPTOR SERVICE TEST SUITE', () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     });
     service = TestBed.inject(AuthInterceptorService);
-    localStorageService = TestBed.inject(LocalStorageService);
+    authService = TestBed.inject(AuthService);
     activitiesService = TestBed.inject(ActivitiesService);
     httpMock = TestBed.inject(HttpTestingController);
   });
@@ -63,8 +63,7 @@ describe('AUTH INTERCEPTOR SERVICE TEST SUITE', () => {
   xit(`${TITLE} method: intercept > should set some headers for an authorized request`, () => {
     // const mockPostsList: Activity[] = [];
     const mockUserId = 'b3e7a302-0052-4622-8781-dc7934e7bac5';
-    localStorageService.set('user_id', mockAuthToken.user_id);
-    localStorageService.set('access_token', mockAuthToken.access_token);
+    authService.setUser(mockAuthToken);
 
     activitiesService
       .getActivityById(mockUserId)
@@ -82,7 +81,6 @@ describe('AUTH INTERCEPTOR SERVICE TEST SUITE', () => {
     );
     expect(httpRequest.request.headers.get('Accept')).toBe('application/json');
     expect(httpRequest.request.headers.has('Authorization')).toEqual(true);
-    localStorageService.remove('user_id');
-    localStorageService.remove('access_token');
+    authService.removeUser();
   });
 });

@@ -20,8 +20,8 @@ describe('AUTH SERVICE TEST SUITE', () => {
     authController: 'auth',
   };
   const mockAuthToken: AuthToken = {
-    user_id: 'this is a string',
-    access_token: 'this is another test string',
+    userId: 'this is a string',
+    accessToken: 'this is another test string',
   };
 
   beforeEach(() => {
