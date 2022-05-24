@@ -1,0 +1,11 @@
+<section>
+  <h2>This is an ongoing game</h2>
+  <p>gameId: {{ status.gameId }}</p>
+  <p>scheduled: {{ status.scheduled }}</p>
+  <p>started: {{ status.started }}</p>
+  <p>finished: {{ status.closed }}</p>
+  <h2>Active users in the game room</h2>
+  <ul>
+    <li *ngFor="let player of users">{{ player.id }} {{ player.team }}</li>
+  </ul>
+</section>

@@ -36,6 +36,7 @@ import { KeywordsEditorComponent } from './components/shared/keywords-editor/key
 import { EditorComponent } from './components/shared/text-editor/editor.component';
 import { EditCommonComponent } from './components/shared/edit-common/edit-common.component';
 import { ConnectComponent } from './components/group-mode/connect.component';
+import { GameComponent } from './components/group-mode/game.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { ConnectComponent } from './components/group-mode/connect.component';
     KeywordsEditorComponent,
     EditCommonComponent,
     ConnectComponent,
+    GameComponent,
   ],
   imports: [
     CommonModule,

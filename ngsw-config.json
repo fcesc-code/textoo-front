@@ -31,7 +31,7 @@
   "dataGroups": [
     {
       "name": "mockdata-front",
-      "urls": ["https://localhost:3000/**"],
+      "urls": ["https://europe-west1-textoo-backend.cloudfunctions.net/api/**"],
       "cacheConfig": {
         "maxSize": 10,
         "maxAge": "1h",
