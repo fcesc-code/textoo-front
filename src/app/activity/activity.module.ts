@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 /* Services */
 import { ActivitiesService } from './services/activities.service';
-import { GroupGameService } from './services/group-game.service';
 import { UserService } from '../user/services/user.service';
 /* Modules */
 import { AppRoutingModule } from '../app-routing.module';
@@ -36,8 +35,6 @@ import { EditFontComponent } from './components/shared/font-editor/edit-font.com
 import { KeywordsEditorComponent } from './components/shared/keywords-editor/keywords-editor.component';
 import { EditorComponent } from './components/shared/text-editor/editor.component';
 import { EditCommonComponent } from './components/shared/edit-common/edit-common.component';
-import { ConnectComponent } from './components/group-mode/connect.component';
-import { GameComponent } from './components/group-mode/game.component';
 
 @NgModule({
   declarations: [
@@ -58,8 +55,6 @@ import { GameComponent } from './components/group-mode/game.component';
     EditorComponent,
     KeywordsEditorComponent,
     EditCommonComponent,
-    ConnectComponent,
-    GameComponent,
   ],
   imports: [
     CommonModule,
@@ -74,7 +69,7 @@ import { GameComponent } from './components/group-mode/game.component';
     SharedModule,
     QuillModule.forRoot(),
   ],
-  providers: [ActivitiesService, UserService, GroupGameService],
+  providers: [ActivitiesService, UserService],
   exports: [],
 })
 export class ActivityModule {}

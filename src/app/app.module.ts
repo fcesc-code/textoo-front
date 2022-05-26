@@ -35,6 +35,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 /*global services*/
 import { AuthInterceptorService } from './auth/services/auth-interceptor.service';
+import { GroupSyncModule } from './group-sync/group-sync.module';
 /*globals and indexes*/
 // import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
 // import { provideFirestore,getFirestore } from '@angular/fire/firestore';
@@ -56,6 +57,7 @@ import { AuthInterceptorService } from './auth/services/auth-interceptor.service
     ReactiveFormsModule,
     HttpClientModule,
     ActivityModule,
+    GroupSyncModule,
     UserModule,
     AuthModule,
     SharedModule,

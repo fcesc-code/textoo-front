@@ -13,8 +13,9 @@ import { EditBestOptionComponent } from './activity/components/best-option/edit-
 import { PlaySelectTextComponent } from './activity/components/select-text/play-select-text.component';
 import { DashboardComponent } from './activity/components/dashboard/dashboard.component';
 import { MosaicComponent } from './activity/components/mosaic/mosaic.component';
-import { ConnectComponent } from './activity/components/group-mode/connect.component';
-import { GameComponent } from './activity/components/group-mode/game.component';
+/* import group-sync module components */
+import { ConnectComponent } from './group-sync/components/connect/connect.component';
+import { GameComponent } from './group-sync/components/game/game.component';
 
 export const routes: Routes = [
   {
