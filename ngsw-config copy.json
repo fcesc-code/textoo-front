@@ -4,8 +4,7 @@
   "assetGroups": [
     {
       "name": "app",
-      "installMode": "lazy",
-      "updateMode": "lazy",
+      "installMode": "prefetch",
       "resources": {
         "files": [
           "/favicon.ico",
@@ -14,18 +13,30 @@
           "/*.css",
           "/*.js"
         ],
-        "urls": []
+        "urls": [""]
       }
     },
     {
       "name": "assets",
       "installMode": "lazy",
-      "updateMode": "lazy",
+      "updateMode": "prefetch",
       "resources": {
         "files": [
           "/assets/**",
           "/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
         ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "data-front",
+      "urls": ["https://europe-west1-textoo-backend.cloudfunctions.net/api/**"],
+      "cacheConfig": {
+        "maxSize": 10,
+        "maxAge": "1h",
+        "timeout": "1s",
+        "strategy": "freshness"
       }
     }
   ]

@@ -14,6 +14,7 @@ import { PlaySelectTextComponent } from './activity/components/select-text/play-
 import { DashboardComponent } from './activity/components/dashboard/dashboard.component';
 import { MosaicComponent } from './activity/components/mosaic/mosaic.component';
 import { ConnectComponent } from './activity/components/group-mode/connect.component';
+import { GameComponent } from './activity/components/group-mode/game.component';
 
 export const routes: Routes = [
   {
@@ -59,6 +60,10 @@ export const routes: Routes = [
   {
     path: 'join',
     component: ConnectComponent,
+  },
+  {
+    path: 'game/:id',
+    component: GameComponent,
   },
   {
     path: '**',

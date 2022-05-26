@@ -20,6 +20,9 @@ export class GroupGameService {
   }
 
   listenGroupGameStream(id: string): Observable<Game> {
+    console.log(
+      'listenGroupGameStream called in group-game service, calling backend...'
+    );
     return this.http
       .get<Game>(`${this.API}/live/game/${id}`)
       .pipe(catchError(this.sharedService.handleError));
@@ -43,6 +46,9 @@ export class GroupGameService {
   }
 
   listenStatusStream(id: string): Observable<gameStatus> {
+    console.log(
+      `listenStatusStream: about to call: ${this.API}/live/status/${id}`
+    );
     return this.http
       .get<gameStatus>(`${this.API}/live/status/${id}`)
       .pipe(catchError(this.sharedService.handleError));

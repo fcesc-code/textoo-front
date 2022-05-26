@@ -5,6 +5,7 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
@@ -18,7 +19,8 @@ export class ConnectComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.accessCode = new FormControl('', [
       Validators.required,
@@ -35,5 +37,6 @@ export class ConnectComponent {
     console.log(
       `Calling group game with >>> userId:${userId}, gameId:${this.accessCode.value}, userTk:${accessToken}`
     );
+    this.router.navigate(['/game', this.accessCode.value]);
   }
 }
