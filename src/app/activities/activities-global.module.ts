@@ -35,4 +35,4 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
   providers: [ActivitiesService, UserService],
   exports: [],
 })
-export class ActivitiesModule {}
+export class ActivitiesGlobalModule {}
