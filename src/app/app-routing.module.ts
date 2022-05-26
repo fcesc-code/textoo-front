@@ -11,8 +11,8 @@ import { RegisterComponent } from './user/components/register/register.component
 import { PlayBestOptionComponent } from './activity/components/best-option/play-best-option.component';
 import { EditBestOptionComponent } from './activity/components/best-option/edit-best-option.component';
 import { PlaySelectTextComponent } from './activity/components/select-text/play-select-text.component';
-import { DashboardComponent } from './activity/components/dashboard/dashboard.component';
-import { MosaicComponent } from './activity/components/mosaic/mosaic.component';
+import { DashboardComponent } from './activities/components/dashboard/dashboard.component';
+import { MosaicComponent } from './activities/components/mosaic/mosaic.component';
 /* import group-sync module components */
 import { ConnectComponent } from './group-sync/components/connect/connect.component';
 import { GameComponent } from './group-sync/components/game/game.component';

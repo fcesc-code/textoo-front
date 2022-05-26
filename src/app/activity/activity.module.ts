@@ -9,7 +9,6 @@ import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 /* Pipes */
-import { GetLanguagePipe } from './pipes/get-language-name.pipe';
 import { AddOptionPipe } from './pipes/add-option.pipe';
 import { AddPlaceholderPipe } from './pipes/add-option-placeholder.pipe';
 import { ImproveBreaklinesPipe } from './pipes/improve-breaklines.pipe';
@@ -24,8 +23,6 @@ import { MatSelectModule } from '@angular/material/select';
 /* Quill */
 import { QuillModule } from 'ngx-quill';
 /* Components */
-import { MosaicComponent } from './components/mosaic/mosaic.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PlayBestOptionComponent } from './components/best-option/play-best-option.component';
 import { EditBestOptionComponent } from './components/best-option/edit-best-option.component';
 import { EditQuestionBestOptionComponent } from './components/best-option/edit-question-best-option.component';
@@ -43,9 +40,6 @@ import { EditCommonComponent } from './components/shared/edit-common/edit-common
     AddPlaceholderPipe,
     ImproveBreaklinesPipe,
     SanitizePipe,
-    GetLanguagePipe,
-    MosaicComponent,
-    DashboardComponent,
     PlayBestOptionComponent,
     EditBestOptionComponent,
     EditQuestionBestOptionComponent,

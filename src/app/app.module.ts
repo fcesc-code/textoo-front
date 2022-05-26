@@ -21,6 +21,7 @@ import { appReducers } from './app.reducer';
 import { appEffectsArray } from './app.effects';
 /*custom modules*/
 import { ActivityModule } from './activity/activity.module';
+import { ActivitiesModule } from './activities/activities.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
@@ -57,6 +58,7 @@ import { AuthInterceptorService } from './auth/services/auth-interceptor.service
     ReactiveFormsModule,
     HttpClientModule,
     ActivityModule,
+    ActivitiesModule,
     GroupSyncModule,
     UserModule,
     AuthModule,
