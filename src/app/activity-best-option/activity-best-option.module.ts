@@ -24,10 +24,7 @@ import { PlayBestOptionComponent } from './components/best-option/play-best-opti
 import { EditBestOptionComponent } from './components/best-option/edit-best-option.component';
 import { EditQuestionBestOptionComponent } from './components/best-option/edit-question-best-option.component';
 import { EditOptionBestOptionComponent } from './components/best-option/edit-option-best-option.component';
-import { EditFontComponent } from 'src/app/activity/components/shared/font-editor/edit-font.component';
-import { KeywordsEditorComponent } from 'src/app/activity/components/shared/keywords-editor/keywords-editor.component';
-import { EditorComponent } from 'src/app/activity/components/shared/text-editor/editor.component';
-import { EditCommonComponent } from 'src/app/activity/components/shared/edit-common/edit-common.component';
+import { ActivitiesSharedModule } from '../activity/activities-shared.module';
 
 @NgModule({
   declarations: [
@@ -49,6 +46,7 @@ import { EditCommonComponent } from 'src/app/activity/components/shared/edit-com
     MatSelectModule,
     MatButtonModule,
     SharedModule,
+    ActivitiesSharedModule,
     QuillModule.forRoot(),
   ],
   providers: [ActivitiesService, UserService],

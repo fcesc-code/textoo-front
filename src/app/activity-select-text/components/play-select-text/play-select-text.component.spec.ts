@@ -22,7 +22,7 @@ import {
 } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { ActivityModule } from '../../../activity/activity.module';
+import { ActivitiesSharedModule } from '../../../activity/activities-shared.module';
 import { By } from '@angular/platform-browser';
 
 class ActivatedRouteStub implements Partial<ActivatedRoute> {
@@ -63,7 +63,7 @@ describe('PlaySelectTextComponent', () => {
     routeStub.setParamMap({ id: MOCK_ACTIVITY_ID });
     await TestBed.configureTestingModule({
       imports: [
-        ActivityModule,
+        ActivitiesSharedModule,
         SharedModule,
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([

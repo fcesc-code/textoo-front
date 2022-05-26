@@ -17,10 +17,10 @@ import { MatSelectModule } from '@angular/material/select';
 /* Quill */
 import { QuillModule } from 'ngx-quill';
 /* Components */
-import { EditFontComponent } from './components/shared/font-editor/edit-font.component';
-import { KeywordsEditorComponent } from './components/shared/keywords-editor/keywords-editor.component';
-import { EditorComponent } from './components/shared/text-editor/editor.component';
-import { EditCommonComponent } from './components/shared/edit-common/edit-common.component';
+import { EditFontComponent } from './components/font-editor/edit-font.component';
+import { KeywordsEditorComponent } from './components/keywords-editor/keywords-editor.component';
+import { EditorComponent } from './components/text-editor/editor.component';
+import { EditCommonComponent } from './components/edit-common/edit-common.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +43,11 @@ import { EditCommonComponent } from './components/shared/edit-common/edit-common
     QuillModule.forRoot(),
   ],
   providers: [ActivitiesService, UserService],
-  exports: [],
+  exports: [
+    EditFontComponent,
+    EditorComponent,
+    KeywordsEditorComponent,
+    EditCommonComponent,
+  ],
 })
-export class ActivityModule {}
+export class ActivitiesSharedModule {}
