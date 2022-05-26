@@ -8,9 +8,9 @@ import { AppRoutingModule } from '../app-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ActivitiesSharedModule } from '../activity/activities-shared.module';
 /* Pipes */
 import { ImproveBreaklinesPipe } from './pipes/improve-breaklines.pipe';
-import { SanitizePipe } from './pipes/sanitize.pipe';
 import { HighlightTextPipe } from './pipes/highlight-text.pipe';
 /* Material */
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -25,7 +25,6 @@ import { PlaySelectTextComponent } from './components/play-select-text/play-sele
   declarations: [
     HighlightTextPipe,
     ImproveBreaklinesPipe,
-    SanitizePipe,
     PlaySelectTextComponent,
   ],
   imports: [
@@ -39,6 +38,7 @@ import { PlaySelectTextComponent } from './components/play-select-text/play-sele
     MatSelectModule,
     MatButtonModule,
     SharedModule,
+    ActivitiesSharedModule,
   ],
   providers: [ActivitiesService, UserService],
   exports: [],

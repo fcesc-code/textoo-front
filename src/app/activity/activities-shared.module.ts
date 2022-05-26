@@ -21,6 +21,8 @@ import { EditFontComponent } from './components/font-editor/edit-font.component'
 import { KeywordsEditorComponent } from './components/keywords-editor/keywords-editor.component';
 import { EditorComponent } from './components/text-editor/editor.component';
 import { EditCommonComponent } from './components/edit-common/edit-common.component';
+/* Pipes */
+import { SanitizePipe } from './pipes/sanitize.pipe';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,7 @@ import { EditCommonComponent } from './components/edit-common/edit-common.compon
     EditorComponent,
     KeywordsEditorComponent,
     EditCommonComponent,
+    SanitizePipe,
   ],
 })
 export class ActivitiesSharedModule {}
