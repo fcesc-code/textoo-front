@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { ActivitiesService } from '../../services/activities.service';
 
@@ -15,7 +15,7 @@ export class DashboardComponent implements OnDestroy {
   subscription$: any;
   constructor(
     private activitiesService: ActivitiesService,
-    private localStorageService: LocalStorageService,
+    private authService: AuthService,
     private sharedService: SharedService
   ) {
     this.filteredActivities = [];
@@ -24,7 +24,7 @@ export class DashboardComponent implements OnDestroy {
   }
 
   loadActivities(): void {
-    const userId = this.localStorageService.get('user_id');
+    const { userId } = this.authService.getUser();
     if (userId) {
       this.subscription$ = this.activitiesService
         .getAllActivitiesByUserId(userId)

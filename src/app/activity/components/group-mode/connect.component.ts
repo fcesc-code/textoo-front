@@ -5,6 +5,8 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-connect',
@@ -15,7 +17,11 @@ export class ConnectComponent {
   joinGroupForm: FormGroup;
   accessCode: FormControl;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.accessCode = new FormControl('', [
       Validators.required,
       Validators.minLength(6),
@@ -27,6 +33,10 @@ export class ConnectComponent {
   }
 
   join(): void {
-    console.log('hello, world!');
+    const { userId, accessToken } = this.authService.getUser();
+    console.log(
+      `Calling group game with >>> userId:${userId}, gameId:${this.accessCode.value}, userTk:${accessToken}`
+    );
+    this.router.navigate(['/game', this.accessCode.value]);
   }
 }

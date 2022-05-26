@@ -7,20 +7,20 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthInterceptorService implements HttpInterceptor {
-  access_token: string | null;
+  accessToken: string | null;
 
   constructor(
-    private localStorageService: LocalStorageService,
+    private authService: AuthService,
     private spinnerService: SpinnerService
   ) {
-    this.access_token = this.localStorageService.get('access_token');
+    this.accessToken = this.authService.getToken();
   }
 
   intercept(
@@ -28,13 +28,15 @@ export class AuthInterceptorService implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     this.spinnerService.show();
-    this.access_token = this.localStorageService.get('access_token');
-    if (this.access_token) {
+    this.accessToken = this.authService.getToken();
+    console.log('AuthInterceptorService >>> ', this.accessToken);
+    if (this.accessToken) {
+      console.log('entering setting headers');
       req = req.clone({
         setHeaders: {
-          'Content-Type': 'application/json; charset=utf-8',
+          'Content-Type': 'application/json;charset=utf-8',
           Accept: 'application/json',
-          Authorization: `Bearer ${this.access_token}`,
+          Authorization: `Bearer ${this.accessToken}`,
         },
       });
     }

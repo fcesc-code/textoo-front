@@ -1,10 +1,10 @@
 export class AuthToken {
-  user_id: string;
-  access_token: string;
+  userId: string;
+  accessToken: string;
 
-  constructor(user_id: string, access_token: string) {
-    this.user_id = user_id;
-    this.access_token = access_token;
+  constructor(userId: string, accessToken: string) {
+    this.userId = userId;
+    this.accessToken = accessToken;
   }
 }
 

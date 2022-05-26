@@ -12,6 +12,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { HeaderMenusService } from 'src/app/shared/services/header-menus.service';
 import { HeaderMenus } from 'src/app/shared/models/header-menus.dto';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { debounceTime } from 'rxjs/operators';
@@ -23,7 +24,7 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class LoginComponent {
   loginUser: AuthLogin;
-  authUser: AuthToken;
+  // authUser: AuthToken;
 
   email: FormControl;
   password: FormControl;
@@ -37,12 +38,13 @@ export class LoginComponent {
     private formBuilder: FormBuilder,
     private sharedService: SharedService,
     private headerMenusService: HeaderMenusService,
-    private localStorageService: LocalStorageService,
+    // private localStorageService: LocalStorageService,
+    private authService: AuthService,
     private router: Router,
     private store: Store<AppState>
   ) {
     this.loginUser = new AuthLogin('', '');
-    this.authUser = new AuthToken('', '');
+    // this.authUser = new AuthToken('', '');
 
     this.email = new FormControl(this.loginUser.email, [
       Validators.required,
@@ -73,19 +75,12 @@ export class LoginComponent {
       .subscribe({
         next: async ({ auth, loaded, error }): Promise<void> => {
           if (loaded) {
-            const { user_id, access_token } = auth;
-            this.authUser.user_id = user_id;
-            this.authUser.access_token = access_token;
-            this.localStorageService.set('user_id', this.authUser.user_id);
-            this.localStorageService.set(
-              'access_token',
-              this.authUser.access_token
-            );
-            headerInfo = {
-              showAuthSection: true,
-              showNoAuthSection: false,
-            };
-            this.headerMenusService.headerManagement.next(headerInfo);
+            const { userId, accessToken } = auth;
+            this.authService.setUser({
+              userId: userId,
+              accessToken: accessToken,
+            } as AuthToken);
+            this.headerMenusService.authorize();
             await this.sharedService.managementToast(
               'loginFeedback',
               loaded,
@@ -94,11 +89,7 @@ export class LoginComponent {
             this.router.navigateByUrl('home');
           }
           if (error) {
-            headerInfo = {
-              showAuthSection: false,
-              showNoAuthSection: true,
-            };
-            this.headerMenusService.headerManagement.next(headerInfo);
+            this.headerMenusService.unauthorize();
             this.sharedService.errorLog(error.error);
             await this.sharedService.managementToast(
               'loginFeedback',

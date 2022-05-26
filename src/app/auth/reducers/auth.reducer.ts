@@ -49,8 +49,8 @@ const _authReducer = createReducer(
   })),
   on(AUTH_ACTIONS.getLocalStorageTokenSuccess, (state, { auth }) => {
     if (
-      auth.user_id === state.auth.user_id &&
-      auth.access_token === state.auth.access_token
+      auth.userId === state.auth.userId &&
+      auth.accessToken === state.auth.accessToken
     ) {
       return { ...state };
     } else {

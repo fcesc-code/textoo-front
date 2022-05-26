@@ -5,7 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit, AfterContentInit {
   constructor(
     private formBuilder: FormBuilder,
     private sharedService: SharedService,
-    private localStorageService: LocalStorageService,
+    private authService: AuthService,
     private store: Store<AppState>
   ) {
     this.profileUser = new UserDto({
@@ -91,7 +91,7 @@ export class ProfileComponent implements OnInit, AfterContentInit {
     // password: this.password,
   }
   ngOnInit(): void {
-    const userId = this.localStorageService.get('user_id');
+    const { userId } = this.authService.getUser();
 
     if (userId) {
       this.store.select('user').subscribe({
@@ -129,7 +129,7 @@ export class ProfileComponent implements OnInit, AfterContentInit {
   }
 
   ngAfterContentInit(): void {
-    const userId = this.localStorageService.get('user_id');
+    const { userId } = this.authService.getUser();
     if (userId) {
       this.store.dispatch(USER_ACTIONS.getById({ userId: userId }));
     }
@@ -140,7 +140,7 @@ export class ProfileComponent implements OnInit, AfterContentInit {
       return;
     }
 
-    const userId = this.localStorageService.get('user_id');
+    const { userId } = this.authService.getUser();
 
     if (userId) {
       this.store.select('user').subscribe({

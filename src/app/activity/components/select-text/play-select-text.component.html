@@ -65,6 +65,7 @@
       *ngIf="!this.completed"
       (click)="this.removeSelections()"
       text="esborrar selecció"
+      [disabled]="this.selectedText.length === 0"
     ></app-button>
     <app-button
       class="my-2 mx-3"
