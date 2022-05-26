@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 /* Pipes */
 import { AddOptionPipe } from './pipes/add-option.pipe';
 import { AddPlaceholderPipe } from './pipes/add-option-placeholder.pipe';
+import { SanitizePipe } from './pipes/sanitize.pipe';
 /* Material */
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -30,6 +31,7 @@ import { ActivitiesSharedModule } from '../activity/activities-shared.module';
   declarations: [
     AddOptionPipe,
     AddPlaceholderPipe,
+    SanitizePipe,
     PlayBestOptionComponent,
     EditBestOptionComponent,
     EditQuestionBestOptionComponent,

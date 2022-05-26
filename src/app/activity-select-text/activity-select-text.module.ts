@@ -20,12 +20,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 /* Components */
 import { PlaySelectTextComponent } from './components/play-select-text/play-select-text.component';
+import { SanitizePipe } from './pipes/sanitize.pipe';
 
 @NgModule({
   declarations: [
     HighlightTextPipe,
     ImproveBreaklinesPipe,
     PlaySelectTextComponent,
+    SanitizePipe,
   ],
   imports: [
     CommonModule,
