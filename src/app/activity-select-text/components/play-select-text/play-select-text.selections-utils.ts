@@ -1,5 +1,5 @@
 import { CustomArrayMethods } from 'src/app/shared/utils/arrays';
-import { TextSelection } from '../../../activity/models/ActivitySelectText.dto';
+import { TextSelection } from '../../models/ActivitySelectText.dto';
 
 export function addSelection(
   newSelection: TextSelection,

@@ -1,11 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivitiesService } from '../../services/activities.service';
+import { ActivitiesService } from 'src/app/activity/services/activities.service';
 import {
   ActivityBestOption,
   Question_ActivityBestOption,
   QuestionResponse,
-} from '../../models/ActivityBestOption.dto';
-import { CommonData, Font, Timestamps } from '../../models/Activity.dto';
+} from '../../../activity-best-option/models/ActivityBestOption.dto';
+import {
+  CommonData,
+  Font,
+  Timestamps,
+} from 'src/app/activity/models/Activity.dto';
 import { debounce, map, Subject, Subscription, timer } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CustomArrayMethods } from 'src/app/shared/utils/arrays';

@@ -8,8 +8,8 @@ import { EditorComponent } from './activity/components/shared/text-editor/editor
 import { ProfileComponent } from './user/components/profile/profile.component';
 import { RegisterComponent } from './user/components/register/register.component';
 /* import activity module components */
-import { PlayBestOptionComponent } from './activity/components/best-option/play-best-option.component';
-import { EditBestOptionComponent } from './activity/components/best-option/edit-best-option.component';
+import { PlayBestOptionComponent } from './activity-best-option/components/best-option/play-best-option.component';
+import { EditBestOptionComponent } from './activity-best-option/components/best-option/edit-best-option.component';
 /* import activity-play-text module components */
 import { PlaySelectTextComponent } from './activity-select-text/components/play-select-text/play-select-text.component';
 /* import activities module components */

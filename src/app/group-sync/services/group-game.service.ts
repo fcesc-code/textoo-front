@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
 import { catchError, Observable, tap } from 'rxjs';
-import { ActivityType } from 'src/app/activity/models/Activity.dto';
-import { ActivityBestOption } from '../../activity/models/ActivityBestOption.dto';
-import { ActivitySelectText } from '../../activity/models/ActivitySelectText.dto';
-import { ActivityTransformAspect } from '../../activity/models/ActivityTransformAspect.dto';
 import { API_SYNC_ROUTES } from 'src/routes/API_ROUTES';
 import { HttpClient } from '@angular/common/http';
 import { SharedService } from 'src/app/shared/services/shared.service';

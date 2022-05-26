@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { EditBestOptionComponent } from './edit-best-option.component';
-import { ActivitiesService } from '../../services/activities.service';
+import { PlayBestOptionComponent } from './play-best-option.component';
+import { ActivitiesService } from 'src/app/activity/services/activities.service';
 import {
   CUSTOM_ELEMENTS_SCHEMA,
   DebugElement,
@@ -19,7 +19,8 @@ import {
 } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { ActivityModule } from '../../activity.module';
+import { ActivityBestOptionModule } from '../../activity-best-option.module';
+import { By } from '@angular/platform-browser';
 
 class ActivatedRouteStub implements Partial<ActivatedRoute> {
   private _paramMap!: ParamMap;
@@ -44,14 +45,14 @@ class ActivatedRouteStub implements Partial<ActivatedRoute> {
     this.subject.next(paramMap);
   }
 }
-describe('EditBestOptionComponent', () => {
-  let component: EditBestOptionComponent;
-  let fixture: ComponentFixture<EditBestOptionComponent>;
+describe('PlayBestOptionComponent', () => {
+  let component: PlayBestOptionComponent;
+  let fixture: ComponentFixture<PlayBestOptionComponent>;
   class TemporalComponentForRoutes {}
   let activitiesService: ActivitiesService;
   let debugElement: DebugElement;
 
-  const TEST = 'test';
+  const TITLE = 'Play best-option Component';
   const MOCK_ACTIVITY_ID = MOCK_ACTIVITY_BEST_OPTION.id;
 
   beforeEach(async () => {
@@ -59,7 +60,7 @@ describe('EditBestOptionComponent', () => {
     routeStub.setParamMap({ id: MOCK_ACTIVITY_ID });
     await TestBed.configureTestingModule({
       imports: [
-        ActivityModule,
+        ActivityBestOptionModule,
         SharedModule,
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
@@ -74,19 +75,50 @@ describe('EditBestOptionComponent', () => {
         { provide: ActivatedRoute, useValue: routeStub },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-      declarations: [EditBestOptionComponent],
+      declarations: [PlayBestOptionComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
     activitiesService = TestBed.inject(ActivitiesService);
-    fixture = TestBed.createComponent(EditBestOptionComponent);
+    fixture = TestBed.createComponent(PlayBestOptionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     debugElement = fixture.debugElement;
   });
 
-  it(`${TEST} 1 > should create`, () => {
+  it(`${TITLE} 1 > should create`, () => {
     expect(component).toBeTruthy();
+  });
+
+  it(`${TITLE} 2 > should set completed to true if validate button is triggered`, () => {
+    const validateButton = debugElement.query(By.css('#showResults'));
+    validateButton.triggerEventHandler('click', null);
+    expect(component.completed).toBeTrue();
+  });
+
+  it(`${TITLE} 3 > should set completed to false if replay button is triggered`, () => {
+    component.completed = true;
+    fixture.detectChanges();
+    debugElement = fixture.debugElement;
+    const replayButton = debugElement.query(By.css('#replayActivity'));
+    replayButton.triggerEventHandler('click', null);
+    expect(component.completed).toBeFalse();
+  });
+
+  xit(`${TITLE} 4 > should get one incorrect answer if an incorrect answer is set`, () => {
+    const question = debugElement.query(By.css('#SEL-3'));
+    question.nativeElement.click();
+    fixture.detectChanges();
+    question.nativeElement.children[1].click();
+    fixture.detectChanges();
+    // console.log('VALUE?', question.nativeElement.children[1].attributes.select.value);
+    const validateButton = debugElement.query(By.css('#showResults'));
+    validateButton.triggerEventHandler('click', null);
+    const ANSWERS = component.answers.insights;
+    // console.log('ANSWERS', ANSWERS);
+    const INCORRECT_ANSWERS = ANSWERS.insights.incorrect.length;
+    const EXPECTED_INCORRECT_ANSWERS = 1;
+    expect(INCORRECT_ANSWERS).toEqual(EXPECTED_INCORRECT_ANSWERS);
   });
 });

@@ -1,15 +1,19 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivitiesService } from '../../services/activities.service';
+import { ActivitiesService } from 'src/app/activity/services/activities.service';
 import {
   ActivityBestOption,
   Question_ActivityBestOption,
-} from '../../models/ActivityBestOption.dto';
+} from '../../../activity-best-option/models/ActivityBestOption.dto';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { OptionSelection } from '../../models/ActivityBestOption.dto';
+import { OptionSelection } from '../../../activity-best-option/models/ActivityBestOption.dto';
 import { CustomArrayMethods } from 'src/app/shared/utils/arrays';
 import { ID_PREFIX } from '../../pipes/add-option.marks';
-import { Answer, AnswerOption, AnswerType } from '../../models/Answer.dto';
+import {
+  Answer,
+  AnswerOption,
+  AnswerType,
+} from 'src/app/activity/models/Answer.dto';
 
 @Component({
   selector: 'app-play-best-option',

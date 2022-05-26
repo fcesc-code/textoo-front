@@ -18,7 +18,7 @@ import {
   Question_ActivityBestOption,
   OptionResponse,
   QuestionResponse,
-} from '../../models/ActivityBestOption.dto';
+} from '../../../activity-best-option/models/ActivityBestOption.dto';
 
 @Component({
   selector: 'app-edit-question-best-option',

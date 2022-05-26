@@ -6,7 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivitiesService } from '../../../activity/services/activities.service';
-import { ActivitySelectText } from '../../../activity/models/ActivitySelectText.dto';
+import { ActivitySelectText } from '../../models/ActivitySelectText.dto';
 import {
   debounceTime,
   filter,
@@ -17,7 +17,7 @@ import {
   tap,
 } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { TextSelection } from '../../../activity/models/ActivitySelectText.dto';
+import { TextSelection } from '../../models/ActivitySelectText.dto';
 import { CustomArrayMethods } from 'src/app/shared/utils/arrays';
 import {
   Answer,

@@ -1,5 +1,5 @@
 import { createMock } from 'ts-auto-mock';
-import { TextSelection } from '../../../activity/models/ActivitySelectText.dto';
+import { TextSelection } from '../../models/ActivitySelectText.dto';
 import {
   textSelection,
   deconstructText,

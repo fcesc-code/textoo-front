@@ -5,8 +5,8 @@ import {
   MOCK_ACTIVITY_SELECT_TEXT,
   MOCK_ACTIVITY_TRANSFORM_ASPECT,
 } from 'mockdata/activity.mock';
-import { ActivityBestOption } from '../models/ActivityBestOption.dto';
-import { ActivitySelectText } from '../models/ActivitySelectText.dto';
+import { ActivityBestOption } from '../../activity-best-option/models/ActivityBestOption.dto';
+import { ActivitySelectText } from '../../activity-select-text/models/ActivitySelectText.dto';
 import { ActivityTransformAspect } from '../models/ActivityTransformAspect.dto';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivitiesService } from './activities.service';
