@@ -7,7 +7,7 @@ import {
   gameScore,
   gameStatus,
   gameUser,
-} from '../../../activity/interfaces/game.dto';
+} from '../../interfaces/game.dto';
 import { GroupGameService } from '../../services/group-game.service';
 
 @Component({

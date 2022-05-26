@@ -7,12 +7,7 @@ import { ActivityTransformAspect } from '../../activity/models/ActivityTransform
 import { API_SYNC_ROUTES } from 'src/routes/API_ROUTES';
 import { HttpClient } from '@angular/common/http';
 import { SharedService } from 'src/app/shared/services/shared.service';
-import {
-  Game,
-  gameScore,
-  gameStatus,
-  gameUser,
-} from '../../activity/interfaces/game.dto';
+import { Game, gameScore, gameStatus, gameUser } from '../interfaces/game.dto';
 
 @Injectable({
   providedIn: 'root',
