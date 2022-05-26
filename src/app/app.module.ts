@@ -24,6 +24,7 @@ import { ActivityModule } from './activity/activity.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
+import { GroupSyncModule } from './group-sync/group-sync.module';
 /*components*/
 import { AppComponent } from './app.component';
 /*animations*/
@@ -35,7 +36,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 /*global services*/
 import { AuthInterceptorService } from './auth/services/auth-interceptor.service';
-import { GroupSyncModule } from './group-sync/group-sync.module';
 /*globals and indexes*/
 // import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
 // import { provideFirestore,getFirestore } from '@angular/fire/firestore';
