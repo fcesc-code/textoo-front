@@ -2,9 +2,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { PREFIX, SUFIX } from './highlight-text.marks';
 
 @Pipe({
-  name: 'highlightText',
+  name: 'removeDecorators',
 })
-export class HighlightTextPipe implements PipeTransform {
+export class RemoveDecoratorsPipe implements PipeTransform {
   transform(text: string): string {
     const PREFIX_EXP = new RegExp(PREFIX, 'gi');
     const SUFIX_EXP = new RegExp(SUFIX, 'gi');

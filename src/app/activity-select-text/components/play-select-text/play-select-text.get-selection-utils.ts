@@ -1,4 +1,4 @@
-import { TextSelection } from '../../models/ActivitySelectText.dto';
+import { TextSelection } from '../../../activity/models/ActivitySelectText.dto';
 import { ID_HIGHLIGHT } from '../../pipes/highlight-text.marks';
 import { ImproveBreaklinesPipe } from '../../pipes/improve-breaklines.pipe';
 

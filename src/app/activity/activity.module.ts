@@ -11,9 +11,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 /* Pipes */
 import { AddOptionPipe } from './pipes/add-option.pipe';
 import { AddPlaceholderPipe } from './pipes/add-option-placeholder.pipe';
-import { ImproveBreaklinesPipe } from './pipes/improve-breaklines.pipe';
-import { SanitizePipe } from './pipes/sanitize.pipe';
-import { HighlightTextPipe } from './pipes/highlight-text.pipe';
 /* Material */
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -27,7 +24,6 @@ import { PlayBestOptionComponent } from './components/best-option/play-best-opti
 import { EditBestOptionComponent } from './components/best-option/edit-best-option.component';
 import { EditQuestionBestOptionComponent } from './components/best-option/edit-question-best-option.component';
 import { EditOptionBestOptionComponent } from './components/best-option/edit-option-best-option.component';
-import { PlaySelectTextComponent } from './components/select-text/play-select-text.component';
 import { EditFontComponent } from './components/shared/font-editor/edit-font.component';
 import { KeywordsEditorComponent } from './components/shared/keywords-editor/keywords-editor.component';
 import { EditorComponent } from './components/shared/text-editor/editor.component';
@@ -35,16 +31,12 @@ import { EditCommonComponent } from './components/shared/edit-common/edit-common
 
 @NgModule({
   declarations: [
-    HighlightTextPipe,
     AddOptionPipe,
     AddPlaceholderPipe,
-    ImproveBreaklinesPipe,
-    SanitizePipe,
     PlayBestOptionComponent,
     EditBestOptionComponent,
     EditQuestionBestOptionComponent,
     EditOptionBestOptionComponent,
-    PlaySelectTextComponent,
     EditFontComponent,
     EditorComponent,
     KeywordsEditorComponent,

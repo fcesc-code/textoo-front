@@ -22,6 +22,7 @@ import { appEffectsArray } from './app.effects';
 /*custom modules*/
 import { ActivityModule } from './activity/activity.module';
 import { ActivitiesGlobalModule } from './activities/activities-global.module';
+import { ActivitySelectTextModule } from './activity-select-text/activity-select-text.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
@@ -59,6 +60,7 @@ import { AuthInterceptorService } from './auth/services/auth-interceptor.service
     HttpClientModule,
     ActivityModule,
     ActivitiesGlobalModule,
+    ActivitySelectTextModule,
     GroupSyncModule,
     UserModule,
     AuthModule,

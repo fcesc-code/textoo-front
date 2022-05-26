@@ -10,7 +10,9 @@ import { RegisterComponent } from './user/components/register/register.component
 /* import activity module components */
 import { PlayBestOptionComponent } from './activity/components/best-option/play-best-option.component';
 import { EditBestOptionComponent } from './activity/components/best-option/edit-best-option.component';
-import { PlaySelectTextComponent } from './activity/components/select-text/play-select-text.component';
+/* import activity-play-text module components */
+import { PlaySelectTextComponent } from './activity-select-text/components/play-select-text/play-select-text.component';
+/* import activities module components */
 import { DashboardComponent } from './activities/components/dashboard/dashboard.component';
 import { MosaicComponent } from './activities/components/mosaic/mosaic.component';
 /* import group-sync module components */
