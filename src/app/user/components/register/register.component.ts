@@ -14,6 +14,7 @@ import { USER_ACTIONS } from '../../actions/user.actions';
 import { UserRoles } from '../../../shared/interfaces/global.interfaces';
 import { SupportedLanguages } from 'src/app/activity/models/Activity.dto';
 import { Subscription } from 'rxjs';
+import { PasswordConfirmationValidator } from '../../validators/confirm-password.validator';
 
 @Component({
   selector: 'app-register',
@@ -22,12 +23,14 @@ import { Subscription } from 'rxjs';
 })
 export class RegisterComponent implements OnDestroy {
   registerUser: NewUserDto;
+  repeatedPassword: string;
 
   avatar: FormControl;
   preferences: FormControl;
   alias: FormControl;
   email: FormControl;
   password: FormControl;
+  passwordConfirmation: FormControl;
   roles: UserRoles[];
   likedActivities: string[];
   activeGroups: string[];
@@ -42,6 +45,7 @@ export class RegisterComponent implements OnDestroy {
     private router: Router,
     private store: Store<AppState>
   ) {
+    this.repeatedPassword = '';
     this.registerUser = new NewUserDto({
       avatar: '',
       alias: '',
@@ -70,6 +74,11 @@ export class RegisterComponent implements OnDestroy {
       Validators.minLength(8),
       Validators.maxLength(24),
     ]);
+    this.passwordConfirmation = new FormControl(this.repeatedPassword, [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.maxLength(24),
+    ]);
     this.preferences = new FormControl(this.registerUser.preferences, [
       Validators.required,
     ]);
@@ -78,13 +87,22 @@ export class RegisterComponent implements OnDestroy {
       Validators.minLength(5),
     ]);
 
-    this.registerForm = this.formBuilder.group({
-      alias: this.alias,
-      email: this.email,
-      password: this.password,
-      preferences: this.preferences,
-      avatar: this.avatar,
-    });
+    this.registerForm = this.formBuilder.group(
+      {
+        alias: this.alias,
+        email: this.email,
+        password: this.password,
+        passwordConfirmation: this.passwordConfirmation,
+        preferences: this.preferences,
+        avatar: this.avatar,
+      },
+      {
+        validator: PasswordConfirmationValidator(
+          'password',
+          'passwordConfirmation'
+        ),
+      }
+    );
   }
 
   ngOnDestroy(): void {

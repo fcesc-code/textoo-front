@@ -15,7 +15,7 @@
       type="text"
       [formControl]="alias"
       aria-required="true"
-      placeholder="Your alias..."
+      placeholder="El teu alias..."
     />
     <mat-error *ngIf="alias.dirty && alias.hasError('required')">
       Cal proporcionar un alias.
@@ -46,7 +46,7 @@
       type="text"
       [formControl]="avatar"
       aria-required="true"
-      placeholder="Your avatar..."
+      placeholder="El teu avatar..."
     />
     <mat-error *ngIf="alias.dirty && alias.hasError('required')">
       Cal proporcionar un avatar.
@@ -68,7 +68,7 @@
       type="email"
       [formControl]="email"
       aria-required="true"
-      placeholder="Your email..."
+      placeholder="El teu correu electrònic..."
       autocomplete="email"
     />
     <mat-error *ngIf="email.dirty && email.hasError('required')">
@@ -89,7 +89,7 @@
       type="password"
       [formControl]="password"
       aria-required="true"
-      placeholder="Your password..."
+      placeholder="La teva clau..."
       autocomplete="new-password"
     />
     <mat-error *ngIf="password.dirty && password.hasError('required')">
@@ -114,8 +114,47 @@
       La clau no pot excedir els 24 caràcters.
     </mat-error>
   </mat-form-field>
-
-  <div>
+  <mat-form-field appearance="fill">
+    <mat-label>Repeteix la clau</mat-label>
+    <input
+      matInput
+      type="password"
+      [formControl]="passwordConfirmation"
+      aria-required="true"
+      placeholder="Confirma la teva clau..."
+    />
+    <mat-error *ngIf="password.dirty && password.hasError('required')">
+      Confirma la clau d'accés.
+    </mat-error>
+    <mat-error
+      *ngIf="
+        passwordConfirmation.dirty &&
+        passwordConfirmation.hasError('minlength') &&
+        !passwordConfirmation.hasError('required')
+      "
+    >
+      La clau ha de tenir com a mínim 8 caràcters.
+    </mat-error>
+    <mat-error
+      *ngIf="
+        passwordConfirmation.dirty &&
+        passwordConfirmation.hasError('maxlength') &&
+        !passwordConfirmation.hasError('required')
+      "
+    >
+      La clau no pot excedir els 24 caràcters.
+    </mat-error>
+    <mat-error
+      *ngIf="
+        passwordConfirmation.dirty &&
+        passwordConfirmation.hasError('passwords_mismatch') &&
+        !passwordConfirmation.hasError('required')
+      "
+    >
+      Les dues claus han de ser coincidents. Revisa la confirmació de la clau.
+    </mat-error>
+  </mat-form-field>
+  <div class="mt-6">
     <button
       mat-raised-button
       color="primary"
