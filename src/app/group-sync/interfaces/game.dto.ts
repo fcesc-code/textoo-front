@@ -3,6 +3,10 @@ export interface gameStatus {
   scheduled: boolean;
   started: boolean;
   closed: boolean;
+  organizer: string;
+  timed: boolean;
+  maxTime: number;
+  start: Date;
 }
 
 export interface gameUser {

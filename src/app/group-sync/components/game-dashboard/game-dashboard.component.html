@@ -1,16 +1,78 @@
 <section>
-  <h2>Oh wow, this is game-dashboard component</h2>
+  <h1 *ngIf="this.newGame" class="font-bold text-xl py-6 text-center">
+    Crea un nou joc
+  </h1>
+  <h1 *ngIf="!this.newGame" class="font-bold text-xl py-6 text-center">
+    Actualitza el joc
+  </h1>
+  <form
+    class="form w-full flex flex-col justify-start items-center"
+    [formGroup]="gameForm"
+    aria-label="game form"
+  >
+    <mat-form-field appearance="standard">
+      <mat-label>Activitat que es realitzarà</mat-label>
+      <input
+        matInput
+        type="text"
+        [formControl]="activityId"
+        aria-required="true"
+        id="gameForm-activityId"
+      />
+      <mat-error *ngIf="activityId.dirty && activityId.hasError('required')">
+        Cal proporcionar un identificador de l'activitat.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Temps límit</mat-label>
+      <mat-select
+        required
+        [formControl]="maxTime"
+        aria-label="Escollir el temps màxim per a realitzar l'activitat"
+        id="gameForm-maxTime"
+      >
+        <mat-option selected>Temps màxim per al joc</mat-option>
+        <mat-option [value]="720">12 minuts</mat-option>
+        <mat-option [value]="480">8 minuts</mat-option>
+        <mat-option [value]="300">5 minuts</mat-option>
+        <mat-option [value]="180">3 minuts</mat-option>
+        <mat-option [value]="90">1,5 minuts</mat-option>
+      </mat-select>
+      <mat-error *ngIf="maxTime.dirty && maxTime.hasError('required')">
+        Indica el temps màxim per a realitzar l'activitat. Ha de ser un temps
+        raonable.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Hora prevista d'inici</mat-label>
+      <input
+        matInput
+        type="datetime-local"
+        [formControl]="start"
+        aria-required="true"
+        id="gameForm-start"
+      />
+      <mat-error *ngIf="start.dirty && start.hasError('required')">
+        Cal indicar una data i hora d'inici d'activitat. No pateixis, podràs
+        modificar aquestes dades posteriorment si ho necessites.
+      </mat-error>
+      <mat-error *ngIf="start.dirty && start.hasError('greater-than-today')">
+        La data indicada ha de ser superior a l'actual. Deixa almenys uns minuts
+        abans d'iniciar l'activitat.
+      </mat-error>
+    </mat-form-field>
+  </form>
   <app-button
     class="my-2 mx-3"
     id="create-game-button"
-    text="Crear joc"
+    text="{{ this.newGame ? 'Crea' : 'Actualitza' }}"
     (click)="this.createGame()"
   >
   </app-button>
   <app-button
     class="my-2 mx-3"
     id="delete-game-button"
-    text="esborrar joc"
+    text="esborra"
     (click)="this.deleteGame('7rOp1sA27uWTFzBUyxT0')"
   >
   </app-button>

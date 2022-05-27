@@ -32,6 +32,10 @@ export class GameComponent implements OnInit, OnDestroy {
       scheduled: true,
       started: false,
       closed: false,
+      organizer: '',
+      timed: false,
+      maxTime: 0,
+      start: new Date(),
     };
     (this.users = []), (this.scores = []);
     this.accessCode = '';
