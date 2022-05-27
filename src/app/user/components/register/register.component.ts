@@ -73,7 +73,10 @@ export class RegisterComponent implements OnDestroy {
     this.preferences = new FormControl(this.registerUser.preferences, [
       Validators.required,
     ]);
-    this.avatar = new FormControl(this.registerUser.avatar);
+    this.avatar = new FormControl(this.registerUser.avatar, [
+      Validators.required,
+      Validators.minLength(5),
+    ]);
 
     this.registerForm = this.formBuilder.group({
       alias: this.alias,

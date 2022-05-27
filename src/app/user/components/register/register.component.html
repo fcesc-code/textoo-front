@@ -7,7 +7,7 @@
   (ngSubmit)="register()"
   aria-label="register form"
 >
-  <h1 class="font-bold text-xl pb-6 text-center">Sign up Textoo</h1>
+  <h1 class="font-bold text-xl pb-6 text-center">Apunta't a Textoo</h1>
   <mat-form-field appearance="fill">
     <mat-label>Alias</mat-label>
     <input
@@ -18,7 +18,7 @@
       placeholder="Your alias..."
     />
     <mat-error *ngIf="alias.dirty && alias.hasError('required')">
-      Alias is required.
+      Cal proporcionar un alias.
     </mat-error>
     <mat-error
       *ngIf="
@@ -27,7 +27,16 @@
         !alias.hasError('required')
       "
     >
-      Alias must be at least 5 characters long.
+      L'alias ha de tenir almenys 5 caràcters.
+    </mat-error>
+    <mat-error
+      *ngIf="
+        alias.dirty &&
+        alias.hasError('maxlength') &&
+        !alias.hasError('required')
+      "
+    >
+      L'alias no pot excedir els 25 caràcters.
     </mat-error>
   </mat-form-field>
   <mat-form-field appearance="fill">
@@ -40,7 +49,7 @@
       placeholder="Your avatar..."
     />
     <mat-error *ngIf="alias.dirty && alias.hasError('required')">
-      Avatar is required.
+      Cal proporcionar un avatar.
     </mat-error>
     <mat-error
       *ngIf="
@@ -49,20 +58,11 @@
         !alias.hasError('required')
       "
     >
-      Avatar must be at least 5 characters long.
-    </mat-error>
-    <mat-error
-      *ngIf="
-        alias.dirty &&
-        alias.hasError('maxlength') &&
-        !alias.hasError('required')
-      "
-    >
-      Alias can be max 25 characters long.
+      L'avatar ha de tenir almenys 5 caràcters.
     </mat-error>
   </mat-form-field>
   <mat-form-field appearance="fill">
-    <mat-label>Email</mat-label>
+    <mat-label>Correu electrònic</mat-label>
     <input
       matInput
       type="email"
@@ -72,18 +72,18 @@
       autocomplete="email"
     />
     <mat-error *ngIf="email.dirty && email.hasError('required')">
-      Email is required.
+      Cal proporcionar una adreça de correu electrònic.
     </mat-error>
     <mat-error
       *ngIf="
         email.dirty && email.hasError('email') && !email.hasError('required')
       "
     >
-      Incorrect email format.
+      Format de correu electrònic incorrecte..
     </mat-error>
   </mat-form-field>
   <mat-form-field appearance="fill">
-    <mat-label>Password</mat-label>
+    <mat-label>Clau</mat-label>
     <input
       matInput
       type="password"
@@ -93,7 +93,7 @@
       autocomplete="new-password"
     />
     <mat-error *ngIf="password.dirty && password.hasError('required')">
-      Password is required.
+      Cal proporcionar una clau d'accés.
     </mat-error>
     <mat-error
       *ngIf="
@@ -102,7 +102,7 @@
         !password.hasError('required')
       "
     >
-      Password must be at least 8 characters long.
+      La clau ha de tenir com a mínim 8 caràcters.
     </mat-error>
     <mat-error
       *ngIf="
@@ -111,7 +111,7 @@
         !password.hasError('required')
       "
     >
-      Password can be max 16 characters long.
+      La clau no pot excedir els 24 caràcters.
     </mat-error>
   </mat-form-field>
 
@@ -124,7 +124,7 @@
       aria-label="send register form"
       (click)="this.register()"
     >
-      Register
+      Registrar-me
     </button>
   </div>
 </form>
