@@ -126,8 +126,10 @@ export class RegisterComponent implements OnDestroy {
             loaded,
             undefined
           );
-          this.registerForm.reset();
-          this.router.navigateByUrl('welcome');
+          if (this.registerForm.dirty) {
+            this.router.navigateByUrl('welcome');
+            this.registerForm.reset();
+          }
         }
         if (error) {
           this.sharedService.errorLog(error.error);
