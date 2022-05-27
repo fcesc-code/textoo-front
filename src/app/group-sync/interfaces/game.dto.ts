@@ -1,5 +1,5 @@
 export interface gameStatus {
-  gameId: string;
+  activityId: string;
   scheduled: boolean;
   started: boolean;
   closed: boolean;
@@ -24,8 +24,12 @@ export interface gameScore {
   completed: boolean;
 }
 
-export interface Game {
+export interface newGame {
   users: gameUser[];
   scores: gameScore[];
   status: gameStatus;
+}
+
+export interface Game extends newGame {
+  id: string;
 }

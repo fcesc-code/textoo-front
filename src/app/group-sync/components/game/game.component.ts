@@ -28,7 +28,7 @@ export class GameComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute
   ) {
     this.status = {
-      gameId: '',
+      activityId: '',
       scheduled: true,
       started: false,
       closed: false,
@@ -45,12 +45,12 @@ export class GameComponent implements OnInit, OnDestroy {
       this.accessCode
     );
 
-    this.status$ = this.gameService
-      .listenStatusStream(this.accessCode)
-      .subscribe((status: gameStatus) => {
-        console.log('new game status >>> ', status);
-        this.status = status;
-      });
+    // this.status$ = this.gameService
+    //   .listenStatusStream(this.accessCode)
+    //   .subscribe((status: gameStatus) => {
+    //     console.log('new game status >>> ', status);
+    //     this.status = status;
+    //   });
   }
 
   ngOnDestroy(): void {

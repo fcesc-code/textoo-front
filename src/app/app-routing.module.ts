@@ -19,6 +19,7 @@ import { MosaicComponent } from './activities/components/mosaic/mosaic.component
 /* import group-sync module components */
 import { ConnectComponent } from './group-sync/components/connect/connect.component';
 import { GameComponent } from './group-sync/components/game/game.component';
+import { GameDashboardComponent } from './group-sync/components/game-dashboard/game-dashboard.component';
 
 export const routes: Routes = [
   {
@@ -68,6 +69,14 @@ export const routes: Routes = [
   {
     path: 'game/:id',
     component: GameComponent,
+  },
+  {
+    path: 'randomstuff',
+    component: GameDashboardComponent,
+  },
+  {
+    path: 'groups',
+    component: GameDashboardComponent,
   },
   {
     path: '**',
