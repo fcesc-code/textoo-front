@@ -33,6 +33,6 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     SharedModule,
   ],
   providers: [ActivitiesService, UserService],
-  exports: [],
+  exports: [GetLanguagePipe],
 })
 export class ActivitiesGlobalModule {}

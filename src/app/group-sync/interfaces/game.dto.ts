@@ -1,5 +1,4 @@
 export interface gameStatus {
-  activityId: string;
   scheduled: boolean;
   started: boolean;
   closed: boolean;
@@ -7,6 +6,13 @@ export interface gameStatus {
   timed: boolean;
   maxTime: number;
   start: Date;
+}
+
+export interface gameInfo {
+  activityId: string;
+  language: string;
+  keywords: string[];
+  type: string;
 }
 
 export interface gameUser {
@@ -32,6 +38,7 @@ export interface newGame {
   users: gameUser[];
   scores: gameScore[];
   status: gameStatus;
+  info: gameInfo;
 }
 
 export interface Game extends newGame {

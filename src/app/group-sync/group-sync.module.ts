@@ -7,6 +7,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ActivitiesGlobalModule } from '../activities/activities-global.module';
 /* Material */
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,12 +17,20 @@ import { MatSelectModule } from '@angular/material/select';
 /* Components */
 import { ConnectComponent } from './components/connect/connect.component';
 import { GameComponent } from './components/game/game.component';
+import { UserGamesComponent } from './components/game-dashboard/user-games.component';
 import { GameDashboardComponent } from './components/game-dashboard/game-dashboard.component';
+import { ActivitiesPickerComponent } from './components/game-dashboard/activities-picker.component';
 /* Firebase */
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
 @NgModule({
-  declarations: [ConnectComponent, GameComponent, GameDashboardComponent],
+  declarations: [
+    ConnectComponent,
+    GameComponent,
+    UserGamesComponent,
+    GameDashboardComponent,
+    ActivitiesPickerComponent,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -29,6 +38,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
     AppRoutingModule,
     provideFirestore(() => getFirestore()),
     SharedModule,
+    ActivitiesGlobalModule,
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,

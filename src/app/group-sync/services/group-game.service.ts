@@ -15,6 +15,7 @@ import {
 import {
   AngularFirestore,
   AngularFirestoreCollection,
+  AngularFirestoreCollectionGroup,
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
@@ -25,18 +26,28 @@ import { Observable } from 'rxjs';
 export class GroupGameService {
   private collection = 'games';
   private gameCol: AngularFirestoreCollection<Game>;
+  private gameColByUser!: any;
   // game: Observable<Game>;
 
   constructor(private db: AngularFirestore) {
-    console.log('group-game-service is about to be built');
+    console.log('group-game-service >>> service constructor');
     this.gameCol = this.db.collection<Game>(`${this.collection}`);
-    console.log('reference was fetched');
+    console.log('group-game-service >>> constructor: reference was fetched');
     // this.game = this.gameDoc.valueChanges();
   }
 
   // getAllGames(): AngularFirestoreCollection<Game> {
   //   return this.gameCol;
   // }
+
+  getAllGamesByAuthor(authorId: string): AngularFirestoreCollection<Game> {
+    this.gameColByUser = this.db.collectionGroup<Game>(
+      `${this.collection}`,
+      (ref) => ref.where('status.organizer', '==', authorId)
+    );
+    return this.gameColByUser;
+    // .where('status.organizer', '==', authorId);
+  }
 
   deleteGame(gameId: string): Promise<void> {
     console.log(`attempting to delete a doc with id: ${gameId}`);

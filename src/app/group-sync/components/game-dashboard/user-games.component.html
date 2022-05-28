@@ -1,0 +1,54 @@
+<div class="w-full flex flex-col justify-start items-center mb-6">
+  <h1 class="font-bold text-xl py-6 text-center">Jocs creats per mi</h1>
+  <p *ngIf="userGames.length > 0">
+    Només podràs esborrar els jocs que no hagin començat fins a una setmana
+    abans del seu inici.
+  </p>
+  <div *ngIf="userGames.length === 0">
+    <p>Encara no has creat cap joc? Cap problema! Crear-ne un és molt fàcil:</p>
+    <ol>
+      <li>Tria l'activitat que vols realitzar al joc de la llista</li>
+      <li>Tria el temps màxim que vols que duri el joc</li>
+      <li>Tria la data i l'hora prevista d'inici</li>
+    </ol>
+    <p>
+      I ja està! Amb això hauràs creat un joc. Només cal que comparteixis el
+      link que es mostra per a què pugui participar-hi qui vulguis.
+    </p>
+  </div>
+  <section class="w-[90%] sm:w-[85%] md:w-[75%] lg:w-screen-md">
+    <nav class="w-full flex flex-col justify-start items-center">
+      <button
+        *ngIf="filtersApplied()"
+        class="mx-auto px-4 py-2 my-2 rounded-md drop-shadow-lg bg-emerald-100 hover:bg-teal-700 hover:text-white hover:font-semibold hover:tracking-wide hover:shadow-md hover:shadow-teal-100"
+        (click)="removeFilters()"
+      >
+        Esborrar filtre
+      </button>
+    </nav>
+    <ul *ngIf="userGames && userGames.length > 0">
+      <li *ngFor="let game of this.userGames">
+        <p>Information</p>
+        <p>{{ game.info.language }}</p>
+        <p>{{ game.info.type }}</p>
+        <p>{{ game.info.activityId }}</p>
+        <p>Keywords:</p>
+        <p *ngIf="game.info.keywords && game.info.keywords.lenght > 0">
+          <span *ngFor="let keyword of game.info.keywords">{{ keyword }}</span>
+        </p>
+        <p>Status</p>
+        <p>{{ game.status.scheduled }}</p>
+        <p>{{ game.status.started }}</p>
+        <p>{{ game.status.closed }}</p>
+        <p>{{ game.status.organizer }}</p>
+        <p>{{ game.status.timed }}</p>
+        <p>{{ game.status.maxTime }}</p>
+        <p>{{ game.status.start }}</p>
+        <p>Users</p>
+        <p>
+          <span *ngFor="let user of game.users">{{ user.id }}</span>
+        </p>
+      </li>
+    </ul>
+  </section>
+</div>

@@ -1,14 +1,14 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { firstValueFrom, Subscription } from 'rxjs';
+import { ActivitiesService } from 'src/app/activity/services/activities.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
-// import { Subscription } from 'rxjs';
-// import { ActivatedRoute } from '@angular/router';
-// import { AuthService } from 'src/app/auth/services/auth.service';
 import { newGame } from '../../interfaces/game.dto';
 import { GroupGameService } from '../../services/group-game.service';
 import { GreaterThanTodayValidator } from '../../validators/greater-than-today.validator';
@@ -18,21 +18,29 @@ import { GreaterThanTodayValidator } from '../../validators/greater-than-today.v
   templateUrl: './game-dashboard.component.html',
   styleUrls: ['./game-dashboard.component.sass'],
 })
-export class GameDashboardComponent implements OnInit, OnDestroy {
-  private emptyGame: newGame = {
-    users: [],
-    scores: [],
-    status: {
-      activityId: '1234',
-      scheduled: true,
-      started: false,
-      closed: false,
-      organizer: '',
-      timed: false,
-      maxTime: 180,
-      start: new Date(),
-    },
-  };
+export class GameDashboardComponent implements OnInit {
+  // private emptyGame: newGame = {
+  //   users: [],
+  //   scores: [],
+  //   status: {
+  //     scheduled: true,
+  //     started: false,
+  //     closed: false,
+  //     organizer: '',
+  //     timed: false,
+  //     maxTime: 180,
+  //     start: new Date(),
+  //   },
+  //   info: {
+  //     activityId: '1234',
+  //     language: '',
+  //     keywords: [],
+  //     type: '',
+  //   },
+  // };
+
+  // activity$!: Subscription;
+  activity: any;
 
   newGame: boolean;
 
@@ -41,14 +49,18 @@ export class GameDashboardComponent implements OnInit, OnDestroy {
   maxTime: FormControl;
   start: FormControl;
 
-  // constructor(private gameService: GroupGameService) {}
+  id: string;
+
   constructor(
     private gameService: GroupGameService,
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private activitiesService: ActivitiesService,
+    private activatedRoute: ActivatedRoute
   ) {
     console.log('wow, game-dashboard has been built!');
     this.newGame = true;
+    this.id = '';
 
     this.activityId = new FormControl('', [Validators.required]);
     this.maxTime = new FormControl(0, [
@@ -63,43 +75,61 @@ export class GameDashboardComponent implements OnInit, OnDestroy {
       GreaterThanTodayValidator,
     ]);
 
-    const { userId } = this.authService.getUser();
-
     this.gameForm = this.formBuilder.group({
-      activityId: this.activityId,
-      maxTime: this.maxTime,
-      start: this.start,
-      timed: true,
-      scheduled: true,
-      started: false,
-      closed: false,
-      organizer: userId,
+      id: '',
+      info: {
+        activityId: this.activityId,
+      },
+      status: {
+        maxTime: this.maxTime,
+        start: this.start,
+        timed: true,
+        scheduled: true,
+        started: false,
+        closed: false,
+      },
     });
   }
 
   ngOnInit(): void {
-    console.log('onInit lifecycle started');
+    // this.activity$ = this.activitiesService
+    //   .getActivityById(this.activityId.value)
+    //   .subscribe((activity) => {
+    //     this.activity = activity;
+    //   });
+    this.id = this.getId();
   }
 
-  ngOnDestroy(): void {
-    console.log('onDestroy lifecycle started');
+  // ngOnDestroy(): void {
+  //   this.activity$.unsubscribe();
+  // }
+  getId(): string {
+    const id = this.activatedRoute.snapshot.paramMap.get('id') || '';
+    if (id) {
+      this.newGame = false;
+    }
+    return id;
   }
 
-  createGame() {
-    console.log('about to create a game', this.emptyGame);
+  pickedActivity(eventData: { pickedActivity: string }): void {
+    console.log('picked activity event >>>', eventData.pickedActivity);
+    this.activityId.setValue(eventData.pickedActivity);
+  }
+
+  createGame(newGame: any) {
+    console.log('about to create a game', newGame);
     this.gameService
-      .createGame(this.emptyGame)
+      .createGame(newGame)
       .then((data: any) => {
         console.log('game created, receiving data >>>> ', data);
       })
       .catch((error: Error) => console.log(error));
   }
 
-  updateGame() {
-    console.log('about to update a game', this.emptyGame);
-    const MOCK_ID = '1234';
+  updateGame(updatedGame: any) {
+    console.log('about to update a game', updatedGame);
     this.gameService
-      .updateGame(MOCK_ID, this.emptyGame)
+      .updateGame(this.id, updatedGame)
       .then((data: any) => {
         console.log('game updated, receiving data >>>> ', data);
       })
@@ -116,7 +146,42 @@ export class GameDashboardComponent implements OnInit, OnDestroy {
       .catch((error: Error) => console.log(error));
   }
 
-  constCreateOrUpdate() {
-    this.newGame ? this.createGame() : this.updateGame();
+  async getActivityBasicInfo() {
+    this.activity = await firstValueFrom(
+      this.activitiesService.getActivityById(this.activityId.value)
+    );
+  }
+
+  getOrganizerId(): string {
+    const { userId } = this.authService.getUser();
+    return userId;
+  }
+
+  buildGame(): any {
+    const game = { id: this.id, info: {}, status: {} };
+
+    game.info = {
+      activityId: this.activity._id,
+      language: this.activity.language,
+      type: this.activity.type,
+      keywords: this.activity.keywords,
+    };
+    game.status = {
+      organizer: this.getOrganizerId(),
+      started: false,
+      scheduled: false,
+      closed: false,
+      maxTime: this.maxTime.value,
+      start: this.start.value,
+    };
+
+    return game;
+  }
+
+  async createOrUpdate() {
+    await this.getActivityBasicInfo();
+    const game = this.buildGame();
+    console.log('a game was built: ', game);
+    this.newGame ? this.createGame(game) : this.updateGame(game);
   }
 }

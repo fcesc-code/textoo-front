@@ -1,0 +1,85 @@
+<div class="w-full flex flex-col justify-start items-center mb-6">
+  <h1 *ngIf="!filtersApplied()" class="font-bold text-xl py-6 text-center">
+    Totes les activitats
+  </h1>
+  <h1
+    *ngIf="filtersApplied() && filteredActivities.length > 1"
+    class="font-bold text-xl py-6 text-center"
+  >
+    Filtre activitats
+  </h1>
+  <p
+    *ngIf="
+      !filtersApplied() || (filtersApplied() && filteredActivities.length > 1)
+    "
+  >
+    Clica sobre el títol d'una activitat per a seleccionar-la.
+  </p>
+  <h1
+    *ngIf="filtersApplied() && filteredActivities.length === 1"
+    class="font-bold text-xl py-6 text-center"
+  >
+    Activitat seleccionada
+  </h1>
+  <p *ngIf="filtersApplied() && filteredActivities.length === 1">
+    El teu joc desenvoluparà l'activitat seleccionada. Pots canviar-la esborrant
+    els filtres.
+  </p>
+  <section class="w-full">
+    <nav class="w-full flex flex-col justify-start items-center">
+      <button
+        *ngIf="filtersApplied()"
+        class="mx-auto px-4 py-2 my-2 rounded-md drop-shadow-lg bg-emerald-100 hover:bg-teal-700 hover:text-white hover:font-semibold hover:tracking-wide hover:shadow-md hover:shadow-teal-100"
+        (click)="removeFilters()"
+      >
+        {{
+          filtersApplied() && filteredActivities.length === 1
+            ? "Desfés selecció"
+            : "Esborrar filtre"
+        }}
+      </button>
+    </nav>
+    <ul class="w-full">
+      <li
+        *ngFor="let activity of this.filteredActivities"
+        class="my-2 mx-4 border-2 border-slate-100 rounded-lg px-6 py-4 cursor-pointer bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300"
+      >
+        <div
+          id="{{ activity._id }}"
+          (click)="retainId(activity._id)"
+          class="hover:bg-emerald-100"
+        >
+          <h3 class="leading-12 font-semibold text-lg">
+            {{ activity.title }}
+          </h3>
+          <p>Activitat: {{ activity.task }}</p>
+          <p>Autor: {{ activity.author }}</p>
+          <p *ngIf="activity.font.author">
+            Basat en: {{ activity.font.author }}
+          </p>
+        </div>
+        <ul class="flex flex-row flex-wrap justify-start items-center">
+          <li
+            class="px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-blue-300"
+            (click)="filterByLanguage(activity.language)"
+          >
+            {{ activity.language | getLanguage }}
+          </li>
+          <li
+            class="px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-red-300"
+            (click)="filterByType(activity.type)"
+          >
+            {{ activity.type }}
+          </li>
+          <li
+            *ngFor="let keyword of activity.keywords"
+            class="px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-emerald-200"
+            (click)="filterByKeyword(keyword)"
+          >
+            {{ keyword }}
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+</div>

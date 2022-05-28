@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import {
   Game,
+  gameInfo,
   gameScore,
   gameStatus,
   gameUser,
@@ -17,6 +18,7 @@ import { GroupGameService } from '../../services/group-game.service';
 })
 export class GameComponent implements OnInit, OnDestroy {
   status: gameStatus;
+  info: gameInfo;
   scores: gameScore[];
   users: gameUser[];
   status$!: Subscription;
@@ -28,7 +30,6 @@ export class GameComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute
   ) {
     this.status = {
-      activityId: '',
       scheduled: true,
       started: false,
       closed: false,
@@ -36,6 +37,12 @@ export class GameComponent implements OnInit, OnDestroy {
       timed: false,
       maxTime: 0,
       start: new Date(),
+    };
+    this.info = {
+      activityId: '',
+      language: '',
+      keywords: [],
+      type: '',
     };
     (this.users = []), (this.scores = []);
     this.accessCode = '';
