@@ -8,7 +8,7 @@
     (ngSubmit)="updateUser()"
     aria-label="update user profile form"
   >
-    <h1 class="font-bold text-xl pb-6 text-center">Update your profile</h1>
+    <h1 class="font-bold text-xl pb-6 text-center">Actualitza el teu perfil</h1>
     <mat-form-field appearance="fill">
       <mat-label>Alias</mat-label>
       <input
@@ -20,7 +20,7 @@
         id="profileForm-alias"
       />
       <mat-error *ngIf="alias.dirty && alias.hasError('required')">
-        Alias is required.
+        Cal proporcionar un alias.
       </mat-error>
       <mat-error
         *ngIf="
@@ -29,7 +29,7 @@
           !alias.hasError('required')
         "
       >
-        Alias must be at least 5 characters long.
+        L'alias ha de tenir almenys 5 caràcters.
       </mat-error>
       <mat-error
         *ngIf="
@@ -38,7 +38,7 @@
           !alias.hasError('required')
         "
       >
-        Alias can be max 25 characters long.
+        L'alias no pot excedir els 25 caràcters.
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
@@ -52,7 +52,7 @@
         id="profileForm-avatar"
       />
       <mat-error *ngIf="avatar.dirty && avatar.hasError('required')">
-        Avatar is required.
+        Cal proporcionar un avatar.
       </mat-error>
       <mat-error
         *ngIf="
@@ -61,11 +61,11 @@
           !avatar.hasError('required')
         "
       >
-        Avatar must be at least 5 characters long.
+        L'avatar ha de tenir almenys 5 caràcters.
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
-      <mat-label>Email</mat-label>
+      <mat-label>Correu electrònic</mat-label>
       <input
         matInput
         type="email"
@@ -76,18 +76,18 @@
         id="profileForm-email"
       />
       <mat-error *ngIf="email.dirty && email.hasError('required')">
-        Email is required.
+        Cal proporcionar una adreça de correu electrònic.
       </mat-error>
       <mat-error
         *ngIf="
           email.dirty && email.hasError('email') && !email.hasError('required')
         "
       >
-        Incorrect email format.
+        Format de correu electrònic incorrecte.
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
-      <mat-label>Language</mat-label>
+      <mat-label>Idioma</mat-label>
       <mat-select
         required
         [formControl]="language"
@@ -100,11 +100,11 @@
         >
       </mat-select>
       <mat-error *ngIf="language.dirty && language.hasError('required')">
-        You must select a preferred language
+        Cal seleccionar l'idioma preferit.
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
-      <mat-label>I want to</mat-label>
+      <mat-label>Vull...</mat-label>
       <mat-select
         multiple
         required
@@ -119,7 +119,8 @@
         >
       </mat-select>
       <mat-error *ngIf="roles.dirty && roles.hasError('required')">
-        You must select at least a role
+        Cal que seleccionis un rol principal. No pateixis, podràs canviar-lo
+        posteriorment si no estàs segur.
       </mat-error>
     </mat-form-field>
     <!-- <mat-form-field appearance="fill">
@@ -163,7 +164,7 @@
         [disabled]="!profileForm.valid"
         aria-label="update your profile"
       >
-        Update
+        Actualitzar
       </button>
     </div>
   </form>

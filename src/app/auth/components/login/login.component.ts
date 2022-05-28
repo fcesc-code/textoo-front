@@ -11,9 +11,7 @@ import { AUTH_ACTIONS } from '../../actions/auth.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { HeaderMenusService } from 'src/app/shared/services/header-menus.service';
-import { HeaderMenus } from 'src/app/shared/models/header-menus.dto';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { debounceTime } from 'rxjs/operators';
 
@@ -24,7 +22,6 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class LoginComponent {
   loginUser: AuthLogin;
-  // authUser: AuthToken;
 
   email: FormControl;
   password: FormControl;
@@ -38,13 +35,11 @@ export class LoginComponent {
     private formBuilder: FormBuilder,
     private sharedService: SharedService,
     private headerMenusService: HeaderMenusService,
-    // private localStorageService: LocalStorageService,
     private authService: AuthService,
     private router: Router,
     private store: Store<AppState>
   ) {
     this.loginUser = new AuthLogin('', '');
-    // this.authUser = new AuthToken('', '');
 
     this.email = new FormControl(this.loginUser.email, [
       Validators.required,
@@ -68,7 +63,6 @@ export class LoginComponent {
     this.hide = true;
     this.loginUser = new AuthLogin(this.email.value, this.password.value);
 
-    let headerInfo: HeaderMenus;
     this.subscription = this.store
       .select('auth')
       .pipe(debounceTime(333))

@@ -1,20 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-/* impoer shared module components */
+/* import shared module components */
 import { LoginComponent } from './auth/components/login/login.component';
 import { WelcomeComponent } from './auth/components/welcome/welcome.component';
-import { EditorComponent } from './activity/components/shared/text-editor/editor.component';
 /* import user module components */
 import { ProfileComponent } from './user/components/profile/profile.component';
 import { RegisterComponent } from './user/components/register/register.component';
-/* import activity module components */
-import { PlayBestOptionComponent } from './activity/components/best-option/play-best-option.component';
-import { EditBestOptionComponent } from './activity/components/best-option/edit-best-option.component';
-import { PlaySelectTextComponent } from './activity/components/select-text/play-select-text.component';
-import { DashboardComponent } from './activity/components/dashboard/dashboard.component';
-import { MosaicComponent } from './activity/components/mosaic/mosaic.component';
-import { ConnectComponent } from './activity/components/group-mode/connect.component';
-import { GameComponent } from './activity/components/group-mode/game.component';
+/* import activities-shared module components */
+import { EditorComponent } from './activity/components/text-editor/editor.component';
+/* import activity-best-option module components */
+import { PlayBestOptionComponent } from './activity-best-option/components/best-option/play-best-option.component';
+import { EditBestOptionComponent } from './activity-best-option/components/best-option/edit-best-option.component';
+/* import activity-select-text module components */
+import { PlaySelectTextComponent } from './activity-select-text/components/play-select-text/play-select-text.component';
+/* import activities-global module components */
+import { DashboardComponent } from './activities/components/dashboard/dashboard.component';
+import { MosaicComponent } from './activities/components/mosaic/mosaic.component';
+/* import group-sync module components */
+import { ConnectComponent } from './group-sync/components/connect/connect.component';
+import { GameComponent } from './group-sync/components/game/game.component';
+import { GameDashboardComponent } from './group-sync/components/game-dashboard/game-dashboard.component';
 
 export const routes: Routes = [
   {
@@ -64,6 +69,14 @@ export const routes: Routes = [
   {
     path: 'game/:id',
     component: GameComponent,
+  },
+  {
+    path: 'randomstuff',
+    component: GameDashboardComponent,
+  },
+  {
+    path: 'groups',
+    component: GameDashboardComponent,
   },
   {
     path: '**',

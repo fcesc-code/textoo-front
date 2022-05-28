@@ -79,7 +79,10 @@ export class ProfileComponent implements OnInit, AfterContentInit {
     this.language = new FormControl(this.profileUser.preferences.language, [
       Validators.required,
     ]);
-    this.avatar = new FormControl(this.profileUser.avatar);
+    this.avatar = new FormControl(this.profileUser.avatar, [
+      Validators.required,
+      Validators.minLength(5),
+    ]);
 
     this.profileForm = this.formBuilder.group({
       alias: this.alias,

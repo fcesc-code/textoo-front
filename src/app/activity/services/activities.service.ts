@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { catchError, Observable, tap } from 'rxjs';
 import { ActivityType, Timestamps } from 'src/app/activity/models/Activity.dto';
-import { ActivityBestOption } from '../models/ActivityBestOption.dto';
-import { ActivitySelectText } from '../models/ActivitySelectText.dto';
+import { ActivityBestOption } from '../../activity-best-option/models/ActivityBestOption.dto';
+import { ActivitySelectText } from '../../activity-select-text/models/ActivitySelectText.dto';
 import { ActivityTransformAspect } from '../models/ActivityTransformAspect.dto';
 import { API_ROUTES, API_CONTROLLERS } from 'src/routes/API_ROUTES';
 import { HttpClient } from '@angular/common/http';
@@ -64,17 +64,5 @@ export class ActivitiesService {
       created: new Date(),
       modified: new Date(),
     };
-  }
-
-  getAllActivities(): Observable<any> {
-    return this.http
-      .get<any>(`${this.API}/all`)
-      .pipe(catchError(this.sharedService.handleError));
-  }
-
-  getAllActivitiesByUserId(id: string): Observable<any> {
-    return this.http
-      .get<any>(`${this.API}/byUser/${id}`)
-      .pipe(catchError(this.sharedService.handleError));
   }
 }
