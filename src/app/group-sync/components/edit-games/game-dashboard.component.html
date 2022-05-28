@@ -1,23 +1,28 @@
-<h1 class="font-bold text-2xl py-4 text-center text-emerald-900">
-  Administra els teus jocs
+<h1
+  *ngIf="newGame"
+  class="font-bold text-2xl py-4 text-center text-emerald-900"
+>
+  Crea un nou joc
+</h1>
+<h1
+  *ngIf="!newGame"
+  class="font-bold text-2xl py-4 text-center text-emerald-900"
+>
+  Edita el joc
 </h1>
 <div
   class="mx-2 flex flex-col justify-start items-center md:flex-row md:justify-between md:items-start"
 >
   <section class="mx-4">
-    <h1 *ngIf="this.newGame" class="font-bold text-xl py-6 text-center">
-      Crea un nou joc
-    </h1>
-    <h1 *ngIf="!this.newGame" class="font-bold text-xl py-6 text-center">
-      Actualitza el joc
-    </h1>
+    <h1 class="font-bold text-xl py-6 text-center">Dades principals</h1>
     <form
       class="form w-full flex flex-col justify-start items-center"
       [formGroup]="gameForm"
       aria-label="game form"
     >
       <mat-form-field appearance="standard">
-        <mat-label>Tria una activitat de la llista</mat-label>
+        <mat-label *ngIf="newGame">Tria una activitat de la llista</mat-label>
+        <mat-label *ngIf="!newGame">Activitat vinculada al joc</mat-label>
         <input
           matInput
           type="text"
@@ -76,9 +81,6 @@
     >
       {{ newGame ? "Crea" : "Actualitza" }}
     </button>
-  </section>
-  <section class="mx-4">
-    <app-user-games></app-user-games>
   </section>
   <section class="mx-4">
     <app-activities-picker

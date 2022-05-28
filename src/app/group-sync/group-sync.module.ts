@@ -17,9 +17,9 @@ import { MatSelectModule } from '@angular/material/select';
 /* Components */
 import { ConnectComponent } from './components/connect/connect.component';
 import { GameComponent } from './components/game/game.component';
-import { UserGamesComponent } from './components/game-dashboard/user-games.component';
-import { GameDashboardComponent } from './components/game-dashboard/game-dashboard.component';
-import { ActivitiesPickerComponent } from './components/game-dashboard/activities-picker.component';
+import { GameDashboardComponent } from './components/edit-games/game-dashboard.component';
+import { ActivitiesPickerComponent } from './components/edit-games/activities-picker.component';
+import { UserGamesComponent } from './components/manage-games/user-games.component';
 /* Firebase */
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
