@@ -36,7 +36,6 @@ import { GroupSyncRoutingModule } from './group-sync-routing.module';
     ReactiveFormsModule,
     RouterModule,
     GroupSyncRoutingModule,
-    provideFirestore(() => getFirestore()),
     SharedModule,
     ActivitiesGlobalModule,
     MatIconModule,

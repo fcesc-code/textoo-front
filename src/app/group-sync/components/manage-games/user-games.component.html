@@ -33,7 +33,7 @@
         <p>{{ game.info.type }}</p>
         <p>{{ game.info.activityId }}</p>
         <p>Keywords:</p>
-        <p *ngIf="game.info.keywords && game.info.keywords.lenght > 0">
+        <p *ngIf="game.info.keywords && game.info.keywords.length > 0">
           <span *ngFor="let keyword of game.info.keywords">{{ keyword }}</span>
         </p>
         <p>Status</p>

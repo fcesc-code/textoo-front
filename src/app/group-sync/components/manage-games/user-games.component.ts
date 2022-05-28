@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Game } from '../../interfaces/game.dto';
 import { GroupGameService } from '../../services/group-game.service';
@@ -10,7 +11,7 @@ import { GroupGameService } from '../../services/group-game.service';
 })
 export class UserGamesComponent {
   filteredUserGames: any[];
-  userGames: any;
+  userGames: Game[];
   constructor(
     private authService: AuthService,
     private games: GroupGameService
@@ -20,11 +21,29 @@ export class UserGamesComponent {
     this.loadGames();
   }
 
-  loadGames(): void {
+  async loadGames(): Promise<void> {
     const { userId } = this.authService.getUser();
     if (userId) {
-      this.userGames = this.games.getAllGamesByAuthor(userId);
-      console.log('loadgames userGames >>> ', this.userGames);
+      // this.games.getAllGamesByAuthor(userId).then((querySnapshot) => {
+      //   // querySnapshot.forEach((doc) => {
+      //   //   console.log(`this doc (${doc.id}) >>> `, doc);
+      //   //   this.userGames.push(doc);
+      //   // });
+      //   console.log('this.userGames >>> ', querySnapshot);
+      // });
+      // this.games.getAllGamesByAuthor(userId).subscribe((querySnapshot: any) => {
+      //   if (!querySnapshot.docs.length) {
+      //     console.log('no data available');
+      //   }
+      //   if (querySnapshot) {
+      //     querySnapshot.forEach((doc: any) => {
+      //       console.log(`this doc (${doc.id}) >>> `, doc);
+      //       this.userGames.push(doc);
+      //     });
+      //   }
+      // });
+      // console.log('loadgames userGames >>> ', this.userGames);
+      this.userGames = await this.games.getAllGamesByAuthor(userId);
     }
   }
 
