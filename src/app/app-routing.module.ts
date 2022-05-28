@@ -3,9 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 /* import shared module components */
 import { LoginComponent } from './auth/components/login/login.component';
 import { WelcomeComponent } from './auth/components/welcome/welcome.component';
-/* import user module components */
-import { ProfileComponent } from './user/components/profile/profile.component';
-import { RegisterComponent } from './user/components/register/register.component';
 /* import activities-shared module components */
 import { EditorComponent } from './activity/components/text-editor/editor.component';
 /* import activity-best-option module components */
@@ -31,14 +28,6 @@ export const routes: Routes = [
     component: WelcomeComponent,
   },
   {
-    path: 'register',
-    component: RegisterComponent,
-  },
-  {
-    path: 'user/profile',
-    component: ProfileComponent,
-  },
-  {
     path: 'activities/dashboard',
     component: DashboardComponent,
   },
@@ -62,6 +51,10 @@ export const routes: Routes = [
     path: 'games',
     loadChildren: () =>
       import('./group-sync/group-sync.module').then((m) => m.GroupSyncModule),
+  },
+  {
+    path: 'user',
+    loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
   },
   {
     path: '',

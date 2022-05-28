@@ -30,7 +30,6 @@ import { ActivitiesSharedModule } from './activity/activities-shared.module';
 import { ActivitiesGlobalModule } from './activities/activities-global.module';
 import { ActivitySelectTextModule } from './activity-select-text/activity-select-text.module';
 import { ActivityBestOptionModule } from './activity-best-option/activity-best-option.module';
-import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 /* components */
@@ -61,12 +60,10 @@ import { AuthInterceptorService } from './auth/services/auth-interceptor.service
     }),
     // provideAnalytics(() => getAnalytics()),
     AngularFirestoreModule,
-    // provideFirestore(() => getFirestore()),
     ReactiveFormsModule,
     HttpClientModule,
     SharedModule,
     AuthModule,
-    UserModule,
     ActivitiesSharedModule,
     ActivitiesGlobalModule,
     ActivityBestOptionModule,
