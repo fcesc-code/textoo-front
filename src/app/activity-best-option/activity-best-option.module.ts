@@ -7,6 +7,7 @@ import { UserService } from '../user/services/user.service';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ActivityBestOptionRoutingModule } from './activity-best-option-routing.module';
 /* Pipes */
 import { AddOptionPipe } from './pipes/add-option.pipe';
 import { AddPlaceholderPipe } from './pipes/add-option-placeholder.pipe';
@@ -40,6 +41,7 @@ import { ActivitiesSharedModule } from '../activity/activities-shared.module';
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
+    ActivityBestOptionRoutingModule,
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,

@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivitiesSharedModule } from '../activity/activities-shared.module';
+import { ActivitySelectTextRoutingModule } from './activity-select-text-routing.module';
 /* Pipes */
 import { ImproveBreaklinesPipe } from './pipes/improve-breaklines.pipe';
 import { HighlightTextPipe } from './pipes/highlight-text.pipe';
@@ -32,6 +33,7 @@ import { SanitizePipe } from './pipes/sanitize.pipe';
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
+    ActivitySelectTextRoutingModule,
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,

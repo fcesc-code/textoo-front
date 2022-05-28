@@ -26,10 +26,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { appReducers } from './app.reducer';
 import { appEffectsArray } from './app.effects';
 /* custom modules */
-import { ActivitiesSharedModule } from './activity/activities-shared.module';
 import { ActivitiesGlobalModule } from './activities/activities-global.module';
-import { ActivitySelectTextModule } from './activity-select-text/activity-select-text.module';
-import { ActivityBestOptionModule } from './activity-best-option/activity-best-option.module';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 /* components */
@@ -64,10 +61,7 @@ import { AuthInterceptorService } from './auth/services/auth-interceptor.service
     HttpClientModule,
     SharedModule,
     AuthModule,
-    ActivitiesSharedModule,
     ActivitiesGlobalModule,
-    ActivityBestOptionModule,
-    ActivitySelectTextModule,
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot(appEffectsArray),
     StoreDevtoolsModule.instrument({
