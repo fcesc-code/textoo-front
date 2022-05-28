@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { ActivitiesService } from './services/activities.service';
 import { UserService } from '../user/services/user.service';
 /* Modules */
-import { AppRoutingModule } from '../app-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -25,7 +24,6 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
-    AppRoutingModule,
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
@@ -33,6 +31,6 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     SharedModule,
   ],
   providers: [ActivitiesService, UserService],
-  exports: [],
+  exports: [GetLanguagePipe],
 })
 export class ActivitiesGlobalModule {}

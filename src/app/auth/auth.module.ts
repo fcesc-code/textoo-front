@@ -13,8 +13,8 @@ import { MatIconModule } from '@angular/material/icon';
 @NgModule({
   declarations: [LoginComponent, WelcomeComponent],
   imports: [
-    HttpClientModule,
     CommonModule,
+    HttpClientModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatFormFieldModule,

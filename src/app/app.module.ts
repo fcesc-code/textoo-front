@@ -7,16 +7,16 @@ import { AppRoutingModule } from './app-routing.module';
 /* settings */
 import { environment } from '../environments/environment';
 /* firebase */
-// import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-// import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 // import {
 //   provideAnalytics,
 //   getAnalytics,
 //   ScreenTrackingService,
 //   UserTrackingService,
 // } from '@angular/fire/analytics';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+// import { AngularFireModule } from '@angular/fire/compat';
+// import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 /* Service worker module */
 import { ServiceWorkerModule } from '@angular/service-worker';
 /* ngrx modules */
@@ -26,14 +26,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { appReducers } from './app.reducer';
 import { appEffectsArray } from './app.effects';
 /* custom modules */
-import { ActivitiesSharedModule } from './activity/activities-shared.module';
 import { ActivitiesGlobalModule } from './activities/activities-global.module';
-import { ActivitySelectTextModule } from './activity-select-text/activity-select-text.module';
-import { ActivityBestOptionModule } from './activity-best-option/activity-best-option.module';
-import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
-import { GroupSyncModule } from './group-sync/group-sync.module';
 /* components */
 import { AppComponent } from './app.component';
 /* animations */
@@ -52,8 +47,8 @@ import { AuthInterceptorService } from './auth/services/auth-interceptor.service
   imports: [
     BrowserModule,
     AppRoutingModule,
-    // provideFirebaseApp(() => initializeApp(environment.firebase)),
-    AngularFireModule.initializeApp(environment.firebase),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    // AngularFireModule.initializeApp(environment.firebase),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
@@ -61,18 +56,13 @@ import { AuthInterceptorService } from './auth/services/auth-interceptor.service
       registrationStrategy: 'registerWhenStable:30000',
     }),
     // provideAnalytics(() => getAnalytics()),
-    AngularFirestoreModule,
-    // provideFirestore(() => getFirestore()),
+    provideFirestore(() => getFirestore()),
+    // AngularFirestoreModule,
     ReactiveFormsModule,
     HttpClientModule,
     SharedModule,
     AuthModule,
-    UserModule,
-    ActivitiesSharedModule,
     ActivitiesGlobalModule,
-    ActivityBestOptionModule,
-    ActivitySelectTextModule,
-    GroupSyncModule,
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot(appEffectsArray),
     StoreDevtoolsModule.instrument({

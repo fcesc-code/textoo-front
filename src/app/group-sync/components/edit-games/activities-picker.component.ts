@@ -1,15 +1,18 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared.service';
-import { ActivitiesService } from '../../services/activities.service';
-import { AsyncPipe } from '@angular/common';
+import { ActivitiesService } from 'src/app/activities/services/activities.service';
 import { UserService } from 'src/app/user/services/user.service';
 
+interface PickedActivity {
+  pickedActivity: string;
+}
+
 @Component({
-  selector: 'app-mosaic',
-  templateUrl: './mosaic.component.html',
-  styleUrls: ['./mosaic.component.sass'],
+  selector: 'app-activities-picker',
+  templateUrl: './activities-picker.component.html',
+  styleUrls: ['./activities-picker.component.sass'],
 })
-export class MosaicComponent implements OnDestroy {
+export class ActivitiesPickerComponent implements OnDestroy {
   activities$: any;
   filteredActivities: any[];
   authors: any[];
@@ -23,6 +26,7 @@ export class MosaicComponent implements OnDestroy {
     this.authors = [];
     this.loadActivities();
   }
+  @Output() pickedActivity: EventEmitter<PickedActivity> = new EventEmitter();
 
   loadActivities(): void {
     this.subscription$ = this.activitiesService.getAllActivities().subscribe({
@@ -38,6 +42,14 @@ export class MosaicComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription$.unsubscribe();
+  }
+
+  retainId(id: string): void {
+    this.filteredActivities = [...this.activities$].filter(
+      (activity: any) => activity._id === id
+    );
+    const selectedActivity: PickedActivity = { pickedActivity: id };
+    this.pickedActivity.emit(selectedActivity);
   }
 
   filterByKeyword(targetKeyword: string): void {
@@ -71,6 +83,10 @@ export class MosaicComponent implements OnDestroy {
   }
 
   removeFilters(): void {
+    if (this.filteredActivities.length <= 1) {
+      const selectedActivity: PickedActivity = { pickedActivity: '' };
+      this.pickedActivity.emit(selectedActivity);
+    }
     this.filteredActivities = [...this.activities$];
   }
 

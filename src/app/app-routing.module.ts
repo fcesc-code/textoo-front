@@ -3,27 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 /* import shared module components */
 import { LoginComponent } from './auth/components/login/login.component';
 import { WelcomeComponent } from './auth/components/welcome/welcome.component';
-/* import user module components */
-import { ProfileComponent } from './user/components/profile/profile.component';
-import { RegisterComponent } from './user/components/register/register.component';
-/* import activities-shared module components */
-import { EditorComponent } from './activity/components/text-editor/editor.component';
-/* import activity-best-option module components */
-import { PlayBestOptionComponent } from './activity-best-option/components/best-option/play-best-option.component';
-import { EditBestOptionComponent } from './activity-best-option/components/best-option/edit-best-option.component';
-/* import activity-select-text module components */
-import { PlaySelectTextComponent } from './activity-select-text/components/play-select-text/play-select-text.component';
+import { PageNotFoundComponent } from './shared/components/PageNotFound/page-not-found.component';
 /* import activities-global module components */
 import { DashboardComponent } from './activities/components/dashboard/dashboard.component';
 import { MosaicComponent } from './activities/components/mosaic/mosaic.component';
-/* import group-sync module components */
-import { ConnectComponent } from './group-sync/components/connect/connect.component';
-import { GameComponent } from './group-sync/components/game/game.component';
-import { GameDashboardComponent } from './group-sync/components/game-dashboard/game-dashboard.component';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: MosaicComponent,
   },
   {
@@ -35,52 +22,48 @@ export const routes: Routes = [
     component: WelcomeComponent,
   },
   {
-    path: 'register',
-    component: RegisterComponent,
-  },
-  {
-    path: 'user/profile',
-    component: ProfileComponent,
-  },
-  {
     path: 'activities/dashboard',
     component: DashboardComponent,
   },
   {
-    path: 'play/select_text/:id',
-    component: PlaySelectTextComponent,
+    path: 'activities/mosaic',
+    component: MosaicComponent,
   },
   {
-    path: 'play/best_option/:id',
-    component: PlayBestOptionComponent,
+    path: 'games',
+    loadChildren: () =>
+      import('./group-sync/group-sync.module').then((m) => m.GroupSyncModule),
   },
   {
-    path: 'edit/select_text/:id',
-    component: EditorComponent,
+    path: 'user',
+    loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
   },
   {
-    path: 'edit/best_option/:id',
-    component: EditBestOptionComponent,
+    path: 'activity/select-text',
+    loadChildren: () =>
+      import('./activity-select-text/activity-select-text.module').then(
+        (m) => m.ActivitySelectTextModule
+      ),
   },
   {
-    path: 'join',
-    component: ConnectComponent,
+    path: 'activity/best-option',
+    loadChildren: () =>
+      import('./activity-best-option/activity-best-option.module').then(
+        (m) => m.ActivityBestOptionModule
+      ),
   },
   {
-    path: 'game/:id',
-    component: GameComponent,
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
   },
   {
-    path: 'randomstuff',
-    component: GameDashboardComponent,
-  },
-  {
-    path: 'groups',
-    component: GameDashboardComponent,
+    path: '404',
+    component: PageNotFoundComponent,
   },
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: '404',
   },
 ];
 
