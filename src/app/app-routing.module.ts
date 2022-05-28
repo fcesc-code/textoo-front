@@ -16,14 +16,10 @@ import { PlaySelectTextComponent } from './activity-select-text/components/play-
 /* import activities-global module components */
 import { DashboardComponent } from './activities/components/dashboard/dashboard.component';
 import { MosaicComponent } from './activities/components/mosaic/mosaic.component';
-/* import group-sync module components */
-import { ConnectComponent } from './group-sync/components/connect/connect.component';
-import { GameComponent } from './group-sync/components/game/game.component';
-import { GameDashboardComponent } from './group-sync/components/edit-games/game-dashboard.component';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: MosaicComponent,
   },
   {
@@ -63,24 +59,18 @@ export const routes: Routes = [
     component: EditBestOptionComponent,
   },
   {
-    path: 'join',
-    component: ConnectComponent,
+    path: 'games',
+    loadChildren: () =>
+      import('./group-sync/group-sync.module').then((m) => m.GroupSyncModule),
   },
   {
-    path: 'game/:id',
-    component: GameComponent,
-  },
-  {
-    path: 'randomstuff',
-    component: GameDashboardComponent,
-  },
-  {
-    path: 'groups',
-    component: GameDashboardComponent,
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
   },
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: 'not-found',
   },
 ];
 

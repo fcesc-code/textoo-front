@@ -33,7 +33,6 @@ import { ActivityBestOptionModule } from './activity-best-option/activity-best-o
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
-import { GroupSyncModule } from './group-sync/group-sync.module';
 /* components */
 import { AppComponent } from './app.component';
 /* animations */
@@ -72,7 +71,6 @@ import { AuthInterceptorService } from './auth/services/auth-interceptor.service
     ActivitiesGlobalModule,
     ActivityBestOptionModule,
     ActivitySelectTextModule,
-    GroupSyncModule,
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot(appEffectsArray),
     StoreDevtoolsModule.instrument({

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 /* Services */
 // import { UserService } from '../user/services/user.service';
 /* Modules */
-import { AppRoutingModule } from '../app-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -22,6 +21,7 @@ import { ActivitiesPickerComponent } from './components/edit-games/activities-pi
 import { UserGamesComponent } from './components/manage-games/user-games.component';
 /* Firebase */
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { GroupSyncRoutingModule } from './group-sync-routing.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
-    AppRoutingModule,
+    GroupSyncRoutingModule,
     provideFirestore(() => getFirestore()),
     SharedModule,
     ActivitiesGlobalModule,

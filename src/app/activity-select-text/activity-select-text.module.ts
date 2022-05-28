@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { ActivitiesService } from 'src/app/activity/services/activities.service';
 import { UserService } from '../user/services/user.service';
 /* Modules */
-import { AppRoutingModule } from '../app-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -33,7 +32,6 @@ import { SanitizePipe } from './pipes/sanitize.pipe';
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
-    AppRoutingModule,
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,

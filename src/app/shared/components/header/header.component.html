@@ -7,7 +7,7 @@
       aria-label="Les meves activitats"
       [routerLink]="['/activities/dashboard']"
     >
-      les meves activitats
+      activitats
     </button>
     <button
       *ngIf="showAuthSection"
@@ -22,8 +22,17 @@
       *ngIf="showAuthSection"
       type="button"
       class="hidden md:block px-4 hover:text-emerald-600 hover:font-semibold"
+      aria-label="Veure els meus jocs"
+      [routerLink]="['/games/dashboard']"
+    >
+      jocs
+    </button>
+    <button
+      *ngIf="showAuthSection"
+      type="button"
+      class="hidden md:block px-4 hover:text-emerald-600 hover:font-semibold"
       aria-label="Unir-me a un joc"
-      [routerLink]="['/join']"
+      [routerLink]="['/games/join']"
     >
       unir-me a joc
     </button>
