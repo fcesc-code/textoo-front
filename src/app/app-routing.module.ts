@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 /* import shared module components */
 import { LoginComponent } from './auth/components/login/login.component';
 import { WelcomeComponent } from './auth/components/welcome/welcome.component';
+import { PageNotFoundComponent } from './shared/components/PageNotFound/page-not-found.component';
 /* import activities-global module components */
 import { DashboardComponent } from './activities/components/dashboard/dashboard.component';
 import { MosaicComponent } from './activities/components/mosaic/mosaic.component';
@@ -57,8 +58,12 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: '404',
+    component: PageNotFoundComponent,
+  },
+  {
     path: '**',
-    redirectTo: 'not-found',
+    redirectTo: '404',
   },
 ];
 
