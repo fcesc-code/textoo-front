@@ -43,6 +43,11 @@ import { SanitizePipe } from './pipes/sanitize.pipe';
     ActivitiesSharedModule,
   ],
   providers: [ActivitiesService, UserService],
-  exports: [],
+  exports: [
+    PlaySelectTextComponent,
+    HighlightTextPipe,
+    SanitizePipe,
+    ImproveBreaklinesPipe,
+  ],
 })
 export class ActivitySelectTextModule {}

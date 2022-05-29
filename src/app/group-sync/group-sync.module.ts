@@ -7,6 +7,8 @@ import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivitiesGlobalModule } from '../activities/activities-global.module';
+import { ActivitySelectTextModule } from '../activity-select-text/activity-select-text.module';
+import { ActivityBestOptionModule } from '../activity-best-option/activity-best-option.module';
 /* Material */
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -47,6 +49,8 @@ import { BooleanLocalePipe } from './pipes/booleanLocale.pipe';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
+    ActivitySelectTextModule,
+    ActivityBestOptionModule,
   ],
   providers: [],
   exports: [],

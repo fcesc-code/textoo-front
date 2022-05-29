@@ -52,6 +52,6 @@ import { ActivitiesSharedModule } from '../activity/activities-shared.module';
     QuillModule.forRoot(),
   ],
   providers: [ActivitiesService, UserService],
-  exports: [],
+  exports: [PlayBestOptionComponent, AddOptionPipe, SanitizePipe],
 })
 export class ActivityBestOptionModule {}
