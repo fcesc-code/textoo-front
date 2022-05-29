@@ -47,7 +47,7 @@
       >
         <div
           id="{{ activity._id }}"
-          (click)="retainId(activity._id)"
+          (click)="retainId(activity._id, activity.title)"
           class="hover:bg-emerald-100"
         >
           <h3 class="leading-12 font-semibold text-lg">

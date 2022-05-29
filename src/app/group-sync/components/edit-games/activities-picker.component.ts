@@ -1,10 +1,18 @@
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  Output,
+} from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { ActivitiesService } from 'src/app/activities/services/activities.service';
 import { UserService } from 'src/app/user/services/user.service';
 
 interface PickedActivity {
-  pickedActivity: string;
+  id: string;
+  title: string;
 }
 
 @Component({
@@ -12,11 +20,12 @@ interface PickedActivity {
   templateUrl: './activities-picker.component.html',
   styleUrls: ['./activities-picker.component.sass'],
 })
-export class ActivitiesPickerComponent implements OnDestroy {
+export class ActivitiesPickerComponent implements OnChanges, OnDestroy {
   activities$: any;
   filteredActivities: any[];
   authors: any[];
   subscription$: any;
+
   constructor(
     private activitiesService: ActivitiesService,
     private userService: UserService,
@@ -26,7 +35,18 @@ export class ActivitiesPickerComponent implements OnDestroy {
     this.authors = [];
     this.loadActivities();
   }
+  @Input() selectedActivity: string = '';
   @Output() pickedActivity: EventEmitter<PickedActivity> = new EventEmitter();
+
+  ngOnChanges(): void {
+    if (this.selectedActivity) {
+      this.filterById(this.selectedActivity);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
+  }
 
   loadActivities(): void {
     this.subscription$ = this.activitiesService.getAllActivities().subscribe({
@@ -40,16 +60,18 @@ export class ActivitiesPickerComponent implements OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.subscription$.unsubscribe();
-  }
-
-  retainId(id: string): void {
+  retainId(id: string, title: string): void {
     this.filteredActivities = [...this.activities$].filter(
       (activity: any) => activity._id === id
     );
-    const selectedActivity: PickedActivity = { pickedActivity: id };
+    const selectedActivity: PickedActivity = { id, title };
     this.pickedActivity.emit(selectedActivity);
+  }
+
+  filterById(id: string): void {
+    this.filteredActivities = [...this.activities$].filter((activity: any) => {
+      return activity._id === id;
+    });
   }
 
   filterByKeyword(targetKeyword: string): void {
@@ -84,7 +106,7 @@ export class ActivitiesPickerComponent implements OnDestroy {
 
   removeFilters(): void {
     if (this.filteredActivities.length <= 1) {
-      const selectedActivity: PickedActivity = { pickedActivity: '' };
+      const selectedActivity: PickedActivity = { id: '', title: '' };
       this.pickedActivity.emit(selectedActivity);
     }
     this.filteredActivities = [...this.activities$];

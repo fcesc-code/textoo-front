@@ -6,10 +6,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { DocumentData } from 'firebase/firestore';
+import { firstValueFrom, from, Subscription } from 'rxjs';
 import { ActivitiesService } from 'src/app/activity/services/activities.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { newGame } from '../../interfaces/game.dto';
+import { Game, newGame } from '../../interfaces/game.dto';
 import { GroupGameService } from '../../services/group-game.service';
 import { GreaterThanTodayValidator } from '../../validators/greater-than-today.validator';
 
@@ -19,28 +20,9 @@ import { GreaterThanTodayValidator } from '../../validators/greater-than-today.v
   styleUrls: ['./game-dashboard.component.sass'],
 })
 export class GameDashboardComponent implements OnInit {
-  // private emptyGame: newGame = {
-  //   users: [],
-  //   scores: [],
-  //   status: {
-  //     scheduled: true,
-  //     started: false,
-  //     closed: false,
-  //     organizer: '',
-  //     timed: false,
-  //     maxTime: 180,
-  //     start: new Date(),
-  //   },
-  //   info: {
-  //     activityId: '1234',
-  //     language: '',
-  //     keywords: [],
-  //     type: '',
-  //   },
-  // };
-
-  // activity$!: Subscription;
   activity: any;
+  gameSubscription!: Subscription;
+  defaultConstants: Partial<Game>;
 
   newGame: boolean;
 
@@ -57,18 +39,27 @@ export class GameDashboardComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private activitiesService: ActivitiesService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private db: GroupGameService
   ) {
     console.log('wow, game-dashboard has been built!');
     this.newGame = true;
     this.id = '';
+    this.defaultConstants = {
+      status: {
+        timed: true,
+        scheduled: true,
+        started: false,
+        closed: false,
+      },
+    } as Partial<Game>;
 
     this.title = new FormControl('', [
       Validators.required,
       Validators.minLength(8),
       Validators.maxLength(50),
     ]);
-    this.activityId = new FormControl('', [Validators.required]);
+    this.activityId = new FormControl({ value: '', disabled: true });
     this.activityTitle = new FormControl({ value: '', disabled: true });
     this.maxTime = new FormControl(0, [
       Validators.required,
@@ -92,10 +83,10 @@ export class GameDashboardComponent implements OnInit {
       status: {
         maxTime: this.maxTime,
         start: this.start,
-        timed: true,
-        scheduled: true,
-        started: false,
-        closed: false,
+        timed: this.defaultConstants?.status?.timed,
+        scheduled: this.defaultConstants?.status?.scheduled,
+        started: this.defaultConstants?.status?.started,
+        closed: this.defaultConstants?.status?.closed,
       },
     });
   }
@@ -107,11 +98,29 @@ export class GameDashboardComponent implements OnInit {
     //     this.activity = activity;
     //   });
     this.id = this.getId();
+    this.loadGame();
   }
 
   // ngOnDestroy(): void {
   //   this.activity$.unsubscribe();
   // }
+
+  loadGame() {
+    const promiseSource = from(
+      this.db.refs.gameDoc(this.id).then((snapshot: DocumentData) => {
+        return snapshot['data']();
+      })
+    );
+    this.gameSubscription = promiseSource.subscribe((data: any) => {
+      console.log('iuhu, data >>> ', data);
+      this.title.setValue(data.title);
+      this.activityId.setValue(data.info.activityId);
+      this.activityTitle.setValue(data.info.activityTitle);
+      this.maxTime.setValue(data.status.maxTime);
+      this.start.setValue(data.status.start);
+    });
+  }
+
   getId(): string {
     const id = this.activatedRoute.snapshot.paramMap.get('id') || '';
     if (id) {
@@ -120,9 +129,14 @@ export class GameDashboardComponent implements OnInit {
     return id;
   }
 
-  pickedActivity(eventData: { pickedActivity: string }): void {
-    console.log('picked activity event >>>', eventData.pickedActivity);
-    this.activityId.setValue(eventData.pickedActivity);
+  getActivityId(): string {
+    return !this.newGame ? this.activityId.value : '';
+  }
+
+  pickedActivity(eventData: { id: string; title: string }): void {
+    console.log('picked activity event >>>', eventData);
+    this.activityId.setValue(eventData.id);
+    this.activityTitle.setValue(eventData.title);
   }
 
   createGame(newGame: any) {

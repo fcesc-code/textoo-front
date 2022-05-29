@@ -5,6 +5,7 @@ import {
   deleteDoc,
   doc,
   Firestore,
+  getDoc,
   getDocs,
   query,
   where,
@@ -27,7 +28,8 @@ export class GroupGameService {
             where('status.organizer', '==', userId)
           )
         ),
-      gameDoc: (gameId: string) => doc(this.db, `${this.collection}/${gameId}`),
+      gameDoc: async (gameId: string) =>
+        await getDoc(doc(this.db, `${this.collection}/${gameId}`)),
       gameUsersCol: (gameId: string) =>
         collection(this.db, `${this.collection}/${gameId}/users`),
       gameScoresCol: (gameId: string) =>
