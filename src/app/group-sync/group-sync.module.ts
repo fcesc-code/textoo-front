@@ -20,7 +20,6 @@ import { GameDashboardComponent } from './components/edit-games/game-dashboard.c
 import { ActivitiesPickerComponent } from './components/edit-games/activities-picker.component';
 import { UserGamesComponent } from './components/manage-games/user-games.component';
 /* Firebase */
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { GroupSyncRoutingModule } from './group-sync-routing.module';
 
 @NgModule({

@@ -80,16 +80,15 @@ export class GroupGameService {
       this.gameCol,
       where('status.organizer', '==', authorId)
     );
-    const result = await getDocs(dbQuery).then((snapshot) => {
-      console.log('initial snapshot >>> ', snapshot.docs);
+    await getDocs(dbQuery).then((snapshot) => {
+      // console.log('initial snapshot >>> ', snapshot.docs);
       let receivedGames: Game[] = [];
       snapshot.docs.forEach((doc: DocumentData) => {
         receivedGames.push({ ...doc['data'](), id: doc['id'] });
       });
       this.userGames = receivedGames;
-      console.log('ready to send data back to component >>> ', this.userGames);
+      // console.log('ready to send data back to component >>> ', this.userGames);
     });
-    console.log('alternatively, look at the result >>> ', result);
     return this.userGames;
   }
 
