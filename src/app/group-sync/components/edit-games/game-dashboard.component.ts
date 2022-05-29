@@ -10,9 +10,10 @@ import { DocumentData } from 'firebase/firestore';
 import { firstValueFrom, from, Subscription } from 'rxjs';
 import { ActivitiesService } from 'src/app/activity/services/activities.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { Game, newGame } from '../../interfaces/game.dto';
+import { SharedService } from 'src/app/shared/services/shared.service';
+import { Game } from '../../interfaces/game.dto';
 import { GroupGameService } from '../../services/group-game.service';
-import { GreaterThanTodayValidator } from '../../validators/greater-than-today.validator';
+import { DatePickValidator } from '../../validators/greater-than-today.validator';
 
 @Component({
   selector: 'app-game-dashboard',
@@ -35,14 +36,13 @@ export class GameDashboardComponent implements OnInit {
   id: string;
 
   constructor(
-    private gameService: GroupGameService,
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private activitiesService: ActivitiesService,
     private activatedRoute: ActivatedRoute,
+    private sharedService: SharedService,
     private db: GroupGameService
   ) {
-    console.log('wow, game-dashboard has been built!');
     this.newGame = true;
     this.id = '';
     this.defaultConstants = {
@@ -70,7 +70,7 @@ export class GameDashboardComponent implements OnInit {
     const defaultDateTime = new Date(tenMinutesFromNow);
     this.start = new FormControl(defaultDateTime, [
       Validators.required,
-      GreaterThanTodayValidator,
+      DatePickValidator(),
     ]);
 
     this.gameForm = this.formBuilder.group({
@@ -92,33 +92,25 @@ export class GameDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.activity$ = this.activitiesService
-    //   .getActivityById(this.activityId.value)
-    //   .subscribe((activity) => {
-    //     this.activity = activity;
-    //   });
     this.id = this.getId();
     this.loadGame();
   }
 
-  // ngOnDestroy(): void {
-  //   this.activity$.unsubscribe();
-  // }
-
   loadGame() {
-    const promiseSource = from(
-      this.db.refs.gameDoc(this.id).then((snapshot: DocumentData) => {
-        return snapshot['data']();
-      })
-    );
-    this.gameSubscription = promiseSource.subscribe((data: any) => {
-      console.log('iuhu, data >>> ', data);
-      this.title.setValue(data.title);
-      this.activityId.setValue(data.info.activityId);
-      this.activityTitle.setValue(data.info.activityTitle);
-      this.maxTime.setValue(data.status.maxTime);
-      this.start.setValue(data.status.start);
-    });
+    if (this.id) {
+      const promiseSource = from(
+        this.db.refs.gameDoc(this.id).then((snapshot: DocumentData) => {
+          return snapshot['data']();
+        })
+      );
+      this.gameSubscription = promiseSource.subscribe((data: any) => {
+        this.title.setValue(data.title);
+        this.activityId.setValue(data.info.activityId);
+        this.activityTitle.setValue(data.info.activityTitle);
+        this.maxTime.setValue(data.status.maxTime);
+        this.start.setValue(data.status.start);
+      });
+    }
   }
 
   getId(): string {
@@ -134,33 +126,62 @@ export class GameDashboardComponent implements OnInit {
   }
 
   pickedActivity(eventData: { id: string; title: string }): void {
-    console.log('picked activity event >>>', eventData);
     this.activityId.setValue(eventData.id);
     this.activityTitle.setValue(eventData.title);
   }
 
   createGame(newGame: Game) {
-    console.log('about to create a game', newGame);
-    this.gameService
+    this.db
       .createGame(newGame)
-      .then((data: any) => {
-        console.log('game created, receiving data >>>> ', data);
+      .then(() => {
+        this.sharedService.managementToast(`El joc s'ha creat amb èxit.`, true);
       })
-      .catch((error: Error) => console.log(error));
+      .catch((error: any) => {
+        this.sharedService.errorLog(error);
+        this.sharedService.managementToast(
+          `L'operació crear joc no s'ha completat.`,
+          false,
+          error
+        );
+      });
   }
 
   updateGame(updatedGame: Partial<Game>) {
-    this.gameService
+    this.db
       .updateGame(this.id, updatedGame)
-      .then(() => {})
-      .catch((error: Error) => console.log(error));
+      .then(() => {
+        this.sharedService.managementToast(
+          `El joc s'ha actualitzat amb èxit.`,
+          true
+        );
+      })
+      .catch((error: any) => {
+        this.sharedService.errorLog(error);
+        this.sharedService.managementToast(
+          `L'operació actualitzar joc no s'ha completat.`,
+          false,
+          error
+        );
+      });
   }
 
   deleteGame(id: string) {
-    this.gameService
+    this.db
       .deleteGame(id)
-      .then(() => {})
-      .catch((error: Error) => console.log(error));
+      .then(() => {
+        this.sharedService.managementToast(
+          `El joc s'ha esborrat amb èxit.`,
+          true
+        );
+      })
+      .catch((error: any) => {
+        this.sharedService.errorLog(error);
+        this.sharedService.managementToast(
+          `L'operació esborrar joc no s'ha completat.`,
+          false,
+          error
+        );
+      });
   }
 
   async getActivityBasicInfo() {
@@ -197,8 +218,10 @@ export class GameDashboardComponent implements OnInit {
   }
 
   async createOrUpdate() {
-    await this.getActivityBasicInfo();
-    const game = this.buildGame();
-    this.newGame ? this.createGame(game) : this.updateGame(game);
+    if (this.gameForm.valid) {
+      await this.getActivityBasicInfo();
+      const game = this.buildGame();
+      this.newGame ? this.createGame(game) : this.updateGame(game);
+    }
   }
 }

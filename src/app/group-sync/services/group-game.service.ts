@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Game, newGame } from '../interfaces/game.dto';
 import {
+  addDoc,
   collection,
   deleteDoc,
   doc,
@@ -11,7 +12,6 @@ import {
   updateDoc,
   where,
 } from '@angular/fire/firestore';
-import { addDoc, setDoc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -44,11 +44,6 @@ export class GroupGameService {
   }
 
   createGame(game: newGame): any {
-    // const newGameId = this.refs.gameCol().createId();
-    // console.log('The new game id is >>> ', newGameId);
-    // const newGame: Game = { ...game, id: newGameId } as Game;
-    console.log(`attempting to create a doc with: ${game}`);
-    // return this.refs.gameCol().doc(newGameId).set(newGame);
     return addDoc(this.refs.gamesCol, game);
   }
 
