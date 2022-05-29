@@ -21,6 +21,37 @@
       aria-label="game form"
     >
       <mat-form-field appearance="standard">
+        <mat-label>Títol del joc</mat-label>
+        <input
+          matInput
+          type="text"
+          [formControl]="title"
+          aria-required="true"
+          id="gameForm-title"
+        />
+        <mat-error *ngIf="title.dirty && title.hasError('required')">
+          Cal proporcionar un títol per al joc
+        </mat-error>
+        <mat-error
+          *ngIf="
+            title.dirty &&
+            title.hasError('minlength') &&
+            !title.hasError('required')
+          "
+        >
+          El títol ha de tenir almenys 8 caràcters.
+        </mat-error>
+        <mat-error
+          *ngIf="
+            title.dirty &&
+            title.hasError('maxlength') &&
+            !title.hasError('required')
+          "
+        >
+          El títol no pot excedir els 50 caràcters.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="standard">
         <mat-label *ngIf="newGame">Tria una activitat de la llista</mat-label>
         <mat-label *ngIf="!newGame">Activitat vinculada al joc</mat-label>
         <input
@@ -32,6 +63,24 @@
         />
         <mat-error *ngIf="activityId.dirty && activityId.hasError('required')">
           Cal proporcionar un identificador de l'activitat.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label *ngIf="newGame"
+          >El títol apareixerà automàticament</mat-label
+        >
+        <mat-label *ngIf="!newGame">Activitat vinculada</mat-label>
+        <input
+          matInput
+          type="text"
+          [formControl]="activityTitle"
+          aria-required="true"
+          id="gameForm-activityTitle"
+        />
+        <mat-error
+          *ngIf="activityTitle.dirty && activityTitle.hasError('required')"
+        >
+          Aquest camp s'emplenarà automàticament.
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="standard">

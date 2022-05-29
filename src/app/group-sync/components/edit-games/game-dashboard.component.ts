@@ -46,9 +46,10 @@ export class GameDashboardComponent implements OnInit {
 
   gameForm: FormGroup;
   activityId: FormControl;
+  activityTitle: FormControl;
   maxTime: FormControl;
   start: FormControl;
-
+  title: FormControl;
   id: string;
 
   constructor(
@@ -62,7 +63,13 @@ export class GameDashboardComponent implements OnInit {
     this.newGame = true;
     this.id = '';
 
+    this.title = new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.maxLength(50),
+    ]);
     this.activityId = new FormControl('', [Validators.required]);
+    this.activityTitle = new FormControl({ value: '', disabled: true });
     this.maxTime = new FormControl(0, [
       Validators.required,
       Validators.pattern('^[0-9]*$'),
@@ -77,8 +84,10 @@ export class GameDashboardComponent implements OnInit {
 
     this.gameForm = this.formBuilder.group({
       id: '',
+      title: '',
       info: {
         activityId: this.activityId,
+        activityTitle: this.activityTitle,
       },
       status: {
         maxTime: this.maxTime,
@@ -158,9 +167,10 @@ export class GameDashboardComponent implements OnInit {
   }
 
   buildGame(): any {
-    const game = { id: this.id, info: {}, status: {} };
+    const game = { id: this.id, title: this.title, info: {}, status: {} };
 
     game.info = {
+      activityTitle: this.activity.title,
       activityId: this.activity._id,
       language: this.activity.language,
       type: this.activity.type,

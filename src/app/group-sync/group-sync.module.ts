@@ -21,9 +21,14 @@ import { ActivitiesPickerComponent } from './components/edit-games/activities-pi
 import { UserGamesComponent } from './components/manage-games/user-games.component';
 /* Firebase */
 import { GroupSyncRoutingModule } from './group-sync-routing.module';
+/* Pipes */
+import { FriendlyTimePipe } from './pipes/friendlyTime.pipe';
+import { BooleanLocalePipe } from './pipes/booleanLocale.pipe';
 
 @NgModule({
   declarations: [
+    FriendlyTimePipe,
+    BooleanLocalePipe,
     ConnectComponent,
     GameComponent,
     UserGamesComponent,

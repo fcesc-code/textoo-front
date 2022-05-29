@@ -39,6 +39,7 @@ export class GameComponent implements OnInit, OnDestroy {
       start: new Date(),
     };
     this.info = {
+      activityTitle: '',
       activityId: '',
       language: '',
       keywords: [],

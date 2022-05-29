@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Game } from '../../interfaces/game.dto';
 import { GroupGameService } from '../../services/group-game.service';
