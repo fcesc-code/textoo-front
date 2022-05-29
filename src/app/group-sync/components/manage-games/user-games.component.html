@@ -1,22 +1,37 @@
 <div class="w-full flex flex-col justify-start items-center mb-6">
-  <h1 class="font-bold text-xl py-6 text-center">Jocs creats per mi</h1>
-  <p *ngIf="userGames.length > 0">
-    Només podràs esborrar els jocs que no hagin començat fins a una setmana
-    abans del seu inici.
-  </p>
-  <div *ngIf="userGames.length === 0">
-    <p>Encara no has creat cap joc? Cap problema! Crear-ne un és molt fàcil:</p>
-    <ol>
-      <li>Tria l'activitat que vols realitzar al joc de la llista</li>
-      <li>Tria el temps màxim que vols que duri el joc</li>
-      <li>Tria la data i l'hora prevista d'inici</li>
-    </ol>
-    <p>
-      I ja està! Amb això hauràs creat un joc. Només cal que comparteixis el
-      link que es mostra per a què pugui participar-hi qui vulguis.
+  <section class="w-[95%] sm:w-[90%] md:w-[80%] lg:w-screen-md mt-4">
+    <div
+      class="py-4 flex flex-row justify-center items-center hover:text-emerald-700 hover:font-bold hover:cursor-pointer"
+      [routerLink]="['/games/create']"
+    >
+      <mat-icon class="leading-12 mx-4" title="esborra"
+        >add_circle_outline</mat-icon
+      >
+      <p class="mx-4">Crea un nou joc</p>
+    </div>
+    <h1 class="font-bold text-xl text-center mx-4 px-6 py-2 my-2">
+      Jocs creats per mi
+    </h1>
+    <p *ngIf="userGames.length > 0" class="mx-4 px-6 py-2">
+      Només podràs esborrar els jocs que no hagin començat fins a una setmana
+      abans del seu inici.
     </p>
-  </div>
-  <section class="w-[90%] sm:w-[85%] md:w-[75%] lg:w-screen-md">
+    <div class="mx-4 px-6 py-2" *ngIf="userGames.length === 0">
+      <p>
+        Encara no has creat cap joc? Cap problema! Crear-ne un és molt fàcil:
+      </p>
+      <ol>
+        <li>Tria l'activitat que vols realitzar al joc de la llista</li>
+        <li>Tria el temps màxim que vols que duri el joc</li>
+        <li>Tria la data i l'hora prevista d'inici</li>
+      </ol>
+      <p>
+        I ja està! Amb això hauràs creat un joc. Només cal que comparteixis el
+        link que es mostra per a què pugui participar-hi qui vulguis.
+      </p>
+    </div>
+  </section>
+  <section class="w-[95%] sm:w-[90%] md:w-[80%] lg:w-screen-md">
     <nav class="w-full flex flex-col justify-start items-center">
       <button
         *ngIf="filtersApplied()"

@@ -31,6 +31,7 @@ export class ActivitiesPickerComponent implements OnChanges, OnDestroy {
     private userService: UserService,
     private sharedService: SharedService
   ) {
+    this.activities$ = [];
     this.filteredActivities = [];
     this.authors = [];
     this.loadActivities();

@@ -139,7 +139,7 @@ export class GameDashboardComponent implements OnInit {
     this.activityTitle.setValue(eventData.title);
   }
 
-  createGame(newGame: any) {
+  createGame(newGame: Game) {
     console.log('about to create a game', newGame);
     this.gameService
       .createGame(newGame)
@@ -149,23 +149,17 @@ export class GameDashboardComponent implements OnInit {
       .catch((error: Error) => console.log(error));
   }
 
-  updateGame(updatedGame: any) {
-    console.log('about to update a game', updatedGame);
+  updateGame(updatedGame: Partial<Game>) {
     this.gameService
       .updateGame(this.id, updatedGame)
-      .then((data: any) => {
-        console.log('game updated, receiving data >>>> ', data);
-      })
+      .then(() => {})
       .catch((error: Error) => console.log(error));
   }
 
   deleteGame(id: string) {
-    console.log('about to delete a game');
     this.gameService
       .deleteGame(id)
-      .then(() => {
-        console.log('game deleted');
-      })
+      .then(() => {})
       .catch((error: Error) => console.log(error));
   }
 
@@ -181,7 +175,7 @@ export class GameDashboardComponent implements OnInit {
   }
 
   buildGame(): any {
-    const game = { id: this.id, title: this.title, info: {}, status: {} };
+    const game = { id: this.id, title: this.title.value, info: {}, status: {} };
 
     game.info = {
       activityTitle: this.activity.title,
@@ -205,7 +199,6 @@ export class GameDashboardComponent implements OnInit {
   async createOrUpdate() {
     await this.getActivityBasicInfo();
     const game = this.buildGame();
-    console.log('a game was built: ', game);
     this.newGame ? this.createGame(game) : this.updateGame(game);
   }
 }

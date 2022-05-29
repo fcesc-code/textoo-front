@@ -12,6 +12,10 @@ export const routes: Routes = [
     component: GameDashboardComponent,
   },
   {
+    path: 'create',
+    component: GameDashboardComponent,
+  },
+  {
     path: 'join',
     component: ConnectComponent,
   },
