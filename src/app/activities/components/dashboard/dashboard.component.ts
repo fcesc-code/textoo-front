@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
-import { ActivitiesService } from '../../services/activities.service';
+import { ActivitiesGlobalService } from '../../services/activities.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +14,7 @@ export class DashboardComponent implements OnDestroy {
   authors: any[];
   subscription$: any;
   constructor(
-    private activitiesService: ActivitiesService,
+    private activitiesService: ActivitiesGlobalService,
     private authService: AuthService,
     private sharedService: SharedService
   ) {

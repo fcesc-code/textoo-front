@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared.service';
-import { ActivitiesService } from '../../services/activities.service';
+import { ActivitiesGlobalService } from '../../services/activities.service';
 import { AsyncPipe } from '@angular/common';
 import { UserService } from 'src/app/user/services/user.service';
 
@@ -15,8 +15,7 @@ export class MosaicComponent implements OnDestroy {
   authors: any[];
   subscription$: any;
   constructor(
-    private activitiesService: ActivitiesService,
-    private userService: UserService,
+    private activitiesService: ActivitiesGlobalService,
     private sharedService: SharedService
   ) {
     this.filteredActivities = [];

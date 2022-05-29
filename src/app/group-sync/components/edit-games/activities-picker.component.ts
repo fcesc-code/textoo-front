@@ -7,7 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared.service';
-import { ActivitiesService } from 'src/app/activities/services/activities.service';
+import { ActivitiesGlobalService } from 'src/app/activities/services/activities.service';
 import { UserService } from 'src/app/user/services/user.service';
 
 interface PickedActivity {
@@ -27,7 +27,7 @@ export class ActivitiesPickerComponent implements OnChanges, OnDestroy {
   subscription$: any;
 
   constructor(
-    private activitiesService: ActivitiesService,
+    private activitiesService: ActivitiesGlobalService,
     private userService: UserService,
     private sharedService: SharedService
   ) {

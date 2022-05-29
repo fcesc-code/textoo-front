@@ -10,6 +10,7 @@ import {
   gameUser,
 } from '../../interfaces/game.dto';
 import { GroupGameService } from '../../services/group-game.service';
+import { ActivitiesService } from 'src/app/activity/services/activities.service';
 
 @Component({
   selector: 'app-game',
@@ -17,37 +18,16 @@ import { GroupGameService } from '../../services/group-game.service';
   styleUrls: ['./game.component.sass'],
 })
 export class GameComponent implements OnInit, OnDestroy {
-  status: gameStatus;
-  info: gameInfo;
-  scores: gameScore[];
-  users: gameUser[];
-  status$!: Subscription;
-  accessCode: string;
+  game!: Game;
+  activity!: any;
+  accessCode!: string;
 
   constructor(
     private authService: AuthService,
     private gameService: GroupGameService,
-    private activatedRoute: ActivatedRoute
-  ) {
-    this.status = {
-      scheduled: true,
-      started: false,
-      closed: false,
-      organizer: '',
-      timed: false,
-      maxTime: 0,
-      start: new Date(),
-    };
-    this.info = {
-      activityTitle: '',
-      activityId: '',
-      language: '',
-      keywords: [],
-      type: '',
-    };
-    (this.users = []), (this.scores = []);
-    this.accessCode = '';
-  }
+    private activatedRoute: ActivatedRoute,
+    private activitiesService: ActivitiesService
+  ) {}
 
   ngOnInit(): void {
     this.accessCode = this.activatedRoute.snapshot.paramMap.get('id') || '';
@@ -66,6 +46,6 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.status$.unsubscribe();
+    console.log('hi world');
   }
 }

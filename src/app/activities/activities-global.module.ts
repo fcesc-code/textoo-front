@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 /* Services */
-import { ActivitiesService } from './services/activities.service';
+import { ActivitiesGlobalService } from './services/activities.service';
 import { UserService } from '../user/services/user.service';
 /* Modules */
 import { SharedModule } from '../shared/shared.module';
@@ -30,7 +30,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     MatButtonModule,
     SharedModule,
   ],
-  providers: [ActivitiesService, UserService],
+  providers: [ActivitiesGlobalService, UserService],
   exports: [GetLanguagePipe],
 })
 export class ActivitiesGlobalModule {}
