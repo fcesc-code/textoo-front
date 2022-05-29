@@ -29,6 +29,7 @@ export class AuthInterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     this.spinnerService.show();
     this.accessToken = this.authService.getToken();
+    console.log('accessToken', this.accessToken);
     if (this.accessToken) {
       req = req.clone({
         setHeaders: {

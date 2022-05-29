@@ -2,3 +2,21 @@
   <h2>This is an ongoing game</h2>
   <p>this works!</p>
 </section>
+
+<p *ngIf="game && game.info.type === activityTypes.BEST_OPTION">
+  This is a best-option activity type.
+</p>
+<p *ngIf="game && game.info.type === activityTypes.SELECT_TEXT">
+  This is a select-text activity type.
+</p>
+
+<app-play-best-option
+  *ngIf="game && game.info.type === activityTypes.BEST_OPTION"
+  [game]="game.info.activityId"
+>
+</app-play-best-option>
+<app-play-select-text
+  *ngIf="game && game.info.type === activityTypes.SELECT_TEXT"
+  [game]="game.info.activityId"
+>
+</app-play-select-text>

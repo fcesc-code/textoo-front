@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { from, Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import {
@@ -11,6 +11,9 @@ import {
 } from '../../interfaces/game.dto';
 import { GroupGameService } from '../../services/group-game.service';
 import { ActivitiesService } from 'src/app/activity/services/activities.service';
+import { SharedService } from 'src/app/shared/services/shared.service';
+import { DocumentData } from 'firebase/firestore';
+import { ActivityType } from 'src/app/activity/models/Activity.dto';
 
 @Component({
   selector: 'app-game',
@@ -18,34 +21,40 @@ import { ActivitiesService } from 'src/app/activity/services/activities.service'
   styleUrls: ['./game.component.sass'],
 })
 export class GameComponent implements OnInit, OnDestroy {
+  game$!: Subscription;
   game!: Game;
-  activity!: any;
-  accessCode!: string;
+  protected gameId: string;
+  protected userId: string;
+  activityTypes = ActivityType;
 
   constructor(
     private authService: AuthService,
-    private gameService: GroupGameService,
     private activatedRoute: ActivatedRoute,
-    private activitiesService: ActivitiesService
-  ) {}
+    private activitiesService: ActivitiesService,
+    private sharedService: SharedService,
+    private db: GroupGameService
+  ) {
+    this.gameId = '';
+    this.userId = '';
+  }
 
   ngOnInit(): void {
-    this.accessCode = this.activatedRoute.snapshot.paramMap.get('id') || '';
-
-    console.log(
-      'gameComponent was called with accessCode >>> ',
-      this.accessCode
-    );
-
-    // this.status$ = this.gameService
-    //   .listenStatusStream(this.accessCode)
-    //   .subscribe((status: gameStatus) => {
-    //     console.log('new game status >>> ', status);
-    //     this.status = status;
-    //   });
+    this.gameId = this.activatedRoute.snapshot.paramMap.get('id') || '';
+    const { userId } = this.authService.getUser();
+    this.userId = userId;
+    if (this.gameId) {
+      const promiseSource = from(
+        this.db.refs.gameDoc(this.gameId).then((snapshot: DocumentData) => {
+          return snapshot['data']();
+        })
+      );
+      this.game$ = promiseSource.subscribe((data: any) => {
+        this.game = data;
+      });
+    }
   }
 
   ngOnDestroy(): void {
-    console.log('hi world');
+    this.game$.unsubscribe();
   }
 }

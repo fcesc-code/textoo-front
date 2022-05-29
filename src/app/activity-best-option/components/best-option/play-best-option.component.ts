@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivitiesService } from 'src/app/activity/services/activities.service';
 import {
   ActivityBestOption,
@@ -34,11 +34,15 @@ export class PlayBestOptionComponent implements OnInit, OnDestroy {
     private activitiesService: ActivitiesService,
     private activatedRoute: ActivatedRoute
   ) {}
+  @Input() game: string = '';
 
   ngOnInit(): void {
     this.selectedOptions = [];
-    const activityId = this.activatedRoute.snapshot.paramMap.get('id');
+    const activityId =
+      this.game || this.activatedRoute.snapshot.paramMap.get('id');
     this.textWithQuestions = `Carregant l'activitat...`;
+
+    console.log('activityId', activityId);
 
     if (activityId) {
       this.activity$ = this.activitiesService

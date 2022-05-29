@@ -2,6 +2,8 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  Input,
+  OnChanges,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -39,7 +41,7 @@ import {
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class PlaySelectTextComponent
-  implements OnInit, OnDestroy, AfterViewInit
+  implements OnInit, OnChanges, OnDestroy, AfterViewInit
 {
   activity$!: Subscription;
   activity!: ActivitySelectText;
@@ -58,13 +60,31 @@ export class PlaySelectTextComponent
   constructor(
     private activitiesService: ActivitiesService,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) {
+    this.selectedText = [];
+  }
+  @Input() game: string = '';
 
   ngOnInit(): void {
-    this.selectedText = [];
-    const activityId: string | null =
-      this.activatedRoute.snapshot.paramMap.get('id');
+    const activityId = this.getId();
+    console.log('OnInit: firing loadActivity with id >>> ', activityId);
+    this.loadActivity(activityId);
+  }
 
+  ngOnChanges(): void {
+    const activityId = this.getId();
+    console.log('OnChanges: firing loadActivity with id >>> ', activityId);
+    this.loadActivity(activityId);
+  }
+
+  getId() {
+    const activityId: string | null =
+      this.game || this.activatedRoute.snapshot.paramMap.get('id') || '';
+    return activityId;
+  }
+
+  loadActivity(activityId: string) {
+    console.log('loadActivity with >>> ', activityId);
     if (activityId) {
       this.activity$ = this.activitiesService
         .getActivityById(activityId)
