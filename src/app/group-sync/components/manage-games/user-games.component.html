@@ -26,9 +26,12 @@
         Esborrar filtre
       </button>
     </nav>
-    <ul *ngIf="userGames && userGames.length > 0" class="w-full">
+    <ul
+      *ngIf="filteredUserGames && filteredUserGames.length > 0"
+      class="w-full"
+    >
       <li
-        *ngFor="let game of this.userGames"
+        *ngFor="let game of this.filteredUserGames"
         class="my-2 mx-4 border-2 border-slate-100 rounded-lg px-6 py-4 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300"
       >
         <h2 class="leading-12 font-semibold text-lg my-2">
@@ -59,19 +62,26 @@
           </section>
         </section>
         <section class="flex flex-row flex-wrap justify-start items-center">
-          <p class="px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-blue-300">
+          <p
+            (click)="filterByLanguage(game.info.language)"
+            class="px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-blue-300"
+          >
             {{ game.info.language | getLanguage }}
           </p>
-          <p class="px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-red-300">
+          <p
+            (click)="filterByType(game.info.type)"
+            class="px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-red-300"
+          >
             {{ game.info.type }}
           </p>
-          <p
-            *ngIf="game.info.keywords && game.info.keywords.length > 0"
-            class="px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-emerald-200"
-          >
-            <span *ngFor="let keyword of game.info.keywords">{{
-              keyword
-            }}</span>
+          <p *ngIf="game.info.keywords && game.info.keywords.length > 0">
+            <span
+              *ngFor="let keyword of game.info.keywords"
+              class="px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-emerald-200"
+              (click)="filterByKeyword(keyword)"
+            >
+              {{ keyword }}</span
+            >
           </p>
         </section>
         <!-- <p>organitzador: {{ game.status.organizer }}</p> -->

@@ -43,35 +43,42 @@ export class UserGamesComponent {
       // });
       // console.log('loadgames userGames >>> ', this.userGames);
       this.userGames = await this.games.getAllGamesByAuthor(userId);
+      this.filteredUserGames = [...this.userGames];
     }
   }
 
   filterByKeyword(targetKeyword: string): void {
-    // this.filteredUserGames = [...this.activities$].filter((activity: any) => {
-    //   return activity.keywords.find(
-    //     (keyword: string) =>
-    //       targetKeyword.toLowerCase().trim() === keyword.toLowerCase().trim()
-    //   );
-    // });
+    console.log('filter keyword with >>> ', targetKeyword);
+    this.filteredUserGames = [...this.userGames].filter((game: Game) => {
+      return game.info.keywords.find(
+        (keyword: string) =>
+          keyword.toLowerCase().trim() === targetKeyword.toLowerCase().trim()
+      );
+    });
+    console.log('filteredUserGames after filter >>> ', this.filteredUserGames);
   }
 
   filterByType(targetType: string): void {
-    // this.filteredUserGames = [...this.activities$].filter(
-    //   (activity: any) =>
-    //     activity.type.toLowerCase().trim() === targetType.toLowerCase().trim()
-    // );
+    console.log('filter type with >>> ', targetType);
+    this.filteredUserGames = [...this.userGames].filter(
+      (game: Game) =>
+        game.info.type.toLowerCase().trim() === targetType.toLowerCase().trim()
+    );
+    console.log('filteredUserGames after filter >>> ', this.filteredUserGames);
   }
 
   filterByLanguage(targetLanguage: string): void {
-    // this.filteredUserGames = [...this.activities$].filter(
-    //   (activity: any) =>
-    //     activity.language.toLowerCase().trim() ===
-    //     targetLanguage.toLowerCase().trim()
-    // );
+    console.log('filter language with >>> ', targetLanguage);
+    this.filteredUserGames = [...this.userGames].filter(
+      (game: Game) =>
+        game.info.language.toLowerCase().trim() ===
+        targetLanguage.toLowerCase().trim()
+    );
+    console.log('filteredUserGames after filter >>> ', this.filteredUserGames);
   }
 
   removeFilters(): void {
-    // this.filteredUserGames = [...this.activities$];
+    this.filteredUserGames = [...this.userGames];
   }
 
   filtersApplied(): boolean {
