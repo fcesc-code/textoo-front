@@ -8,7 +8,7 @@ import { UserGamesComponent } from './components/manage-games/user-games.compone
 
 export const routes: Routes = [
   {
-    path: 'edit',
+    path: 'edit/:id',
     component: GameDashboardComponent,
   },
   {

@@ -34,9 +34,27 @@
         *ngFor="let game of this.filteredUserGames"
         class="my-2 mx-4 border-2 border-slate-100 rounded-lg px-6 py-4 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300"
       >
-        <h2 class="leading-12 font-semibold text-lg my-2">
-          {{ game.title }}
-        </h2>
+        <div
+          class="flex flex-col justify-start items-center sm:flex-row sm:justify-between sm:items-start"
+        >
+          <h2 class="leading-12 font-semibold text-lg my-2">
+            {{ game.title }}
+          </h2>
+          <div>
+            <mat-icon
+              class="leading-12 align-middle ml-3 hover:text-teal-600"
+              title="edita"
+              [routerLink]="['/games/edit', game.id]"
+              >edit</mat-icon
+            >
+            <mat-icon
+              class="leading-12 align-middle ml-3 hover:text-red-600"
+              title="esborra"
+              (click)="deleteGame(game.id)"
+              >delete</mat-icon
+            >
+          </div>
+        </div>
         <section>
           <h3 class="font-medium text-emerald-800">Estat del joc</h3>
           <div

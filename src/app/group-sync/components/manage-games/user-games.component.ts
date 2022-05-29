@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { DocumentData } from 'firebase/firestore';
+import { from, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Game } from '../../interfaces/game.dto';
 import { GroupGameService } from '../../services/group-game.service';
@@ -8,42 +10,36 @@ import { GroupGameService } from '../../services/group-game.service';
   templateUrl: './user-games.component.html',
   styleUrls: ['./user-games.component.sass'],
 })
-export class UserGamesComponent {
+export class UserGamesComponent implements OnDestroy {
   filteredUserGames: any[];
   userGames: Game[];
-  constructor(
-    private authService: AuthService,
-    private games: GroupGameService
-  ) {
+  userGamesSubscription!: Subscription;
+  constructor(private authService: AuthService, private db: GroupGameService) {
     this.filteredUserGames = [];
     this.userGames = [];
     this.loadGames();
   }
 
+  ngOnDestroy(): void {
+    this.userGamesSubscription.unsubscribe();
+  }
+
   async loadGames(): Promise<void> {
     const { userId } = this.authService.getUser();
     if (userId) {
-      // this.games.getAllGamesByAuthor(userId).then((querySnapshot) => {
-      //   // querySnapshot.forEach((doc) => {
-      //   //   console.log(`this doc (${doc.id}) >>> `, doc);
-      //   //   this.userGames.push(doc);
-      //   // });
-      //   console.log('this.userGames >>> ', querySnapshot);
-      // });
-      // this.games.getAllGamesByAuthor(userId).subscribe((querySnapshot: any) => {
-      //   if (!querySnapshot.docs.length) {
-      //     console.log('no data available');
-      //   }
-      //   if (querySnapshot) {
-      //     querySnapshot.forEach((doc: any) => {
-      //       console.log(`this doc (${doc.id}) >>> `, doc);
-      //       this.userGames.push(doc);
-      //     });
-      //   }
-      // });
-      // console.log('loadgames userGames >>> ', this.userGames);
-      this.userGames = await this.games.getAllGamesByAuthor(userId);
-      this.filteredUserGames = [...this.userGames];
+      const promiseSource = from(
+        this.db.refs.gamesColByUser(userId).then((snapshot: DocumentData) => {
+          let receivedGames: Game[] = [];
+          snapshot['docs'].forEach((doc: DocumentData) => {
+            receivedGames.push({ ...doc['data'](), id: doc['id'] });
+          });
+          return receivedGames;
+        })
+      );
+      this.userGamesSubscription = promiseSource.subscribe((data: any) => {
+        this.userGames = data;
+        this.filteredUserGames = [...this.userGames];
+      });
     }
   }
 
@@ -85,5 +81,10 @@ export class UserGamesComponent {
     return this.userGames && this.filteredUserGames && this.userGames.length > 0
       ? this.filteredUserGames.length !== this.userGames.length
       : false;
+  }
+
+  deleteGame(gameId: string): void {
+    this.db.deleteGame(gameId);
+    this.loadGames();
   }
 }
