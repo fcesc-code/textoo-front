@@ -9,7 +9,7 @@ import { ActivityBestOption } from '../../activity-best-option/models/ActivityBe
 import { ActivitySelectText } from '../../activity-select-text/models/ActivitySelectText.dto';
 import { ActivityTransformAspect } from '../models/ActivityTransformAspect.dto';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivitiesService } from './activities.service';
+import { ActivitiesService } from './activities-shared.service';
 
 describe('ActivitiesService', () => {
   let service: ActivitiesService;

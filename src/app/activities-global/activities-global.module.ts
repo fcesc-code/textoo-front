@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 /* Services */
-import { ActivitiesGlobalService } from './services/activities.service';
+import { ActivitiesGlobalService } from './services/activities-global.service';
 import { UserService } from '../user/services/user.service';
 /* Modules */
 import { SharedModule } from '../shared/shared.module';

@@ -26,7 +26,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { appReducers } from './app.reducer';
 import { appEffectsArray } from './app.effects';
 /* custom modules */
-import { ActivitiesGlobalModule } from './activities/activities-global.module';
+import { ActivitiesGlobalModule } from './activities-global/activities-global.module';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 /* components */

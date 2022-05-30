@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 /* Services */
-import { ActivitiesService } from 'src/app/activity/services/activities.service';
+import { ActivitiesService } from 'src/app/activities-shared/services/activities-shared.service';
 import { UserService } from '../user/services/user.service';
 /* Modules */
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ActivitiesSharedModule } from '../activity/activities-shared.module';
+import { ActivitiesSharedModule } from '../activities-shared/activities-shared.module';
 import { ActivitySelectTextRoutingModule } from './activity-select-text-routing.module';
 /* Pipes */
 import { ImproveBreaklinesPipe } from './pipes/improve-breaklines.pipe';

@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { PlaySelectTextComponent } from './play-select-text.component';
-import { ActivitiesService } from '../../../activity/services/activities.service';
+import { ActivitiesService } from '../../../activities-shared/services/activities-shared.service';
 import {
   CUSTOM_ELEMENTS_SCHEMA,
   DebugElement,
@@ -22,7 +22,7 @@ import {
 } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { ActivitiesSharedModule } from '../../../activity/activities-shared.module';
+import { ActivitiesSharedModule } from '../../../activities-shared/activities-shared.module';
 import { By } from '@angular/platform-browser';
 
 class ActivatedRouteStub implements Partial<ActivatedRoute> {

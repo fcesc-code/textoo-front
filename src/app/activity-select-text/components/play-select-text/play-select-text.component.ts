@@ -7,7 +7,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { ActivitiesService } from '../../../activity/services/activities.service';
+import { ActivitiesService } from '../../../activities-shared/services/activities-shared.service';
 import { ActivitySelectText } from '../../models/ActivitySelectText.dto';
 import {
   debounceTime,
@@ -25,7 +25,7 @@ import {
   Answer,
   AnswerOption,
   AnswerType,
-} from '../../../activity/models/Answer.dto';
+} from '../../../activities-shared/models/Answer.dto';
 import { textSelection } from './play-select-text.get-selection-utils';
 import {
   addSelection,

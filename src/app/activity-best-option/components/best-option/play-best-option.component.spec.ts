@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { PlayBestOptionComponent } from './play-best-option.component';
-import { ActivitiesService } from 'src/app/activity/services/activities.service';
+import { ActivitiesService } from 'src/app/activities-shared/services/activities-shared.service';
 import {
   CUSTOM_ELEMENTS_SCHEMA,
   DebugElement,

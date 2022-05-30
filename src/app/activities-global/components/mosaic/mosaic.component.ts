@@ -1,21 +1,19 @@
 import { Component, OnDestroy } from '@angular/core';
-import { AuthService } from 'src/app/auth/services/auth.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
-import { ActivitiesGlobalService } from '../../services/activities.service';
+import { ActivitiesGlobalService } from '../../services/activities-global.service';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.sass'],
+  selector: 'app-mosaic',
+  templateUrl: './mosaic.component.html',
+  styleUrls: ['./mosaic.component.sass'],
 })
-export class DashboardComponent implements OnDestroy {
+export class MosaicComponent implements OnDestroy {
   activities$: any;
   filteredActivities: any[];
   authors: any[];
   subscription$: any;
   constructor(
     private activitiesService: ActivitiesGlobalService,
-    private authService: AuthService,
     private sharedService: SharedService
   ) {
     this.filteredActivities = [];
@@ -24,20 +22,15 @@ export class DashboardComponent implements OnDestroy {
   }
 
   loadActivities(): void {
-    const { userId } = this.authService.getUser();
-    if (userId) {
-      this.subscription$ = this.activitiesService
-        .getAllActivitiesByUserId(userId)
-        .subscribe({
-          next: (data): void => {
-            this.activities$ = data;
-            this.filteredActivities = data;
-          },
-          error: (error): void => {
-            this.sharedService.errorLog(error.error);
-          },
-        });
-    }
+    this.subscription$ = this.activitiesService.getAllActivities().subscribe({
+      next: (data): void => {
+        this.activities$ = data;
+        this.filteredActivities = data;
+      },
+      error: (error): void => {
+        this.sharedService.errorLog(error.error);
+      },
+    });
   }
 
   ngOnDestroy(): void {
@@ -65,6 +58,12 @@ export class DashboardComponent implements OnDestroy {
       (activity: any) =>
         activity.language.toLowerCase().trim() ===
         targetLanguage.toLowerCase().trim()
+    );
+  }
+
+  filterByAuthor(userId: string): void {
+    this.filteredActivities = [...this.activities$].filter(
+      (activity: any) => activity.author === userId
     );
   }
 

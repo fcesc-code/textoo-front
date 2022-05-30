@@ -7,10 +7,10 @@ import { TestBed } from '@angular/core/testing';
 import { AuthToken } from '../models/Auth.dto';
 
 import { AuthInterceptorService } from './auth-interceptor.service';
-import { ActivitiesService } from '../../activity/services/activities.service';
+import { ActivitiesService } from '../../activities-shared/services/activities-shared.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Activity } from '../../activity/models/Activity.dto';
+import { Activity } from '../../activities-shared/models/Activity.dto';
 
 describe('AUTH INTERCEPTOR SERVICE TEST SUITE', () => {
   const TITLE = '[auth interceptor service]';

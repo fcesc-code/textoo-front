@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ActivitiesGlobalModule } from '../activities/activities-global.module';
+import { ActivitiesGlobalModule } from '../activities-global/activities-global.module';
 import { ActivitySelectTextModule } from '../activity-select-text/activity-select-text.module';
 import { ActivityBestOptionModule } from '../activity-best-option/activity-best-option.module';
 /* Material */

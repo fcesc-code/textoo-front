@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ActivitiesService } from 'src/app/activity/services/activities.service';
+import { ActivitiesService } from 'src/app/activities-shared/services/activities-shared.service';
 import {
   ActivityBestOption,
   Question_ActivityBestOption,
@@ -13,7 +13,7 @@ import {
   Answer,
   AnswerOption,
   AnswerType,
-} from 'src/app/activity/models/Answer.dto';
+} from 'src/app/activities-shared/models/Answer.dto';
 
 @Component({
   selector: 'app-play-best-option',

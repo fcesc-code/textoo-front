@@ -8,7 +8,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { DocumentData } from 'firebase/firestore';
 import { firstValueFrom, from, Subscription } from 'rxjs';
-import { ActivitiesService } from 'src/app/activity/services/activities.service';
+import { ActivitiesService } from 'src/app/activities-shared/services/activities-shared.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { Game } from '../../interfaces/game.dto';
