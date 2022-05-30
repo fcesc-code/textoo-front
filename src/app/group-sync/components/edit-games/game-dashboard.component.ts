@@ -8,7 +8,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { DocumentData } from 'firebase/firestore';
 import { firstValueFrom, from, Subscription } from 'rxjs';
-import { ActivitiesService } from 'src/app/activities-shared/services/activities-shared.service';
+import { ActivitiesSharedService } from 'src/app/activities-shared/services/activities-shared.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { Game } from '../../interfaces/game.dto';
@@ -38,7 +38,7 @@ export class GameDashboardComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private activitiesService: ActivitiesService,
+    private activitiesSharedService: ActivitiesSharedService,
     private activatedRoute: ActivatedRoute,
     private sharedService: SharedService,
     private db: GroupGameService
@@ -186,7 +186,7 @@ export class GameDashboardComponent implements OnInit {
 
   async getActivityBasicInfo() {
     this.activity = await firstValueFrom(
-      this.activitiesService.getActivityById(this.activityId.value)
+      this.activitiesSharedService.getActivityById(this.activityId.value)
     );
   }
 

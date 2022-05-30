@@ -10,7 +10,7 @@ import {
   gameUser,
 } from '../../interfaces/game.dto';
 import { GroupGameService } from '../../services/group-game.service';
-import { ActivitiesService } from 'src/app/activities-shared/services/activities-shared.service';
+import { ActivitiesSharedService } from 'src/app/activities-shared/services/activities-shared.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { DocumentData } from 'firebase/firestore';
 import { ActivityType } from 'src/app/activities-shared/models/Activity.dto';
@@ -30,7 +30,7 @@ export class GameComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
-    private activitiesService: ActivitiesService,
+    private activitiesSharedService: ActivitiesSharedService,
     private sharedService: SharedService,
     private db: GroupGameService
   ) {

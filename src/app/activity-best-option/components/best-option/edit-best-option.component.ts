@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivitiesService } from 'src/app/activities-shared/services/activities-shared.service';
+import { ActivitiesSharedService } from 'src/app/activities-shared/services/activities-shared.service';
 import {
   ActivityBestOption,
   Question_ActivityBestOption,
@@ -46,7 +46,7 @@ export class EditBestOptionComponent implements OnInit, OnDestroy {
   isNewActivity: boolean;
 
   constructor(
-    private activitiesService: ActivitiesService,
+    private activitiesSharedService: ActivitiesSharedService,
     private activatedRoute: ActivatedRoute
   ) {
     this.questions = [];
@@ -115,7 +115,7 @@ export class EditBestOptionComponent implements OnInit, OnDestroy {
 
     if (activityId) {
       this.isNewActivity = false;
-      this.activity$ = this.activitiesService
+      this.activity$ = this.activitiesSharedService
         .getActivityById(activityId)
         .subscribe((activity: ActivityBestOption) => {
           console.log('input', activity);
@@ -141,7 +141,7 @@ export class EditBestOptionComponent implements OnInit, OnDestroy {
   }
 
   classInitializer(activity: any): ActivityBestOption {
-    return this.activitiesService.new(activity).bestOption();
+    return this.activitiesSharedService.new(activity).bestOption();
   }
 
   editorResponse(updatedText: string): void {

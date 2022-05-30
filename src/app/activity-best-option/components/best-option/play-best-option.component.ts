@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ActivitiesService } from 'src/app/activities-shared/services/activities-shared.service';
+import { ActivitiesSharedService } from 'src/app/activities-shared/services/activities-shared.service';
 import {
   ActivityBestOption,
   Question_ActivityBestOption,
@@ -31,7 +31,7 @@ export class PlayBestOptionComponent implements OnInit, OnDestroy {
   completed: boolean = false;
 
   constructor(
-    private activitiesService: ActivitiesService,
+    private activitiesSharedService: ActivitiesSharedService,
     private activatedRoute: ActivatedRoute
   ) {}
   @Input() game: string = '';
@@ -45,7 +45,7 @@ export class PlayBestOptionComponent implements OnInit, OnDestroy {
     console.log('activityId', activityId);
 
     if (activityId) {
-      this.activity$ = this.activitiesService
+      this.activity$ = this.activitiesSharedService
         .getActivityById(activityId)
         .subscribe((activity: ActivityBestOption) => {
           this.classInitializer(activity);
@@ -63,7 +63,7 @@ export class PlayBestOptionComponent implements OnInit, OnDestroy {
   }
 
   classInitializer(activity: any): void {
-    this.activity = this.activitiesService.initializeActivity(
+    this.activity = this.activitiesSharedService.initializeActivity(
       activity
     ) as ActivityBestOption;
   }

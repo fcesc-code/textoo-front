@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { EditBestOptionComponent } from './edit-best-option.component';
-import { ActivitiesService } from 'src/app/activities-shared/services/activities-shared.service';
+import { ActivitiesSharedService } from 'src/app/activities-shared/services/activities-shared.service';
 import {
   CUSTOM_ELEMENTS_SCHEMA,
   DebugElement,
@@ -48,7 +48,7 @@ describe('EditBestOptionComponent', () => {
   let component: EditBestOptionComponent;
   let fixture: ComponentFixture<EditBestOptionComponent>;
   class TemporalComponentForRoutes {}
-  let activitiesService: ActivitiesService;
+  let activitiesSharedService: ActivitiesSharedService;
   let debugElement: DebugElement;
 
   const TEST = 'test';
@@ -70,7 +70,7 @@ describe('EditBestOptionComponent', () => {
         ]),
       ],
       providers: [
-        ActivitiesService,
+        ActivitiesSharedService,
         { provide: ActivatedRoute, useValue: routeStub },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
@@ -79,7 +79,7 @@ describe('EditBestOptionComponent', () => {
   });
 
   beforeEach(() => {
-    activitiesService = TestBed.inject(ActivitiesService);
+    activitiesSharedService = TestBed.inject(ActivitiesSharedService);
     fixture = TestBed.createComponent(EditBestOptionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

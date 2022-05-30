@@ -27,7 +27,7 @@ export class ActivitiesPickerComponent implements OnChanges, OnDestroy {
   subscription$: any;
 
   constructor(
-    private activitiesService: ActivitiesGlobalService,
+    private activitiesGlobalService: ActivitiesGlobalService,
     private sharedService: SharedService
   ) {
     this.activities$ = [];
@@ -49,15 +49,17 @@ export class ActivitiesPickerComponent implements OnChanges, OnDestroy {
   }
 
   loadActivities(): void {
-    this.subscription$ = this.activitiesService.getAllActivities().subscribe({
-      next: (data): void => {
-        this.activities$ = data;
-        this.filteredActivities = data;
-      },
-      error: (error): void => {
-        this.sharedService.errorLog(error.error);
-      },
-    });
+    this.subscription$ = this.activitiesGlobalService
+      .getAllActivities()
+      .subscribe({
+        next: (data): void => {
+          this.activities$ = data;
+          this.filteredActivities = data;
+        },
+        error: (error): void => {
+          this.sharedService.errorLog(error.error);
+        },
+      });
   }
 
   retainId(id: string, title: string): void {

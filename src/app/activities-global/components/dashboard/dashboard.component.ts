@@ -14,7 +14,7 @@ export class DashboardComponent implements OnDestroy {
   authors: any[];
   subscription$: any;
   constructor(
-    private activitiesService: ActivitiesGlobalService,
+    private activitiesGlobalService: ActivitiesGlobalService,
     private authService: AuthService,
     private sharedService: SharedService
   ) {
@@ -26,7 +26,7 @@ export class DashboardComponent implements OnDestroy {
   loadActivities(): void {
     const { userId } = this.authService.getUser();
     if (userId) {
-      this.subscription$ = this.activitiesService
+      this.subscription$ = this.activitiesGlobalService
         .getAllActivitiesByUserId(userId)
         .subscribe({
           next: (data): void => {

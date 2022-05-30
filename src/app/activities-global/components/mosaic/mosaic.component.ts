@@ -13,7 +13,7 @@ export class MosaicComponent implements OnDestroy {
   authors: any[];
   subscription$: any;
   constructor(
-    private activitiesService: ActivitiesGlobalService,
+    private activitiesGlobalService: ActivitiesGlobalService,
     private sharedService: SharedService
   ) {
     this.filteredActivities = [];
@@ -22,15 +22,17 @@ export class MosaicComponent implements OnDestroy {
   }
 
   loadActivities(): void {
-    this.subscription$ = this.activitiesService.getAllActivities().subscribe({
-      next: (data): void => {
-        this.activities$ = data;
-        this.filteredActivities = data;
-      },
-      error: (error): void => {
-        this.sharedService.errorLog(error.error);
-      },
-    });
+    this.subscription$ = this.activitiesGlobalService
+      .getAllActivities()
+      .subscribe({
+        next: (data): void => {
+          this.activities$ = data;
+          this.filteredActivities = data;
+        },
+        error: (error): void => {
+          this.sharedService.errorLog(error.error);
+        },
+      });
   }
 
   ngOnDestroy(): void {

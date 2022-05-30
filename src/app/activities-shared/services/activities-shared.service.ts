@@ -14,7 +14,7 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 @Injectable({
   providedIn: 'root',
 })
-export class ActivitiesService {
+export class ActivitiesSharedService {
   API: string;
   currentActivity!:
     | ActivityBestOption

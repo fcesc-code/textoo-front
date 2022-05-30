@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { PlaySelectTextComponent } from './play-select-text.component';
-import { ActivitiesService } from '../../../activities-shared/services/activities-shared.service';
+import { ActivitiesSharedService } from '../../../activities-shared/services/activities-shared.service';
 import {
   CUSTOM_ELEMENTS_SCHEMA,
   DebugElement,
@@ -52,7 +52,7 @@ describe('PlaySelectTextComponent', () => {
   let component: PlaySelectTextComponent;
   let fixture: ComponentFixture<PlaySelectTextComponent>;
   class TemporalComponentForRoutes {}
-  let activitiesService: ActivitiesService;
+  let activitiesSharedService: ActivitiesSharedService;
   let debugElement: DebugElement;
 
   const TITLE = 'Play select-text Component';
@@ -74,7 +74,7 @@ describe('PlaySelectTextComponent', () => {
         ]),
       ],
       providers: [
-        ActivitiesService,
+        ActivitiesSharedService,
         { provide: ActivatedRoute, useValue: routeStub },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
@@ -83,7 +83,7 @@ describe('PlaySelectTextComponent', () => {
   });
 
   beforeEach(() => {
-    activitiesService = TestBed.inject(ActivitiesService);
+    activitiesSharedService = TestBed.inject(ActivitiesSharedService);
     fixture = TestBed.createComponent(PlaySelectTextComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

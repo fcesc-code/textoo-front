@@ -7,7 +7,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { ActivitiesService } from '../../../activities-shared/services/activities-shared.service';
+import { ActivitiesSharedService } from '../../../activities-shared/services/activities-shared.service';
 import { ActivitySelectText } from '../../models/ActivitySelectText.dto';
 import {
   debounceTime,
@@ -58,7 +58,7 @@ export class PlaySelectTextComponent
   completed: boolean = false;
 
   constructor(
-    private activitiesService: ActivitiesService,
+    private activitiesSharedService: ActivitiesSharedService,
     private activatedRoute: ActivatedRoute
   ) {
     this.selectedText = [];
@@ -86,7 +86,7 @@ export class PlaySelectTextComponent
   loadActivity(activityId: string) {
     console.log('loadActivity with >>> ', activityId);
     if (activityId) {
-      this.activity$ = this.activitiesService
+      this.activity$ = this.activitiesSharedService
         .getActivityById(activityId)
         .subscribe((activity: ActivitySelectText) => {
           this.classInitializer(activity);
@@ -132,7 +132,7 @@ export class PlaySelectTextComponent
   }
 
   classInitializer(activity: ActivitySelectText): void {
-    this.activity = this.activitiesService.initializeActivity(
+    this.activity = this.activitiesSharedService.initializeActivity(
       activity
     ) as ActivitySelectText;
   }

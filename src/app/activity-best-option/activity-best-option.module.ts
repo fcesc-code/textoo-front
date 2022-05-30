@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 /* Services */
-import { ActivitiesService } from 'src/app/activities-shared/services/activities-shared.service';
+import { ActivitiesSharedService } from 'src/app/activities-shared/services/activities-shared.service';
 import { UserService } from '../user/services/user.service';
 /* Modules */
 import { SharedModule } from '../shared/shared.module';
@@ -51,7 +51,7 @@ import { ActivitiesSharedModule } from '../activities-shared/activities-shared.m
     ActivitiesSharedModule,
     QuillModule.forRoot(),
   ],
-  providers: [ActivitiesService, UserService],
+  providers: [ActivitiesSharedService, UserService],
   exports: [PlayBestOptionComponent, AddOptionPipe, SanitizePipe],
 })
 export class ActivityBestOptionModule {}

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 /* Services */
-import { ActivitiesService } from 'src/app/activities-shared/services/activities-shared.service';
+import { ActivitiesSharedService } from 'src/app/activities-shared/services/activities-shared.service';
 import { UserService } from '../user/services/user.service';
 /* Modules */
 import { SharedModule } from '../shared/shared.module';
@@ -42,7 +42,7 @@ import { SanitizePipe } from './pipes/sanitize.pipe';
     SharedModule,
     ActivitiesSharedModule,
   ],
-  providers: [ActivitiesService, UserService],
+  providers: [ActivitiesSharedService, UserService],
   exports: [
     PlaySelectTextComponent,
     HighlightTextPipe,
