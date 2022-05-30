@@ -35,6 +35,7 @@ export class CountdownComponent implements OnInit, OnDestroy {
     };
   }
   @Input() targetDate: Date = new Date();
+  @Input() title: string = '';
 
   ngOnInit(): void {
     this.finishTime = new Date(this.targetDate).getTime();
