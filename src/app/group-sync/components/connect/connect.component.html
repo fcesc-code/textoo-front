@@ -24,10 +24,10 @@
           *ngIf="
             accessCode.dirty &&
             !accessCode.hasError('required') &&
-            accessCode.hasError('minlength')
+            accessCode.hasError('wrong-id')
           "
         >
-          Ops. El codi de l'activitat té almenys 6 caràcters.
+          Ops. El codi introduït no és vàlid. Copia el codi que has rebut.
         </mat-error>
         <mat-label>Codi accés</mat-label>
         <input

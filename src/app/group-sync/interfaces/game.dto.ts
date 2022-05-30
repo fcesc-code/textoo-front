@@ -10,6 +10,7 @@ export interface gameStatus {
 
 export interface gameInfo {
   activityId: string;
+  activityTitle: string;
   language: string;
   keywords: string[];
   type: string;
@@ -35,6 +36,7 @@ export interface gameScore {
 }
 
 export interface newGame {
+  title: string;
   users: gameUser[];
   scores: gameScore[];
   status: gameStatus;

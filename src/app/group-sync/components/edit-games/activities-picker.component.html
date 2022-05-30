@@ -1,31 +1,40 @@
 <div class="w-full flex flex-col justify-start items-center mb-6">
-  <h1 *ngIf="!filtersApplied()" class="font-bold text-xl py-6 text-center">
-    Totes les activitats
-  </h1>
-  <h1
-    *ngIf="filtersApplied() && filteredActivities.length > 1"
-    class="font-bold text-xl py-6 text-center"
-  >
-    Filtre activitats
-  </h1>
-  <p
-    *ngIf="
-      !filtersApplied() || (filtersApplied() && filteredActivities.length > 1)
-    "
-  >
-    Clica sobre el títol d'una activitat per a seleccionar-la i vincular-la al
-    joc. Podràs canvviar la selecció posteriorment.
-  </p>
-  <h1
-    *ngIf="filtersApplied() && filteredActivities.length === 1"
-    class="font-bold text-xl py-6 text-center"
-  >
-    Activitat seleccionada
-  </h1>
-  <p *ngIf="filtersApplied() && filteredActivities.length === 1">
-    El teu joc desenvoluparà l'activitat seleccionada. Pots canviar-la esborrant
-    els filtres.
-  </p>
+  <section class="w-full">
+    <h1
+      *ngIf="!filtersApplied()"
+      class="mx-4 px-6 font-bold text-xl py-6 text-center"
+    >
+      Totes les activitats
+    </h1>
+    <h1
+      *ngIf="filtersApplied() && filteredActivities.length > 1"
+      class="mx-4 px-6 font-bold text-xl py-6 text-center"
+    >
+      Filtre activitats
+    </h1>
+    <p
+      class="mx-4 px-6"
+      *ngIf="
+        !filtersApplied() || (filtersApplied() && filteredActivities.length > 1)
+      "
+    >
+      Clica sobre el títol d'una activitat per a seleccionar-la i vincular-la al
+      joc. Podràs canvviar la selecció posteriorment.
+    </p>
+    <h1
+      *ngIf="filtersApplied() && filteredActivities.length === 1"
+      class="mx-4 px-6 font-bold text-xl py-6 text-center"
+    >
+      Activitat seleccionada
+    </h1>
+    <p
+      class="mx-4 px-6"
+      *ngIf="filtersApplied() && filteredActivities.length === 1"
+    >
+      El teu joc desenvoluparà l'activitat seleccionada. Pots canviar-la
+      esborrant els filtres.
+    </p>
+  </section>
   <section class="w-full">
     <nav class="w-full flex flex-col justify-start items-center">
       <button
@@ -47,7 +56,7 @@
       >
         <div
           id="{{ activity._id }}"
-          (click)="retainId(activity._id)"
+          (click)="retainId(activity._id, activity.title)"
           class="hover:bg-emerald-100"
         >
           <h3 class="leading-12 font-semibold text-lg">

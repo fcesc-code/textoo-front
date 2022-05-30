@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { catchError, Observable, tap } from 'rxjs';
-import { ActivityType, Timestamps } from 'src/app/activity/models/Activity.dto';
+import {
+  ActivityType,
+  Timestamps,
+} from 'src/app/activities-shared/models/Activity.dto';
 import { ActivityBestOption } from '../../activity-best-option/models/ActivityBestOption.dto';
 import { ActivitySelectText } from '../../activity-select-text/models/ActivitySelectText.dto';
 import { ActivityTransformAspect } from '../models/ActivityTransformAspect.dto';
@@ -11,7 +14,7 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 @Injectable({
   providedIn: 'root',
 })
-export class ActivitiesService {
+export class ActivitiesSharedService {
   API: string;
   currentActivity!:
     | ActivityBestOption

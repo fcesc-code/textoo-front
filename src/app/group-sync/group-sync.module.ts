@@ -6,7 +6,9 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ActivitiesGlobalModule } from '../activities/activities-global.module';
+import { ActivitiesGlobalModule } from '../activities-global/activities-global.module';
+import { ActivitySelectTextModule } from '../activity-select-text/activity-select-text.module';
+import { ActivityBestOptionModule } from '../activity-best-option/activity-best-option.module';
 /* Material */
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,11 +22,15 @@ import { GameDashboardComponent } from './components/edit-games/game-dashboard.c
 import { ActivitiesPickerComponent } from './components/edit-games/activities-picker.component';
 import { UserGamesComponent } from './components/manage-games/user-games.component';
 /* Firebase */
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { GroupSyncRoutingModule } from './group-sync-routing.module';
+/* Pipes */
+import { FriendlyTimePipe } from './pipes/friendlyTime.pipe';
+import { BooleanLocalePipe } from './pipes/booleanLocale.pipe';
 
 @NgModule({
   declarations: [
+    FriendlyTimePipe,
+    BooleanLocalePipe,
     ConnectComponent,
     GameComponent,
     UserGamesComponent,
@@ -43,6 +49,8 @@ import { GroupSyncRoutingModule } from './group-sync-routing.module';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
+    ActivitySelectTextModule,
+    ActivityBestOptionModule,
   ],
   providers: [],
   exports: [],

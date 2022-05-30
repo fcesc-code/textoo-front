@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 /* Services */
-import { ActivitiesService } from 'src/app/activity/services/activities.service';
+import { ActivitiesSharedService } from 'src/app/activities-shared/services/activities-shared.service';
 import { UserService } from '../user/services/user.service';
 /* Modules */
 import { SharedModule } from '../shared/shared.module';
@@ -25,7 +25,7 @@ import { PlayBestOptionComponent } from './components/best-option/play-best-opti
 import { EditBestOptionComponent } from './components/best-option/edit-best-option.component';
 import { EditQuestionBestOptionComponent } from './components/best-option/edit-question-best-option.component';
 import { EditOptionBestOptionComponent } from './components/best-option/edit-option-best-option.component';
-import { ActivitiesSharedModule } from '../activity/activities-shared.module';
+import { ActivitiesSharedModule } from '../activities-shared/activities-shared.module';
 
 @NgModule({
   declarations: [
@@ -51,7 +51,7 @@ import { ActivitiesSharedModule } from '../activity/activities-shared.module';
     ActivitiesSharedModule,
     QuillModule.forRoot(),
   ],
-  providers: [ActivitiesService, UserService],
-  exports: [],
+  providers: [ActivitiesSharedService, UserService],
+  exports: [PlayBestOptionComponent, AddOptionPipe, SanitizePipe],
 })
 export class ActivityBestOptionModule {}

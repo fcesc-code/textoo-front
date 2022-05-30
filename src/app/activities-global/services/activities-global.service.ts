@@ -7,7 +7,7 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 @Injectable({
   providedIn: 'root',
 })
-export class ActivitiesService {
+export class ActivitiesGlobalService {
   API: string;
   constructor(private http: HttpClient, private sharedService: SharedService) {
     this.API = `${API_ROUTES.production}/${API_CONTROLLERS.activities}`;

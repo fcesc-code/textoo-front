@@ -5,8 +5,8 @@ import { LoginComponent } from './auth/components/login/login.component';
 import { WelcomeComponent } from './auth/components/welcome/welcome.component';
 import { PageNotFoundComponent } from './shared/components/PageNotFound/page-not-found.component';
 /* import activities-global module components */
-import { DashboardComponent } from './activities/components/dashboard/dashboard.component';
-import { MosaicComponent } from './activities/components/mosaic/mosaic.component';
+import { DashboardComponent } from './activities-global/components/dashboard/dashboard.component';
+import { MosaicComponent } from './activities-global/components/mosaic/mosaic.component';
 
 export const routes: Routes = [
   {

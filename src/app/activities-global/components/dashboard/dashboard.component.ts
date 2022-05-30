@@ -1,22 +1,21 @@
 import { Component, OnDestroy } from '@angular/core';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
-import { ActivitiesService } from '../../services/activities.service';
-import { AsyncPipe } from '@angular/common';
-import { UserService } from 'src/app/user/services/user.service';
+import { ActivitiesGlobalService } from '../../services/activities-global.service';
 
 @Component({
-  selector: 'app-mosaic',
-  templateUrl: './mosaic.component.html',
-  styleUrls: ['./mosaic.component.sass'],
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.sass'],
 })
-export class MosaicComponent implements OnDestroy {
+export class DashboardComponent implements OnDestroy {
   activities$: any;
   filteredActivities: any[];
   authors: any[];
   subscription$: any;
   constructor(
-    private activitiesService: ActivitiesService,
-    private userService: UserService,
+    private activitiesGlobalService: ActivitiesGlobalService,
+    private authService: AuthService,
     private sharedService: SharedService
   ) {
     this.filteredActivities = [];
@@ -25,15 +24,20 @@ export class MosaicComponent implements OnDestroy {
   }
 
   loadActivities(): void {
-    this.subscription$ = this.activitiesService.getAllActivities().subscribe({
-      next: (data): void => {
-        this.activities$ = data;
-        this.filteredActivities = data;
-      },
-      error: (error): void => {
-        this.sharedService.errorLog(error.error);
-      },
-    });
+    const { userId } = this.authService.getUser();
+    if (userId) {
+      this.subscription$ = this.activitiesGlobalService
+        .getAllActivitiesByUserId(userId)
+        .subscribe({
+          next: (data): void => {
+            this.activities$ = data;
+            this.filteredActivities = data;
+          },
+          error: (error): void => {
+            this.sharedService.errorLog(error.error);
+          },
+        });
+    }
   }
 
   ngOnDestroy(): void {
@@ -61,12 +65,6 @@ export class MosaicComponent implements OnDestroy {
       (activity: any) =>
         activity.language.toLowerCase().trim() ===
         targetLanguage.toLowerCase().trim()
-    );
-  }
-
-  filterByAuthor(userId: string): void {
-    this.filteredActivities = [...this.activities$].filter(
-      (activity: any) => activity.author === userId
     );
   }
 

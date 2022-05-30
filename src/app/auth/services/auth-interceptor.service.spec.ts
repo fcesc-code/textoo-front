@@ -7,15 +7,15 @@ import { TestBed } from '@angular/core/testing';
 import { AuthToken } from '../models/Auth.dto';
 
 import { AuthInterceptorService } from './auth-interceptor.service';
-import { ActivitiesService } from '../../activity/services/activities.service';
+import { ActivitiesSharedService } from '../../activities-shared/services/activities-shared.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Activity } from '../../activity/models/Activity.dto';
+import { Activity } from '../../activities-shared/models/Activity.dto';
 
 describe('AUTH INTERCEPTOR SERVICE TEST SUITE', () => {
   const TITLE = '[auth interceptor service]';
   let service: AuthInterceptorService;
-  let activitiesService: ActivitiesService;
+  let activitiesSharedService: ActivitiesSharedService;
   let authService: AuthService;
   let httpMock: HttpTestingController;
   const API = {
@@ -34,7 +34,7 @@ describe('AUTH INTERCEPTOR SERVICE TEST SUITE', () => {
       imports: [HttpClientTestingModule],
       providers: [
         AuthInterceptorService,
-        ActivitiesService,
+        ActivitiesSharedService,
         AuthService,
         {
           provide: HTTP_INTERCEPTORS,
@@ -46,7 +46,7 @@ describe('AUTH INTERCEPTOR SERVICE TEST SUITE', () => {
     });
     service = TestBed.inject(AuthInterceptorService);
     authService = TestBed.inject(AuthService);
-    activitiesService = TestBed.inject(ActivitiesService);
+    activitiesSharedService = TestBed.inject(ActivitiesSharedService);
     httpMock = TestBed.inject(HttpTestingController);
   });
 
@@ -65,7 +65,7 @@ describe('AUTH INTERCEPTOR SERVICE TEST SUITE', () => {
     const mockUserId = 'b3e7a302-0052-4622-8781-dc7934e7bac5';
     authService.setUser(mockAuthToken);
 
-    activitiesService
+    activitiesSharedService
       .getActivityById(mockUserId)
       .subscribe((activities: Activity[]) => {
         expect(activities.length).toBe(0);

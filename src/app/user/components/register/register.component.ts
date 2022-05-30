@@ -12,7 +12,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { USER_ACTIONS } from '../../actions/user.actions';
 import { UserRoles } from '../../../shared/interfaces/global.interfaces';
-import { SupportedLanguages } from 'src/app/activity/models/Activity.dto';
+import { SupportedLanguages } from 'src/app/activities-shared/models/Activity.dto';
 import { Subscription } from 'rxjs';
 import { PasswordConfirmationValidator } from '../../validators/confirm-password.validator';
 

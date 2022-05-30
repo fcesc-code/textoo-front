@@ -9,10 +9,10 @@ import { ActivityBestOption } from '../../activity-best-option/models/ActivityBe
 import { ActivitySelectText } from '../../activity-select-text/models/ActivitySelectText.dto';
 import { ActivityTransformAspect } from '../models/ActivityTransformAspect.dto';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivitiesService } from './activities.service';
+import { ActivitiesSharedService } from './activities-shared.service';
 
-describe('ActivitiesService', () => {
-  let service: ActivitiesService;
+describe('ActivitiesSharedService', () => {
+  let service: ActivitiesSharedService;
   let TITLE = 'activities service';
 
   beforeEach(() => {
@@ -20,7 +20,7 @@ describe('ActivitiesService', () => {
       imports: [HttpClientTestingModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     });
-    service = TestBed.inject(ActivitiesService);
+    service = TestBed.inject(ActivitiesSharedService);
   });
 
   it(`${TITLE} 1 > service should be created`, () => {

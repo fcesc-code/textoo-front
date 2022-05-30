@@ -1,22 +1,37 @@
 <div class="w-full flex flex-col justify-start items-center mb-6">
-  <h1 class="font-bold text-xl py-6 text-center">Jocs creats per mi</h1>
-  <p *ngIf="userGames.length > 0">
-    Només podràs esborrar els jocs que no hagin començat fins a una setmana
-    abans del seu inici.
-  </p>
-  <div *ngIf="userGames.length === 0">
-    <p>Encara no has creat cap joc? Cap problema! Crear-ne un és molt fàcil:</p>
-    <ol>
-      <li>Tria l'activitat que vols realitzar al joc de la llista</li>
-      <li>Tria el temps màxim que vols que duri el joc</li>
-      <li>Tria la data i l'hora prevista d'inici</li>
-    </ol>
-    <p>
-      I ja està! Amb això hauràs creat un joc. Només cal que comparteixis el
-      link que es mostra per a què pugui participar-hi qui vulguis.
+  <section class="w-[95%] sm:w-[90%] md:w-[80%] lg:w-screen-md mt-4">
+    <div
+      class="py-4 flex flex-row justify-center items-center hover:text-emerald-700 hover:font-bold hover:cursor-pointer"
+      [routerLink]="['/games/create']"
+    >
+      <mat-icon class="leading-12 mx-4" title="esborra"
+        >add_circle_outline</mat-icon
+      >
+      <p class="mx-4">Crea un nou joc</p>
+    </div>
+    <h1 class="font-bold text-xl text-center mx-4 px-6 py-2 my-2">
+      Jocs creats per mi
+    </h1>
+    <p *ngIf="userGames.length > 0" class="mx-4 px-6 py-2">
+      Només podràs esborrar els jocs que no hagin començat fins a una setmana
+      abans del seu inici.
     </p>
-  </div>
-  <section class="w-[90%] sm:w-[85%] md:w-[75%] lg:w-screen-md">
+    <div class="mx-4 px-6 py-2" *ngIf="userGames.length === 0">
+      <p>
+        Encara no has creat cap joc? Cap problema! Crear-ne un és molt fàcil:
+      </p>
+      <ol>
+        <li>Tria l'activitat que vols realitzar al joc de la llista</li>
+        <li>Tria el temps màxim que vols que duri el joc</li>
+        <li>Tria la data i l'hora prevista d'inici</li>
+      </ol>
+      <p>
+        I ja està! Amb això hauràs creat un joc. Només cal que comparteixis el
+        link que es mostra per a què pugui participar-hi qui vulguis.
+      </p>
+    </div>
+  </section>
+  <section class="w-[95%] sm:w-[90%] md:w-[80%] lg:w-screen-md">
     <nav class="w-full flex flex-col justify-start items-center">
       <button
         *ngIf="filtersApplied()"
@@ -26,28 +41,89 @@
         Esborrar filtre
       </button>
     </nav>
-    <ul *ngIf="userGames && userGames.length > 0">
-      <li *ngFor="let game of this.userGames">
-        <p>Information</p>
-        <p>{{ game.info.language }}</p>
-        <p>{{ game.info.type }}</p>
-        <p>{{ game.info.activityId }}</p>
-        <p>Keywords:</p>
-        <p *ngIf="game.info.keywords && game.info.keywords.length > 0">
-          <span *ngFor="let keyword of game.info.keywords">{{ keyword }}</span>
-        </p>
-        <p>Status</p>
-        <p>{{ game.status.scheduled }}</p>
-        <p>{{ game.status.started }}</p>
-        <p>{{ game.status.closed }}</p>
-        <p>{{ game.status.organizer }}</p>
-        <p>{{ game.status.timed }}</p>
-        <p>{{ game.status.maxTime }}</p>
-        <p>{{ game.status.start }}</p>
-        <p>Users</p>
-        <p>
-          <span *ngFor="let user of game.users">{{ user.id }}</span>
-        </p>
+    <ul
+      *ngIf="filteredUserGames && filteredUserGames.length > 0"
+      class="w-full"
+    >
+      <li
+        *ngFor="let game of this.filteredUserGames"
+        class="my-2 mx-4 border-2 border-slate-100 rounded-lg px-6 py-4 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300"
+      >
+        <div
+          class="flex flex-col justify-start items-center sm:flex-row sm:justify-between sm:items-start"
+        >
+          <h2 class="leading-12 font-semibold text-lg my-2">
+            {{ game.title }}
+          </h2>
+          <div>
+            <mat-icon
+              class="leading-12 align-middle ml-3 hover:text-teal-600"
+              title="edita"
+              [routerLink]="['/games/edit', game.id]"
+              >edit</mat-icon
+            >
+            <mat-icon
+              class="leading-12 align-middle ml-3 hover:text-red-600"
+              title="esborra"
+              (click)="deleteGame(game.id)"
+              >delete</mat-icon
+            >
+          </div>
+        </div>
+        <section>
+          <h3 class="font-medium text-emerald-800">Estat del joc</h3>
+          <div
+            class="flex flex-col justify-start items-center sm:flex-row sm:flex-wrap sm:justify-between sm:items-start"
+          >
+            <p>Inici programat: {{ game.status.start | date: "short" }}</p>
+            <p>Tancat: {{ game.status.closed | booleanLocale }}</p>
+          </div>
+          <section>
+            <h3 class="font-medium text-emerald-800">Activitat</h3>
+            <div
+              class="flex flex-col justify-start items-center sm:flex-row sm:flex-wrap sm:justify-between sm:items-start"
+            >
+              <p>Activitat relacionada: {{ game.info.activityTitle }}</p>
+              <p *ngIf="game.status.maxTime">
+                Temps màxim:
+                {{ game.status.maxTime | friendlyTime }}
+              </p>
+              <p *ngIf="!game.status.maxTime">
+                Programat sense límit de temps.
+              </p>
+            </div>
+          </section>
+        </section>
+        <section class="flex flex-row flex-wrap justify-start items-center">
+          <p
+            (click)="filterByLanguage(game.info.language)"
+            class="px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-blue-300"
+          >
+            {{ game.info.language | getLanguage }}
+          </p>
+          <p
+            (click)="filterByType(game.info.type)"
+            class="px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-red-300"
+          >
+            {{ game.info.type }}
+          </p>
+          <p *ngIf="game.info.keywords && game.info.keywords.length > 0">
+            <span
+              *ngFor="let keyword of game.info.keywords"
+              class="px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-emerald-200"
+              (click)="filterByKeyword(keyword)"
+            >
+              {{ keyword }}</span
+            >
+          </p>
+        </section>
+        <!-- <p>organitzador: {{ game.status.organizer }}</p> -->
+        <section *ngIf="game.users">
+          <h3>Jugadors</h3>
+          <p>
+            <span *ngFor="let user of game.users">{{ user.id }}</span>
+          </p>
+        </section>
       </li>
     </ul>
   </section>

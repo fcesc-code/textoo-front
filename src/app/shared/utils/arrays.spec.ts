@@ -1,6 +1,6 @@
 import { CustomArrayMethods } from './arrays';
 
-describe('ActivitiesService', () => {
+describe('Custom array methods', () => {
   let TITLE = 'utils - custom array methods';
 
   it(`${TITLE} 1 > shoud find the max of a given property in an array of objects`, () => {

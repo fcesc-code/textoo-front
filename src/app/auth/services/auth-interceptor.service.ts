@@ -29,9 +29,8 @@ export class AuthInterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     this.spinnerService.show();
     this.accessToken = this.authService.getToken();
-    console.log('AuthInterceptorService >>> ', this.accessToken);
+    console.log('accessToken', this.accessToken);
     if (this.accessToken) {
-      console.log('entering setting headers');
       req = req.clone({
         setHeaders: {
           'Content-Type': 'application/json;charset=utf-8',

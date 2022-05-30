@@ -7,7 +7,10 @@ import {
 } from '@angular/forms';
 import { SupportedLanguages } from 'src/app/shared/interfaces/global.interfaces';
 import { LANGUAGES } from 'src/app/shared/constants/globals';
-import { CommonData, Score } from 'src/app/activity/models/Activity.dto';
+import {
+  CommonData,
+  Score,
+} from 'src/app/activities-shared/models/Activity.dto';
 
 @Component({
   selector: 'app-edit-common',

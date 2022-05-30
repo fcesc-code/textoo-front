@@ -3,7 +3,7 @@ import {
   ActivityConstructor,
   ActivityType,
   Timestamps,
-} from '../../activity/models/Activity.dto';
+} from '../../activities-shared/models/Activity.dto';
 
 export class ActivityBestOption extends Activity {
   private _text!: string;

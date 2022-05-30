@@ -1,90 +1,151 @@
-<h1
-  *ngIf="newGame"
-  class="font-bold text-2xl py-4 text-center text-emerald-900"
->
-  Crea un nou joc
-</h1>
-<h1
-  *ngIf="!newGame"
-  class="font-bold text-2xl py-4 text-center text-emerald-900"
->
-  Edita el joc
-</h1>
-<div
-  class="mx-2 flex flex-col justify-start items-center md:flex-row md:justify-between md:items-start"
->
-  <section class="mx-4">
-    <h1 class="font-bold text-xl py-6 text-center">Dades principals</h1>
-    <form
-      class="form w-full flex flex-col justify-start items-center"
-      [formGroup]="gameForm"
-      aria-label="game form"
-    >
-      <mat-form-field appearance="standard">
-        <mat-label *ngIf="newGame">Tria una activitat de la llista</mat-label>
-        <mat-label *ngIf="!newGame">Activitat vinculada al joc</mat-label>
-        <input
-          matInput
-          type="text"
-          [formControl]="activityId"
-          aria-required="true"
-          id="gameForm-activityId"
-        />
-        <mat-error *ngIf="activityId.dirty && activityId.hasError('required')">
-          Cal proporcionar un identificador de l'activitat.
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field appearance="standard">
-        <mat-label>Temps límit</mat-label>
-        <mat-select
-          required
-          [formControl]="maxTime"
-          aria-label="Escollir el temps màxim per a realitzar l'activitat"
-          id="gameForm-maxTime"
+<div class="my-6">
+  <h1
+    *ngIf="newGame"
+    class="font-bold text-2xl py-4 text-center text-emerald-900"
+  >
+    Crea un nou joc
+  </h1>
+  <h1
+    *ngIf="!newGame"
+    class="font-bold text-2xl py-4 text-center text-emerald-900"
+  >
+    Edita "{{ title.value }}"
+  </h1>
+  <div
+    class="mx-2 flex flex-col justify-start items-center md:flex-row md:justify-between md:items-start"
+  >
+    <section class="mx-4">
+      <h1 class="font-bold text-xl py-6 text-center">Dades principals</h1>
+      <form
+        class="form w-full flex flex-col justify-start items-center"
+        [formGroup]="gameForm"
+        aria-label="game form"
+      >
+        <mat-form-field appearance="standard">
+          <mat-label>Títol del joc</mat-label>
+          <input
+            matInput
+            type="text"
+            [formControl]="title"
+            aria-required="true"
+            id="gameForm-title"
+          />
+          <mat-error *ngIf="title.dirty && title.hasError('required')">
+            Cal proporcionar un títol per al joc
+          </mat-error>
+          <mat-error
+            *ngIf="
+              title.dirty &&
+              title.hasError('minlength') &&
+              !title.hasError('required')
+            "
+          >
+            El títol ha de tenir almenys 8 caràcters.
+          </mat-error>
+          <mat-error
+            *ngIf="
+              title.dirty &&
+              title.hasError('maxlength') &&
+              !title.hasError('required')
+            "
+          >
+            El títol no pot excedir els 50 caràcters.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+          <mat-label *ngIf="newGame"
+            >El títol apareixerà automàticament</mat-label
+          >
+          <mat-label *ngIf="!newGame">Activitat vinculada</mat-label>
+          <input
+            matInput
+            type="text"
+            [formControl]="activityTitle"
+            aria-required="true"
+            id="gameForm-activityTitle"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+          <mat-label *ngIf="newGame">Tria una activitat de la llista</mat-label>
+          <mat-label *ngIf="!newGame">Identificador activitat</mat-label>
+          <input
+            matInput
+            type="text"
+            [formControl]="activityId"
+            aria-required="true"
+            id="gameForm-activityId"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+          <mat-label>Temps límit</mat-label>
+          <mat-select
+            required
+            [formControl]="maxTime"
+            aria-label="Escollir el temps màxim per a realitzar l'activitat"
+            id="gameForm-maxTime"
+          >
+            <mat-option selected>Temps màxim per al joc</mat-option>
+            <mat-option [value]="720">12 minuts</mat-option>
+            <mat-option [value]="480">8 minuts</mat-option>
+            <mat-option [value]="300">5 minuts</mat-option>
+            <mat-option [value]="180">3 minuts</mat-option>
+            <mat-option [value]="90">1,5 minuts</mat-option>
+          </mat-select>
+          <mat-error *ngIf="maxTime.dirty && maxTime.hasError('required')">
+            Indica el temps màxim per a realitzar l'activitat. Ha de ser un
+            temps raonable.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+          <mat-label>Hora prevista d'inici</mat-label>
+          <input
+            matInput
+            type="datetime-local"
+            [formControl]="start"
+            [value]="start.value"
+            aria-required="true"
+            id="gameForm-start"
+          />
+          <mat-error *ngIf="start.dirty && start.hasError('required')">
+            Cal indicar una data i hora d'inici del joc. Podràs modificar
+            aquestes dades posteriorment si ho necessites.
+          </mat-error>
+          <mat-error
+            *ngIf="
+              start.dirty &&
+              start.hasError('early-date') &&
+              !start.hasError('required')
+            "
+          >
+            La data ha de ser mínim d'aquí passats 2 minuts.
+          </mat-error>
+          <mat-error
+            *ngIf="
+              start.dirty &&
+              start.hasError('late-date') &&
+              !start.hasError('required')
+            "
+          >
+            La data ha de ser màxim 30 dies més tard a partir d'ara.
+          </mat-error>
+        </mat-form-field>
+      </form>
+      <div clss="text-center">
+        <button
+          class="px-4 py-2 mt-6 mb-2 rounded-md drop-shadow-lg bg-emerald-100 hover:bg-teal-700 hover:cursor-pointer hover:text-white hover:font-semibold hover:tracking-wide hover:shadow-md hover:shadow-teal-100"
+          id="create-game-button"
+          disabled="{{ gameForm.pristine && gameForm.invalid }}"
+          (click)="createOrUpdate()"
         >
-          <mat-option selected>Temps màxim per al joc</mat-option>
-          <mat-option [value]="720">12 minuts</mat-option>
-          <mat-option [value]="480">8 minuts</mat-option>
-          <mat-option [value]="300">5 minuts</mat-option>
-          <mat-option [value]="180">3 minuts</mat-option>
-          <mat-option [value]="90">1,5 minuts</mat-option>
-        </mat-select>
-        <mat-error *ngIf="maxTime.dirty && maxTime.hasError('required')">
-          Indica el temps màxim per a realitzar l'activitat. Ha de ser un temps
-          raonable.
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field appearance="standard">
-        <mat-label>Hora prevista d'inici</mat-label>
-        <input
-          matInput
-          type="datetime-local"
-          [formControl]="start"
-          aria-required="true"
-          id="gameForm-start"
-        />
-        <mat-error *ngIf="start.dirty && start.hasError('required')">
-          Cal indicar una data i hora d'inici d'activitat. No pateixis, podràs
-          modificar aquestes dades posteriorment si ho necessites.
-        </mat-error>
-        <mat-error *ngIf="start.dirty && start.hasError('greater-than-today')">
-          La data indicada ha de ser superior a l'actual. Deixa almenys uns
-          minuts abans d'iniciar l'activitat.
-        </mat-error>
-      </mat-form-field>
-    </form>
-    <button
-      class="mx-auto px-4 py-2 my-2 rounded-md drop-shadow-lg bg-emerald-100 hover:bg-teal-700 hover:text-white hover:font-semibold hover:tracking-wide hover:shadow-md hover:shadow-teal-100"
-      id="create-game-button"
-      [disabled]="gameForm.dirty && gameForm.invalid"
-      (click)="createOrUpdate()"
-    >
-      {{ newGame ? "Crea" : "Actualitza" }}
-    </button>
-  </section>
-  <section class="mx-4">
-    <app-activities-picker
-      (pickedActivity)="pickedActivity($event)"
-    ></app-activities-picker>
-  </section>
+          {{ newGame ? "Crea" : "Actualitza" }}
+        </button>
+      </div>
+    </section>
+    <section class="mx-4">
+      <app-activities-picker
+        [selectedActivity]="activityId.value"
+        (pickedActivity)="pickedActivity($event)"
+      ></app-activities-picker>
+    </section>
+  </div>
 </div>

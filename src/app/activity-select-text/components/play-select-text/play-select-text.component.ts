@@ -2,10 +2,12 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  Input,
+  OnChanges,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { ActivitiesService } from '../../../activity/services/activities.service';
+import { ActivitiesSharedService } from '../../../activities-shared/services/activities-shared.service';
 import { ActivitySelectText } from '../../models/ActivitySelectText.dto';
 import {
   debounceTime,
@@ -23,7 +25,7 @@ import {
   Answer,
   AnswerOption,
   AnswerType,
-} from '../../../activity/models/Answer.dto';
+} from '../../../activities-shared/models/Answer.dto';
 import { textSelection } from './play-select-text.get-selection-utils';
 import {
   addSelection,
@@ -39,7 +41,7 @@ import {
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class PlaySelectTextComponent
-  implements OnInit, OnDestroy, AfterViewInit
+  implements OnInit, OnChanges, OnDestroy, AfterViewInit
 {
   activity$!: Subscription;
   activity!: ActivitySelectText;
@@ -56,17 +58,35 @@ export class PlaySelectTextComponent
   completed: boolean = false;
 
   constructor(
-    private activitiesService: ActivitiesService,
+    private activitiesSharedService: ActivitiesSharedService,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) {
+    this.selectedText = [];
+  }
+  @Input() game: string = '';
 
   ngOnInit(): void {
-    this.selectedText = [];
-    const activityId: string | null =
-      this.activatedRoute.snapshot.paramMap.get('id');
+    const activityId = this.getId();
+    console.log('OnInit: firing loadActivity with id >>> ', activityId);
+    this.loadActivity(activityId);
+  }
 
+  ngOnChanges(): void {
+    const activityId = this.getId();
+    console.log('OnChanges: firing loadActivity with id >>> ', activityId);
+    this.loadActivity(activityId);
+  }
+
+  getId() {
+    const activityId: string | null =
+      this.game || this.activatedRoute.snapshot.paramMap.get('id') || '';
+    return activityId;
+  }
+
+  loadActivity(activityId: string) {
+    console.log('loadActivity with >>> ', activityId);
     if (activityId) {
-      this.activity$ = this.activitiesService
+      this.activity$ = this.activitiesSharedService
         .getActivityById(activityId)
         .subscribe((activity: ActivitySelectText) => {
           this.classInitializer(activity);
@@ -112,7 +132,7 @@ export class PlaySelectTextComponent
   }
 
   classInitializer(activity: ActivitySelectText): void {
-    this.activity = this.activitiesService.initializeActivity(
+    this.activity = this.activitiesSharedService.initializeActivity(
       activity
     ) as ActivitySelectText;
   }

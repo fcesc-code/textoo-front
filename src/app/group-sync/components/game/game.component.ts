@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { from, Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import {
@@ -10,6 +10,10 @@ import {
   gameUser,
 } from '../../interfaces/game.dto';
 import { GroupGameService } from '../../services/group-game.service';
+import { ActivitiesSharedService } from 'src/app/activities-shared/services/activities-shared.service';
+import { SharedService } from 'src/app/shared/services/shared.service';
+import { DocumentData } from 'firebase/firestore';
+import { ActivityType } from 'src/app/activities-shared/models/Activity.dto';
 
 @Component({
   selector: 'app-game',
@@ -17,54 +21,40 @@ import { GroupGameService } from '../../services/group-game.service';
   styleUrls: ['./game.component.sass'],
 })
 export class GameComponent implements OnInit, OnDestroy {
-  status: gameStatus;
-  info: gameInfo;
-  scores: gameScore[];
-  users: gameUser[];
-  status$!: Subscription;
-  accessCode: string;
+  game$!: Subscription;
+  game!: Game;
+  protected gameId: string;
+  protected userId: string;
+  activityTypes = ActivityType;
 
   constructor(
     private authService: AuthService,
-    private gameService: GroupGameService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private activitiesSharedService: ActivitiesSharedService,
+    private sharedService: SharedService,
+    private db: GroupGameService
   ) {
-    this.status = {
-      scheduled: true,
-      started: false,
-      closed: false,
-      organizer: '',
-      timed: false,
-      maxTime: 0,
-      start: new Date(),
-    };
-    this.info = {
-      activityId: '',
-      language: '',
-      keywords: [],
-      type: '',
-    };
-    (this.users = []), (this.scores = []);
-    this.accessCode = '';
+    this.gameId = '';
+    this.userId = '';
   }
 
   ngOnInit(): void {
-    this.accessCode = this.activatedRoute.snapshot.paramMap.get('id') || '';
-
-    console.log(
-      'gameComponent was called with accessCode >>> ',
-      this.accessCode
-    );
-
-    // this.status$ = this.gameService
-    //   .listenStatusStream(this.accessCode)
-    //   .subscribe((status: gameStatus) => {
-    //     console.log('new game status >>> ', status);
-    //     this.status = status;
-    //   });
+    this.gameId = this.activatedRoute.snapshot.paramMap.get('id') || '';
+    const { userId } = this.authService.getUser();
+    this.userId = userId;
+    if (this.gameId) {
+      const promiseSource = from(
+        this.db.refs.gameDoc(this.gameId).then((snapshot: DocumentData) => {
+          return snapshot['data']();
+        })
+      );
+      this.game$ = promiseSource.subscribe((data: any) => {
+        this.game = data;
+      });
+    }
   }
 
   ngOnDestroy(): void {
-    this.status$.unsubscribe();
+    this.game$.unsubscribe();
   }
 }

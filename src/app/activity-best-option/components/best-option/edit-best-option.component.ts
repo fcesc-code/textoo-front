@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivitiesService } from 'src/app/activity/services/activities.service';
+import { ActivitiesSharedService } from 'src/app/activities-shared/services/activities-shared.service';
 import {
   ActivityBestOption,
   Question_ActivityBestOption,
@@ -9,7 +9,7 @@ import {
   CommonData,
   Font,
   Timestamps,
-} from 'src/app/activity/models/Activity.dto';
+} from 'src/app/activities-shared/models/Activity.dto';
 import { debounce, map, Subject, Subscription, timer } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CustomArrayMethods } from 'src/app/shared/utils/arrays';
@@ -46,7 +46,7 @@ export class EditBestOptionComponent implements OnInit, OnDestroy {
   isNewActivity: boolean;
 
   constructor(
-    private activitiesService: ActivitiesService,
+    private activitiesSharedService: ActivitiesSharedService,
     private activatedRoute: ActivatedRoute
   ) {
     this.questions = [];
@@ -115,7 +115,7 @@ export class EditBestOptionComponent implements OnInit, OnDestroy {
 
     if (activityId) {
       this.isNewActivity = false;
-      this.activity$ = this.activitiesService
+      this.activity$ = this.activitiesSharedService
         .getActivityById(activityId)
         .subscribe((activity: ActivityBestOption) => {
           console.log('input', activity);
@@ -141,7 +141,7 @@ export class EditBestOptionComponent implements OnInit, OnDestroy {
   }
 
   classInitializer(activity: any): ActivityBestOption {
-    return this.activitiesService.new(activity).bestOption();
+    return this.activitiesSharedService.new(activity).bestOption();
   }
 
   editorResponse(updatedText: string): void {

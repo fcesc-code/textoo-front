@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivitiesService } from 'src/app/activity/services/activities.service';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ActivitiesSharedService } from 'src/app/activities-shared/services/activities-shared.service';
 import {
   ActivityBestOption,
   Question_ActivityBestOption,
@@ -13,7 +13,7 @@ import {
   Answer,
   AnswerOption,
   AnswerType,
-} from 'src/app/activity/models/Answer.dto';
+} from 'src/app/activities-shared/models/Answer.dto';
 
 @Component({
   selector: 'app-play-best-option',
@@ -31,17 +31,21 @@ export class PlayBestOptionComponent implements OnInit, OnDestroy {
   completed: boolean = false;
 
   constructor(
-    private activitiesService: ActivitiesService,
+    private activitiesSharedService: ActivitiesSharedService,
     private activatedRoute: ActivatedRoute
   ) {}
+  @Input() game: string = '';
 
   ngOnInit(): void {
     this.selectedOptions = [];
-    const activityId = this.activatedRoute.snapshot.paramMap.get('id');
+    const activityId =
+      this.game || this.activatedRoute.snapshot.paramMap.get('id');
     this.textWithQuestions = `Carregant l'activitat...`;
 
+    console.log('activityId', activityId);
+
     if (activityId) {
-      this.activity$ = this.activitiesService
+      this.activity$ = this.activitiesSharedService
         .getActivityById(activityId)
         .subscribe((activity: ActivityBestOption) => {
           this.classInitializer(activity);
@@ -59,7 +63,7 @@ export class PlayBestOptionComponent implements OnInit, OnDestroy {
   }
 
   classInitializer(activity: any): void {
-    this.activity = this.activitiesService.initializeActivity(
+    this.activity = this.activitiesSharedService.initializeActivity(
       activity
     ) as ActivityBestOption;
   }
