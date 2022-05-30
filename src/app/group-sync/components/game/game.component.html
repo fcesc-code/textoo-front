@@ -10,6 +10,11 @@
   This is a select-text activity type.
 </p>
 
+<app-countdown
+  *ngIf="game && game.status.start"
+  [targetDate]="game.status.start"
+></app-countdown>
+
 <app-play-best-option
   *ngIf="game && game.info.type === activityTypes.BEST_OPTION"
   [game]="game.info.activityId"
