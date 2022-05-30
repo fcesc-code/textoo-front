@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 /*Material*/
 import { MatIconModule } from '@angular/material/icon';
 /*Components*/
@@ -17,7 +16,7 @@ import { PageNotFoundComponent } from './components/PageNotFound/page-not-found.
     ButtonComponent,
     PageNotFoundComponent,
   ],
-  imports: [CommonModule, RouterModule, HttpClientModule, MatIconModule],
+  imports: [CommonModule, RouterModule, MatIconModule],
   exports: [
     ButtonComponent,
     HeaderComponent,

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 /* Material */
@@ -14,7 +13,6 @@ import { MatIconModule } from '@angular/material/icon';
   declarations: [LoginComponent, WelcomeComponent],
   imports: [
     CommonModule,
-    HttpClientModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatFormFieldModule,
