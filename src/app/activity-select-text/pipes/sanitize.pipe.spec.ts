@@ -15,12 +15,10 @@ describe('SanitizePipe', () => {
     pipe = new SanitizePipe(sanitizer);
   });
 
-  // TEST1: pipe should be instantiated with no errors
   it(`${TITLE} 1 > should create an instance`, () => {
     expect(pipe).toBeTruthy();
   });
 
-  // TEST2: pipe should return a sanitized text
   it(`${TITLE} 2 > should return a sanitized text`, () => {
     const TEXT = `1. Duia pantalons curts, és a dir, que no <em>1</em> <select class="border-b-2 border-solid border-teal-700 hover:bg-yellow-100"><option hidden="">...</option><option value="hauria fet">hauria fet</option><option value="devia haver fet">devia haver fet</option></select> encara els dotze anys.`;
 
@@ -34,7 +32,6 @@ describe('SanitizePipe', () => {
     expect(STRINGIFIED_RESULT).toEqual(EXPECTED);
   });
 
-  // TEST3: pipe should strip a <script> tag
   it(`${TITLE} 3 > should strip a <script> tag`, () => {
     const TEXT = `<script>alert('xss');</script>`;
     const EXPECTED = '';
@@ -47,7 +44,6 @@ describe('SanitizePipe', () => {
     expect(STRINGIFIED_RESULT).toEqual(EXPECTED);
   });
 
-  // TEST4: pipe should strip <script> tags with bad syntax
   it(`${TITLE} 4 > should strip <script> tags with bad syntax`, () => {
     const TESTS = [
       { test: '<script>', result: '' },
