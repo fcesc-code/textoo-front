@@ -1,6 +1,6 @@
 import { AddLeadingZeroPipe } from './addLeadingZero';
 
-describe('group-sync > pipes > addLeadingZero >', () => {
+describe('group-sync > pipes > addLeadingZero', () => {
   let TITLE = 'test';
   let pipe: any;
 

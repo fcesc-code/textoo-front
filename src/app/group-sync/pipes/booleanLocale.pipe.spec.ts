@@ -1,6 +1,6 @@
 import { BooleanLocalePipe } from './booleanLocale.pipe';
 
-describe('group-sync > pipes > booleanLocale >', () => {
+describe('group-sync > pipes > booleanLocale', () => {
   let TITLE = 'test';
   let pipe: any;
 
