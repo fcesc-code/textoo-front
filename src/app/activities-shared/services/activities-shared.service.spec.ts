@@ -11,9 +11,9 @@ import { ActivityTransformAspect } from '../models/ActivityTransformAspect.dto';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivitiesSharedService } from './activities-shared.service';
 
-describe('ActivitiesSharedService', () => {
+describe('activities-shared > services > ActivitiesSharedService', () => {
   let service: ActivitiesSharedService;
-  let TITLE = 'activities service';
+  let TITLE = 'test';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -31,70 +31,57 @@ describe('ActivitiesSharedService', () => {
     const EXPECTED = service.initializeActivity(
       MOCK_ACTIVITY_BEST_OPTION
     ) as ActivityBestOption;
-    const EXPECTED_CONDITION = EXPECTED instanceof ActivityBestOption;
+    const RESULT = EXPECTED instanceof ActivityBestOption;
 
-    const MOCK_ID = MOCK_ACTIVITY_BEST_OPTION.id;
-    let result;
-    let condition;
-    const subscription$ = service
-      .getActivityById(MOCK_ID)
-      .subscribe((activity: ActivityBestOption) => {
-        result = service.initializeActivity(activity) as ActivityBestOption;
-        condition = result instanceof ActivityBestOption;
-        expect(result).toEqual(EXPECTED);
-      });
-
-    expect(condition).toBeTrue();
-    expect(EXPECTED_CONDITION).toBeTrue();
-
-    subscription$.unsubscribe();
+    expect(RESULT).toBeTrue();
   });
 
   it(`${TITLE} 3 > should create an instance of ActivitySelectText type`, () => {
     const EXPECTED = service.initializeActivity(
       MOCK_ACTIVITY_SELECT_TEXT
     ) as ActivitySelectText;
-    const EXPECTED_CONDITION = EXPECTED instanceof ActivitySelectText;
+    const RESULT = EXPECTED instanceof ActivitySelectText;
 
-    const MOCK_ID = MOCK_ACTIVITY_SELECT_TEXT.id;
-    let result;
-    let condition;
-    const subscription$ = service
-      .getActivityById(MOCK_ID)
-      .subscribe((activity: ActivitySelectText) => {
-        result = service.initializeActivity(activity) as ActivitySelectText;
-        condition = result instanceof ActivitySelectText;
-        expect(result).toEqual(EXPECTED);
-      });
-
-    expect(condition).toBeTrue();
-    expect(EXPECTED_CONDITION).toBeTrue();
-
-    subscription$.unsubscribe();
+    expect(RESULT).toBeTrue();
   });
 
   it(`${TITLE} 4 > should create an instance of ActivityTransformAspect type`, () => {
     const EXPECTED = service.initializeActivity(
       MOCK_ACTIVITY_TRANSFORM_ASPECT
     ) as ActivityTransformAspect;
-    const EXPECTED_CONDITION = EXPECTED instanceof ActivityTransformAspect;
+    const RESULT = EXPECTED instanceof ActivityTransformAspect;
 
-    const MOCK_ID = MOCK_ACTIVITY_TRANSFORM_ASPECT.id;
-    let result;
-    let condition;
-    const subscription$ = service
-      .getActivityById(MOCK_ID)
-      .subscribe((activity: ActivityTransformAspect) => {
-        result = service.initializeActivity(
-          activity
-        ) as ActivityTransformAspect;
-        condition = result instanceof ActivityTransformAspect;
-        expect(result).toEqual(EXPECTED);
-      });
+    expect(RESULT).toBeTrue();
+  });
 
-    expect(condition).toBeTrue();
-    expect(EXPECTED_CONDITION).toBeTrue();
+  it(`${TITLE} 5 > method new should create an activity type of ActivityTransformAspect when .transformAspect() is called`, () => {
+    const EXPECTED = service
+      .new(MOCK_ACTIVITY_TRANSFORM_ASPECT)
+      .transformAspect();
+    const RESULT = EXPECTED instanceof ActivityTransformAspect;
 
-    subscription$.unsubscribe();
+    expect(RESULT).toBeTrue();
+  });
+
+  it(`${TITLE} 6 > method new should create an activity type of ActivityBestOption when .bestOption() is called`, () => {
+    const EXPECTED = service.new(MOCK_ACTIVITY_BEST_OPTION).bestOption();
+    const RESULT = EXPECTED instanceof ActivityBestOption;
+
+    expect(RESULT).toBeTrue();
+  });
+
+  it(`${TITLE} 7 > method new should create an activity type of ActivitySelectText when .selectText() is called`, () => {
+    const EXPECTED = service.new(MOCK_ACTIVITY_SELECT_TEXT).selectText();
+    const RESULT = EXPECTED instanceof ActivitySelectText;
+
+    expect(RESULT).toBeTrue();
+  });
+
+  it(`${TITLE} 8 > method generateTimeStamps should reutrn an object of type Timestamps`, () => {
+    const TIMESTAMPS = service.generateTiemstamps();
+    const RESULT1 = TIMESTAMPS.created !== undefined;
+    const RESULT2 = TIMESTAMPS.modified !== undefined;
+
+    expect(RESULT1 && RESULT2).toBeTrue();
   });
 });
