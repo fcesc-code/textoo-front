@@ -57,9 +57,12 @@ describe('activities-global > services > sharedService', () => {
 
   it(`${TITLE} 3 > getAllActivitiesByUserId should return a list of activites from a given user`, () => {
     const MOCK_USER_ID = 'ef4f0e28-86f8-4d2d-a56a-8b24d3286867';
+    const FILTERED_MOCK_ACTIVITIES = MOCK_ACTIVITIES.filter(
+      (activity) => activity.author === MOCK_USER_ID
+    );
     service.getAllActivitiesByUserId(MOCK_USER_ID).subscribe((activities) => {
       expect(activities).not.toBeFalsy();
-      expect(activities).toEqual(MOCK_ACTIVITIES);
+      expect(activities).toEqual(FILTERED_MOCK_ACTIVITIES);
       expect(activities.length).toEqual(2);
     });
 
@@ -67,8 +70,6 @@ describe('activities-global > services > sharedService', () => {
 
     expect(req.request.method).toBe('GET');
 
-    req.flush(
-      MOCK_ACTIVITIES.filter((activity) => activity.author === MOCK_USER_ID)
-    );
+    req.flush(FILTERED_MOCK_ACTIVITIES);
   });
 });
