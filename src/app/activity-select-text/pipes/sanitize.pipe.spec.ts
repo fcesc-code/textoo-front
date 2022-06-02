@@ -2,7 +2,7 @@ import { SanitizePipe } from './sanitize.pipe';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TestBed } from '@angular/core/testing';
 
-describe('SanitizePipe', () => {
+describe('activity-select-text > pipes > SanitizePipe', () => {
   let pipe: SanitizePipe;
   let sanitizer: DomSanitizer;
   let TITLE = 'sanitize pipe';
