@@ -10,15 +10,10 @@ import { AuthService } from './auth.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { of } from 'rxjs';
 
-describe('AUTH SERVICE TEST SUITE', () => {
-  const TITLE = '[auth service]';
+describe('auth > services > authService', () => {
+  const TITLE = 'test';
   let service: AuthService;
-  let localStorageService: LocalStorageService;
-  let httpMock: HttpTestingController;
-  const API = {
-    URL: 'http://localhost:3000',
-    authController: 'auth',
-  };
+
   const mockAuthToken: AuthToken = {
     userId: 'this is a string',
     accessToken: 'this is another test string',
@@ -37,7 +32,7 @@ describe('AUTH SERVICE TEST SUITE', () => {
     expect(service).toBeTruthy();
   });
 
-  it(`${TITLE} 2 login > should be called with login and return an auth token`, () => {
+  it(`${TITLE} 2 > method login should be called with login and return an auth token`, () => {
     const mockAuth: AuthLogin = {
       email: 'uoc_test@test.mail',
       password: 's0m3tH1nGpR3tTy',
@@ -49,7 +44,7 @@ describe('AUTH SERVICE TEST SUITE', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  it(`${TITLE} 3 getLocalStorageToken > should return an auth token`, () => {
+  it(`${TITLE} 3 > method getLocalStorageToken should return an auth token`, () => {
     const spy = spyOn(service, 'getLocalStorageToken')
       .and.returnValue(of(mockAuthToken))
       .and.callThrough();
