@@ -79,7 +79,7 @@ export class EditQuestionBestOptionComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.UISubscription$.unsubscribe();
+    if (this.UISubscription$) this.UISubscription$.unsubscribe();
   }
 
   emit(): void {

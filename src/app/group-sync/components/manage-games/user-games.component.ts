@@ -21,7 +21,7 @@ export class UserGamesComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.userGamesSubscription.unsubscribe();
+    if (this.userGamesSubscription) this.userGamesSubscription.unsubscribe();
   }
 
   async loadGames(): Promise<void> {

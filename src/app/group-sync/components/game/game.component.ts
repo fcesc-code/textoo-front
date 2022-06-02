@@ -55,7 +55,7 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.game$.unsubscribe();
+    if (this.game) this.game$.unsubscribe();
   }
 
   getTime(date: string | Date): number {

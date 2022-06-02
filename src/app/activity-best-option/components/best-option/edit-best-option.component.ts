@@ -133,11 +133,13 @@ export class EditBestOptionComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.activity$.unsubscribe();
-    this.UIQuestionSubscription$.unsubscribe();
-    this.UIFontSubscription$.unsubscribe();
-    this.UIKeywordsSubscription$.unsubscribe();
-    this.UITextSubscription$.unsubscribe();
+    if (this.activity$) this.activity$.unsubscribe();
+    if (this.UIQuestionSubscription$)
+      this.UIQuestionSubscription$.unsubscribe();
+    if (this.UIFontSubscription$) this.UIFontSubscription$.unsubscribe();
+    if (this.UIKeywordsSubscription$)
+      this.UIKeywordsSubscription$.unsubscribe();
+    if (this.UITextSubscription$) this.UITextSubscription$.unsubscribe();
   }
 
   classInitializer(activity: any): ActivityBestOption {

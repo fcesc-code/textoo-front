@@ -1,16 +1,31 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ActivitiesGlobalService } from './../../services/activities-global.service';
+import { SharedService } from 'src/app/shared/services/shared.service';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { DashboardComponent } from './dashboard.component';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
+  let service: ActivitiesGlobalService;
+  let sharedService: SharedService;
+  let authService: AuthService;
+  let httpMock: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DashboardComponent ]
+      imports: [HttpClientTestingModule],
+      declarations: [DashboardComponent],
+      providers: [ActivitiesGlobalService, AuthService, SharedService],
     })
-    .compileComponents();
+      .compileComponents()
+      .then();
+    service = TestBed.inject(ActivitiesGlobalService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
   beforeEach(() => {
@@ -20,6 +35,6 @@ describe('DashboardComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component).toBeDefined();
   });
 });

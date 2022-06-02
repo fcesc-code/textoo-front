@@ -127,8 +127,8 @@ export class PlaySelectTextComponent
   }
 
   ngOnDestroy(): void {
-    this.activity$.unsubscribe();
-    this.UIevents$.unsubscribe();
+    if (this.activity$) this.activity$.unsubscribe();
+    if (this.UIevents$) this.UIevents$.unsubscribe();
   }
 
   classInitializer(activity: ActivitySelectText): void {

@@ -43,7 +43,7 @@ export class CountdownComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.counter$.unsubscribe();
+    if (this.counter$) this.counter$.unsubscribe();
   }
 
   updateTime() {

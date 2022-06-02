@@ -41,7 +41,7 @@ export class DashboardComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription$.unsubscribe();
+    if (this.subscription$) this.subscription$.unsubscribe();
   }
 
   filterByKeyword(targetKeyword: string): void {

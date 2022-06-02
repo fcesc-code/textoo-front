@@ -14,7 +14,7 @@ import { USER_ACTIONS } from '../../actions/user.actions';
 import { UserRoles } from '../../../shared/interfaces/global.interfaces';
 import { SupportedLanguages } from 'src/app/activities-shared/models/Activity.dto';
 import { Subscription } from 'rxjs';
-import { PasswordConfirmationValidator } from '../../validators/confirm-password.validator';
+import { PasswordConfirmationValidator } from './../../validators/confirm-password.validator';
 
 @Component({
   selector: 'app-register',
@@ -106,7 +106,7 @@ export class RegisterComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription) this.subscription.unsubscribe();
   }
   count = 0;
   async register(): Promise<void> {

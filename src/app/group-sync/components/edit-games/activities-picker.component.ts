@@ -45,7 +45,7 @@ export class ActivitiesPickerComponent implements OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription$.unsubscribe();
+    if (this.subscription$) this.subscription$.unsubscribe();
   }
 
   loadActivities(): void {
