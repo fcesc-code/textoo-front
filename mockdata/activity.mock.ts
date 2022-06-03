@@ -1,5 +1,5 @@
 export const MOCK_ACTIVITY_SELECT_TEXT = {
-  id: '9e26ab71-a2d0-43b5-b0fa-38910b7ebe1b',
+  _id: '9e26ab71-a2d0-43b5-b0fa-38910b7ebe1b',
   timestamps: {
     created: new Date('2020-04-01T00:00:00.000Z'),
     modified: new Date('2020-04-01T00:00:00.000Z'),
@@ -38,7 +38,7 @@ Foll d'una dolça metzina.`,
 };
 
 export const MOCK_ACTIVITY_BEST_OPTION = {
-  id: '120460f9-5a23-4050-95a9-4f9d1de87672',
+  _id: '120460f9-5a23-4050-95a9-4f9d1de87672',
   timestamps: {
     created: new Date('2020-04-01T00:00:00.000Z'),
     modified: new Date('2020-04-01T00:00:00.000Z'),
@@ -119,7 +119,7 @@ export const MOCK_ACTIVITY_BEST_OPTION = {
 };
 
 export const MOCK_ACTIVITY_TRANSFORM_ASPECT = {
-  id: 'ae40070d-6edd-4e95-aab7-8ad5a02ebc8a',
+  _id: 'ae40070d-6edd-4e95-aab7-8ad5a02ebc8a',
   timestamps: {
     created: new Date('2020-04-01T00:00:00.000Z'),
     modified: new Date('2020-04-01T00:00:00.000Z'),

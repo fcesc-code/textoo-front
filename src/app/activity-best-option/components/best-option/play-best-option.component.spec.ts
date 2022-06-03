@@ -53,7 +53,7 @@ describe('PlayBestOptionComponent', () => {
   let debugElement: DebugElement;
 
   const TITLE = 'Play best-option Component';
-  const MOCK_ACTIVITY_ID = MOCK_ACTIVITY_BEST_OPTION.id;
+  const MOCK_ACTIVITY_ID = MOCK_ACTIVITY_BEST_OPTION._id;
 
   beforeEach(async () => {
     const routeStub = new ActivatedRouteStub();
