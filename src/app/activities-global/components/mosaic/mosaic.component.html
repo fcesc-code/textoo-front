@@ -19,7 +19,11 @@
         *ngFor="let activity of this.filteredActivities"
         class="my-2 mx-4 border-2 border-slate-100 rounded-lg px-6 py-4 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300"
       >
-        <div [routerLink]="['/play/' + activity.type + '/' + activity._id]">
+        <div
+          [routerLink]="[
+            '/activity/' + activity.type + '/play/' + activity._id
+          ]"
+        >
           <h3 class="leading-12 font-semibold text-lg">{{ activity.title }}</h3>
           <p>Activitat: {{ activity.task }}</p>
           <p>Autor: {{ activity.author }}</p>

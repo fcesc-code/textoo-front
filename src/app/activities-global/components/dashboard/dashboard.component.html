@@ -32,13 +32,17 @@
           <section class="flex flex-col justify-between items-end h-[100%]">
             <div class="">
               <mat-icon
-                [routerLink]="['/play/' + activity.type + '/' + activity._id]"
+                [routerLink]="[
+                  '/activity/' + activity.type + '/play/' + activity._id
+                ]"
                 class="leading-12 align-middle ml-3 hover:text-teal-600"
                 title="juga"
                 >play_circle_outline</mat-icon
               >
               <mat-icon
-                [routerLink]="['/edit/' + activity.type + '/' + activity._id]"
+                [routerLink]="[
+                  '/activity/' + activity.type + '/edit/' + activity._id
+                ]"
                 class="leading-12 align-middle ml-3 hover:text-teal-600"
                 title="edita"
                 >edit</mat-icon

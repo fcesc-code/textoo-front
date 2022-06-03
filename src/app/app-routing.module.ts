@@ -42,14 +42,14 @@ export const routes: Routes = [
       import('src/app/user/user.module').then((m) => m.UserModule),
   },
   {
-    path: 'activity/select-text',
+    path: 'activity/select_text',
     loadChildren: () =>
       import('src/app/activity-select-text/activity-select-text.module').then(
         (m) => m.ActivitySelectTextModule
       ),
   },
   {
-    path: 'activity/best-option',
+    path: 'activity/best_option',
     loadChildren: () =>
       import('src/app/activity-best-option/activity-best-option.module').then(
         (m) => m.ActivityBestOptionModule
