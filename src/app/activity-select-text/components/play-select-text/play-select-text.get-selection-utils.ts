@@ -48,7 +48,7 @@ export interface CustomSelection {
   endParentOffset: number;
 }
 
-function buildCustomSelection(
+export function buildCustomSelection(
   selection: Selection,
   cleanPieces: Piece[]
 ): CustomSelection {
@@ -211,10 +211,5 @@ export interface Whitespaces {
 export function findWhitespaces(text: string): Whitespaces {
   const leftWhitespaces = text.length - text.trimStart().length;
   const rightWhitespaces = text.length - text.trimEnd().length;
-  console.log(
-    `whiteSpaces >>> l:${text.length}, cl:${
-      text.trim().length
-    }, lw:${leftWhitespaces}, rw:${rightWhitespaces}`
-  );
   return { leftWhitespaces, rightWhitespaces };
 }

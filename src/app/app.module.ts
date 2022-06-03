@@ -26,9 +26,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { appReducers } from './app.reducer';
 import { appEffectsArray } from './app.effects';
 /* custom modules */
-import { ActivitiesGlobalModule } from './activities-global/activities-global.module';
-import { AuthModule } from './auth/auth.module';
-import { SharedModule } from './shared/shared.module';
+import { ActivitiesGlobalModule } from 'src/app/activities-global/activities-global.module';
+import { AuthModule } from 'src/app/auth/auth.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 /* components */
 import { AppComponent } from './app.component';
 /* animations */
@@ -39,7 +39,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 /* global services */
-import { AuthInterceptorService } from './auth/services/auth-interceptor.service';
+import { AuthInterceptorService } from 'src/app/auth/services/auth-interceptor.service';
 /* globals and indexes */
 
 @NgModule({

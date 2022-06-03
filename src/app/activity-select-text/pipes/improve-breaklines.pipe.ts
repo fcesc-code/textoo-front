@@ -13,13 +13,11 @@ export class ImproveBreaklinesPipe implements PipeTransform {
     let count = 0;
     let previous = 0;
     let result = `${START_PRE}${count}${START_POST}`;
-    // const NEW_TEXT = text.replace(/\n/g, `${END}${START}`);
-    // const RESULT = `${START}${NEW_TEXT}${END}`;
 
     const matches = Array.from(text.matchAll(LINE_BREAK));
     for (let match of matches) {
       count++;
-      const index = match.index || 0;
+      const index = match.index;
       const newString = text.slice(previous, index).trimStart();
       previous = Number(match.index);
       let { conditionalPrefix, conditionalSufix } = this.detectOpenTags(
@@ -27,21 +25,10 @@ export class ImproveBreaklinesPipe implements PipeTransform {
         newString
       );
 
-      const display = {
-        _1_currentResult: result,
-        _2_newString: newString,
-        _3_end: END,
-        _4_conditionalSufix: conditionalSufix,
-        _5_start_pre: START_PRE,
-        _6_count: count,
-        _7_start_post: START_POST,
-        _8_conditionalPrefix: conditionalPrefix,
-      };
-      // console.table(display);
-
       result = `${result}${newString}${conditionalSufix}${END}${START_PRE}${count}${START_POST}${conditionalPrefix}`;
     }
-    const finalString = text.slice(previous + 1, text.length);
+    const offset = matches.length === 0 ? 0 : 1;
+    const finalString = text.slice(previous + offset, text.length);
     result = `${result}${finalString}${END}`;
     return result;
   }

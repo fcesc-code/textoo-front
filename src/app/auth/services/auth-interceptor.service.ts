@@ -20,18 +20,17 @@ export class AuthInterceptorService implements HttpInterceptor {
     private authService: AuthService,
     private spinnerService: SpinnerService
   ) {
-    this.accessToken = this.authService.getToken();
+    this.accessToken = null;
   }
 
   intercept(
-    req: HttpRequest<any>,
+    request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     this.spinnerService.show();
     this.accessToken = this.authService.getToken();
-    console.log('accessToken', this.accessToken);
     if (this.accessToken) {
-      req = req.clone({
+      request = request.clone({
         setHeaders: {
           'Content-Type': 'application/json;charset=utf-8',
           Accept: 'application/json',
@@ -40,6 +39,8 @@ export class AuthInterceptorService implements HttpInterceptor {
       });
     }
 
-    return next.handle(req).pipe(finalize(() => this.spinnerService.hide()));
+    return next
+      .handle(request)
+      .pipe(finalize(() => this.spinnerService.hide()));
   }
 }

@@ -14,6 +14,7 @@
       <input
         matInput
         type="text"
+        name="alias"
         [formControl]="alias"
         aria-required="true"
         placeholder="Your alias..."
@@ -46,6 +47,7 @@
       <input
         matInput
         type="text"
+        name="avatar"
         [formControl]="avatar"
         aria-required="true"
         placeholder="Your alias..."
@@ -90,6 +92,7 @@
       <mat-label>Idioma</mat-label>
       <mat-select
         required
+        name="language"
         [formControl]="language"
         aria-label="Select your preferred language"
       >
@@ -108,6 +111,7 @@
       <mat-select
         multiple
         required
+        name="language"
         [formControl]="roles"
         selected-options="this.roles"
         aria-label="What are you going to do?"
@@ -123,39 +127,6 @@
         posteriorment si no estàs segur.
       </mat-error>
     </mat-form-field>
-    <!-- <mat-form-field appearance="fill">
-      <mat-label>Password</mat-label>
-      <input
-        matInput
-        type="password"
-        [formControl]="password"
-        aria-required="true"
-        placeholder="Your password..."
-        autocomplete="new-password"
-        id="profileForm-password"
-      />
-      <mat-error *ngIf="password.dirty && password.hasError('required')">
-        Password is required.
-      </mat-error>
-      <mat-error
-        *ngIf="
-          password.dirty &&
-          password.hasError('minlength') &&
-          !password.hasError('required')
-        "
-      >
-        Password must be at least 8 characters long.
-      </mat-error>
-      <mat-error
-        *ngIf="
-          password.dirty &&
-          password.hasError('maxlength') &&
-          !password.hasError('required')
-        "
-      >
-        Password can be max 16 characters long.
-      </mat-error>
-    </mat-form-field> -->
     <div>
       <button
         mat-raised-button

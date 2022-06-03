@@ -1,0 +1,27 @@
+<section class="my-3 mx-4 flex flex-col justify-start items-center">
+  <p class="text-lg text-emerald-800">{{ title }}</p>
+  <p
+    class="flex flex-row justify-center items-center font-bold text-2xl text-emerald-800"
+  >
+    <span *ngIf="remainingTime.days.display" class="mx-1 px-2"
+      >{{ remainingTime.days.value | addLeadingZero }} di{{
+        remainingTime.days.value === 1 ? "a" : "es"
+      }}</span
+    >
+    <span *ngIf="remainingTime.hours.display" class="mx-1 px-2"
+      >{{ remainingTime.hours.value | addLeadingZero }} hor{{
+        remainingTime.hours.value === 1 ? "a" : "es"
+      }}</span
+    >
+    <span *ngIf="remainingTime.minutes.display" class="mx-1 px-2"
+      >{{ remainingTime.minutes.value | addLeadingZero }} minut{{
+        remainingTime.minutes.value === 1 ? "" : "s"
+      }}</span
+    >
+    <span *ngIf="remainingTime.seconds.display" class="mx-1 px-2"
+      >{{ remainingTime.seconds.value | addLeadingZero }} segon{{
+        remainingTime.seconds.value === 1 ? "" : "s"
+      }}</span
+    >
+  </p>
+</section>

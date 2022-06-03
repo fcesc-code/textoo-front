@@ -10,13 +10,26 @@
   This is a select-text activity type.
 </p>
 
-<app-play-best-option
-  *ngIf="game && game.info.type === activityTypes.BEST_OPTION"
-  [game]="game.info.activityId"
->
-</app-play-best-option>
-<app-play-select-text
-  *ngIf="game && game.info.type === activityTypes.SELECT_TEXT"
-  [game]="game.info.activityId"
->
-</app-play-select-text>
+<app-countdown
+  *ngIf="game && game.status.start && getStartTime() > getCurrentTime()"
+  [targetDate]="getStartDate()"
+  [title]="'La partida començarà en'"
+></app-countdown>
+<app-countdown
+  *ngIf="game && game.status.start && getStartTime() <= getCurrentTime()"
+  [targetDate]="getEndDate()"
+  [title]="'Temps restant'"
+></app-countdown>
+
+<section *ngIf="getStartTime() <= getCurrentTime()">
+  <app-play-best-option
+    *ngIf="game && game.info.type === activityTypes.BEST_OPTION"
+    [game]="game.info.activityId"
+  >
+  </app-play-best-option>
+  <app-play-select-text
+    *ngIf="game && game.info.type === activityTypes.SELECT_TEXT"
+    [game]="game.info.activityId"
+  >
+  </app-play-select-text>
+</section>

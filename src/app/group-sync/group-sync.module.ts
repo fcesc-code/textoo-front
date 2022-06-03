@@ -21,21 +21,25 @@ import { GameComponent } from './components/game/game.component';
 import { GameDashboardComponent } from './components/edit-games/game-dashboard.component';
 import { ActivitiesPickerComponent } from './components/edit-games/activities-picker.component';
 import { UserGamesComponent } from './components/manage-games/user-games.component';
+import { CountdownComponent } from './components/timer/countdown.component';
 /* Firebase */
 import { GroupSyncRoutingModule } from './group-sync-routing.module';
 /* Pipes */
 import { FriendlyTimePipe } from './pipes/friendlyTime.pipe';
 import { BooleanLocalePipe } from './pipes/booleanLocale.pipe';
+import { AddLeadingZeroPipe } from './pipes/addLeadingZero';
 
 @NgModule({
   declarations: [
     FriendlyTimePipe,
     BooleanLocalePipe,
+    AddLeadingZeroPipe,
     ConnectComponent,
     GameComponent,
     UserGamesComponent,
     GameDashboardComponent,
     ActivitiesPickerComponent,
+    CountdownComponent,
   ],
   imports: [
     CommonModule,

@@ -1,7 +1,7 @@
 import { AddPlaceholderPipe } from './add-option-placeholder.pipe';
 import { Question_ActivityBestOption } from '../models/ActivityBestOption.dto';
 
-describe('Activities > Pipes > AddPlaceholder', () => {
+describe('activity-best-option > pipes > AddPlaceholder', () => {
   let pipe: AddPlaceholderPipe;
   const TEST = 'test';
   const MOCK_TEXT = `<p>Duia pantalons curts, és a dir, que no encara els dotze anys.</p><p>S'han suspès tots els vols la boira.</p><p>Proposem un enfocament les polítiques de mercat.</p><p>A la nit podríem fer peix de carn.</p><p> plovia, vam jugar el partit.</p><p> estalviat, ara no té més diners que el sou.</p>`;

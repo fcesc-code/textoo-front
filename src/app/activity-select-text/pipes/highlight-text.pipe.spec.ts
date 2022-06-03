@@ -1,7 +1,7 @@
 import { TextSelection } from '../models/ActivitySelectText.dto';
 import { HighlightTextPipe } from './highlight-text.pipe';
 
-describe('HighlightTextPipe', () => {
+describe('activity-select-text > pipes > HighlightTextPipe', () => {
   let pipe: HighlightTextPipe;
   const TEST = 'test';
   const MOCK_TEXT = `És quan dormo que hi veig clar

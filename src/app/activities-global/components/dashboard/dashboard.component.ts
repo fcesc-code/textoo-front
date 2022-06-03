@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { ActivitiesGlobalService } from '../../services/activities-global.service';
@@ -8,7 +8,7 @@ import { ActivitiesGlobalService } from '../../services/activities-global.servic
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.sass'],
 })
-export class DashboardComponent implements OnDestroy {
+export class DashboardComponent implements OnDestroy, OnInit {
   activities$: any;
   filteredActivities: any[];
   authors: any[];
@@ -20,6 +20,9 @@ export class DashboardComponent implements OnDestroy {
   ) {
     this.filteredActivities = [];
     this.authors = [];
+  }
+
+  ngOnInit(): void {
     this.loadActivities();
   }
 
@@ -41,7 +44,7 @@ export class DashboardComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription$.unsubscribe();
+    if (this.subscription$) this.subscription$.unsubscribe();
   }
 
   filterByKeyword(targetKeyword: string): void {

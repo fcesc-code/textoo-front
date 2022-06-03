@@ -1,7 +1,7 @@
 import { AddOptionPipe } from './add-option.pipe';
 import { Question_ActivityBestOption } from '../models/ActivityBestOption.dto';
 
-describe('AddOptionPipe', () => {
+describe('activity-best-option > pipes > AddOptionPipe', () => {
   let pipe: AddOptionPipe;
   const TITLE = 'AddOption pipe test';
   const MOCK_TEXT = `1. Duia pantalons curts, és a dir, que no encara els dotze anys.

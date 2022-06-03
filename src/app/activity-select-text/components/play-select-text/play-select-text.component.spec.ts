@@ -56,7 +56,7 @@ describe('PlaySelectTextComponent', () => {
   let debugElement: DebugElement;
 
   const TITLE = 'Play select-text Component';
-  const MOCK_ACTIVITY_ID = MOCK_ACTIVITY_SELECT_TEXT.id;
+  const MOCK_ACTIVITY_ID = MOCK_ACTIVITY_SELECT_TEXT._id;
 
   beforeEach(async () => {
     const routeStub = new ActivatedRouteStub();

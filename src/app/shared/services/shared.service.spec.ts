@@ -3,8 +3,8 @@ import { TestBed } from '@angular/core/testing';
 
 import { ResponseError, SharedService } from './shared.service';
 
-describe('SHARED SERVICE TEST SUITE', () => {
-  const tested = '[shared service]';
+describe('shared > services > sharedService', () => {
+  const TEST = 'test';
   let service: SharedService;
   const mockError: ResponseError = {
     statusCode: 401,
@@ -33,13 +33,11 @@ describe('SHARED SERVICE TEST SUITE', () => {
     service = TestBed.inject(SharedService);
   });
 
-  // TEST1: should be created
-  it(`${tested} > should be created`, () => {
+  it(`${TEST} 1 > should be created`, () => {
     expect(service).toBeTruthy();
   });
 
-  // TEST2: managementToast method: valid request
-  it(`${tested} method: managementToast > should be called with certain arguments`, () => {
+  it(`${TEST} 2 > method managementToast should be called with a valid request`, () => {
     const mockData = {
       element: 'Funny message!',
       validRequest: true,
@@ -50,8 +48,7 @@ describe('SHARED SERVICE TEST SUITE', () => {
     expect(spy).toHaveBeenCalledWith(mockData.element, mockData.validRequest);
   });
 
-  // TEST3: managementToast method: invalid request, error with detail
-  it(`${tested} method: managementToast > should be called with certain arguments and an error`, () => {
+  it(`${TEST} 3 > method managementToast should be called with certain arguments and an error`, () => {
     const mockData = {
       element: 'Error message!',
       validRequest: false,
@@ -71,8 +68,7 @@ describe('SHARED SERVICE TEST SUITE', () => {
     );
   });
 
-  // TEST4: managementToast method: invalid request, error without detail
-  it(`${tested} method: managementToast > should be called with certain arguments and an error`, () => {
+  it(`${TEST} 4 > method managementToast should be called with certain arguments and an error`, () => {
     const mockData = {
       element: 'Error message!',
       validRequest: false,
@@ -92,16 +88,14 @@ describe('SHARED SERVICE TEST SUITE', () => {
     );
   });
 
-  // TEST5: errorLog method
-  it(`${tested} method: errorLog > should be called with an error`, () => {
+  it(`${TEST} 5 > method errorLog should be called with an error`, () => {
     const spy = spyOn(service, 'errorLog').and.callThrough();
     service.errorLog(mockError);
     expect(spy).toHaveBeenCalled();
     expect(spy).toHaveBeenCalledWith(mockError);
   });
 
-  // TEST6: wait method
-  it(`${tested} method: wait > should be called with a number`, () => {
+  it(`${TEST} 6 > method wait should be called with a number`, () => {
     const mockMs: number = 10;
     const spy = spyOn(service, 'wait').and.callThrough();
     service.wait(mockMs);
@@ -109,8 +103,7 @@ describe('SHARED SERVICE TEST SUITE', () => {
     expect(spy).toHaveBeenCalledWith(mockMs);
   });
 
-  // TEST7: handleError method
-  it(`${tested} method: handleError > should be called with an error`, () => {
+  it(`${TEST} 7 > method handleError should be called with an error`, () => {
     const mockHttpErrorResponse = {
       name: 'HttpErrorResponse',
       message: 'error message',

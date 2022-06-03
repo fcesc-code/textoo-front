@@ -21,7 +21,7 @@ export class UserGamesComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.userGamesSubscription.unsubscribe();
+    if (this.userGamesSubscription) this.userGamesSubscription.unsubscribe();
   }
 
   async loadGames(): Promise<void> {
@@ -44,33 +44,27 @@ export class UserGamesComponent implements OnDestroy {
   }
 
   filterByKeyword(targetKeyword: string): void {
-    console.log('filter keyword with >>> ', targetKeyword);
     this.filteredUserGames = [...this.userGames].filter((game: Game) => {
       return game.info.keywords.find(
         (keyword: string) =>
           keyword.toLowerCase().trim() === targetKeyword.toLowerCase().trim()
       );
     });
-    console.log('filteredUserGames after filter >>> ', this.filteredUserGames);
   }
 
   filterByType(targetType: string): void {
-    console.log('filter type with >>> ', targetType);
     this.filteredUserGames = [...this.userGames].filter(
       (game: Game) =>
         game.info.type.toLowerCase().trim() === targetType.toLowerCase().trim()
     );
-    console.log('filteredUserGames after filter >>> ', this.filteredUserGames);
   }
 
   filterByLanguage(targetLanguage: string): void {
-    console.log('filter language with >>> ', targetLanguage);
     this.filteredUserGames = [...this.userGames].filter(
       (game: Game) =>
         game.info.language.toLowerCase().trim() ===
         targetLanguage.toLowerCase().trim()
     );
-    console.log('filteredUserGames after filter >>> ', this.filteredUserGames);
   }
 
   removeFilters(): void {

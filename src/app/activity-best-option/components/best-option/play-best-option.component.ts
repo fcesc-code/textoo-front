@@ -59,7 +59,7 @@ export class PlayBestOptionComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.activity$.unsubscribe();
+    if (this.activity$) this.activity$.unsubscribe();
   }
 
   classInitializer(activity: any): void {

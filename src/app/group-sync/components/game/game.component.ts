@@ -55,6 +55,33 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.game$.unsubscribe();
+    if (this.game) this.game$.unsubscribe();
+  }
+
+  getTime(date: string | Date): number {
+    return new Date(date).getTime();
+  }
+
+  getCurrentTime(): number {
+    return this.getTime(new Date());
+  }
+
+  getStartTime(): number {
+    return this.getTime(this.game.status.start);
+  }
+
+  getEndTime(): number {
+    return this.getTime(this.getEndDate());
+  }
+
+  getStartDate(): Date {
+    return new Date(this.game.status.start);
+  }
+
+  getEndDate(): Date {
+    const start = this.getStartTime();
+    const lag = this.game.status.maxTime * 1000;
+    const end = new Date(start + lag);
+    return end;
   }
 }

@@ -1,6 +1,6 @@
 import { CustomArrayMethods } from './arrays';
 
-describe('Custom array methods', () => {
+describe('shared > utils > arrays', () => {
   let TITLE = 'utils - custom array methods';
 
   it(`${TITLE} 1 > shoud find the max of a given property in an array of objects`, () => {
@@ -16,7 +16,21 @@ describe('Custom array methods', () => {
     expect(RESULT).toEqual(EXPECTED);
   });
 
-  it(`${TITLE} 2 > shoud sort an array of objects for a given property`, () => {
+  it(`${TITLE} 2 > shoud find the max of a given property in an array of objects`, () => {
+    const EXPECTED = 'Tim';
+    const TEST = [
+      { name: EXPECTED, age: 50 },
+      { name: 'Jane', age: 30 },
+      { name: 'Jack', age: 20 },
+      { name: 'John', age: 60 },
+    ];
+
+    const RESULT = CustomArrayMethods.findMax(TEST, 'name');
+
+    expect(RESULT).toEqual(EXPECTED);
+  });
+
+  it(`${TITLE} 3 > shoud sort an array of objects for a given property`, () => {
     const TEST = [
       { name: 'Jack', age: 40 },
       { name: 'John', age: 20 },
