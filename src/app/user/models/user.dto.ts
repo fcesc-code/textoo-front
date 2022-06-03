@@ -65,15 +65,14 @@ export class UserDto extends NewUserDto {
   }
 
   setId(id: string) {
-    if (this._id === null) {
-      this._id = id;
-    } else {
+    if (this._id) {
       throw new Error('ID already set');
     }
+    this._id = id;
   }
   getUserInfo(): UserInfo {
     return {
-      _id: this._id === null ? '' : this._id,
+      _id: this._id,
       alias: this.alias,
       avatar: this.avatar,
       preferences: this.preferences,

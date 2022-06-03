@@ -39,6 +39,8 @@ export class RegisterComponent implements OnDestroy {
 
   subscription!: Subscription;
 
+  count = 0;
+
   constructor(
     private formBuilder: FormBuilder,
     private sharedService: SharedService,
@@ -108,7 +110,7 @@ export class RegisterComponent implements OnDestroy {
   ngOnDestroy(): void {
     if (this.subscription) this.subscription.unsubscribe();
   }
-  count = 0;
+
   async register(): Promise<void> {
     this.registerUser = new NewUserDto({
       ...this.registerForm.value,
