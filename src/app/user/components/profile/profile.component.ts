@@ -32,7 +32,6 @@ export class ProfileComponent implements OnInit, AfterContentInit {
   alias: FormControl;
   email: FormControl;
   roles: FormControl;
-  // password: FormControl;
   likedActivities: string[];
   activeGroups: string[];
 
@@ -71,11 +70,6 @@ export class ProfileComponent implements OnInit, AfterContentInit {
       Validators.required,
       Validators.email,
     ]);
-    // this.password = new FormControl(this.profileUser.password, [
-    //   Validators.required,
-    //   Validators.minLength(8),
-    //   Validators.maxLength(24),
-    // ]);
     this.language = new FormControl(this.profileUser.preferences.language, [
       Validators.required,
     ]);
@@ -91,7 +85,6 @@ export class ProfileComponent implements OnInit, AfterContentInit {
       avatar: this.avatar,
       roles: this.roles,
     });
-    // password: this.password,
   }
   ngOnInit(): void {
     const { userId } = this.authService.getUser();
@@ -113,7 +106,6 @@ export class ProfileComponent implements OnInit, AfterContentInit {
             this.alias.setValue(alias);
             this.email.setValue(email);
             this.language.setValue(preferences?.language);
-            // this.password.setValue('');
             this.roles.setValue(roles);
             this.likedActivities = likedActivities as string[];
             this.activeGroups = activeGroups as string[];
