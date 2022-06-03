@@ -17,12 +17,12 @@ describe('shared > utils > arrays', () => {
   });
 
   it(`${TITLE} 2 > shoud find the max of a given property in an array of objects`, () => {
-    const EXPECTED = 'John';
+    const EXPECTED = 'Tim';
     const TEST = [
       { name: EXPECTED, age: 50 },
       { name: 'Jane', age: 30 },
       { name: 'Jack', age: 20 },
-      { name: 'Tim', age: 60 },
+      { name: 'John', age: 60 },
     ];
 
     const RESULT = CustomArrayMethods.findMax(TEST, 'name');
