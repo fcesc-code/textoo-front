@@ -13,11 +13,7 @@ import { ActivitySelectTextRoutingModule } from './activity-select-text-routing.
 import { ImproveBreaklinesPipe } from './pipes/improve-breaklines.pipe';
 import { HighlightTextPipe } from './pipes/highlight-text.pipe';
 /* Material */
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSelectModule } from '@angular/material/select';
 /* Components */
 import { PlaySelectTextComponent } from './components/play-select-text/play-select-text.component';
 import { SanitizePipe } from './pipes/sanitize.pipe';
@@ -35,10 +31,6 @@ import { SanitizePipe } from './pipes/sanitize.pipe';
     RouterModule,
     ActivitySelectTextRoutingModule,
     MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatButtonModule,
     SharedModule,
     ActivitiesSharedModule,
   ],
