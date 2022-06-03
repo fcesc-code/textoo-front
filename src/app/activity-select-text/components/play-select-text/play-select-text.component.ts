@@ -116,6 +116,7 @@ export class PlaySelectTextComponent
           return isMainSelector || isSecondarySelector || isHighlightedSelector;
         }),
         filter((selection: Selection) => !selection.isCollapsed),
+        tap((selection: Selection) => console.log('WOW HERE >>> ', selection)),
         map(
           (selection: Selection): TextSelection =>
             this.getTextSelection(selection)
