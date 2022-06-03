@@ -10,7 +10,7 @@ import { LocalStorageService } from '../../services/local-storage.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
 
-describe('HeaderComponent', () => {
+describe('shared > components > header > HeaderComponent', () => {
   const TITLE = 'test';
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
