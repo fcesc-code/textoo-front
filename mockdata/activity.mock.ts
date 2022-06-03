@@ -34,6 +34,7 @@ Foll d'una dolça metzina.`,
     work: 'Poemes',
     reference: 'https://ca.wikipedia.org/wiki/Josep_Vicen%C3%A7_Foix_i_Mas',
   },
+  keywords: ['paradoxes', 'figures retòriques'],
 };
 
 export const MOCK_ACTIVITY_BEST_OPTION = {
@@ -114,6 +115,7 @@ export const MOCK_ACTIVITY_BEST_OPTION = {
     work: 'Gramàtica zero',
     reference: 'https://www.uv.es/llengues/gramaticazero',
   },
+  keywords: ['conjuncions'],
 };
 
 export const MOCK_ACTIVITY_TRANSFORM_ASPECT = {
@@ -167,4 +169,5 @@ export const MOCK_ACTIVITY_TRANSFORM_ASPECT = {
     work: '',
     reference: '',
   },
+  keywords: ['veu passiva'],
 };

@@ -50,7 +50,7 @@ describe('auth > services > authInterceptorService', () => {
     httpMock.verify();
   });
 
-  it(`${TITLE} 2 > intercept method should set some headers for an authorized request`, () => {
+  it(`${TITLE} 1 > intercept method should set some headers for an authorized request`, () => {
     const mockUser: AuthToken = {
       accessToken: 'some very long token',
       userId: '626584019fd54ca5d5fbc940',
