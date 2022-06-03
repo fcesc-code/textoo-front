@@ -13,8 +13,7 @@ export const MOCK_USERS = [
       language: 'ca',
     },
     email: 'pepito@fakemail.com',
-    password:
-      '$2b$10$8TBti9Wy1hCDws12Owqgquw.gwXdUE.ANre4dw9l1Zfb2/rKE8mHCdA.dfje',
+    password: '1234qwerasdf',
   },
   {
     _id: 'ef4f0e28-86f8-4d2d-a56a-8b24d3286867',
@@ -27,7 +26,6 @@ export const MOCK_USERS = [
       language: 'ca',
     },
     email: 'marta@fakemail.com',
-    password:
-      '$2b$10$8TBti9Wy1hCDws12Owqgquw.gwXdUE.ANre4dw9l1Zfb2/rKE8mHCdA.dfje',
+    password: '0987poiuñlikj',
   },
 ];
