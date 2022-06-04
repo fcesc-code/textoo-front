@@ -9,6 +9,7 @@ import { environment } from '../environments/environment';
 /* firebase */
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideStorage, getStorage } from '@angular/fire/storage';
 // import {
 //   provideAnalytics,
 //   getAnalytics,
@@ -57,6 +58,7 @@ import { AuthInterceptorService } from 'src/app/auth/services/auth-interceptor.s
     }),
     // provideAnalytics(() => getAnalytics()),
     provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
     // AngularFirestoreModule,
     ReactiveFormsModule,
     HttpClientModule,
