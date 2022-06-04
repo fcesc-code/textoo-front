@@ -41,6 +41,7 @@ export class UserGamesComponent implements OnDestroy {
       this.userGamesSubscription = promiseSource.subscribe((data: any) => {
         this.userGames = data;
         this.filteredUserGames = [...this.userGames];
+        this.filterByNotClosed();
       });
     }
   }
@@ -67,6 +68,15 @@ export class UserGamesComponent implements OnDestroy {
         game.info.language.toLowerCase().trim() ===
         targetLanguage.toLowerCase().trim()
     );
+  }
+
+  filterByNotClosed(): void {
+    const NOW = new Date();
+    const CURRENT_TIME = NOW.getTime();
+    this.filteredUserGames = [...this.userGames].filter((game: Game) => {
+      const START = new Date(game.status.start).getTime();
+      return CURRENT_TIME < START;
+    });
   }
 
   removeFilters(): void {
