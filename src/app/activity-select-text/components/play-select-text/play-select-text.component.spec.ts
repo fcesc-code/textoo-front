@@ -24,6 +24,9 @@ import { ReplaySubject } from 'rxjs';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ActivitiesSharedModule } from '../../../activities-shared/activities-shared.module';
 import { By } from '@angular/platform-browser';
+import { HighlightTextPipe } from '../../pipes/highlight-text.pipe';
+import { ImproveBreaklinesPipe } from '../../pipes/improve-breaklines.pipe';
+import { SanitizePipe } from '../../pipes/sanitize.pipe';
 
 class ActivatedRouteStub implements Partial<ActivatedRoute> {
   private _paramMap!: ParamMap;
@@ -78,7 +81,12 @@ describe('PlaySelectTextComponent', () => {
         { provide: ActivatedRoute, useValue: routeStub },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-      declarations: [PlaySelectTextComponent],
+      declarations: [
+        PlaySelectTextComponent,
+        HighlightTextPipe,
+        ImproveBreaklinesPipe,
+        SanitizePipe,
+      ],
     }).compileComponents();
   });
 

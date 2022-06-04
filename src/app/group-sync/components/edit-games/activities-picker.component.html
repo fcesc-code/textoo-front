@@ -2,13 +2,13 @@
   <section class="w-full">
     <h1
       *ngIf="!filtersApplied()"
-      class="mx-4 px-6 font-bold text-xl py-6 text-center"
+      class="mx-4 px-6 font-semibold text-xl py-6 text-center tracking-normal"
     >
       Totes les activitats
     </h1>
     <h1
       *ngIf="filtersApplied() && filteredActivities.length > 1"
-      class="mx-4 px-6 font-bold text-xl py-6 text-center"
+      class="mx-4 px-6 font-semibold text-xl py-6 text-center tracking-normal"
     >
       Filtre activitats
     </h1>
@@ -18,12 +18,12 @@
         !filtersApplied() || (filtersApplied() && filteredActivities.length > 1)
       "
     >
-      Clica sobre el títol d'una activitat per a seleccionar-la i vincular-la al
-      joc. Podràs canvviar la selecció posteriorment.
+      Selecciona una activitat per vincular-la al joc. Podràs canviar-la
+      posteriorment.
     </p>
     <h1
       *ngIf="filtersApplied() && filteredActivities.length === 1"
-      class="mx-4 px-6 font-bold text-xl py-6 text-center"
+      class="mx-4 px-6 font-semibold text-xl py-6 text-center tracking-normal"
     >
       Activitat seleccionada
     </h1>
@@ -31,15 +31,15 @@
       class="mx-4 px-6"
       *ngIf="filtersApplied() && filteredActivities.length === 1"
     >
-      El teu joc desenvoluparà l'activitat seleccionada. Pots canviar-la
-      esborrant els filtres.
+      El teu joc desenvoluparà aquesta activitat. Esborra els filtres i
+      selecciona'n una de nova per canviar-la.
     </p>
   </section>
   <section class="w-full">
     <nav class="w-full flex flex-col justify-start items-center">
       <button
         *ngIf="filtersApplied()"
-        class="mx-auto px-4 py-2 my-2 rounded-md drop-shadow-lg bg-emerald-100 hover:bg-teal-700 hover:text-white hover:font-semibold hover:tracking-wide hover:shadow-md hover:shadow-teal-100"
+        class="mx-auto px-8 py-2 my-2 rounded-md drop-shadow-lg bg-emerald-100 hover:bg-teal-700 hover:text-white hover:font-semibold hover:tracking-wide hover:shadow-md hover:shadow-teal-100"
         (click)="removeFilters()"
       >
         {{
@@ -62,7 +62,7 @@
           <h3 class="leading-12 font-semibold text-lg">
             {{ activity.title }}
           </h3>
-          <p>Activitat: {{ activity.task }}</p>
+          <p>{{ activity.task }}</p>
           <p>Autor: {{ activity.author }}</p>
           <p *ngIf="activity.font.author">
             Basat en: {{ activity.font.author }}
