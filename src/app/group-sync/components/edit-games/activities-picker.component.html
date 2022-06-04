@@ -52,38 +52,38 @@
     <ul class="w-full">
       <li
         *ngFor="let activity of this.filteredActivities"
-        class="my-2 mx-4 border-2 border-slate-100 rounded-lg px-6 py-4 cursor-pointer bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300"
+        class="my-4 mx-4 border-2 border-slate-100 rounded-lg px-6 py-4 bg-white shadow-lg shadow-gray-200 hover:shadow-emerald-300/20 hover:border-emerald-100"
       >
         <div
           id="{{ activity._id }}"
           (click)="retainId(activity._id, activity.title)"
           class="hover:bg-emerald-100"
         >
-          <h3 class="leading-12 font-semibold text-lg">
+          <h3 class="leading-18 font-semibold text-2xl text-black my-3">
             {{ activity.title }}
           </h3>
           <p>{{ activity.task }}</p>
-          <p>Autor: {{ activity.author }}</p>
+          <!-- <p>Autor: {{ activity.author }}</p> -->
           <p *ngIf="activity.font.author">
             Basat en: {{ activity.font.author }}
           </p>
         </div>
-        <ul class="flex flex-row flex-wrap justify-start items-center">
+        <ul class="flex flex-row flex-wrap justify-start items-center my-3">
           <li
-            class="px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-blue-300"
+            class="px-6 py-2 mx-3 my-2 rounded-md shadow-md shadow-gray-100 bg-green-200 hover:bg-green-300 hover:shadow-green-200/80 hover:font-semibold"
             (click)="filterByLanguage(activity.language)"
           >
             {{ activity.language | getLanguage }}
           </li>
           <li
-            class="px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-red-300"
+            class="px-6 py-2 mx-3 my-2 rounded-md shadow-md shadow-gray-100 bg-lime-100 hover:bg-lime-200 hover:shadow-lime-200/80 hover:font-semibold"
             (click)="filterByType(activity.type)"
           >
             {{ activity.type }}
           </li>
           <li
             *ngFor="let keyword of activity.keywords"
-            class="px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-emerald-200"
+            class="px-6 py-2 mx-3 my-2 rounded-md shadow-md shadow-gray-100 bg-emerald-100 hover:bg-emerald-200 hover:shadow-emerald-200/80 hover:font-semibold"
             (click)="filterByKeyword(keyword)"
           >
             {{ keyword }}

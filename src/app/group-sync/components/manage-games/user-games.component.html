@@ -47,26 +47,26 @@
     >
       <li
         *ngFor="let game of this.filteredUserGames"
-        class="my-2 mx-4 border-2 border-slate-100 rounded-lg px-6 py-4 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300"
+        class="my-4 mx-4 border-2 border-slate-100 rounded-lg px-6 py-4 bg-white shadow-lg shadow-gray-200 hover:shadow-emerald-300/20 hover:border-emerald-100"
       >
         <div
-          class="flex flex-col justify-start items-center sm:flex-row sm:justify-between sm:items-start"
+          class="my-3 flex flex-col justify-start items-center sm:flex-row sm:justify-between sm:items-start"
         >
-          <h2 class="leading-12 font-semibold text-lg my-2">
+          <h2 class="leading-18 font-semibold text-2xl text-black">
             {{ game.title }}
           </h2>
           <div>
             <mat-icon
-              class="leading-12 align-middle ml-3 hover:text-teal-600"
+              class="mt-1 leading-14 text-2xl align-middle ml-3 text-slate-600 hover:text-green-700"
               title="edita"
               [routerLink]="['/games/edit', game.id]"
               >edit</mat-icon
             >
             <mat-icon
-              class="leading-12 align-middle ml-3 hover:text-red-600"
+              class="mt-1 leading-14 text-2xl align-middle ml-3 text-slate-600 hover:text-red-700"
               title="esborra"
               (click)="deleteGame(game.id)"
-              >delete</mat-icon
+              >delete_outlined</mat-icon
             >
           </div>
         </div>
@@ -78,12 +78,12 @@
             <p>Inici programat: {{ game.status.start | date: "short" }}</p>
             <p>Tancat: {{ game.status.closed | booleanLocale }}</p>
           </div>
-          <section>
+          <section class="mt-2">
             <h3 class="font-medium text-emerald-800">Activitat</h3>
             <div
               class="flex flex-col justify-start items-center sm:flex-row sm:flex-wrap sm:justify-between sm:items-start"
             >
-              <p>Activitat relacionada: {{ game.info.activityTitle }}</p>
+              <p>{{ game.info.activityTitle }}</p>
               <p *ngIf="game.status.maxTime">
                 Temps màxim:
                 {{ game.status.maxTime | friendlyTime }}
@@ -94,23 +94,25 @@
             </div>
           </section>
         </section>
-        <section class="flex flex-row flex-wrap justify-start items-center">
+        <section
+          class="flex flex-row flex-wrap justify-center items-center my-3"
+        >
           <p
             (click)="filterByLanguage(game.info.language)"
-            class="px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-blue-300"
+            class="px-6 py-2 mx-3 my-2 rounded-md shadow-md shadow-gray-100 bg-green-200 hover:bg-green-300 hover:shadow-green-200/80 hover:font-semibold"
           >
             {{ game.info.language | getLanguage }}
           </p>
           <p
             (click)="filterByType(game.info.type)"
-            class="px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-red-300"
+            class="px-6 py-2 mx-3 my-2 rounded-md shadow-md shadow-gray-100 bg-lime-100 hover:bg-lime-200 hover:shadow-lime-200/80 hover:font-semibold"
           >
             {{ game.info.type }}
           </p>
           <p *ngIf="game.info.keywords && game.info.keywords.length > 0">
             <span
               *ngFor="let keyword of game.info.keywords"
-              class="px-2 py-1 mr-2 my-2 rounded-md drop-shadow-lg bg-emerald-200"
+              class="px-6 py-2 mx-3 my-2 rounded-md shadow-md shadow-gray-100 bg-emerald-100 hover:bg-emerald-200 hover:shadow-emerald-200/80 hover:font-semibold"
               (click)="filterByKeyword(keyword)"
             >
               {{ keyword }}</span
