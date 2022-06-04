@@ -7,6 +7,7 @@ import { PageNotFoundComponent } from 'src/app/shared/components/PageNotFound/pa
 /* import activities-global module components */
 import { DashboardComponent } from 'src/app/activities-global/components/dashboard/dashboard.component';
 import { MosaicComponent } from 'src/app/activities-global/components/mosaic/mosaic.component';
+import { LogoutComponent } from './shared/components/logout/logout.component';
 
 export const routes: Routes = [
   {
@@ -16,6 +17,10 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent,
   },
   {
     path: 'welcome',

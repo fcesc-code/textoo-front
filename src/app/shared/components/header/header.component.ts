@@ -54,6 +54,6 @@ export class HeaderComponent implements OnInit {
 
     this.store.dispatch(AUTH_ACTIONS.logout());
 
-    this.router.navigateByUrl('home');
+    this.router.navigateByUrl('logout');
   }
 }
