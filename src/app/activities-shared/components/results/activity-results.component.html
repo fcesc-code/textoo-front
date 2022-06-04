@@ -1,0 +1,20 @@
+<h3 class="mb-2">Els teus resultats</h3>
+<section *ngIf="answer">
+  <p>Les teves respostes</p>
+  <p>
+    Correctes: {{ answer.questions.correct }}
+    {{ answer.rates.correct * 100 | number: "1.1-1" }} %
+  </p>
+  <p>
+    Incorrectes: {{ answer.questions.incorrect }}
+    {{ answer.rates.incorrect * 100 | number: "1.1-1" }} %
+  </p>
+  <p>
+    No contestades: {{ answer.questions.unanswered }}
+    {{ (1 - answer.rates.answered) * 100 | number: "1.1-1" }} %
+  </p>
+  <p>Total: {{ answer.points.total }} / {{ answer.points.maxPoints }} punts.</p>
+</section>
+<section>
+  <p>Carregant les respostes...</p>
+</section>

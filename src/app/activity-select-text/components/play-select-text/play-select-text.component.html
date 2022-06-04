@@ -25,22 +25,7 @@
     *ngIf="this.completed && this.answers"
     class="mx-auto w-[95%] sm:w-[82%] md:w-[60%]"
   >
-    <h3 class="mb-2">Els teus resultats</h3>
-    <section>
-      <p>Preguntes:</p>
-      <p>
-        Correctes: {{ this.answers.scores.questions.correct }}
-        {{ this.answers.scores.rates.correct * 100 | number: "1.1-1" }} %
-      </p>
-      <p>
-        Incorrectes: {{ this.answers.scores.questions.incorrect }}
-        {{ this.answers.scores.rates.incorrect * 100 | number: "1.1-1" }} %
-      </p>
-      <p>
-        Total: {{ this.answers.scores.points.total }} /
-        {{ this.answers.scores.points.maxPoints }} punts.
-      </p>
-    </section>
+    <app-activity-results [answer]="this.answers.scores"></app-activity-results>
   </div>
   <footer
     *ngIf="this.activity?.font?.display"
