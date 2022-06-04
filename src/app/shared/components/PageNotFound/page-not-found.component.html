@@ -1,68 +1,84 @@
-<section
+<div
   class="w-full flex flex-col flex-nowrap justify-start items-center md:flex-row md:justify-center md:items-start"
 >
-  <div
-    class="w-[85%] md:w-[45%] flex flex-col flex-nowrap justify-start items-start md:items-end mx-6 my-6"
+  <section
+    class="w-[85%] md:w-[45%] flex flex-col flex-nowrap justify-start items:center sm:items-start md:items-end mx-6 my-6"
   >
     <h1
-      class="text-5xl text-emerald-600 font-extrabold text-left md:text-right"
+      class="text-5xl text-emerald-600 font-extrabold text-center sm:text-left md:text-right"
     >
       404
     </h1>
     <h2
-      class="font-bold text-2xl pb-4 text-emerald-900 text-left md:text-right"
+      class="font-bold text-2xl pb-4 text-emerald-900 text-center sm:text-left md:text-right"
     >
-      Uuups. Alguna cosa ha anat malament.
+      No hem trobat el que buscaves
     </h2>
-    <p class="text-left md:text-right">
-      La pàgina que estaves buscant no existeix.
+    <p class="text-center sm:text-left md:text-right">
+      Potser vols fer alguna cosa diferent?
     </p>
-    <p class="text-left md:text-right">
-      Potser vos anar a alguna d'aquestes altres?
-    </p>
-  </div>
-  <ul
-    class="w-[85%] md:w-[50%] flex flex-col flex-nowrap justify-start items-start mx-6 my-6"
-  >
-    <li
-      class="my-1 py-2 px-4 hover:bg-emerald-100 hover:rounded-lg border-2 cursor-pointer rounded-md"
-      [routerLink]="'/home'"
+    <img
+      class="max-h-[35vw] sm:hidden md:block md:max-h-[50vw] mt-4"
+      src="../../../../assets/illustrations/undraw_lost_re_xqjt.svg"
+      alt=""
+    />
+  </section>
+  <section class="sm:flex sm:flex-row sm:justify-start sm:items-start md:block">
+    <ul
+      class="w-[85%] md:w-[50%] flex flex-col flex-nowrap justify-start items-start mx-6 mb-6 mt-0 sm:mt-3 md:mt-7"
     >
-      Pàgina principal
-    </li>
-    <li
-      class="my-1 py-2 px-4 hover:bg-emerald-100 hover:rounded-lg border-2 cursor-pointer rounded-md"
-      [routerLink]="'/groups'"
-    >
-      Uneix-te a una partida
-    </li>
-    <li
-      class="my-1 py-2 px-4 hover:bg-emerald-100 hover:rounded-lg border-2 cursor-pointer rounded-md"
-      *ngIf="!userIsLoggedIn"
-      [routerLink]="'/login'"
-    >
-      Vols connectar-te de nou?
-    </li>
-    <li
-      class="my-1 py-2 px-4 hover:bg-emerald-100 hover:rounded-lg border-2 cursor-pointer rounded-md"
-      *ngIf="!userIsLoggedIn"
-      [routerLink]="'/user/register'"
-    >
-      Si encara no tens compte, pos registrar-te aquí
-    </li>
-    <li
-      class="my-1 py-2 px-4 hover:bg-emerald-100 hover:rounded-lg border-2 cursor-pointer rounded-md"
-      *ngIf="userIsLoggedIn"
-      [routerLink]="'/activities/dashboard'"
-    >
-      Vols accedir a les teves activitats?
-    </li>
-    <li
-      class="my-1 py-2 px-4 hover:bg-emerald-100 hover:rounded-lg border-2 cursor-pointer rounded-md"
-      *ngIf="userIsLoggedIn"
-      [routerLink]="'/games/dashboard'"
-    >
-      O vols accedir als teus jocs?
-    </li>
-  </ul>
-</section>
+      <li
+        class="my-1 py-2 px-4 w-48 text-center md:text-left hover:bg-emerald-100 hover:rounded-lg border-2 cursor-pointer rounded-md"
+        [routerLink]="'/home'"
+      >
+        Anar a l'inici
+      </li>
+      <li
+        class="my-1 py-2 px-4 w-48 text-center md:text-left hover:bg-emerald-100 hover:rounded-lg border-2 cursor-pointer rounded-md"
+        [routerLink]="'/games/join'"
+      >
+        Jugar una partida
+      </li>
+      <li
+        class="my-1 py-2 px-4 w-48 text-center md:text-left hover:bg-emerald-100 hover:rounded-lg border-2 cursor-pointer rounded-md"
+        *ngIf="!userIsLoggedIn"
+        [routerLink]="'/login'"
+      >
+        Connectar-me
+      </li>
+      <li
+        class="my-1 py-2 px-4 w-48 text-center md:text-left hover:bg-emerald-100 hover:rounded-lg border-2 cursor-pointer rounded-md"
+        *ngIf="!userIsLoggedIn"
+        [routerLink]="'/user/register'"
+      >
+        Descobreix textoo
+      </li>
+      <li
+        class="my-1 py-2 px-4 w-48 text-center md:text-left hover:bg-emerald-100 hover:rounded-lg border-2 cursor-pointer rounded-md"
+        *ngIf="userIsLoggedIn"
+        [routerLink]="'/activities/dashboard'"
+      >
+        Les meves activitats
+      </li>
+      <li
+        class="my-1 py-2 px-4 w-48 text-center md:text-left hover:bg-emerald-100 hover:rounded-lg border-2 cursor-pointer rounded-md"
+        *ngIf="userIsLoggedIn"
+        [routerLink]="'/games/dashboard'"
+      >
+        Els meus jocs
+      </li>
+
+      <li
+        class="my-1 py-2 px-4 w-48 text-center md:text-left hover:bg-emerald-100 hover:rounded-lg border-2 cursor-pointer rounded-md"
+        [routerLink]="'/groups'"
+      >
+        Els equips
+      </li>
+    </ul>
+    <img
+      class="max-h-[40vw] hidden sm:block md:hidden"
+      src="../../../../assets/illustrations/undraw_lost_re_xqjt.svg"
+      alt=""
+    />
+  </section>
+</div>
