@@ -1,135 +1,143 @@
 <div style="margin-left: auto; margin-right: auto">
   <p id="profileFeedback"></p>
 </div>
-<div>
+<h1 class="font-bold text-xl pb-6 text-center">El teu perfil</h1>
+<div
+  class="flex flex-col justify-start items-center sm:flex-row sm:justify-between sm:items-start"
+>
   <form
-    class="form"
+    class="sm:mx-6 sm:mt-8 text-center"
     [formGroup]="profileForm"
     (ngSubmit)="updateUser()"
     aria-label="update user profile form"
   >
-    <h1 class="font-bold text-xl pb-6 text-center">Actualitza el teu perfil</h1>
-    <mat-form-field appearance="fill">
-      <mat-label>Alias</mat-label>
-      <input
-        matInput
-        type="text"
-        name="alias"
-        [formControl]="alias"
-        aria-required="true"
-        placeholder="Your alias..."
-        id="profileForm-alias"
-      />
-      <mat-error *ngIf="alias.dirty && alias.hasError('required')">
-        Cal proporcionar un alias.
-      </mat-error>
-      <mat-error
-        *ngIf="
-          alias.dirty &&
-          alias.hasError('minlength') &&
-          !alias.hasError('required')
-        "
-      >
-        L'alias ha de tenir almenys 5 caràcters.
-      </mat-error>
-      <mat-error
-        *ngIf="
-          alias.dirty &&
-          alias.hasError('maxlength') &&
-          !alias.hasError('required')
-        "
-      >
-        L'alias no pot excedir els 25 caràcters.
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Avatar</mat-label>
-      <input
-        matInput
-        type="text"
-        name="avatar"
-        [formControl]="avatar"
-        aria-required="true"
-        placeholder="Your alias..."
-        id="profileForm-avatar"
-      />
-      <mat-error *ngIf="avatar.dirty && avatar.hasError('required')">
-        Cal proporcionar un avatar.
-      </mat-error>
-      <mat-error
-        *ngIf="
-          avatar.dirty &&
-          avatar.hasError('minlength') &&
-          !avatar.hasError('required')
-        "
-      >
-        L'avatar ha de tenir almenys 5 caràcters.
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Correu electrònic</mat-label>
-      <input
-        matInput
-        type="email"
-        [formControl]="email"
-        aria-required="true"
-        placeholder="Your email..."
-        autocomplete="email"
-        id="profileForm-email"
-      />
-      <mat-error *ngIf="email.dirty && email.hasError('required')">
-        Cal proporcionar una adreça de correu electrònic.
-      </mat-error>
-      <mat-error
-        *ngIf="
-          email.dirty && email.hasError('email') && !email.hasError('required')
-        "
-      >
-        Format de correu electrònic incorrecte.
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Idioma</mat-label>
-      <mat-select
-        required
-        name="language"
-        [formControl]="language"
-        aria-label="Select your preferred language"
-      >
-        <mat-option
-          *ngFor="let lang of this.supportedLanguages"
-          [value]="lang.short.toLowerCase()"
-          >{{ lang.long }}</mat-option
+    <section>
+      <mat-form-field class="mx-4" appearance="fill">
+        <mat-label>Alias</mat-label>
+        <input
+          matInput
+          type="text"
+          name="alias"
+          [formControl]="alias"
+          aria-required="true"
+          placeholder="Your alias..."
+          id="profileForm-alias"
+        />
+        <mat-error *ngIf="alias.dirty && alias.hasError('required')">
+          Cal proporcionar un alias.
+        </mat-error>
+        <mat-error
+          *ngIf="
+            alias.dirty &&
+            alias.hasError('minlength') &&
+            !alias.hasError('required')
+          "
         >
-      </mat-select>
-      <mat-error *ngIf="language.dirty && language.hasError('required')">
-        Cal seleccionar l'idioma preferit.
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Vull...</mat-label>
-      <mat-select
-        multiple
-        required
-        name="language"
-        [formControl]="roles"
-        selected-options="this.roles"
-        aria-label="What are you going to do?"
-      >
-        <mat-option
-          *ngFor="let role of this.supportedRoles"
-          [value]="role.value"
-          >{{ role.activity }}</mat-option
+          L'alias ha de tenir almenys 5 caràcters.
+        </mat-error>
+        <mat-error
+          *ngIf="
+            alias.dirty &&
+            alias.hasError('maxlength') &&
+            !alias.hasError('required')
+          "
         >
-      </mat-select>
-      <mat-error *ngIf="roles.dirty && roles.hasError('required')">
-        Cal que seleccionis un rol principal. No pateixis, podràs canviar-lo
-        posteriorment si no estàs segur.
-      </mat-error>
-    </mat-form-field>
-    <div>
+          L'alias no pot excedir els 25 caràcters.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="mx-4" appearance="fill">
+        <mat-label>Correu electrònic</mat-label>
+        <input
+          matInput
+          type="email"
+          [formControl]="email"
+          aria-required="true"
+          placeholder="Your email..."
+          autocomplete="email"
+          id="profileForm-email"
+        />
+        <mat-error *ngIf="email.dirty && email.hasError('required')">
+          Cal proporcionar una adreça de correu electrònic.
+        </mat-error>
+        <mat-error
+          *ngIf="
+            email.dirty &&
+            email.hasError('email') &&
+            !email.hasError('required')
+          "
+        >
+          Format de correu electrònic incorrecte.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="mx-4" appearance="fill">
+        <mat-label>Idioma</mat-label>
+        <mat-select
+          required
+          name="language"
+          [formControl]="language"
+          aria-label="Select your preferred language"
+        >
+          <mat-option
+            *ngFor="let lang of this.supportedLanguages"
+            [value]="lang.short.toLowerCase()"
+            >{{ lang.long }}</mat-option
+          >
+        </mat-select>
+        <mat-error *ngIf="language.dirty && language.hasError('required')">
+          Cal seleccionar l'idioma preferit.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="mx-4" appearance="fill">
+        <mat-label>Vull...</mat-label>
+        <mat-select
+          multiple
+          required
+          name="language"
+          [formControl]="roles"
+          selected-options="this.roles"
+          aria-label="What are you going to do?"
+        >
+          <mat-option
+            *ngFor="let role of this.supportedRoles"
+            [value]="role.value"
+            >{{ role.activity }}</mat-option
+          >
+        </mat-select>
+        <mat-error *ngIf="roles.dirty && roles.hasError('required')">
+          Cal que seleccionis un rol principal. No pateixis, podràs canviar-lo
+          posteriorment si no estàs segur.
+        </mat-error>
+      </mat-form-field>
+    </section>
+    <section>
+      <mat-form-field class="mx-4" appearance="fill">
+        <mat-label>Avatar</mat-label>
+        <input
+          matInput
+          type="text"
+          name="avatar"
+          [formControl]="avatar"
+          aria-required="true"
+          placeholder="Your alias..."
+          id="profileForm-avatar"
+        />
+        <mat-error *ngIf="avatar.dirty && avatar.hasError('required')">
+          Cal proporcionar un avatar.
+        </mat-error>
+        <mat-error
+          *ngIf="
+            avatar.dirty &&
+            avatar.hasError('minlength') &&
+            !avatar.hasError('required')
+          "
+        >
+          L'avatar ha de tenir almenys 5 caràcters.
+        </mat-error>
+      </mat-form-field>
+    </section>
+    <div class="text-center">
       <button
-        mat-raised-button
+        class="px-8 py-2 my-2 rounded-md drop-shadow-lg bg-emerald-100 hover:bg-teal-700 hover:text-white hover:font-semibold hover:tracking-wide hover:shadow-md hover:shadow-teal-100"
         color="primary"
         type="submit"
         [disabled]="!profileForm.valid"
@@ -139,4 +147,9 @@
       </button>
     </div>
   </form>
+  <img
+    class="max-h-[45vw] sm:max-h-[35vw] my-8 mx-10"
+    src="../../../../assets/illustrations/undraw_profile_details_re_ch9r.svg"
+    alt=""
+  />
 </div>

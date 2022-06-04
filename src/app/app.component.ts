@@ -64,7 +64,7 @@ export class AppComponent implements OnDestroy, OnInit, AfterContentInit {
     this.localStorageService.remove('lang');
     this.headerMenusService.unauthorize();
     this.store.dispatch(AUTH_ACTIONS.logout());
-    this.router.navigateByUrl('home');
+    this.router.navigateByUrl('logout');
   }
 
   refreshAuthStatus(): void {
