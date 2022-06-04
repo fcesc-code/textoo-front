@@ -1,14 +1,14 @@
 <article
-  class="mx-auto overflow-hidden shadow-lg m-4 p-6 w-[95%] sm:w-[80%] md:w-[71%] lg:w-[65%]"
+  class="mx-auto my-6 px-4 sm:px-2 md:px-0 py-6 max-w-[90%] flex flex-col justify-start items-center overflow-hidden shadow-lg"
 >
-  <h2 class="font-bold text-xl py-3 text-center">
+  <h2 class="font-semibold text-2xl py-3 text-center tracking-wide">
     {{ this.activity?.title }}
   </h2>
   <div
     *ngIf="this.activity?.text && !this.completed"
-    class="mx-auto w-[95%] sm:w-[82%] md:w-[60%]"
+    class="mx-auto w-[95%] sm:w-[90%] md:w-[85%]"
   >
-    <h3 class="mb-2">{{ this.activity?.task }}</h3>
+    <h3 class="font-medium text-emerald-800 my-2">{{ this.activity?.task }}</h3>
     <section
       *ngIf="this.activity.text"
       [id]="this.idMainSelector"
@@ -23,55 +23,58 @@
   </div>
   <div
     *ngIf="this.completed && this.answers"
-    class="mx-auto w-[95%] sm:w-[82%] md:w-[60%]"
+    class="mx-auto w-[95%] sm:w-[90%] md:w-[85%]"
   >
     <app-activity-results [answer]="this.answers.scores"></app-activity-results>
   </div>
   <footer
     *ngIf="this.activity?.font?.display"
-    class="mx-auto w-[95%] sm:w-[82%] md:w-[60%] my-4"
+    class="mx-auto w-[95%] sm:w-[90%] md:w-[85%] my-4 flex flex-col justify-start items-center sm:flex-row sm:justify-between"
   >
-    <p class="italic text-left">{{ this.activity.font.author }}</p>
-    <p class="text-left">
-      <a href="{{ this.activity.font.reference }}">{{
-        this.activity.font.work
-      }}</a
-      ><time [dateTime]="this.activity.font.year"
-        >, {{ this.activity.font.year }}</time
-      >
-    </p>
+    <section class="w-[35%] mr-6">
+      <p class="italic text-left">{{ this.activity.font.author }}</p>
+      <p class="text-left">
+        <a href="{{ this.activity.font.reference }}">{{
+          this.activity.font.work
+        }}</a
+        ><time [dateTime]="this.activity.font.year"
+          >, {{ this.activity.font.year }}</time
+        >
+      </p>
+    </section>
+    <section
+      class="ml-6 flex flex-col justify-start items-center sm:flex-row sm:flex-wrap sm:justify-end lg:flex-nowrap"
+    >
+      <app-button
+        class="my-2 mx-3"
+        id="removeSelections"
+        *ngIf="!this.completed"
+        (click)="this.removeSelections()"
+        text="netejar"
+        title="esborra la selecció"
+        [disabled]="this.selectedText.length === 0"
+      ></app-button>
+      <app-button
+        class="my-2 mx-3"
+        id="showResults"
+        *ngIf="!this.completed"
+        (click)="this.getResults()"
+        text="validar"
+      ></app-button>
+      <app-button
+        class="my-2 mx-3"
+        id="replayActivity"
+        *ngIf="this.completed"
+        (click)="this.replay()"
+        text="tornar-hi"
+      ></app-button>
+      <app-button
+        class="my-2 mx-3"
+        id="moreActivities"
+        *ngIf="this.completed"
+        [routerLink]="['/home']"
+        text="vull més !"
+      ></app-button>
+    </section>
   </footer>
-  <div
-    class="flex flex-col justify-start items-center sm:flex-row sm:justify-center"
-  >
-    <app-button
-      class="my-2 mx-3"
-      id="removeSelections"
-      *ngIf="!this.completed"
-      (click)="this.removeSelections()"
-      text="esborrar selecció"
-      [disabled]="this.selectedText.length === 0"
-    ></app-button>
-    <app-button
-      class="my-2 mx-3"
-      id="showResults"
-      *ngIf="!this.completed"
-      (click)="this.getResults()"
-      text="validar"
-    ></app-button>
-    <app-button
-      class="my-2 mx-3"
-      id="replayActivity"
-      *ngIf="this.completed"
-      (click)="this.replay()"
-      text="tornar-hi"
-    ></app-button>
-    <app-button
-      class="my-2 mx-3"
-      id="moreActivities"
-      *ngIf="this.completed"
-      [routerLink]="['/']"
-      text="més activitats"
-    ></app-button>
-  </div>
 </article>
