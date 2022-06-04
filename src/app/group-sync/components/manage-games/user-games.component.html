@@ -71,7 +71,11 @@
           </div>
         </div>
         <section>
-          <h3 class="font-medium text-emerald-800">Estat del joc</h3>
+          <h3
+            class="pt-3 font-medium text-emerald-800 text-center sm:text-left"
+          >
+            Estat del joc
+          </h3>
           <div
             class="flex flex-col justify-start items-center sm:flex-row sm:flex-wrap sm:justify-between sm:items-start"
           >
@@ -86,7 +90,11 @@
             </p>
           </div>
           <section class="mt-2">
-            <h3 class="font-medium text-emerald-800">Activitat</h3>
+            <h3
+              class="pt-3 font-medium text-emerald-800 text-center sm:text-left"
+            >
+              Activitat
+            </h3>
             <div
               class="flex flex-col justify-start items-center sm:flex-row sm:flex-wrap sm:justify-between sm:items-start"
             >
@@ -106,20 +114,20 @@
         >
           <p
             (click)="filterByLanguage(game.info.language)"
-            class="px-6 py-2 mx-3 my-2 rounded-md shadow-md shadow-gray-100 bg-green-200 hover:bg-green-300 hover:shadow-green-200/80 hover:font-semibold"
+            class="px-6 py-2 mx-3 mt-2 mb-6 rounded-md shadow-md shadow-gray-100 bg-green-200 hover:bg-green-300 hover:shadow-green-200/80 hover:font-semibold"
           >
             {{ game.info.language | getLanguage }}
           </p>
           <p
             (click)="filterByType(game.info.type)"
-            class="px-6 py-2 mx-3 my-2 rounded-md shadow-md shadow-gray-100 bg-lime-100 hover:bg-lime-200 hover:shadow-lime-200/80 hover:font-semibold"
+            class="px-6 py-2 mx-3 mt-2 mb-6 rounded-md shadow-md shadow-gray-100 bg-lime-100 hover:bg-lime-200 hover:shadow-lime-200/80 hover:font-semibold"
           >
             {{ game.info.type }}
           </p>
           <p *ngIf="game.info.keywords && game.info.keywords.length > 0">
             <span
               *ngFor="let keyword of game.info.keywords"
-              class="px-6 py-2 mx-3 my-2 rounded-md shadow-md shadow-gray-100 bg-emerald-100 hover:bg-emerald-200 hover:shadow-emerald-200/80 hover:font-semibold"
+              class="px-6 py-2 mx-3 mt-2 mb-6 rounded-md shadow-md shadow-gray-100 bg-emerald-100 hover:bg-emerald-200 hover:shadow-emerald-200/80 hover:font-semibold"
               (click)="filterByKeyword(keyword)"
             >
               {{ keyword }}</span
