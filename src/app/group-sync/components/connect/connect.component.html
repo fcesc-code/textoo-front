@@ -1,16 +1,21 @@
 <section>
   <form
-    class="w-[85%] sm:w-[70%] md:w-[65%] lg:w-[58%] pb-6 flex flex-col justify-start items-center mb-6 border-2 border-slate-100 rounded-lg px-6 pt-6 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300 mx-auto mt-8"
+    class="w-[85%] sm:w-[79%] md:w-[70%] lg:w-[58%] pb-6 flex flex-col justify-start items-center mb-6 border-2 border-slate-100 rounded-lg px-6 pt-6 bg-white drop-shadow-lg hover:drop-shadow-xl hover:shadow-emerald-300 hover:border-emerald-300 mx-auto mt-8"
     [formGroup]="joinGroupForm"
     (ngSubmit)="join()"
     aria-label="join group form"
   >
-    <h2 class="font-bold text-xl py-3 text-center px-6">
-      Unir-me a una activitat de grup
+    <h2 class="font-semibold text-xl py-3 text-center px-6 tracking-wide">
+      Preparat ?
     </h2>
     <div
-      class="w-full flex flex-col sm:flex-row justify-start sm:justify-center items-center px-6"
+      class="w-full flex flex-col sm:flex-row justify-start sm:justify-between items-center px-6 pb-3"
     >
+      <img
+        class="max-h-[45vw] sm:max-h-[35vw] sm:hidden mb-2"
+        src="../../../../assets/illustrations/undraw_maker_launch_re_rq81.svg"
+        alt=""
+      />
       <mat-form-field
         appearance="standard"
         style="width: 15rem; text-align: center; font-size: 18px"
@@ -41,10 +46,14 @@
         />
       </mat-form-field>
       <app-button
-        class="w-58"
         (click)="this.join(); $event.preventDefault()"
-        text="unir-me al grup"
+        text="jugar"
       ></app-button>
     </div>
+    <img
+      class="max-h-[45vw] sm:max-h-[35vw] hidden sm:block mb-4"
+      src="../../../../assets/illustrations/undraw_maker_launch_re_rq81.svg"
+      alt=""
+    />
   </form>
 </section>
