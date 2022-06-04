@@ -77,6 +77,13 @@
           >
             <p>Inici programat: {{ game.status.start | date: "short" }}</p>
             <p>Tancat: {{ game.status.closed | booleanLocale }}</p>
+            <p
+              [routerLink]="['/games/join/', game.id]"
+              title="anar al joc"
+              class="cursor-pointer"
+            >
+              {{ game.id }}
+            </p>
           </div>
           <section class="mt-2">
             <h3 class="font-medium text-emerald-800">Activitat</h3>

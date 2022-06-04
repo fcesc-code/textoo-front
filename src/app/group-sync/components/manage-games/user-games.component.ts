@@ -14,6 +14,7 @@ export class UserGamesComponent implements OnDestroy {
   filteredUserGames: any[];
   userGames: Game[];
   userGamesSubscription!: Subscription;
+
   constructor(private authService: AuthService, private db: GroupGameService) {
     this.filteredUserGames = [];
     this.userGames = [];
@@ -33,6 +34,7 @@ export class UserGamesComponent implements OnDestroy {
           snapshot['docs'].forEach((doc: DocumentData) => {
             receivedGames.push({ ...doc['data'](), id: doc['id'] });
           });
+          console.log('DATA RECEIVED >>> ', receivedGames);
           return receivedGames;
         })
       );
