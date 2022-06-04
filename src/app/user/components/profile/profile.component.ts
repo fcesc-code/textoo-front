@@ -24,7 +24,7 @@ import { LANGUAGES, USER_ROLES } from 'src/app/shared/constants/globals';
 })
 export class ProfileComponent implements OnInit, AfterContentInit {
   supportedLanguages: any[] = LANGUAGES;
-  supportedRoles: any[] = USER_ROLES;
+  supportedRoles: any[] = USER_ROLES.ca;
   profileUser: UserDto;
 
   avatar: FormControl;
