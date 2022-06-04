@@ -1,20 +1,22 @@
 <div class="w-full flex flex-col justify-start items-center mb-6">
   <section class="w-[95%] sm:w-[90%] md:w-[80%] lg:w-screen-md mt-4">
     <div
-      class="py-4 flex flex-row justify-center items-center hover:text-emerald-700 hover:font-bold hover:cursor-pointer"
+      class="py-4 flex flex-row justify-center items-center hover:text-green-600 hover:shadow-green-600/30 hover:font-semibold hover:cursor-pointer"
       [routerLink]="['/games/create']"
     >
-      <mat-icon class="leading-12 mx-4" title="esborra"
+      <mat-icon class="leading-18 text-xl mx-3" title="esborra"
         >add_circle_outline</mat-icon
       >
-      <p class="mx-4">Crea un nou joc</p>
+      <p class="leading-18 mx-3 text-lg font-semibold">Crea un nou joc</p>
     </div>
-    <h1 class="font-bold text-xl text-center mx-4 px-6 py-2 my-2">
-      Jocs creats per mi
+    <h1
+      class="font-semibold text-3xl text-center text-emerald-800 mx-4 px-6 py-2 my-2 tracking-wide"
+    >
+      Properes partides
     </h1>
     <p *ngIf="userGames.length > 0" class="mx-4 px-6 py-2">
-      Només podràs esborrar els jocs que no hagin començat fins a una setmana
-      abans del seu inici.
+      Només podràs editar i eliminar els jocs que no hagin començat fins a una
+      setmana abans del seu inici.
     </p>
     <div class="mx-4 px-6 py-2" *ngIf="userGames.length === 0">
       <p>
@@ -52,7 +54,10 @@
         <div
           class="my-3 flex flex-col justify-start items-center sm:flex-row sm:justify-between sm:items-start"
         >
-          <h2 class="leading-18 font-semibold text-2xl text-black">
+          <h2
+            class="leading-18 font-semibold text-2xl text-black cursor-pointer"
+            [routerLink]="['/games/join/', game.id]"
+          >
             {{ game.title }}
           </h2>
           <div>
@@ -71,15 +76,30 @@
           </div>
         </div>
         <section>
-          <h3 class="font-medium text-emerald-800">Estat del joc</h3>
+          <h3
+            class="pt-3 font-medium text-emerald-800 text-center sm:text-left"
+          >
+            Estat del joc
+          </h3>
           <div
             class="flex flex-col justify-start items-center sm:flex-row sm:flex-wrap sm:justify-between sm:items-start"
           >
             <p>Inici programat: {{ game.status.start | date: "short" }}</p>
             <p>Tancat: {{ game.status.closed | booleanLocale }}</p>
+            <p
+              [routerLink]="['/games/join/', game.id]"
+              title="anar al joc"
+              class="cursor-pointer"
+            >
+              {{ game.id }}
+            </p>
           </div>
           <section class="mt-2">
-            <h3 class="font-medium text-emerald-800">Activitat</h3>
+            <h3
+              class="pt-3 font-medium text-emerald-800 text-center sm:text-left"
+            >
+              Activitat
+            </h3>
             <div
               class="flex flex-col justify-start items-center sm:flex-row sm:flex-wrap sm:justify-between sm:items-start"
             >
@@ -99,20 +119,20 @@
         >
           <p
             (click)="filterByLanguage(game.info.language)"
-            class="px-6 py-2 mx-3 my-2 rounded-md shadow-md shadow-gray-100 bg-green-200 hover:bg-green-300 hover:shadow-green-200/80 hover:font-semibold"
+            class="px-6 py-2 mx-3 mt-2 mb-6 rounded-md shadow-md shadow-gray-100 bg-green-200 hover:bg-green-300 hover:shadow-green-200/80 hover:font-semibold"
           >
             {{ game.info.language | getLanguage }}
           </p>
           <p
             (click)="filterByType(game.info.type)"
-            class="px-6 py-2 mx-3 my-2 rounded-md shadow-md shadow-gray-100 bg-lime-100 hover:bg-lime-200 hover:shadow-lime-200/80 hover:font-semibold"
+            class="px-6 py-2 mx-3 mt-2 mb-6 rounded-md shadow-md shadow-gray-100 bg-lime-100 hover:bg-lime-200 hover:shadow-lime-200/80 hover:font-semibold"
           >
             {{ game.info.type }}
           </p>
           <p *ngIf="game.info.keywords && game.info.keywords.length > 0">
             <span
               *ngFor="let keyword of game.info.keywords"
-              class="px-6 py-2 mx-3 my-2 rounded-md shadow-md shadow-gray-100 bg-emerald-100 hover:bg-emerald-200 hover:shadow-emerald-200/80 hover:font-semibold"
+              class="px-6 py-2 mx-3 mt-2 mb-6 rounded-md shadow-md shadow-gray-100 bg-emerald-100 hover:bg-emerald-200 hover:shadow-emerald-200/80 hover:font-semibold"
               (click)="filterByKeyword(keyword)"
             >
               {{ keyword }}</span

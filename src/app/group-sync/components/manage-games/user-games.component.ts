@@ -14,6 +14,7 @@ export class UserGamesComponent implements OnDestroy {
   filteredUserGames: any[];
   userGames: Game[];
   userGamesSubscription!: Subscription;
+
   constructor(private authService: AuthService, private db: GroupGameService) {
     this.filteredUserGames = [];
     this.userGames = [];
@@ -33,12 +34,14 @@ export class UserGamesComponent implements OnDestroy {
           snapshot['docs'].forEach((doc: DocumentData) => {
             receivedGames.push({ ...doc['data'](), id: doc['id'] });
           });
+          console.log('DATA RECEIVED >>> ', receivedGames);
           return receivedGames;
         })
       );
       this.userGamesSubscription = promiseSource.subscribe((data: any) => {
         this.userGames = data;
         this.filteredUserGames = [...this.userGames];
+        this.filterByNotClosed();
       });
     }
   }
@@ -65,6 +68,15 @@ export class UserGamesComponent implements OnDestroy {
         game.info.language.toLowerCase().trim() ===
         targetLanguage.toLowerCase().trim()
     );
+  }
+
+  filterByNotClosed(): void {
+    const NOW = new Date();
+    const CURRENT_TIME = NOW.getTime();
+    this.filteredUserGames = [...this.userGames].filter((game: Game) => {
+      const START = new Date(game.status.start).getTime();
+      return CURRENT_TIME < START;
+    });
   }
 
   removeFilters(): void {
