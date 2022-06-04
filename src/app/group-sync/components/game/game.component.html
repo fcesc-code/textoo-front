@@ -1,35 +1,87 @@
-<section>
-  <h2>This is an ongoing game</h2>
-  <p>this works!</p>
-</section>
+<article class="my-6 flex flex-col justify-start items-center">
+  <section>
+    <app-countdown
+      *ngIf="game && game.status.start && getStartTime() > getCurrentTime()"
+      [targetDate]="getStartDate()"
+      [title]="'La partida començarà en'"
+    ></app-countdown>
+    <nav
+      class="flex flex-col justify-start items-center sm:flex-row sm:justify-center sm:items-start"
+    >
+      <img
+        *ngIf="game && game.status.start && getStartTime() > getCurrentTime()"
+        class="max-w-[80vw] sm:max-h-[40vw] sm:max-w-[40vw] my-6"
+        src="../../../../assets/illustrations/undraw_a_moment_to_relax_re_v5gv.svg"
+        alt=""
+      />
+      <div>
+        <div *ngIf="getStartTime() <= getTwoMinutesFromNow()">
+          <h3
+            class="pt-3 text-2xl font-medium text-center sm:text-left tracking-wide"
+          >
+            Menys de dos minuts !
+          </h3>
+          <p class="my-3 text-center sm:text-left">
+            Paciència, els altres participants s'estan connectant.
+          </p>
+        </div>
+        <div *ngIf="getStartTime() > getTwoMinutesFromNow()">
+          <h3
+            class="pt-3 text-2xl font-medium text-center sm:text-left tracking-wide"
+          >
+            Falta una estona
+          </h3>
+          <p class="my-3 text-center sm:text-left">
+            Vols fer alguna altra cosa?
+          </p>
+        </div>
+        <ul
+          class="flex flex-col justify-start items-center sm:items-start mx-6 sm:ml-0"
+        >
+          <li
+            class="my-1 py-2 px-4 w-48 text-center md:text-left hover:bg-emerald-100 hover:rounded-lg border-2 cursor-pointer rounded-md"
+            [routerLink]="'/home'"
+          >
+            Fer activitats
+          </li>
+          <li
+            class="my-1 py-2 px-4 w-48 text-center md:text-left hover:bg-emerald-100 hover:rounded-lg border-2 cursor-pointer rounded-md"
+            [routerLink]="'/games/dashboard'"
+          >
+            Altres partides
+          </li>
+          <li
+            class="my-1 py-2 px-4 w-48 text-center md:text-left hover:bg-emerald-100 hover:rounded-lg border-2 cursor-pointer rounded-md"
+            [routerLink]="'/groups'"
+          >
+            Veure grups
+          </li>
+          <li
+            class="my-1 py-2 px-4 w-48 text-center md:text-left hover:bg-emerald-100 hover:rounded-lg border-2 cursor-pointer rounded-md"
+            [routerLink]="'/activities/dashboard'"
+          >
+            Crear activitats
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <app-countdown
+      *ngIf="game && game.status.start && getStartTime() <= getCurrentTime()"
+      [targetDate]="getEndDate()"
+      [title]="'Temps restant'"
+    ></app-countdown>
+  </section>
 
-<p *ngIf="game && game.info.type === activityTypes.BEST_OPTION">
-  This is a best-option activity type.
-</p>
-<p *ngIf="game && game.info.type === activityTypes.SELECT_TEXT">
-  This is a select-text activity type.
-</p>
-
-<app-countdown
-  *ngIf="game && game.status.start && getStartTime() > getCurrentTime()"
-  [targetDate]="getStartDate()"
-  [title]="'La partida començarà en'"
-></app-countdown>
-<app-countdown
-  *ngIf="game && game.status.start && getStartTime() <= getCurrentTime()"
-  [targetDate]="getEndDate()"
-  [title]="'Temps restant'"
-></app-countdown>
-
-<section *ngIf="getStartTime() <= getCurrentTime()">
-  <app-play-best-option
-    *ngIf="game && game.info.type === activityTypes.BEST_OPTION"
-    [game]="game.info.activityId"
-  >
-  </app-play-best-option>
-  <app-play-select-text
-    *ngIf="game && game.info.type === activityTypes.SELECT_TEXT"
-    [game]="game.info.activityId"
-  >
-  </app-play-select-text>
-</section>
+  <section *ngIf="getStartTime() <= getCurrentTime()">
+    <app-play-best-option
+      *ngIf="game && game.info.type === activityTypes.BEST_OPTION"
+      [game]="game.info.activityId"
+    >
+    </app-play-best-option>
+    <app-play-select-text
+      *ngIf="game && game.info.type === activityTypes.SELECT_TEXT"
+      [game]="game.info.activityId"
+    >
+    </app-play-select-text>
+  </section>
+</article>

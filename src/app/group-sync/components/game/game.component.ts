@@ -62,12 +62,20 @@ export class GameComponent implements OnInit, OnDestroy {
     return new Date(date).getTime();
   }
 
+  getTwoMinutesFromNow(): number {
+    return new Date().getTime() + 2 * 60 * 1000;
+  }
+
   getCurrentTime(): number {
     return this.getTime(new Date());
   }
 
   getStartTime(): number {
-    return this.getTime(this.game.status.start);
+    let result = 0;
+    if (this.game?.status?.start) {
+      result = this.getTime(this.game.status.start);
+    }
+    return result;
   }
 
   getEndTime(): number {
