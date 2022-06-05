@@ -99,6 +99,10 @@
     >
       Ho sento, encara no hem implementat aquest tipus d'activitat. Textoo.
     </p>
+    <app-group-results
+      [answers]="game.scores"
+      [groupScores]="game.groupScores"
+    ></app-group-results>
     <aside class="w-[18rem]">
       <div
         *ngIf="!hasEnded()"

@@ -1,5 +1,5 @@
 <section
-  *ngIf="answer"
+  *ngIf="answers"
   class="flex flex-col justify-start items-center sm:flex-row sm:justify-between sm:items-start"
 >
   <div class="max-w-[60%]">
@@ -52,7 +52,7 @@
     >
       <span class="w-[6rem] text-left">Mitjana Puntuació</span>
       <span class="w-[6rem] text-right"
-        >{{ groupScores.average.points | number: "2.1-1" }}
+        >{{ groupScores.points.average | number: "2.1-1" }}
       </span>
     </p>
   </div>
@@ -61,7 +61,7 @@
   <h3>Classificació</h3>
   <ul>
     <li *ngFor="let player of groupScores.leaderboard">
-      <span>{{ player.name }}</span>
+      <span>{{ player.userAlias }}</span>
       <span>{{ player.points | number: "2.1-1" }}</span>
     </li>
   </ul>

@@ -212,7 +212,7 @@ export class GameComponent implements OnInit, OnDestroy {
       (score) => score.userId === this.userId
     );
     if (!userHasAnswered) {
-      this.game.scores.push({ ...eventData.basicData, id: '' });
+      this.game.scores.push({ ...eventData.basicData, id: '' } as gameScore);
       this.updateGame();
     }
   }

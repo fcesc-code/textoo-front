@@ -24,6 +24,7 @@ import { UserGamesComponent } from './components/manage-games/user-games.compone
 import { CountdownComponent } from './components/timer/countdown.component';
 import { InvitePlayerComponent } from './components/invite-player/invite-player.component';
 import { UsersOnlineComponent } from './components/users-online/users-online.component';
+import { GroupResultsComponent } from './components/group-results/group-results.component';
 /* Routes */
 import { GroupSyncRoutingModule } from './group-sync-routing.module';
 /* Pipes */
@@ -44,6 +45,7 @@ import { AddLeadingZeroPipe } from './pipes/addLeadingZero';
     CountdownComponent,
     InvitePlayerComponent,
     UsersOnlineComponent,
+    GroupResultsComponent,
   ],
   imports: [
     CommonModule,
