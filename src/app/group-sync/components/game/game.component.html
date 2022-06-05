@@ -68,8 +68,7 @@
     </nav>
   </section>
   <header *ngIf="game">
-    <h1>{{ game.title }}</h1>
-    <p>{{ game.id }}</p>
+    <h1 class="text-center text-2xl font-medium">{{ game.title }}</h1>
   </header>
   <section
     *ngIf="hasStarted()"
@@ -102,6 +101,14 @@
         [players]="game?.players || []"
         class="w-full"
       ></app-users-online>
+      <div
+        class="w-full my-4 border-2 border-slate-100 rounded-lg py-4 bg-white shadow-lg shadow-gray-200 hover:shadow-emerald-300/20 hover:border-emerald-100 cursor-pointer"
+      >
+        <p class="px-6 font-light pb-2 text-center">
+          Falta gent? Comparteix el codi
+        </p>
+        <p class="px-6 text-center">{{ game?.id }}</p>
+      </div>
     </aside>
   </section>
 </article>

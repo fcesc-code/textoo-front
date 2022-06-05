@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { from, Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import {
   Game,
@@ -41,13 +41,15 @@ export class GameComponent implements OnInit, OnDestroy {
   activityTypes = ActivityType;
   unsubscribeGame!: Unsubscribe;
   playersInGame: Player[] = [];
+  routeSubscription!: Subscription;
 
   constructor(
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private activitiesSharedService: ActivitiesSharedService,
     private sharedService: SharedService,
-    private db: GroupGameService
+    private db: GroupGameService,
+    private router: Router
   ) {
     this.gameId = '';
     this.userId = '';
@@ -68,12 +70,21 @@ export class GameComponent implements OnInit, OnDestroy {
         this.connectUser();
         this.listenToGame();
       });
+      this.routeSubscription = this.router.events.subscribe((event) => {
+        if (event instanceof NavigationStart) {
+          console.log('NavigationStart');
+          this.ngOnDestroy();
+        }
+      });
     }
   }
 
   ngOnDestroy(): void {
+    console.log('ngOnDestroy was called!');
     if (this.game) this.game$.unsubscribe();
+    this.disconnectUser();
     this.unsubscribeGame();
+    this.routeSubscription.unsubscribe();
   }
 
   getTime(date: string | Date): number {
@@ -153,7 +164,24 @@ export class GameComponent implements OnInit, OnDestroy {
       if (changes) this.updateGame();
     }
   }
+
+  disconnectUser() {
+    console.log('disconnect user was called');
+    if (this.game) {
+      let changes = false;
+      this.game.players.map((player) => {
+        if (player.userId === this.userId && player.online) {
+          console.log('player online was true, now changed to false');
+          player.online = false;
+          changes = true;
+        }
+        return player;
+      });
+      if (changes) this.updateGame();
+    }
+  }
   updateGame() {
+    console.log('update game was called with game: ', this.game);
     this.db
       .updateGame(this.game.id, this.game)
       .then(() => {
