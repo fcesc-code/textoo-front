@@ -6,13 +6,19 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DocumentData } from 'firebase/firestore';
+import { DocumentData, DocumentSnapshot } from 'firebase/firestore';
 import { firstValueFrom, from, Subscription } from 'rxjs';
 import { ActivitiesSharedService } from 'src/app/activities-shared/services/activities-shared.service';
+import { PlaySelectTextComponent } from 'src/app/activity-select-text/components/play-select-text/play-select-text.component';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
-import { Game, gameInfo, gameStatus } from '../../interfaces/game.dto';
-import { PublicUser } from '../../interfaces/player.dto';
+import {
+  Game,
+  gameInfo,
+  gameScore,
+  gameStatus,
+} from '../../interfaces/game.dto';
+import { Player, PublicUser } from '../../interfaces/player.dto';
 import { GroupGameService } from '../../services/group-game.service';
 import { DatePickValidator } from '../../validators/greater-than-today.validator';
 
@@ -137,8 +143,11 @@ export class GameDashboardComponent implements OnInit {
   createGame(newGame: Game) {
     this.db
       .createGame(newGame)
-      .then(() => {
-        this.success(`El joc s'ha creat correctament`);
+      .then((snapshot: DocumentSnapshot) => {
+        const DATA = snapshot.data();
+        const ID = DATA ? DATA['id'] : '';
+        this.success(`El joc ${this.id} s'ha creat correctament`);
+        // this.db.addAllPlayers(ID, this.buildPlayers(this.players));
       })
       .catch((error: any) => {
         this.sharedService.errorLog(error);
@@ -183,8 +192,10 @@ export class GameDashboardComponent implements OnInit {
     const game = {
       id: this.id,
       title: this.title.value,
-      info: {},
-      status: {},
+      info: {} as gameInfo,
+      status: {} as gameStatus,
+      players: [] as Player[],
+      scores: [] as gameScore[],
     } as Partial<Game>;
 
     game.info = {
@@ -202,8 +213,28 @@ export class GameDashboardComponent implements OnInit {
       maxTime: this.maxTime.value,
       start: this.start.value,
     } as gameStatus;
+    game.players = this.buildPlayers(this.players);
+
+    console.log('THIS GAME has been built >>> ', game);
 
     return game;
+  }
+
+  buildPlayers(publicusers: PublicUser[]): Player[] {
+    let players: Player[] = [];
+    for (let user of publicusers) {
+      players.push({
+        teamId: 'someId',
+        teamAlias: 'someAlias',
+        teamAvatar: 'someAvatar',
+        teamColor: 'someColor',
+        userId: user.userId,
+        userAlias: user.userAlias,
+        userAvatar: user.userAvatar,
+      } as Player);
+    }
+    console.log('this will be returned', players);
+    return players;
   }
 
   async createOrUpdate() {
@@ -241,6 +272,7 @@ export class GameDashboardComponent implements OnInit {
   }
 
   invitePlayersResponse(eventData: PublicUser[]): void {
+    console.log('updated players >>> ', eventData);
     this.players = eventData;
   }
 }

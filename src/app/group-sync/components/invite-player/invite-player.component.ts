@@ -47,7 +47,6 @@ export class InvitePlayerComponent implements OnInit {
       )
       .subscribe((users: PublicUser[]) => {
         this.users = users;
-        console.log('INVITE PLAYERS received users >>> ', users);
         this.loadUninvited();
       });
   }
@@ -63,10 +62,6 @@ export class InvitePlayerComponent implements OnInit {
           )
       );
     }
-    console.log(
-      'INVITE PLAYERS updated uninvited users >>> ',
-      this.uninvitedUsers
-    );
   }
 
   inviteUser(user: PublicUser) {
@@ -74,7 +69,6 @@ export class InvitePlayerComponent implements OnInit {
       (player: PublicUser) => player.userId !== user.userId
     );
     this.players.push(user);
-    console.log('INVITE PLAYERS updated (added) >>> ', this.players);
     this.emit();
   }
 
@@ -83,21 +77,18 @@ export class InvitePlayerComponent implements OnInit {
       (player: PublicUser) => player.userId !== user.userId
     );
     this.uninvitedUsers.push(user);
-    console.log('INVITE PLAYERS updated (removed) >>> ', this.players);
     this.emit();
   }
 
   inviteAll() {
     this.players = this.users;
     this.uninvitedUsers = [];
-    console.log('INVITE PLAYERS all invited >>> ', this.players);
     this.emit();
   }
 
   reset() {
     this.players = [];
     this.uninvitedUsers = this.users;
-    console.log('INVITE PLAYERS none invited >>> ', this.players);
     this.emit();
   }
 }

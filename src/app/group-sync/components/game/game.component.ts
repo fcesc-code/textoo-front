@@ -7,7 +7,6 @@ import {
   gameInfo,
   gameScore,
   gameStatus,
-  gameUser,
 } from '../../interfaces/game.dto';
 import { GroupGameService } from '../../services/group-game.service';
 import { ActivitiesSharedService } from 'src/app/activities-shared/services/activities-shared.service';

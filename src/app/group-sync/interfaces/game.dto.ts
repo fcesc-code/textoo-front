@@ -1,4 +1,4 @@
-import { PublicUser } from './player.dto';
+import { Player } from './player.dto';
 
 export interface gameStatus {
   scheduled: boolean;
@@ -18,12 +18,6 @@ export interface gameInfo {
   type: string;
 }
 
-export interface gameUser {
-  id: string;
-  user: PublicUser;
-  role: string;
-}
-
 export interface gameScore {
   id: string;
   userId: string;
@@ -39,7 +33,7 @@ export interface gameScore {
 
 export interface newGame {
   title: string;
-  users: gameUser[];
+  players: Player[];
   scores: gameScore[];
   status: gameStatus;
   info: gameInfo;

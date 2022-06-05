@@ -52,13 +52,21 @@ export class GroupGameService {
     return updateDoc(doc(this.db, `${this.collection}/${gameId}`), data);
   }
 
-  addUserToGame(gameId: string, player: Player): any {
-    return addDoc(this.refs.gameUsersCol(gameId), { ...player });
-  }
+  // addPlayerToGame(gameId: string, player: Player): any {
+  //   return addDoc(this.refs.gameUsersCol(gameId), { ...player });
+  // }
 
-  removeUserFromGame(gameId: string, userId: string): any {
-    return deleteDoc(
-      doc(this.db, `${this.collection}/${gameId}/users/${userId}`)
-    );
-  }
+  // addAllPlayers(gameId: string, players: Partial<Player>[]) {
+  //   for (let player of players) {
+  //     addDoc(this.refs.gameUsersCol(gameId), {
+  //       ...player,
+  //     });
+  //   }
+  // }
+
+  // removePlayerFromGame(gameId: string, userId: string): any {
+  //   return deleteDoc(
+  //     doc(this.db, `${this.collection}/${gameId}/users/${userId}`)
+  //   );
+  // }
 }
