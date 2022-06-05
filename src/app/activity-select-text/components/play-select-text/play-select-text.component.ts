@@ -2,10 +2,12 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
+  Output,
 } from '@angular/core';
 import { ActivitiesSharedService } from '../../../activities-shared/services/activities-shared.service';
 import { ActivitySelectText } from '../../models/ActivitySelectText.dto';
@@ -33,6 +35,7 @@ import {
   orderSelectionArray,
   removeSubsets,
 } from './play-select-text.selections-utils';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-play-select-text',
@@ -59,11 +62,14 @@ export class PlaySelectTextComponent
 
   constructor(
     private activitiesSharedService: ActivitiesSharedService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService
   ) {
     this.selectedText = [];
   }
   @Input() game: string = '';
+  @Input() multiplayer: boolean = false;
+  @Output() answerEvent: EventEmitter<Answer> = new EventEmitter();
 
   ngOnInit(): void {
     const activityId = this.getId();
@@ -201,15 +207,20 @@ export class PlaySelectTextComponent
       }
     }
 
-    return new Answer({
+    const { userId } = this.authService.getUser();
+
+    const ANSWER = new Answer({
       total: this.activity?.positions?.length,
       correct: correct,
       incorrect: incorrect,
       pointsPerQuestion: this.activity?.scores.scorePerQuestion,
       activityId: this.activity?.id,
-      userId: 'MOCK_USER_ID',
+      userId: userId,
       answers: formatedAnswers,
     });
+
+    this.answerEvent.emit(ANSWER);
+    return ANSWER;
   }
 
   getResults(): void {

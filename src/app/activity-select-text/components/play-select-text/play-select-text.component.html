@@ -25,7 +25,10 @@
     *ngIf="this.completed && this.answers"
     class="mx-auto w-[95%] sm:w-[90%] md:w-[85%]"
   >
-    <app-activity-results [answer]="this.answers.scores"></app-activity-results>
+    <app-activity-results
+      [multiplayer]="multiplayer"
+      [answer]="this.answers.scores"
+    ></app-activity-results>
   </div>
   <footer
     *ngIf="this.activity?.font?.display"
@@ -64,14 +67,14 @@
       <app-button
         class="my-2 mx-3"
         id="replayActivity"
-        *ngIf="this.completed"
+        *ngIf="this.completed && !this.multiplayer"
         (click)="this.replay()"
         text="tornar-hi"
       ></app-button>
       <app-button
         class="my-2 mx-3"
         id="moreActivities"
-        *ngIf="this.completed"
+        *ngIf="this.completed && !this.multiplayer"
         [routerLink]="['/home']"
         text="vull més !"
       ></app-button>

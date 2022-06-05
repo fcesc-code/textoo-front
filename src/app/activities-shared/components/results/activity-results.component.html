@@ -2,10 +2,10 @@
   *ngIf="answer"
   class="flex flex-col justify-start items-center sm:flex-row sm:justify-between sm:items-start"
 >
-  <div>
+  <div class="max-w-[60%]">
     <img
       *ngIf="answer.rates.correct * 100 <= 40"
-      class="max-h-[45vw] sm:max-w-[36vw] mx-6"
+      class="sm:max-h-[45vw] sm:max-w-[80%] md:max-w-[90%] mx-6"
       src="../../../../assets/illustrations/undraw_faq_re_31cw.svg"
       alt=""
     />
@@ -13,7 +13,7 @@
       *ngIf="
         answer.rates.correct * 100 > 40 && answer.rates.correct * 100 <= 80
       "
-      class="max-h-[45vw] sm:max-w-[36vw] mx-6"
+      class="sm:max-h-[45vw] sm:max-w-[80%] md:max-w-[90%] mx-6"
       src="../../../../assets/illustrations/undraw_well_done_i2wr.svg"
       alt=""
     />
@@ -21,59 +21,67 @@
       *ngIf="
         answer.rates.correct * 100 > 80 && answer.rates.correct * 100 <= 95
       "
-      class="max-h-[45vw] sm:max-w-[36vw] mx-6"
+      class="sm:max-h-[45vw] sm:max-w-[80%] md:max-w-[90%] mx-6"
       src="../../../../assets/illustrations/undraw_powerful_re_frhr.svg"
       alt=""
     />
     <img
       *ngIf="answer.rates.correct * 100 > 95"
-      class="max-h-[45vw] sm:max-w-[36vw] mx-6"
+      class="sm:max-h-[45vw] sm:max-w-[80%] md:max-w-[90%] mx-6"
       src="../../../../assets/illustrations/undraw_awards_fieb.svg"
       alt=""
     />
   </div>
-  <div class="w-[95%] sm:w-[50%] mx-4">
+  <div class="w-[95%] sm:w-[50%] ml-6">
     <h3
       class="my-6 leading-18 font-semibold text-xl text-emerald-800 text-center sm:text-left"
     >
       Els teus resultats
     </h3>
     <p
-      class="w-[90%] flex flex-row justify-center sm:justify-start items-center"
+      class="w-full flex flex-row flex-nowrap sm:flex-wrap md:flex-nowrap justify-center sm:justify-end items-center"
     >
-      <span class="w-40">Correctes</span>
-      <span class="w-10">{{ answer.questions.correct }}</span>
-      <span class="w-16 text-right"
+      <span class="w-[6rem] text-left">Encerts</span>
+      <span class="w-[2rem] text-center">{{ answer.questions.correct }}</span>
+      <span class="w-[4rem] text-right"
         >{{ answer.rates.correct * 100 | number: "2.1-1" }} %</span
       >
     </p>
     <p
-      class="w-[90%] flex flex-row justify-center sm:justify-start items-center"
+      class="w-full flex flex-row flex-nowrap sm:flex-wrap md:flex-nowrap justify-center sm:justify-end items-center"
     >
-      <span class="w-40">Incorrectes</span>
-      <span class="w-10">{{ answer.questions.incorrect }}</span>
-      <span class="w-16 text-right"
+      <span class="w-[6rem] text-left">Errors</span>
+      <span class="w-[2rem] text-center">{{ answer.questions.incorrect }}</span>
+      <span class="w-[4rem] text-right"
         >{{ answer.rates.incorrect * 100 | number: "2.1-1" }} %</span
       >
     </p>
     <p
-      class="w-[90%] flex flex-row justify-center sm:justify-start items-center"
+      class="w-full flex flex-row flex-nowrap sm:flex-wrap md:flex-nowrap justify-center sm:justify-end items-center"
     >
-      <span class="w-40">No contestades</span>
-      <span class="w-10">{{ answer.questions.unanswered }}</span>
-      <span class="w-16 text-right"
+      <span class="w-[6rem] text-left">Omeses</span>
+      <span class="w-[2rem] text-center">{{
+        answer.questions.unanswered
+      }}</span>
+      <span class="w-[4rem] text-right"
         >{{ (1 - answer.rates.answered) * 100 | number: "2.1-1" }} %</span
       >
     </p>
     <p
-      class="w-[90%] mt-4 flex flex-row justify-center sm:justify-start items-center"
+      class="w-full mt-4 flex flex-row flex-nowrap sm:flex-wrap md:flex-nowrap justify-center sm:justify-end items-center"
     >
-      <span class="w-40">Punts</span>
-      <span class="w-24 text-right"
+      <span class="w-[6rem] text-left">Punts</span>
+      <span class="w-[6rem] text-right"
         >{{ answer.points.total }} / {{ answer.points.maxPoints }}</span
       >
     </p>
   </div>
+</section>
+<section
+  *ngIf="multiplayer"
+  class="mt-6 flex flex-col justify-start items-center sm:flex-row sm:justify-between sm:items-start"
+>
+  Espera a que completin la resta de jugadors per veure els resultats de tothom.
 </section>
 <section
   *ngIf="!answer"

@@ -3,10 +3,12 @@ import { from, Subscription } from 'rxjs';
 import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import {
+  Classification,
   Game,
   gameInfo,
   gameScore,
   gameStatus,
+  GroupScore,
 } from '../../interfaces/game.dto';
 import { GroupGameService } from '../../services/group-game.service';
 import { ActivitiesSharedService } from 'src/app/activities-shared/services/activities-shared.service';
@@ -27,6 +29,7 @@ import { ActivityType } from 'src/app/activities-shared/models/Activity.dto';
 import { Player } from '../../interfaces/player.dto';
 import { limit, orderBy, query } from '@angular/fire/firestore';
 import { Unsubscribe } from '@firebase/util';
+import { Answer } from 'src/app/activities-shared/models/Answer.dto';
 
 @Component({
   selector: 'app-game',
@@ -42,6 +45,7 @@ export class GameComponent implements OnInit, OnDestroy {
   unsubscribeGame!: Unsubscribe;
   playersInGame: Player[] = [];
   routeSubscription!: Subscription;
+  multiplayer: boolean = true;
 
   constructor(
     private authService: AuthService,
@@ -72,7 +76,6 @@ export class GameComponent implements OnInit, OnDestroy {
       });
       this.routeSubscription = this.router.events.subscribe((event) => {
         if (event instanceof NavigationStart) {
-          console.log('NavigationStart');
           this.ngOnDestroy();
         }
       });
@@ -80,7 +83,6 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('ngOnDestroy was called!');
     if (this.game) this.game$.unsubscribe();
     this.disconnectUser();
     this.unsubscribeGame();
@@ -126,6 +128,10 @@ export class GameComponent implements OnInit, OnDestroy {
     return this.getStartTime() <= this.getCurrentTime();
   }
 
+  hasEnded(): boolean {
+    return this.getEndTime() <= this.getCurrentTime();
+  }
+
   lessThanTwoMinutesToStart(): boolean {
     return this.getStartTime() <= this.getTwoMinutesFromNow();
   }
@@ -144,6 +150,7 @@ export class GameComponent implements OnInit, OnDestroy {
           console.log('update from DB received >>> ', DOC);
           this.game = DOC as Game;
         }
+        this.allOnlineUsersHaveAnswered();
       },
       error: (error: FirestoreError) => {
         console.error(`${error.code}: ${error.message}`);
@@ -166,12 +173,10 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   disconnectUser() {
-    console.log('disconnect user was called');
     if (this.game) {
       let changes = false;
       this.game.players.map((player) => {
         if (player.userId === this.userId && player.online) {
-          console.log('player online was true, now changed to false');
           player.online = false;
           changes = true;
         }
@@ -199,5 +204,82 @@ export class GameComponent implements OnInit, OnDestroy {
   failure(message: string, error: any) {
     console.log('FAILURE: ', message);
     this.sharedService.errorLog(error);
+  }
+
+  onAnswerEvent(eventData: Answer) {
+    console.log('answerEvent!');
+    const userHasAnswered = this.game.scores.find(
+      (score) => score.userId === this.userId
+    );
+    if (!userHasAnswered) {
+      this.game.scores.push({ ...eventData.basicData, id: '' });
+      this.updateGame();
+    }
+  }
+
+  allOnlineUsersHaveAnswered(): boolean {
+    const ONLINE_PLAYERS = this.game.players
+      .filter((player) => player.online)
+      .map((player) => player.userId);
+    for (let playerId of ONLINE_PLAYERS) {
+      const playerAnswer = this.game.scores.find(
+        (score) => score.userId === playerId
+      );
+      if (!playerAnswer) return false;
+    }
+    this.calculateGroupScores();
+    this.updateGame();
+    return true;
+  }
+
+  calculateGroupScores() {
+    const GROUP_SCORES: GroupScore = {
+      average: {
+        correct: 0,
+        incorrect: 0,
+        answered: 0,
+        unanswered: 0,
+      },
+      points: {
+        average: 0,
+        highest: 0,
+      },
+      participants: 0,
+      leaderboard: [],
+    };
+
+    const REDUCER = (accumulator: any, currentValue: any): GroupScore => {
+      const SCORES = currentValue.scores;
+      accumulator.average.correct += SCORES.rates.correct;
+      accumulator.average.incorrect += SCORES.rates.incorrect;
+      accumulator.average.answered += SCORES.rates.answered;
+      accumulator.average.unanswered += 1 - SCORES.rates.answered;
+      accumulator.points.average += SCORES.points.percent;
+      accumulator.points.highest =
+        accumulator.points.highest >= SCORES.points.total
+          ? accumulator.points.highest
+          : SCORES.points.total;
+      accumulator.participants += 1;
+      return accumulator;
+    };
+
+    [...this.game.scores].reduce(REDUCER, GROUP_SCORES);
+
+    GROUP_SCORES.participants = this.game.players.length;
+    GROUP_SCORES.leaderboard = [...this.game.scores]
+      .map((score) => ({
+        userId: score.userId,
+        userAlias: this.getPlayerName(score.userId),
+        points: score.correct * score.pointsPerQuestion,
+      }))
+      .sort((a, b) => b.points - a.points);
+
+    this.game.groupScores = GROUP_SCORES;
+    console.log('groupScores: ', this.game.groupScores);
+  }
+
+  getPlayerName(id: string): string {
+    const player = this.game.players.find((player) => player.userId === id);
+    return player ? player.userAlias : '';
   }
 }

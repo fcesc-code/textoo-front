@@ -19,7 +19,7 @@ describe('group-sync > pipes > addLeadingZero', () => {
     expect(RESULT).toEqual(EXPECTED);
   });
 
-  it(`${TITLE} 3 > should use '--' whenever number 0 is the input`, () => {
+  it(`${TITLE} 3 > should use 00 whenever number 0 is the input`, () => {
     const NUMBER = 0;
     const EXPECTED = '--';
     const RESULT = pipe.transform(NUMBER);

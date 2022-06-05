@@ -10,4 +10,5 @@ export class ActivityResultsComponent {
   constructor() {}
 
   @Input() answer: AnswerScores = {} as AnswerScores;
+  @Input() multiplayer: boolean = false;
 }

@@ -75,20 +75,33 @@
     class="flex flex-col justify-start items-center sm:flex-row sm:justify-center sm:items-start"
   >
     <app-play-best-option
-      *ngIf="game && game.info.type === activityTypes.BEST_OPTION"
+      [multiplayer]="multiplayer"
+      *ngIf="
+        game && game.info.type === activityTypes.BEST_OPTION && !hasEnded()
+      "
       [game]="game.info.activityId"
+      (answerEvent)="onAnswerEvent($event)"
     >
     </app-play-best-option>
     <app-play-select-text
-      *ngIf="game && game.info.type === activityTypes.SELECT_TEXT"
+      [multiplayer]="multiplayer"
+      *ngIf="
+        game && game.info.type === activityTypes.SELECT_TEXT && !hasEnded()
+      "
       [game]="game.info.activityId"
+      (answerEvent)="onAnswerEvent($event)"
     >
     </app-play-select-text>
-    <p *ngIf="game && game.info.type === activityTypes.TRANSFORM_ASPECT">
+    <p
+      *ngIf="
+        game && game.info.type === activityTypes.TRANSFORM_ASPECT && !hasEnded()
+      "
+    >
       Ho sento, encara no hem implementat aquest tipus d'activitat. Textoo.
     </p>
     <aside class="w-[18rem]">
       <div
+        *ngIf="!hasEnded()"
         class="w-full my-4 border-2 border-slate-100 rounded-lg py-4 bg-white shadow-lg shadow-gray-200 hover:shadow-emerald-300/20 hover:border-emerald-100"
       >
         <app-countdown
@@ -104,10 +117,13 @@
       <div
         class="w-full my-4 border-2 border-slate-100 rounded-lg py-4 bg-white shadow-lg shadow-gray-200 hover:shadow-emerald-300/20 hover:border-emerald-100 cursor-pointer"
       >
-        <p class="px-6 font-light pb-2 text-center">
+        <p *ngIf="!hasEnded()" class="px-6 font-light pb-2 text-center">
           Falta gent? Comparteix el codi
         </p>
-        <p class="px-6 text-center">{{ game?.id }}</p>
+        <p *ngIf="hasEnded()" class="px-6 font-light pb-2 text-center">
+          Partida acabada !
+        </p>
+        <p *ngIf="!hasEnded()" class="px-6 text-center">{{ game?.id }}</p>
       </div>
     </aside>
   </section>

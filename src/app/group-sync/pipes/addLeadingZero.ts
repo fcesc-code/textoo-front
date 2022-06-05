@@ -5,6 +5,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class AddLeadingZeroPipe implements PipeTransform {
   transform(value: number): string {
-    return value < 1 ? '--' : value < 10 ? `0${value}` : String(value);
+    return value < 1 ? '00' : value < 10 ? `0${value}` : String(value);
   }
 }
