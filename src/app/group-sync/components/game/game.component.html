@@ -15,7 +15,12 @@
         alt=""
       />
       <div>
-        <div *ngIf="getStartTime() <= getTwoMinutesFromNow()">
+        <div
+          *ngIf="
+            getStartTime() <= getTwoMinutesFromNow() &&
+            getStartTime() > getCurrentTime()
+          "
+        >
           <h3
             class="pt-3 text-2xl font-medium text-center sm:text-left tracking-wide"
           >
@@ -36,6 +41,7 @@
           </p>
         </div>
         <ul
+          *ngIf="getStartTime() > getCurrentTime()"
           class="flex flex-col justify-start items-center sm:items-start mx-6 sm:ml-0"
         >
           <li
@@ -72,7 +78,10 @@
     ></app-countdown>
   </section>
 
-  <section *ngIf="getStartTime() <= getCurrentTime()">
+  <section
+    *ngIf="getStartTime() <= getCurrentTime()"
+    class="flex flex-col justify-start items-center sm:flex-row sm:justify-center sm:items-start"
+  >
     <app-play-best-option
       *ngIf="game && game.info.type === activityTypes.BEST_OPTION"
       [game]="game.info.activityId"
@@ -83,5 +92,22 @@
       [game]="game.info.activityId"
     >
     </app-play-select-text>
+    <p *ngIf="game && game.info.type === activityTypes.TRANSFORM_ASPECT">
+      Ho sento, encara no hem implementat aquest tipus d'activitat. Textoo.
+    </p>
+    <aside>
+      <h3
+        class="pt-3 text-2xl font-medium text-center sm:text-left tracking-wide"
+      >
+        Usuaris connectats
+      </h3>
+      <ul *ngFor="let player of playersInGame">
+        <li>
+          <p>{{ player.userId }}</p>
+          <p class="font-semibold">{{ player.userAlias }}</p>
+          <p>team:{{ player.teamAlias }}</p>
+        </li>
+      </ul>
+    </aside>
   </section>
 </article>

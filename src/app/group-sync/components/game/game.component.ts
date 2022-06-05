@@ -12,8 +12,20 @@ import {
 import { GroupGameService } from '../../services/group-game.service';
 import { ActivitiesSharedService } from 'src/app/activities-shared/services/activities-shared.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
-import { DocumentData } from 'firebase/firestore';
+import {
+  CollectionReference,
+  DocumentData,
+  FirestoreError,
+  onSnapshot,
+  Query,
+  QueryConstraint,
+  QueryDocumentSnapshot,
+  QuerySnapshot,
+} from 'firebase/firestore';
 import { ActivityType } from 'src/app/activities-shared/models/Activity.dto';
+import { Player } from '../../interfaces/player.dto';
+import { limit, orderBy, query } from '@angular/fire/firestore';
+import { Unsubscribe } from '@firebase/util';
 
 @Component({
   selector: 'app-game',
@@ -26,6 +38,8 @@ export class GameComponent implements OnInit, OnDestroy {
   protected gameId: string;
   protected userId: string;
   activityTypes = ActivityType;
+  unsubscribePlayers!: Unsubscribe;
+  playersInGame: Player[] = [];
 
   constructor(
     private authService: AuthService,
@@ -56,6 +70,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.game) this.game$.unsubscribe();
+    this.unsubscribePlayers();
   }
 
   getTime(date: string | Date): number {
@@ -91,5 +106,43 @@ export class GameComponent implements OnInit, OnDestroy {
     const lag = this.game.status.maxTime * 1000;
     const end = new Date(start + lag);
     return end;
+  }
+
+  listenToUsers(): void {
+    const DBREF: CollectionReference = this.db.refs.gameUsersCol(this.game.id);
+    const ORDER: QueryConstraint = orderBy('teamAlias', 'asc');
+    const LIMIT: QueryConstraint = limit(10);
+    const QUERY: Query<DocumentData> = query(DBREF, ORDER, LIMIT);
+
+    this.unsubscribePlayers = onSnapshot(QUERY, {
+      next: (snapshot: QuerySnapshot<DocumentData>) => {
+        const PLAYERS: Player[] = [];
+        snapshot.forEach((doc: QueryDocumentSnapshot<DocumentData>) => {
+          const DOCUMENT = doc.data();
+          console.log('adding player >>> ', DOCUMENT);
+          const PLAYER = {
+            id: doc.id,
+            teamId: DOCUMENT['teamId'],
+            teamAlias: DOCUMENT['teamAlias'],
+            teamAvatar: DOCUMENT['teamAvatar'],
+            teamColor: DOCUMENT['teamColor'],
+            userId: DOCUMENT['userId'],
+            userAlias: DOCUMENT['userAlias'],
+            userAvatar: DOCUMENT['userAvatar'],
+          };
+          PLAYERS.push(PLAYER);
+        });
+        console.info(PLAYERS);
+        this.playersInGame = PLAYERS;
+      },
+      error: (error: FirestoreError) => {
+        console.error(`${error.code}: ${error.message}`);
+      },
+    });
+
+    // this.db.refs.gameUsersCol(this.gameId).onSnapshot((snapshot) => {
+    //   const users = snapshot.docs.map((doc: Player) => doc.data());
+    //   this.game.users = users;
+    // });
   }
 }

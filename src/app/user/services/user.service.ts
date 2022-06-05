@@ -34,4 +34,10 @@ export class UserService {
       .get<UserDto>(`${this.API}/${userId}`)
       .pipe(catchError(this.sharedService.handleError));
   }
+
+  getAllUsers(): Observable<UserDto[]> {
+    return this.http
+      .get<UserDto[]>(`${this.API}/all`)
+      .pipe(catchError(this.sharedService.handleError));
+  }
 }

@@ -1,0 +1,73 @@
+<h2
+  class="mx-4 px-6 font-light text-2xl py-6 text-center text-emerald-800 tracking-wide"
+>
+  Jugadors
+</h2>
+<article
+  class="form w-full flex flex-col sm:flex-row sm:flex-wrap justify-start sm:justify-between items-center"
+>
+  <div class="w-full flex flex-row justify-center items-center">
+    <button
+      class="px-8 py-2 mx-4 my-2 rounded-md drop-shadow-lg bg-emerald-100 hover:bg-teal-700 hover:text-white hover:font-semibold hover:tracking-wide hover:shadow-md hover:shadow-teal-100"
+      aria-label="convidar a tothom"
+      (click)="inviteAll()"
+    >
+      Tothom
+    </button>
+    <button
+      class="px-8 py-2 mx-4 my-2 rounded-md drop-shadow-lg bg-emerald-100 hover:bg-teal-700 hover:text-white hover:font-semibold hover:tracking-wide hover:shadow-md hover:shadow-teal-100"
+      aria-label="convidar a tothom"
+      (click)="reset()"
+    >
+      Desfés
+    </button>
+  </div>
+  <section
+    class="w-full my-4 mx-4 border-2 border-slate-100 rounded-lg px-6 py-4 bg-white shadow-lg shadow-gray-200 hover:shadow-emerald-300/20 hover:border-emerald-100"
+  >
+    <h3 class="mb-2 text-center font-light">Convidats</h3>
+    <ul class="w-full flex flex-col justify-start items-center">
+      <li
+        *ngFor="let user of players"
+        (click)="uninviteUser(user)"
+        class="w-full my-1 py-2 px-4 flex flew-row justify-between items-center text-center sm:text-left hover:bg-emerald-100 hover:rounded-lg border-2 cursor-pointer rounded-md"
+      >
+        <span>
+          {{ user.userAlias }}
+        </span>
+        <span class="hidden">
+          {{ user.userId }}
+        </span>
+        <mat-icon
+          title="afegir jugador"
+          class="align-baseline hover:text-red-700"
+          >delete_outline</mat-icon
+        >
+      </li>
+    </ul>
+  </section>
+  <section
+    class="w-full my-4 mx-4 border-2 border-slate-100 rounded-lg px-6 py-4 bg-white shadow-lg shadow-gray-200 hover:shadow-emerald-300/20 hover:border-emerald-100"
+  >
+    <h3 class="mb-2 text-center font-light">No convidats</h3>
+    <ul class="w-full flex flex-col justify-start items-center">
+      <li
+        *ngFor="let user of uninvitedUsers"
+        (click)="inviteUser(user)"
+        class="w-full my-1 py-2 px-4 flex flew-row justify-between items-center text-center sm:text-left hover:bg-emerald-100 hover:rounded-lg border-2 cursor-pointer rounded-md"
+      >
+        <span>
+          {{ user.userAlias }}
+        </span>
+        <span class="hidden">
+          {{ user.userId }}
+        </span>
+        <mat-icon
+          title="afegir jugador"
+          class="align-baseline hover:text-red-700"
+          >add</mat-icon
+        >
+      </li>
+    </ul>
+  </section>
+</article>

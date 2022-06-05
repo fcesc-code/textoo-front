@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 /* Services */
-// import { UserService } from '../user/services/user.service';
+import { UserService } from '../user/services/user.service';
 /* Modules */
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
@@ -22,7 +22,8 @@ import { GameDashboardComponent } from './components/edit-games/game-dashboard.c
 import { ActivitiesPickerComponent } from './components/edit-games/activities-picker.component';
 import { UserGamesComponent } from './components/manage-games/user-games.component';
 import { CountdownComponent } from './components/timer/countdown.component';
-/* Firebase */
+import { InvitePlayerComponent } from './components/invite-player/invite-player.component';
+/* Routes */
 import { GroupSyncRoutingModule } from './group-sync-routing.module';
 /* Pipes */
 import { FriendlyTimePipe } from './pipes/friendlyTime.pipe';
@@ -40,6 +41,7 @@ import { AddLeadingZeroPipe } from './pipes/addLeadingZero';
     GameDashboardComponent,
     ActivitiesPickerComponent,
     CountdownComponent,
+    InvitePlayerComponent,
   ],
   imports: [
     CommonModule,
@@ -56,7 +58,7 @@ import { AddLeadingZeroPipe } from './pipes/addLeadingZero';
     ActivitySelectTextModule,
     ActivityBestOptionModule,
   ],
-  providers: [],
+  providers: [UserService],
   exports: [],
 })
 export class GroupSyncModule {}

@@ -11,7 +11,8 @@ import { firstValueFrom, from, Subscription } from 'rxjs';
 import { ActivitiesSharedService } from 'src/app/activities-shared/services/activities-shared.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
-import { Game } from '../../interfaces/game.dto';
+import { Game, gameInfo, gameStatus } from '../../interfaces/game.dto';
+import { PublicUser } from '../../interfaces/player.dto';
 import { GroupGameService } from '../../services/group-game.service';
 import { DatePickValidator } from '../../validators/greater-than-today.validator';
 
@@ -34,6 +35,7 @@ export class GameDashboardComponent implements OnInit {
   start: FormControl;
   title: FormControl;
   id: string;
+  players: PublicUser[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -54,6 +56,7 @@ export class GameDashboardComponent implements OnInit {
         closed: false,
       },
     } as Partial<Game>;
+    this.players = [];
 
     this.title = new FormControl('', [
       Validators.required,
@@ -176,8 +179,13 @@ export class GameDashboardComponent implements OnInit {
     return userId;
   }
 
-  buildGame(): any {
-    const game = { id: this.id, title: this.title.value, info: {}, status: {} };
+  buildGame(): Partial<Game> {
+    const game = {
+      id: this.id,
+      title: this.title.value,
+      info: {},
+      status: {},
+    } as Partial<Game>;
 
     game.info = {
       activityTitle: this.activity.title,
@@ -185,7 +193,7 @@ export class GameDashboardComponent implements OnInit {
       language: this.activity.language,
       type: this.activity.type,
       keywords: this.activity.keywords,
-    };
+    } as gameInfo;
     game.status = {
       organizer: this.getOrganizerId(),
       started: false,
@@ -193,7 +201,7 @@ export class GameDashboardComponent implements OnInit {
       closed: false,
       maxTime: this.maxTime.value,
       start: this.start.value,
-    };
+    } as gameStatus;
 
     return game;
   }
@@ -210,7 +218,9 @@ export class GameDashboardComponent implements OnInit {
     if (this.gameForm.valid) {
       await this.getActivityBasicInfo();
       const game = this.buildGame();
-      this.newGame ? this.createGame(game) : this.updateGame(game);
+      this.newGame
+        ? this.createGame(game as Game)
+        : this.updateGame(game as Game);
     }
   }
 
@@ -228,5 +238,9 @@ export class GameDashboardComponent implements OnInit {
     //   false,
     //   error
     // );
+  }
+
+  invitePlayersResponse(eventData: PublicUser[]): void {
+    this.players = eventData;
   }
 }

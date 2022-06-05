@@ -1,3 +1,5 @@
+import { PublicUser } from './player.dto';
+
 export interface gameStatus {
   scheduled: boolean;
   started: boolean;
@@ -18,7 +20,7 @@ export interface gameInfo {
 
 export interface gameUser {
   id: string;
-  team: string;
+  user: PublicUser;
   role: string;
 }
 
