@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { map, Subscription } from 'rxjs';
 import { UserService } from 'src/app/user/services/user.service';
 import { PublicUser } from '../../interfaces/player.dto';
@@ -10,16 +10,15 @@ import { UserDto } from 'src/app/user/models/user.dto';
   styleUrls: ['./invite-player.component.sass'],
 })
 export class InvitePlayerComponent implements OnInit {
-  players: PublicUser[];
   uninvitedUsers: PublicUser[];
   users: PublicUser[];
   usersSubscription$!: Subscription;
 
   constructor(private userService: UserService) {
     this.users = [];
-    this.players = [];
     this.uninvitedUsers = [];
   }
+  @Input() players: PublicUser[] = [];
   @Output() invitePlayersResponse: EventEmitter<PublicUser[]> =
     new EventEmitter();
 

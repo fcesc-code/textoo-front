@@ -31,12 +31,13 @@ export class GroupGameService {
             where('status.organizer', '==', userId)
           )
         ),
-      gameDoc: async (gameId: string) =>
+      gameDocOnce: async (gameId: string) =>
         await getDoc(doc(this.db, `${this.collection}/${gameId}`)),
       gameUsersCol: (gameId: string) =>
         collection(this.db, `${this.collection}/${gameId}/users`),
       gameScoresCol: (gameId: string) =>
         collection(this.db, `${this.collection}/${gameId}/scores`),
+      gameDoc: (gameId: string) => doc(this.db, `${this.collection}/${gameId}`),
     };
   }
 

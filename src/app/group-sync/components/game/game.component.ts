@@ -14,6 +14,8 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 import {
   CollectionReference,
   DocumentData,
+  DocumentReference,
+  DocumentSnapshot,
   FirestoreError,
   onSnapshot,
   Query,
@@ -37,7 +39,7 @@ export class GameComponent implements OnInit, OnDestroy {
   protected gameId: string;
   protected userId: string;
   activityTypes = ActivityType;
-  unsubscribePlayers!: Unsubscribe;
+  unsubscribeGame!: Unsubscribe;
   playersInGame: Player[] = [];
 
   constructor(
@@ -57,7 +59,7 @@ export class GameComponent implements OnInit, OnDestroy {
     this.userId = userId;
     if (this.gameId) {
       const promiseSource = from(
-        this.db.refs.gameDoc(this.gameId).then((snapshot: DocumentData) => {
+        this.db.refs.gameDocOnce(this.gameId).then((snapshot: DocumentData) => {
           return snapshot['data']();
         })
       );
@@ -69,7 +71,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.game) this.game$.unsubscribe();
-    this.unsubscribePlayers();
+    this.unsubscribeGame();
   }
 
   getTime(date: string | Date): number {
@@ -107,41 +109,24 @@ export class GameComponent implements OnInit, OnDestroy {
     return end;
   }
 
-  listenToUsers(): void {
-    const DBREF: CollectionReference = this.db.refs.gameUsersCol(this.game.id);
-    const ORDER: QueryConstraint = orderBy('teamAlias', 'asc');
-    const LIMIT: QueryConstraint = limit(10);
-    const QUERY: Query<DocumentData> = query(DBREF, ORDER, LIMIT);
+  listenToGame(): void {
+    // const CLREF: CollectionReference = this.db.refs.gameUsersCol(this.game.id);
+    // const ORDER: QueryConstraint = orderBy('teamAlias', 'asc');
+    // const LIMIT: QueryConstraint = limit(10);
+    // const QUERY: Query<DocumentData> = query(DBREF, ORDER, LIMIT);
+    const DBREF: DocumentReference = this.db.refs.gameDoc(this.game.id);
 
-    this.unsubscribePlayers = onSnapshot(QUERY, {
-      next: (snapshot: QuerySnapshot<DocumentData>) => {
-        const PLAYERS: Player[] = [];
-        snapshot.forEach((doc: QueryDocumentSnapshot<DocumentData>) => {
-          const DOCUMENT = doc.data();
-          console.log('adding player >>> ', DOCUMENT);
-          const PLAYER = {
-            id: doc.id,
-            teamId: DOCUMENT['teamId'],
-            teamAlias: DOCUMENT['teamAlias'],
-            teamAvatar: DOCUMENT['teamAvatar'],
-            teamColor: DOCUMENT['teamColor'],
-            userId: DOCUMENT['userId'],
-            userAlias: DOCUMENT['userAlias'],
-            userAvatar: DOCUMENT['userAvatar'],
-          };
-          PLAYERS.push(PLAYER);
-        });
-        console.info(PLAYERS);
-        this.playersInGame = PLAYERS;
+    this.unsubscribeGame = onSnapshot(DBREF, {
+      next: (snapshot: DocumentSnapshot<DocumentData>) => {
+        const DOC = snapshot.data();
+        if (DOC) {
+          console.log('update from DB received >>> ', DOC);
+          this.game = DOC as Game;
+        }
       },
       error: (error: FirestoreError) => {
         console.error(`${error.code}: ${error.message}`);
       },
     });
-
-    // this.db.refs.gameUsersCol(this.gameId).onSnapshot((snapshot) => {
-    //   const users = snapshot.docs.map((doc: Player) => doc.data());
-    //   this.game.users = users;
-    // });
   }
 }

@@ -6,6 +6,7 @@ export interface Player {
   userId: string;
   userAlias: string;
   userAvatar: string;
+  online: boolean;
 }
 
 export interface PublicUser {

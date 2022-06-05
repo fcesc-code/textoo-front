@@ -6,10 +6,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DocumentData, DocumentSnapshot } from 'firebase/firestore';
+import {
+  DocumentData,
+  DocumentReference,
+  DocumentSnapshot,
+} from 'firebase/firestore';
 import { firstValueFrom, from, Subscription } from 'rxjs';
 import { ActivitiesSharedService } from 'src/app/activities-shared/services/activities-shared.service';
-import { PlaySelectTextComponent } from 'src/app/activity-select-text/components/play-select-text/play-select-text.component';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import {
@@ -29,6 +32,7 @@ import { DatePickValidator } from '../../validators/greater-than-today.validator
 })
 export class GameDashboardComponent implements OnInit {
   activity: any;
+  activityIdStart: string;
   gameSubscription!: Subscription;
   defaultConstants: Partial<Game>;
 
@@ -54,6 +58,7 @@ export class GameDashboardComponent implements OnInit {
   ) {
     this.newGame = true;
     this.id = '';
+    this.activityIdStart = '';
     this.defaultConstants = {
       status: {
         timed: true,
@@ -109,7 +114,7 @@ export class GameDashboardComponent implements OnInit {
   loadGame() {
     if (this.id) {
       const promiseSource = from(
-        this.db.refs.gameDoc(this.id).then((snapshot: DocumentData) => {
+        this.db.refs.gameDocOnce(this.id).then((snapshot: DocumentData) => {
           return snapshot['data']();
         })
       );
@@ -119,6 +124,8 @@ export class GameDashboardComponent implements OnInit {
         this.activityTitle.setValue(data.info.activityTitle);
         this.maxTime.setValue(data.status.maxTime);
         this.start.setValue(data.status.start);
+        this.players = data.players;
+        this.activityIdStart = data.info.activityId;
       });
     }
   }
@@ -143,10 +150,10 @@ export class GameDashboardComponent implements OnInit {
   createGame(newGame: Game) {
     this.db
       .createGame(newGame)
-      .then((snapshot: DocumentSnapshot) => {
-        const DATA = snapshot.data();
-        const ID = DATA ? DATA['id'] : '';
-        this.success(`El joc ${this.id} s'ha creat correctament`);
+      .then((docRef: DocumentReference) => {
+        const ID = docRef.id;
+        this.id = ID;
+        this.success(`El joc ${ID} s'ha creat correctament`);
         // this.db.addAllPlayers(ID, this.buildPlayers(this.players));
       })
       .catch((error: any) => {
@@ -190,14 +197,13 @@ export class GameDashboardComponent implements OnInit {
 
   buildGame(): Partial<Game> {
     const game = {
-      id: this.id,
       title: this.title.value,
       info: {} as gameInfo,
       status: {} as gameStatus,
       players: [] as Player[],
       scores: [] as gameScore[],
     } as Partial<Game>;
-
+    if (this.id) game.id = this.id;
     game.info = {
       activityTitle: this.activity.title,
       activityId: this.activity._id,
@@ -231,6 +237,7 @@ export class GameDashboardComponent implements OnInit {
         userId: user.userId,
         userAlias: user.userAlias,
         userAvatar: user.userAvatar,
+        online: false,
       } as Player);
     }
     console.log('this will be returned', players);

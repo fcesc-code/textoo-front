@@ -10,7 +10,7 @@
         *ngIf="newGame"
         class="font-medium text-3xl pb-4 text-center text-emerald-900"
       >
-        Crea un nou joc
+        {{ title.value ? title.value : "Nova partida" }}
       </h1>
       <h1
         *ngIf="!newGame"
@@ -160,6 +160,7 @@
     </section>
     <section>
       <app-invite-player
+        [players]="players"
         (invitePlayersResponse)="invitePlayersResponse($event)"
       ></app-invite-player>
     </section>

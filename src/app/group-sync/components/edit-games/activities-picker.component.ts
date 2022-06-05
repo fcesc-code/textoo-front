@@ -1,9 +1,11 @@
 import {
+  AfterViewInit,
   Component,
   EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
+  OnInit,
   Output,
 } from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared.service';
@@ -20,7 +22,9 @@ interface PickedActivity {
   templateUrl: './activities-picker.component.html',
   styleUrls: ['./activities-picker.component.sass'],
 })
-export class ActivitiesPickerComponent implements OnChanges, OnDestroy {
+export class ActivitiesPickerComponent
+  implements OnChanges, OnDestroy, AfterViewInit
+{
   activities$: any;
   filteredActivities: any[];
   authors: any[];
@@ -38,7 +42,16 @@ export class ActivitiesPickerComponent implements OnChanges, OnDestroy {
   @Input() selectedActivity: string = '';
   @Output() pickedActivity: EventEmitter<PickedActivity> = new EventEmitter();
 
+  ngAfterViewInit(): void {
+    console.log('PICKER onInit >>> ', this.selectedActivity);
+    if (this.selectedActivity) {
+      console.log('should not enter if there is no id onInit');
+      this.filterById(this.selectedActivity);
+    }
+  }
+
   ngOnChanges(): void {
+    console.log('PICKER onChanges >>> ', this.selectedActivity);
     if (this.selectedActivity) {
       this.filterById(this.selectedActivity);
     }
