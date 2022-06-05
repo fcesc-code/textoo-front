@@ -66,6 +66,7 @@ export class GameComponent implements OnInit, OnDestroy {
       this.game$ = promiseSource.subscribe((data: any) => {
         this.game = data;
         this.connectUser();
+        this.listenToGame();
       });
     }
   }
