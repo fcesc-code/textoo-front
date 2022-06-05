@@ -4,21 +4,29 @@
 >
   <div>
     <img
-      *ngIf="answer.rates.correct * 100 < 40"
+      *ngIf="answer.rates.correct * 100 <= 40"
       class="max-h-[45vw] sm:max-w-[36vw] mx-6"
       src="../../../../assets/illustrations/undraw_faq_re_31cw.svg"
       alt=""
     />
     <img
       *ngIf="
-        answer.rates.correct * 100 >= 40 && answer.rates.correct * 100 <= 85
+        answer.rates.correct * 100 > 40 && answer.rates.correct * 100 <= 80
       "
       class="max-h-[45vw] sm:max-w-[36vw] mx-6"
       src="../../../../assets/illustrations/undraw_well_done_i2wr.svg"
       alt=""
     />
     <img
-      *ngIf="answer.rates.correct * 100 > 85"
+      *ngIf="
+        answer.rates.correct * 100 > 80 && answer.rates.correct * 100 <= 95
+      "
+      class="max-h-[45vw] sm:max-w-[36vw] mx-6"
+      src="../../../../assets/illustrations/undraw_powerful_re_frhr.svg"
+      alt=""
+    />
+    <img
+      *ngIf="answer.rates.correct * 100 > 95"
       class="max-h-[45vw] sm:max-w-[36vw] mx-6"
       src="../../../../assets/illustrations/undraw_awards_fieb.svg"
       alt=""
