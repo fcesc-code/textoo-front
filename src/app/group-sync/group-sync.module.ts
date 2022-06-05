@@ -23,6 +23,7 @@ import { ActivitiesPickerComponent } from './components/edit-games/activities-pi
 import { UserGamesComponent } from './components/manage-games/user-games.component';
 import { CountdownComponent } from './components/timer/countdown.component';
 import { InvitePlayerComponent } from './components/invite-player/invite-player.component';
+import { UsersOnlineComponent } from './components/users-online/users-online.component';
 /* Routes */
 import { GroupSyncRoutingModule } from './group-sync-routing.module';
 /* Pipes */
@@ -42,6 +43,7 @@ import { AddLeadingZeroPipe } from './pipes/addLeadingZero';
     ActivitiesPickerComponent,
     CountdownComponent,
     InvitePlayerComponent,
+    UsersOnlineComponent,
   ],
   imports: [
     CommonModule,

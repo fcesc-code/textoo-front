@@ -65,6 +65,7 @@ export class GameComponent implements OnInit, OnDestroy {
       );
       this.game$ = promiseSource.subscribe((data: any) => {
         this.game = data;
+        this.connectUser();
       });
     }
   }
@@ -109,6 +110,14 @@ export class GameComponent implements OnInit, OnDestroy {
     return end;
   }
 
+  hasStarted(): boolean {
+    return this.getStartTime() <= this.getCurrentTime();
+  }
+
+  lessThanTwoMinutesToStart(): boolean {
+    return this.getStartTime() <= this.getTwoMinutesFromNow();
+  }
+
   listenToGame(): void {
     // const CLREF: CollectionReference = this.db.refs.gameUsersCol(this.game.id);
     // const ORDER: QueryConstraint = orderBy('teamAlias', 'asc');
@@ -128,5 +137,38 @@ export class GameComponent implements OnInit, OnDestroy {
         console.error(`${error.code}: ${error.message}`);
       },
     });
+  }
+
+  connectUser() {
+    if (this.game) {
+      let changes = false;
+      this.game.players.map((player) => {
+        if (player.userId === this.userId && !player.online) {
+          player.online = true;
+          changes = true;
+        }
+        return player;
+      });
+      if (changes) this.updateGame();
+    }
+  }
+  updateGame() {
+    this.db
+      .updateGame(this.game.id, this.game)
+      .then(() => {
+        this.success(`El joc ${this.game.id} s'ha actualitzat correctament`);
+      })
+      .catch((error: any) => {
+        this.failure(`El joc ${this.game.id}no ha pogut ser eliminat`, error);
+      });
+  }
+
+  success(message: string) {
+    console.log('SUCCESS: ', message);
+  }
+
+  failure(message: string, error: any) {
+    console.log('FAILURE: ', message);
+    this.sharedService.errorLog(error);
   }
 }

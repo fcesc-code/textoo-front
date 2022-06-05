@@ -1,7 +1,7 @@
 <article class="my-6 flex flex-col justify-start items-center">
   <section>
     <app-countdown
-      *ngIf="game && game.status.start && getStartTime() > getCurrentTime()"
+      *ngIf="game && game.status.start && !hasStarted()"
       [targetDate]="getStartDate()"
       [title]="'La partida començarà en'"
     ></app-countdown>
@@ -9,18 +9,13 @@
       class="flex flex-col justify-start items-center sm:flex-row sm:justify-center sm:items-start"
     >
       <img
-        *ngIf="game && game.status.start && getStartTime() > getCurrentTime()"
+        *ngIf="game && game.status.start && !hasStarted()"
         class="max-w-[80vw] sm:max-h-[40vw] sm:max-w-[40vw] my-6"
         src="../../../../assets/illustrations/undraw_a_moment_to_relax_re_v5gv.svg"
         alt=""
       />
       <div>
-        <div
-          *ngIf="
-            getStartTime() <= getTwoMinutesFromNow() &&
-            getStartTime() > getCurrentTime()
-          "
-        >
+        <div *ngIf="lessThanTwoMinutesToStart() && !hasStarted()">
           <h3
             class="pt-3 text-2xl font-medium text-center sm:text-left tracking-wide"
           >
@@ -30,7 +25,7 @@
             Paciència, els altres participants s'estan connectant.
           </p>
         </div>
-        <div *ngIf="getStartTime() > getTwoMinutesFromNow()">
+        <div *ngIf="!lessThanTwoMinutesToStart()">
           <h3
             class="pt-3 text-2xl font-medium text-center sm:text-left tracking-wide"
           >
@@ -41,7 +36,7 @@
           </p>
         </div>
         <ul
-          *ngIf="getStartTime() > getCurrentTime()"
+          *ngIf="!hasStarted()"
           class="flex flex-col justify-start items-center sm:items-start mx-6 sm:ml-0"
         >
           <li
@@ -71,15 +66,13 @@
         </ul>
       </div>
     </nav>
-    <app-countdown
-      *ngIf="game && game.status.start && getStartTime() <= getCurrentTime()"
-      [targetDate]="getEndDate()"
-      [title]="'Temps restant'"
-    ></app-countdown>
   </section>
-
+  <header *ngIf="game">
+    <h1>{{ game.title }}</h1>
+    <p>{{ game.id }}</p>
+  </header>
   <section
-    *ngIf="getStartTime() <= getCurrentTime()"
+    *ngIf="hasStarted()"
     class="flex flex-col justify-start items-center sm:flex-row sm:justify-center sm:items-start"
   >
     <app-play-best-option
@@ -95,19 +88,20 @@
     <p *ngIf="game && game.info.type === activityTypes.TRANSFORM_ASPECT">
       Ho sento, encara no hem implementat aquest tipus d'activitat. Textoo.
     </p>
-    <aside>
-      <h3
-        class="pt-3 text-2xl font-medium text-center sm:text-left tracking-wide"
+    <aside class="w-[18rem]">
+      <div
+        class="w-full my-4 border-2 border-slate-100 rounded-lg py-4 bg-white shadow-lg shadow-gray-200 hover:shadow-emerald-300/20 hover:border-emerald-100"
       >
-        Usuaris connectats
-      </h3>
-      <ul *ngFor="let player of playersInGame">
-        <li>
-          <p>{{ player.userId }}</p>
-          <p class="font-semibold">{{ player.userAlias }}</p>
-          <p>team:{{ player.teamAlias }}</p>
-        </li>
-      </ul>
+        <app-countdown
+          *ngIf="game && game.status.start && hasStarted()"
+          [targetDate]="getEndDate()"
+          [title]="'Temps restant'"
+        ></app-countdown>
+      </div>
+      <app-users-online
+        [players]="game?.players || []"
+        class="w-full"
+      ></app-users-online>
     </aside>
   </section>
 </article>
