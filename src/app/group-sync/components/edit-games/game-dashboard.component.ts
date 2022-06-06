@@ -6,12 +6,18 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DocumentData } from 'firebase/firestore';
+import { DocumentData, DocumentReference } from 'firebase/firestore';
 import { firstValueFrom, from, Subscription } from 'rxjs';
 import { ActivitiesSharedService } from 'src/app/activities-shared/services/activities-shared.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
-import { Game } from '../../interfaces/game.dto';
+import {
+  Game,
+  gameInfo,
+  gameScore,
+  gameStatus,
+} from '../../interfaces/game.dto';
+import { Player, PublicUser } from '../../interfaces/player.dto';
 import { GroupGameService } from '../../services/group-game.service';
 import { DatePickValidator } from '../../validators/greater-than-today.validator';
 
@@ -22,6 +28,7 @@ import { DatePickValidator } from '../../validators/greater-than-today.validator
 })
 export class GameDashboardComponent implements OnInit {
   activity: any;
+  activityIdStart: string;
   gameSubscription!: Subscription;
   defaultConstants: Partial<Game>;
 
@@ -34,6 +41,7 @@ export class GameDashboardComponent implements OnInit {
   start: FormControl;
   title: FormControl;
   id: string;
+  players: PublicUser[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -46,6 +54,7 @@ export class GameDashboardComponent implements OnInit {
   ) {
     this.newGame = true;
     this.id = '';
+    this.activityIdStart = '';
     this.defaultConstants = {
       status: {
         timed: true,
@@ -54,6 +63,7 @@ export class GameDashboardComponent implements OnInit {
         closed: false,
       },
     } as Partial<Game>;
+    this.players = [];
 
     this.title = new FormControl('', [
       Validators.required,
@@ -100,7 +110,7 @@ export class GameDashboardComponent implements OnInit {
   loadGame() {
     if (this.id) {
       const promiseSource = from(
-        this.db.refs.gameDoc(this.id).then((snapshot: DocumentData) => {
+        this.db.refs.gameDocOnce(this.id).then((snapshot: DocumentData) => {
           return snapshot['data']();
         })
       );
@@ -110,6 +120,8 @@ export class GameDashboardComponent implements OnInit {
         this.activityTitle.setValue(data.info.activityTitle);
         this.maxTime.setValue(data.status.maxTime);
         this.start.setValue(data.status.start);
+        this.players = data.players;
+        this.activityIdStart = data.info.activityId;
       });
     }
   }
@@ -134,8 +146,10 @@ export class GameDashboardComponent implements OnInit {
   createGame(newGame: Game) {
     this.db
       .createGame(newGame)
-      .then(() => {
-        this.success(`El joc s'ha creat correctament`);
+      .then((docRef: DocumentReference) => {
+        const ID = docRef.id;
+        this.id = ID;
+        this.success(`El joc ${ID} s'ha creat correctament`);
       })
       .catch((error: any) => {
         this.sharedService.errorLog(error);
@@ -176,16 +190,22 @@ export class GameDashboardComponent implements OnInit {
     return userId;
   }
 
-  buildGame(): any {
-    const game = { id: this.id, title: this.title.value, info: {}, status: {} };
-
+  buildGame(): Partial<Game> {
+    const game = {
+      title: this.title.value,
+      info: {} as gameInfo,
+      status: {} as gameStatus,
+      players: [] as Player[],
+      scores: [] as gameScore[],
+    } as Partial<Game>;
+    if (this.id) game.id = this.id;
     game.info = {
       activityTitle: this.activity.title,
       activityId: this.activity._id,
       language: this.activity.language,
       type: this.activity.type,
       keywords: this.activity.keywords,
-    };
+    } as gameInfo;
     game.status = {
       organizer: this.getOrganizerId(),
       started: false,
@@ -193,40 +213,48 @@ export class GameDashboardComponent implements OnInit {
       closed: false,
       maxTime: this.maxTime.value,
       start: this.start.value,
-    };
+    } as gameStatus;
+    game.players = this.buildPlayers(this.players);
 
     return game;
   }
 
+  buildPlayers(publicusers: PublicUser[]): Player[] {
+    let players: Player[] = [];
+    for (let user of publicusers) {
+      players.push({
+        teamId: 'someId',
+        teamAlias: 'someAlias',
+        teamAvatar: 'someAvatar',
+        teamColor: 'someColor',
+        userId: user.userId,
+        userAlias: user.userAlias,
+        userAvatar: user.userAvatar,
+        online: false,
+      } as Player);
+    }
+    return players;
+  }
+
   async createOrUpdate() {
-    console.log(
-      'createOrUpdate called, form is currently valid ? ',
-      this.gameForm.valid
-    );
-    console.log(
-      'createOrUpdate called, form is currently dirty ? ',
-      this.gameForm.dirty
-    );
     if (this.gameForm.valid) {
       await this.getActivityBasicInfo();
       const game = this.buildGame();
-      this.newGame ? this.createGame(game) : this.updateGame(game);
+      this.newGame
+        ? this.createGame(game as Game)
+        : this.updateGame(game as Game);
     }
   }
 
-  success(message: string) {
-    console.log('SUCCESS: ', message);
+  success(_message: string) {
     this.router.navigateByUrl('/games/dashboard');
   }
 
-  failure(message: string, error: any) {
-    console.log('FAILURE: ', message);
+  failure(_message: string, error: any) {
     this.sharedService.errorLog(error);
-    // this.sharedService.managementToast(
-    //   // `L'operació esborrar joc no s'ha completat.`,
-    //   'gameDashboardFeedback',
-    //   false,
-    //   error
-    // );
+  }
+
+  invitePlayersResponse(eventData: PublicUser[]): void {
+    this.players = eventData;
   }
 }

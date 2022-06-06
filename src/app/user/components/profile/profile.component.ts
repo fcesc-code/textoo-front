@@ -141,11 +141,7 @@ export class ProfileComponent implements OnInit, AfterContentInit {
       this.store.select('user').subscribe({
         next: async ({ error, loaded }): Promise<void> => {
           if (loaded) {
-            await this.sharedService.managementToast(
-              'postFeedback',
-              loaded,
-              undefined
-            );
+            await this.sharedService.managementToast('postFeedback', loaded);
           }
           if (error) {
             this.sharedService.errorLog(error.error);

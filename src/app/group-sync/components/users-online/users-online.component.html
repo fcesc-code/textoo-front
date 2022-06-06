@@ -1,0 +1,40 @@
+<article
+  class="w-[18rem] flex flex-col sm:flex-row sm:flex-wrap justify-start sm:justify-between items-center"
+>
+  <section
+    class="w-full my-4 border-2 border-slate-100 rounded-lg py-4 bg-white shadow-lg shadow-gray-200 hover:shadow-emerald-300/20 hover:border-emerald-100"
+  >
+    <h3 class="text-center font-light">Jugadors connectats</h3>
+    <ul class="w-full mb-6 px-6 flex flex-col justify-start items-center">
+      <li *ngFor="let player of players" class="w-full">
+        <p
+          *ngIf="player.online"
+          class="w-full pt-2 flex flew-row justify-between items-center text-neutral-600"
+        >
+          <span>
+            {{ player.userAlias }}
+          </span>
+          <span>
+            {{ player.teamAlias }}
+          </span>
+        </p>
+      </li>
+    </ul>
+    <h3 class="text-center font-light">Desconnectats</h3>
+    <ul class="w-full px-6 flex flex-col justify-start items-center">
+      <li *ngFor="let player of players" class="w-full">
+        <p
+          *ngIf="!player.online"
+          class="w-full pt-2 flex flew-row justify-between items-center text-neutral-600"
+        >
+          <span>
+            {{ player.userAlias }}
+          </span>
+          <span>
+            {{ player.teamAlias }}
+          </span>
+        </p>
+      </li>
+    </ul>
+  </section>
+</article>

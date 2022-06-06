@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 export interface ResponseError {
   statusCode: number;
@@ -16,8 +16,6 @@ export interface ResponseError {
   providedIn: 'root',
 })
 export class SharedService {
-  constructor() {}
-
   async managementToast(
     element: string,
     validRequest: boolean,
@@ -54,20 +52,7 @@ export class SharedService {
     }
   }
 
-  errorLog(error: ResponseError): void {
-    // console.group(`%cERROR`, 'color: red');
-    // console.error(`error: ${error.message}`);
-    // console.table({
-    //   path: error.path,
-    //   timestamp: error.timestamp,
-    //   message: error.message,
-    //   messageDetail: error.messageDetail,
-    //   statusCode: error.statusCode,
-    //   method: error.method,
-    // });
-    // console.groupEnd();
-    console.log('Error logged in shared service: ', error);
-  }
+  errorLog(_error: ResponseError): void {}
 
   async wait(ms: number) {
     return new Promise((resolve) => {
@@ -76,6 +61,6 @@ export class SharedService {
   }
 
   handleError(error: HttpErrorResponse | Error): Observable<never> {
-    return throwError(error);
+    return throwError(() => new Error(error.message));
   }
 }

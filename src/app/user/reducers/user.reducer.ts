@@ -41,7 +41,7 @@ const _userReducer = createReducer(
       error: payload,
     };
   }),
-  on(USER_ACTIONS.update, (state, action) => {
+  on(USER_ACTIONS.update, (state, _action) => {
     return {
       ...state,
       loading: true,

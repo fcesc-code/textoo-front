@@ -2,13 +2,18 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
+  Output,
 } from '@angular/core';
 import { ActivitiesSharedService } from '../../../activities-shared/services/activities-shared.service';
-import { ActivitySelectText } from '../../models/ActivitySelectText.dto';
+import {
+  ActivitySelectText,
+  TextSelection,
+} from '../../models/ActivitySelectText.dto';
 import {
   debounceTime,
   filter,
@@ -16,10 +21,8 @@ import {
   map,
   merge,
   Subscription,
-  tap,
 } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { TextSelection } from '../../models/ActivitySelectText.dto';
 import { CustomArrayMethods } from 'src/app/shared/utils/arrays';
 import {
   Answer,
@@ -33,6 +36,7 @@ import {
   orderSelectionArray,
   removeSubsets,
 } from './play-select-text.selections-utils';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-play-select-text',
@@ -59,21 +63,22 @@ export class PlaySelectTextComponent
 
   constructor(
     private activitiesSharedService: ActivitiesSharedService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService
   ) {
     this.selectedText = [];
   }
   @Input() game: string = '';
+  @Input() multiplayer: boolean = false;
+  @Output() answerEvent: EventEmitter<Answer> = new EventEmitter();
 
   ngOnInit(): void {
     const activityId = this.getId();
-    console.log('OnInit: firing loadActivity with id >>> ', activityId);
     this.loadActivity(activityId);
   }
 
   ngOnChanges(): void {
     const activityId = this.getId();
-    console.log('OnChanges: firing loadActivity with id >>> ', activityId);
     this.loadActivity(activityId);
   }
 
@@ -84,7 +89,6 @@ export class PlaySelectTextComponent
   }
 
   loadActivity(activityId: string) {
-    console.log('loadActivity with >>> ', activityId);
     if (activityId) {
       this.activity$ = this.activitiesSharedService
         .getActivityById(activityId)
@@ -116,14 +120,13 @@ export class PlaySelectTextComponent
           return isMainSelector || isSecondarySelector || isHighlightedSelector;
         }),
         filter((selection: Selection) => !selection.isCollapsed),
-        tap((selection: Selection) => console.log('WOW HERE >>> ', selection)),
         map(
           (selection: Selection): TextSelection =>
             this.getTextSelection(selection)
         )
       )
-      .subscribe((textSelection: TextSelection) => {
-        this.updateSelectionArray(textSelection);
+      .subscribe((selection: TextSelection) => {
+        this.updateSelectionArray(selection);
       });
   }
 
@@ -147,7 +150,6 @@ export class PlaySelectTextComponent
     const orderedArray = orderSelectionArray(newArray);
     const withoutSubsets = removeSubsets(orderedArray);
     const mergedAdjacents = mergeAdjacents(withoutSubsets);
-    console.log('current >>> ', mergedAdjacents);
     this.selectedText = mergedAdjacents;
   }
 
@@ -201,21 +203,24 @@ export class PlaySelectTextComponent
       }
     }
 
-    return new Answer({
+    const { userId } = this.authService.getUser();
+
+    const ANSWER = new Answer({
       total: this.activity?.positions?.length,
       correct: correct,
       incorrect: incorrect,
       pointsPerQuestion: this.activity?.scores.scorePerQuestion,
       activityId: this.activity?.id,
-      userId: 'MOCK_USER_ID',
+      userId: userId,
       answers: formatedAnswers,
     });
+
+    this.answerEvent.emit(ANSWER);
+    return ANSWER;
   }
 
   getResults(): void {
     this.answers = this.setAnswers();
-    console.log('answers', this.answers);
-    console.log('scores', this.answers.scores);
     this.completed = true;
   }
 

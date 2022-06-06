@@ -1,3 +1,6 @@
+import { AnswerConstructor } from 'src/app/activities-shared/models/Answer.dto';
+import { Player } from './player.dto';
+
 export interface gameStatus {
   scheduled: boolean;
   started: boolean;
@@ -16,33 +19,40 @@ export interface gameInfo {
   type: string;
 }
 
-export interface gameUser {
+export interface gameScore extends AnswerConstructor {
   id: string;
-  team: string;
-  role: string;
-}
-
-export interface gameScore {
-  id: string;
-  userId: string;
-  teamId: string;
-  right: number;
-  wrong: number;
-  unanswered: number;
-  total: number;
-  timeToComplete: number;
-  inTime: boolean;
-  completed: boolean;
 }
 
 export interface newGame {
   title: string;
-  users: gameUser[];
+  players: Player[];
   scores: gameScore[];
+  groupScores: GroupScore;
   status: gameStatus;
   info: gameInfo;
 }
 
 export interface Game extends newGame {
   id: string;
+}
+
+export interface GroupScore {
+  average: {
+    correct: number;
+    incorrect: number;
+    answered: number;
+    unanswered: number;
+  };
+  points: {
+    average: number;
+    highest: number;
+  };
+  participants: number;
+  leaderboard: Classification[];
+}
+
+export interface Classification {
+  userId: string;
+  userAlias: string;
+  points: number;
 }

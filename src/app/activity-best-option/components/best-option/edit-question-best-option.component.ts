@@ -6,12 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounce, map, Subject, Subscription, tap, timer } from 'rxjs';
 import {
   Option_ActivityBestOption,
@@ -39,13 +34,11 @@ export class EditQuestionBestOptionComponent implements OnInit, OnDestroy {
 
   questionForm: FormGroup;
   id: string;
-  // position: FormControl;
   position: number;
 
   constructor(private formBuilder: FormBuilder) {
     this.question = this.emtpyQuestion;
     this.options = [];
-    // this.position = new FormControl({ value: 0, disabled: true });
     this.position = 0;
     this.id = '0';
 

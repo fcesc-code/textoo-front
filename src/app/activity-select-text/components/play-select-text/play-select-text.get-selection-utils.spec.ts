@@ -1,7 +1,6 @@
 import {
   findWhitespaces,
   deconstructText,
-  buildCustomSelection,
   textSelection,
 } from './play-select-text.get-selection-utils';
 import { MOCK_ACTIVITY_SELECT_TEXT } from 'mockdata/activity.mock';
@@ -104,7 +103,6 @@ describe('activity-select-text > components > play-select-text > get-selection-u
       MOCK_SELECTION,
       MOCK_ACTIVITY_SELECT_TEXT.text
     );
-    console.log('HERE, HERE, HERE >>> ', RESULT);
     expect(RESULT).toEqual(EXPECTED);
   });
 });

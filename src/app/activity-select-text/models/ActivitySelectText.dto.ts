@@ -81,18 +81,6 @@ export interface ActivitySelectTextConstructor extends ActivityConstructor {
   keywords: string[];
 }
 
-// export interface TextSelection {
-//   selected: string;
-//   start: NodeTextSelection;
-//   end: NodeTextSelection;
-// }
-
-// export interface NodeTextSelection {
-//   start: number;
-//   end: number;
-//   id: string;
-// }
-
 export interface TextSelection {
   selected: string;
   start: number;

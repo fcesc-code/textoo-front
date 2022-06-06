@@ -8,7 +8,7 @@
       >
         <div class="mx-22">
           <button
-            class="md:hidden"
+            class="block md:hidden"
             aria-label="Menu button"
             (click)="sidenav.toggle()"
           >
@@ -33,86 +33,87 @@
     #sidenav
     mode="over"
     class="snap-none overflow-x-hidden overflow-y-auto md:hidden"
-  >
-    <li
-      *ngIf="showNoAuthSection"
-      class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
-      [routerLink]="['/login']"
-      (click)="sidenav.toggle()"
-    >
-      <mat-icon aria-hidden="true" class="mx-4">verified_user</mat-icon
-      ><span class="px-2">connexió</span>
-    </li>
-    <li
-      class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
-      [routerLink]="['/home']"
-      (click)="sidenav.toggle()"
-    >
-      <mat-icon aria-hidden="true" class="mx-4">home</mat-icon
-      ><span class="px-2">Totes les activitats</span>
-    </li>
-    <li
-      *ngIf="showAuthSection"
-      class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
-      [routerLink]="['/activities/dashboard']"
-      (click)="sidenav.toggle()"
-    >
-      <mat-icon aria-hidden="true" class="mx-4">play_circle_outline</mat-icon
-      ><span class="px-2">les meves activitats</span>
-    </li>
-    <li
-      *ngIf="showAuthSection"
-      class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
-      [routerLink]="['/groups']"
-      (click)="sidenav.toggle()"
-    >
-      <mat-icon aria-hidden="true" class="mx-4">people</mat-icon
-      ><span class="px-2">grups</span>
-    </li>
-    <li
-      *ngIf="showAuthSection"
-      class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
-      [routerLink]="['/games/dashboard']"
-      (click)="sidenav.toggle()"
-    >
-      <mat-icon aria-hidden="true" class="mx-4">group_work</mat-icon
-      ><span class="px-2">les mesves partides</span>
-    </li>
-    <li
-      class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
-      [routerLink]="['/games/join']"
-      (click)="sidenav.toggle()"
-    >
-      <mat-icon aria-hidden="true" class="mx-4">av_timer</mat-icon
-      ><span class="px-2">entrar a una partida</span>
-    </li>
+    ><ul>
+      <li
+        *ngIf="showNoAuthSection"
+        class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
+        [routerLink]="['/login']"
+        (click)="sidenav.toggle()"
+      >
+        <mat-icon aria-hidden="true" class="mx-4">verified_user</mat-icon
+        ><span class="px-2">connexió</span>
+      </li>
+      <li
+        class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
+        [routerLink]="['/home']"
+        (click)="sidenav.toggle()"
+      >
+        <mat-icon aria-hidden="true" class="mx-4">home</mat-icon
+        ><span class="px-2">Totes les activitats</span>
+      </li>
+      <li
+        *ngIf="showAuthSection"
+        class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
+        [routerLink]="['/activities/dashboard']"
+        (click)="sidenav.toggle()"
+      >
+        <mat-icon aria-hidden="true" class="mx-4">play_circle_outline</mat-icon
+        ><span class="px-2">les meves activitats</span>
+      </li>
+      <li
+        *ngIf="showAuthSection"
+        class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
+        [routerLink]="['/groups']"
+        (click)="sidenav.toggle()"
+      >
+        <mat-icon aria-hidden="true" class="mx-4">people</mat-icon
+        ><span class="px-2">grups</span>
+      </li>
+      <li
+        *ngIf="showAuthSection"
+        class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
+        [routerLink]="['/games/dashboard']"
+        (click)="sidenav.toggle()"
+      >
+        <mat-icon aria-hidden="true" class="mx-4">group_work</mat-icon
+        ><span class="px-2">les mesves partides</span>
+      </li>
+      <li
+        class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
+        [routerLink]="['/games/join']"
+        (click)="sidenav.toggle()"
+      >
+        <mat-icon aria-hidden="true" class="mx-4">av_timer</mat-icon
+        ><span class="px-2">entrar a una partida</span>
+      </li>
 
-    <li
-      *ngIf="showAuthSection"
-      class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
-      [routerLink]="['/user/profile']"
-      (click)="sidenav.toggle()"
-    >
-      <mat-icon aria-hidden="true" class="mx-4">account_circle</mat-icon
-      ><span class="px-2">perfil</span>
-    </li>
-    <li
-      *ngIf="showAuthSection"
-      class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
-      (click)="logout()"
-    >
-      <mat-icon aria-hidden="true" class="mx-4">power_settings_new</mat-icon
-      ><span class="px-2">desconnexió</span>
-    </li>
-    <li
-      *ngIf="showNoAuthSection"
-      class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
-      [routerLink]="['/user/register']"
-      (click)="sidenav.toggle()"
-    >
-      <mat-icon aria-hidden="true" class="mx-4">create</mat-icon
-      ><span class="px-2">registre</span>
-    </li>
+      <li
+        *ngIf="showAuthSection"
+        class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
+        [routerLink]="['/user/profile']"
+        (click)="sidenav.toggle()"
+      >
+        <mat-icon aria-hidden="true" class="mx-4">account_circle</mat-icon
+        ><span class="px-2">perfil</span>
+      </li>
+      <li
+        *ngIf="showAuthSection"
+        class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
+        (click)="logout()"
+      >
+        <mat-icon aria-hidden="true" class="mx-4">power_settings_new</mat-icon
+        ><span class="px-2">desconnexió</span>
+      </li>
+      <li
+        *ngIf="showNoAuthSection"
+        class="cursor-pointer list-none py-3 text-left hover:bg-teal-200 w-full flex flex-row flex-nowrap justify-start items-center hover:font-semibold"
+        [routerLink]="['/user/register']"
+        (click)="sidenav.toggle()"
+      >
+        <mat-icon aria-hidden="true" class="mx-4">create</mat-icon
+        ><span class="px-2">registre</span>
+      </li>
+    </ul>
   </mat-sidenav>
   <mat-sidenav-content styles="width: 100vw; overflow:hidden">
     <main class="min-h-[78vh] sm:min-h-[85vh]">

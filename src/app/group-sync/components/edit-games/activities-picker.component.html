@@ -1,42 +1,24 @@
 <div class="w-full flex flex-col justify-start items-center mb-6">
   <section class="w-full">
-    <h1
+    <h2
       *ngIf="!filtersApplied()"
-      class="mx-4 px-6 font-semibold text-xl py-6 text-center tracking-normal"
+      class="mx-4 px-6 font-light text-2xl py-6 text-center text-emerald-800 tracking-wide"
     >
       Totes les activitats
-    </h1>
-    <h1
+    </h2>
+    <h2
       *ngIf="filtersApplied() && filteredActivities.length > 1"
-      class="mx-4 px-6 font-semibold text-xl py-6 text-center tracking-normal"
+      class="mx-4 px-6 font-light text-2xl py-6 text-center text-emerald-800 tracking-wide"
     >
       Filtre activitats
-    </h1>
-    <p
-      class="mx-4 px-6"
-      *ngIf="
-        !filtersApplied() || (filtersApplied() && filteredActivities.length > 1)
-      "
-    >
-      Selecciona una activitat per vincular-la al joc. Podràs canviar-la
-      posteriorment.
-    </p>
-    <h1
+    </h2>
+    <h2
       *ngIf="filtersApplied() && filteredActivities.length === 1"
-      class="mx-4 px-6 font-semibold text-xl py-6 text-center tracking-normal"
+      class="mx-4 px-6 font-light text-2xl py-6 text-center text-emerald-800 tracking-wide"
     >
-      Activitat seleccionada
-    </h1>
-    <p
-      class="mx-4 px-6"
-      *ngIf="filtersApplied() && filteredActivities.length === 1"
-    >
-      El teu joc desenvoluparà aquesta activitat. Esborra els filtres i
-      selecciona'n una de nova per canviar-la.
-    </p>
-  </section>
-  <section class="w-full">
-    <nav class="w-full flex flex-col justify-start items-center">
+      Activitat del joc
+    </h2>
+    <nav class="w-full mb-4 flex flex-col justify-start items-center">
       <button
         *ngIf="filtersApplied()"
         class="mx-auto px-8 py-2 my-2 rounded-md drop-shadow-lg bg-emerald-100 hover:bg-teal-700 hover:text-white hover:font-semibold hover:tracking-wide hover:shadow-md hover:shadow-teal-100"
@@ -49,6 +31,24 @@
         }}
       </button>
     </nav>
+    <p
+      class="mx-4 px-6 font-light"
+      *ngIf="
+        !filtersApplied() || (filtersApplied() && filteredActivities.length > 1)
+      "
+    >
+      Selecciona una activitat per vincular-la al joc. Podràs canviar-la
+      posteriorment.
+    </p>
+    <p
+      class="mx-4 px-6 font-light"
+      *ngIf="filtersApplied() && filteredActivities.length === 1"
+    >
+      El teu joc desenvoluparà aquesta activitat. Esborra els filtres i
+      selecciona'n una de nova per canviar-la.
+    </p>
+  </section>
+  <section class="w-full">
     <ul class="w-full">
       <li
         *ngFor="let activity of this.filteredActivities"

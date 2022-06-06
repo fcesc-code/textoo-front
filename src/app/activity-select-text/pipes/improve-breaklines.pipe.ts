@@ -29,8 +29,7 @@ export class ImproveBreaklinesPipe implements PipeTransform {
     }
     const offset = matches.length === 0 ? 0 : 1;
     const finalString = text.slice(previous + offset, text.length);
-    result = `${result}${finalString}${END}`;
-    return result;
+    return `${result}${finalString}${END}`;
   }
 
   detectOpenTags(previousString: string, newString: string) {

@@ -1,12 +1,19 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ActivitiesSharedService } from 'src/app/activities-shared/services/activities-shared.service';
 import {
   ActivityBestOption,
   Question_ActivityBestOption,
+  OptionSelection,
 } from '../../../activity-best-option/models/ActivityBestOption.dto';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { OptionSelection } from '../../../activity-best-option/models/ActivityBestOption.dto';
 import { CustomArrayMethods } from 'src/app/shared/utils/arrays';
 import { ID_PREFIX } from '../../pipes/add-option.marks';
 import {
@@ -14,6 +21,7 @@ import {
   AnswerOption,
   AnswerType,
 } from 'src/app/activities-shared/models/Answer.dto';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-play-best-option',
@@ -32,17 +40,18 @@ export class PlayBestOptionComponent implements OnInit, OnDestroy {
 
   constructor(
     private activitiesSharedService: ActivitiesSharedService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService
   ) {}
   @Input() game: string = '';
+  @Input() multiplayer: boolean = false;
+  @Output() answerEvent: EventEmitter<Answer> = new EventEmitter();
 
   ngOnInit(): void {
     this.selectedOptions = [];
     const activityId =
       this.game || this.activatedRoute.snapshot.paramMap.get('id');
     this.textWithQuestions = `Carregant l'activitat...`;
-
-    console.log('activityId', activityId);
 
     if (activityId) {
       this.activity$ = this.activitiesSharedService
@@ -108,15 +117,20 @@ export class PlayBestOptionComponent implements OnInit, OnDestroy {
       }
     }
 
-    return new Answer({
+    const { userId } = this.authService.getUser();
+
+    const ANSWER = new Answer({
       total: this.questions.length,
       correct: correct,
       incorrect: incorrect,
       pointsPerQuestion: this.activity.scores.scorePerQuestion,
       activityId: this.activity.id,
-      userId: 'MOCK_USER_ID',
+      userId: userId,
       answers: answers,
     });
+
+    this.answerEvent.emit(ANSWER);
+    return ANSWER;
   }
 
   getResults(): void {

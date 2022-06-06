@@ -1,37 +1,46 @@
 <div style="margin-left: auto; margin-right: auto">
   <p id="gameDashboardFeedback"></p>
 </div>
-<div class="my-6">
-  <h1
-    *ngIf="newGame"
-    class="font-bold text-2xl pb-4 text-center text-emerald-900"
+<div class="my-4">
+  <div
+    class="mx-8 flex flex-col justify-start sm:flex-row sm:justify-between items-center"
   >
-    Crea un nou joc
-  </h1>
-  <h1
-    *ngIf="!newGame"
-    class="font-bold text-2xl py-4 text-center text-emerald-900"
-  >
-    {{ title.value }}
-  </h1>
+    <div class="min-w-[80%] flex flex-row justify-center items-center">
+      <h1
+        *ngIf="newGame"
+        class="font-medium text-3xl pb-4 text-center text-emerald-900"
+      >
+        {{ title.value ? title.value : "Nova partida" }}
+      </h1>
+      <h1
+        *ngIf="!newGame"
+        class="font-medium text-3xl pb-4 text-center text-emerald-900"
+      >
+        {{ title.value }}
+      </h1>
+    </div>
+    <button
+      class="w-40 px-8 py-2 rounded-md drop-shadow-lg text-white bg-amber-600 hover:bg-amber-100 hover:cursor-pointer hover:text-black hover:font-semibold tracking-wide hover:shadow-md hover:shadow-amber-600/20"
+      id="create-game-button"
+      (click)="this.createOrUpdate()"
+    >
+      {{ newGame ? "Crea" : "Actualitza" }}
+    </button>
+  </div>
   <div
     class="mx-2 flex flex-col justify-start items-center md:flex-row md:justify-between md:items-start min-w-"
   >
     <section class="mx-4">
+      <h2
+        class="mx-4 px-6 font-light text-2xl pt-6 pb-2 text-center text-emerald-800 tracking-wide"
+      >
+        Planificació
+      </h2>
       <form
         class="form w-full flex flex-col justify-start items-center"
         [formGroup]="gameForm"
         aria-label="game form"
       >
-        <div class="text-center">
-          <button
-            class="px-8 py-2 mt-6 mb-2 rounded-md drop-shadow-lg bg-emerald-100 hover:bg-teal-700 hover:cursor-pointer hover:text-white hover:font-semibold hover:tracking-wide hover:shadow-md hover:shadow-teal-100"
-            id="create-game-button"
-            (click)="this.createOrUpdate()"
-          >
-            {{ newGame ? "Crea" : "Actualitza" }}
-          </button>
-        </div>
         <mat-form-field appearance="standard">
           <mat-label>Títol del joc</mat-label>
           <input
@@ -62,30 +71,6 @@
           >
             El títol no pot excedir els 50 caràcters.
           </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="standard">
-          <mat-label *ngIf="newGame"
-            >El títol apareixerà automàticament</mat-label
-          >
-          <mat-label *ngIf="!newGame">Activitat vinculada</mat-label>
-          <input
-            matInput
-            type="text"
-            [formControl]="activityTitle"
-            aria-required="true"
-            id="gameForm-activityTitle"
-          />
-        </mat-form-field>
-        <mat-form-field appearance="standard">
-          <mat-label *ngIf="newGame">Tria una activitat de la llista</mat-label>
-          <mat-label *ngIf="!newGame">Identificador activitat</mat-label>
-          <input
-            matInput
-            type="text"
-            [formControl]="activityId"
-            aria-required="true"
-            id="gameForm-activityId"
-          />
         </mat-form-field>
         <mat-form-field appearance="standard">
           <mat-label>Temps límit</mat-label>
@@ -140,13 +125,44 @@
             La data ha de ser màxim 30 dies més tard a partir d'ara.
           </mat-error>
         </mat-form-field>
+        <mat-form-field appearance="standard">
+          <mat-label *ngIf="newGame"
+            >El títol apareixerà automàticament</mat-label
+          >
+          <mat-label *ngIf="!newGame">Activitat vinculada</mat-label>
+          <input
+            matInput
+            type="text"
+            [formControl]="activityTitle"
+            aria-required="true"
+            id="gameForm-activityTitle"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+          <mat-label *ngIf="newGame">Tria una activitat de la llista</mat-label>
+          <mat-label *ngIf="!newGame">Identificador activitat</mat-label>
+          <input
+            matInput
+            type="text"
+            [formControl]="activityId"
+            aria-required="true"
+            id="gameForm-activityId"
+          />
+        </mat-form-field>
       </form>
     </section>
     <section class="mx-4">
+      <h3></h3>
       <app-activities-picker
         [selectedActivity]="activityId.value"
         (pickedActivity)="pickedActivity($event)"
       ></app-activities-picker>
+    </section>
+    <section>
+      <app-invite-player
+        [players]="players"
+        (invitePlayersResponse)="invitePlayersResponse($event)"
+      ></app-invite-player>
     </section>
   </div>
 </div>

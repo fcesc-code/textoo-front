@@ -11,8 +11,6 @@ export function textSelection(
   const cleanPieces = deconstructText(superText);
   let results: CustomSelection = buildCustomSelection(selection, cleanPieces);
 
-  console.log('results >>> ', results);
-
   const { leftWhitespaces, rightWhitespaces } =
     findWhitespaces(stringSelection);
 
@@ -25,16 +23,13 @@ export function textSelection(
     rightWhitespaces -
     leftWhitespaces -
     (results.endParentNumber - results.startParentNumber);
-  const result = {
+  return {
     selected: stringSelection.trim(),
     start: calculatedStart,
     end: calculatedEnd,
     startParent: results.startParent,
     endParent: results.endParent,
   };
-
-  console.log('getTextSelection >>> result: ', result);
-  return result;
 }
 
 export interface CustomSelection {
@@ -90,18 +85,6 @@ export function buildCustomSelection(
   const anchorHighlightedOffset = anchorHighlighted
     ? anchorParentMatches[0]?.index || 0
     : 0; // compte, no funciona si hi ha parents iguals al superparent, pot fallar
-  // console.log(
-  //   'anchorData >>> ',
-  //   anchor,
-  //   anchorParentOffset,
-  //   anchorParentMatches[0].index
-  // );
-  console.log(
-    'anchorHighlightedOffset >>> ',
-    anchorExp,
-    anchorParentMatches,
-    anchorHighlightedOffset
-  );
 
   const focus = selection?.focusOffset || 0;
   const focusHighlighted =
@@ -130,12 +113,6 @@ export function buildCustomSelection(
   const focusHighlightedOffset = focusHighlighted
     ? focusParentMatches[0]?.index || 0
     : 0;
-  console.log(
-    'focusHighlightedOffset >>> ',
-    focusExp,
-    focusParentMatches,
-    focusHighlightedOffset
-  );
 
   const CONDITIONS = {
     sameParentLTR: anchorParentNumber === focusParentNumber && anchor < focus,
@@ -165,7 +142,6 @@ export function buildCustomSelection(
     result.endParentOffset = anchorParentOffset + focusHighlightedOffset;
   }
 
-  console.log('calculation >>> ', result);
   return result;
 }
 
@@ -178,7 +154,7 @@ export interface Piece {
 }
 
 export function deconstructText(text: string): Piece[] {
-  const partition = new RegExp(`<p id=\"activitySecondaryText-[0-9]+\">`, '');
+  const partition = /<p id=\"activitySecondaryText-\d+\">/;
   const pieces = text.split(partition);
   let count = 0;
   const cleanPieces = pieces
@@ -199,7 +175,6 @@ export function deconstructText(text: string): Piece[] {
     cleanPieces[i].end = cleanPieces[i].start + cleanPieces[i].length - 1;
     cleanPieces[i].startParentNumber = i;
   }
-  console.log('pieces >>> ', cleanPieces);
   return cleanPieces;
 }
 

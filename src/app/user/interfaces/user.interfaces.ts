@@ -1,5 +1,7 @@
-import { SupportedLanguages } from '../../shared/interfaces/global.interfaces';
-import { UserRoles } from '../../shared/interfaces/global.interfaces';
+import {
+  SupportedLanguages,
+  UserRoles,
+} from '../../shared/interfaces/global.interfaces';
 
 export interface Preferences {
   language: SupportedLanguages;

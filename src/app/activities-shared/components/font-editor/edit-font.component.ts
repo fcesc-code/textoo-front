@@ -1,12 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -51,7 +43,7 @@ export class EditFontComponent implements OnInit {
       Validators.minLength(5),
       Validators.maxLength(150),
     ]);
-    this.year = new FormControl(2000, [Validators.pattern(/^[0-9]*$/)]);
+    this.year = new FormControl(2000, [Validators.pattern(/^\d*$/)]);
     this.display = new FormControl(false);
 
     this.fontForm = this.formBuilder.group({

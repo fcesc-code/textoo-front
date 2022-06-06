@@ -10,10 +10,9 @@ import {
   Font,
   Timestamps,
 } from 'src/app/activities-shared/models/Activity.dto';
-import { debounce, map, Subject, Subscription, timer } from 'rxjs';
+import { debounce, Subject, Subscription, timer } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CustomArrayMethods } from 'src/app/shared/utils/arrays';
-import { SupportedLanguages } from 'src/app/shared/interfaces/global.interfaces';
 import { LANGUAGES } from 'src/app/shared/constants/globals';
 
 @Component({
@@ -118,9 +117,7 @@ export class EditBestOptionComponent implements OnInit, OnDestroy {
       this.activity$ = this.activitiesSharedService
         .getActivityById(activityId)
         .subscribe((activity: ActivityBestOption) => {
-          console.log('input', activity);
           this.activity = this.classInitializer(activity);
-          console.log('stored', this.activity);
           this.keywords = this.activity.keywords;
           this.questions = CustomArrayMethods.arraySort(
             this.activity.questions || [],
@@ -176,11 +173,9 @@ export class EditBestOptionComponent implements OnInit, OnDestroy {
   createOrUpdate(): void {
     if (!this.isNewActivity) {
       let result = this.buildActivity();
-      console.log('updating activity >>> ', result);
     }
     if (this.isNewActivity) {
       let result = this.buildActivity();
-      console.log('creating activity >>> ', result);
     }
   }
 
@@ -209,7 +204,7 @@ export class EditBestOptionComponent implements OnInit, OnDestroy {
 
   removePlaceHolders(text: string): string {
     const exp = new RegExp(
-      /<strong style=\"background-color: yellow;\">PREGUNTA N\. [0-9]+<\/strong>/g
+      /<strong style=\"background-color: yellow;\">PREGUNTA N\. \d+<\/strong>/g
     );
     return text.replace(exp, '') || '';
   }
@@ -221,8 +216,6 @@ export class EditBestOptionComponent implements OnInit, OnDestroy {
         `<\\/strong>`,
       'g'
     );
-    console.log('current >>> ' + text);
-    console.log('updated >>> ' + text.replace(exp, ''));
     return text.replace(exp, '') || '';
   }
 

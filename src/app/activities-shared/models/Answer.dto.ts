@@ -60,6 +60,20 @@ export class Answer {
     };
   }
 
+  get basicData(): AnswerConstructor {
+    return {
+      total: this._total,
+      correct: this._correct,
+      incorrect: this._incorrect,
+      pointsPerQuestion: this._pointsPerQuestion,
+      activityId: this._activityId,
+      userId: this._userId,
+      answers: this._answers,
+      time: this._time,
+      maxTime: this._maxTime,
+    };
+  }
+
   get time(): AnswerTime {
     return {
       time: {

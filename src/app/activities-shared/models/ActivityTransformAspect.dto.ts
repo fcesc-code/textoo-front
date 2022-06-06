@@ -7,7 +7,7 @@ import {
 
 export class ActivityTransformAspect extends Activity {
   private _text!: string;
-  private _questions!: Question_ActivityTransformAspect[];
+  private _questions!: QuestionActivityTransformAspect[];
 
   constructor({
     language,
@@ -46,13 +46,13 @@ export class ActivityTransformAspect extends Activity {
   set text(text: string) {
     this._text = text;
   }
-  get questions(): Question_ActivityTransformAspect[] {
+  get questions(): QuestionActivityTransformAspect[] {
     return this._questions;
   }
-  set questions(questions: Question_ActivityTransformAspect[]) {
+  set questions(questions: QuestionActivityTransformAspect[]) {
     this._questions = questions;
   }
-  addQuestion(question: Question_ActivityTransformAspect) {
+  addQuestion(question: QuestionActivityTransformAspect) {
     const stringifiedQuestions = [...this._questions].map((element) =>
       JSON.stringify(element)
     );
@@ -61,14 +61,14 @@ export class ActivityTransformAspect extends Activity {
       new Set([...stringifiedQuestions, stringifiedNewQuestion])
     ).map((element) => JSON.parse(element));
   }
-  removeQuestion(question: Question_ActivityTransformAspect) {
+  removeQuestion(question: QuestionActivityTransformAspect) {
     this._questions = [...this._questions].filter(
       (element) => JSON.stringify(element) !== JSON.stringify(question)
     );
   }
 }
 
-export interface Question_ActivityTransformAspect {
+export interface QuestionActivityTransformAspect {
   start: number;
   end: number;
   providedText: string;
@@ -78,7 +78,7 @@ export interface Question_ActivityTransformAspect {
 export interface ActivityTransformAspectConstructor
   extends ActivityConstructor {
   text: string;
-  questions: Question_ActivityTransformAspect[];
+  questions: QuestionActivityTransformAspect[];
   keywords: string[];
   timestamps: Timestamps;
 }
