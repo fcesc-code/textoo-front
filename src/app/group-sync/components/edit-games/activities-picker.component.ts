@@ -5,12 +5,10 @@ import {
   Input,
   OnChanges,
   OnDestroy,
-  OnInit,
   Output,
 } from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { ActivitiesGlobalService } from 'src/app/activities-global/services/activities-global.service';
-import { UserService } from 'src/app/user/services/user.service';
 
 interface PickedActivity {
   id: string;
@@ -43,15 +41,12 @@ export class ActivitiesPickerComponent
   @Output() pickedActivity: EventEmitter<PickedActivity> = new EventEmitter();
 
   ngAfterViewInit(): void {
-    console.log('PICKER onInit >>> ', this.selectedActivity);
     if (this.selectedActivity) {
-      console.log('should not enter if there is no id onInit');
       this.filterById(this.selectedActivity);
     }
   }
 
   ngOnChanges(): void {
-    console.log('PICKER onChanges >>> ', this.selectedActivity);
     if (this.selectedActivity) {
       this.filterById(this.selectedActivity);
     }

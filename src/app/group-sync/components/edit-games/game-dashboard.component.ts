@@ -6,11 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  DocumentData,
-  DocumentReference,
-  DocumentSnapshot,
-} from 'firebase/firestore';
+import { DocumentData, DocumentReference } from 'firebase/firestore';
 import { firstValueFrom, from, Subscription } from 'rxjs';
 import { ActivitiesSharedService } from 'src/app/activities-shared/services/activities-shared.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -154,7 +150,6 @@ export class GameDashboardComponent implements OnInit {
         const ID = docRef.id;
         this.id = ID;
         this.success(`El joc ${ID} s'ha creat correctament`);
-        // this.db.addAllPlayers(ID, this.buildPlayers(this.players));
       })
       .catch((error: any) => {
         this.sharedService.errorLog(error);
@@ -221,8 +216,6 @@ export class GameDashboardComponent implements OnInit {
     } as gameStatus;
     game.players = this.buildPlayers(this.players);
 
-    console.log('THIS GAME has been built >>> ', game);
-
     return game;
   }
 
@@ -240,19 +233,10 @@ export class GameDashboardComponent implements OnInit {
         online: false,
       } as Player);
     }
-    console.log('this will be returned', players);
     return players;
   }
 
   async createOrUpdate() {
-    console.log(
-      'createOrUpdate called, form is currently valid ? ',
-      this.gameForm.valid
-    );
-    console.log(
-      'createOrUpdate called, form is currently dirty ? ',
-      this.gameForm.dirty
-    );
     if (this.gameForm.valid) {
       await this.getActivityBasicInfo();
       const game = this.buildGame();
@@ -263,23 +247,14 @@ export class GameDashboardComponent implements OnInit {
   }
 
   success(message: string) {
-    console.log('SUCCESS: ', message);
     this.router.navigateByUrl('/games/dashboard');
   }
 
   failure(message: string, error: any) {
-    console.log('FAILURE: ', message);
     this.sharedService.errorLog(error);
-    // this.sharedService.managementToast(
-    //   // `L'operació esborrar joc no s'ha completat.`,
-    //   'gameDashboardFeedback',
-    //   false,
-    //   error
-    // );
   }
 
   invitePlayersResponse(eventData: PublicUser[]): void {
-    console.log('updated players >>> ', eventData);
     this.players = eventData;
   }
 }

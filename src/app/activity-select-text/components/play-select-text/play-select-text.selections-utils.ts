@@ -29,11 +29,10 @@ export function removeSubsets(arr: TextSelection[]): TextSelection[] {
       }
     }
   }
-  const orderedUniqueSubsets = Array.from(new Set(subsets)).sort();
+  const orderedUniqueSubsets = Array.from(new Set(subsets)).sort(
+    (a, b) => a - b
+  );
   const result = arr.filter((e, i) => !orderedUniqueSubsets.includes(i));
-  // console.log('origin >>> ', arr);
-  // console.log('subsets >>> ', orderedUniqueSubsets);
-  // console.log('result >>> ', result);
   return result;
 }
 

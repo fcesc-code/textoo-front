@@ -18,7 +18,6 @@ import {
   map,
   merge,
   Subscription,
-  tap,
 } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { TextSelection } from '../../models/ActivitySelectText.dto';
@@ -73,13 +72,11 @@ export class PlaySelectTextComponent
 
   ngOnInit(): void {
     const activityId = this.getId();
-    console.log('OnInit: firing loadActivity with id >>> ', activityId);
     this.loadActivity(activityId);
   }
 
   ngOnChanges(): void {
     const activityId = this.getId();
-    console.log('OnChanges: firing loadActivity with id >>> ', activityId);
     this.loadActivity(activityId);
   }
 
@@ -90,7 +87,6 @@ export class PlaySelectTextComponent
   }
 
   loadActivity(activityId: string) {
-    console.log('loadActivity with >>> ', activityId);
     if (activityId) {
       this.activity$ = this.activitiesSharedService
         .getActivityById(activityId)
@@ -122,7 +118,6 @@ export class PlaySelectTextComponent
           return isMainSelector || isSecondarySelector || isHighlightedSelector;
         }),
         filter((selection: Selection) => !selection.isCollapsed),
-        tap((selection: Selection) => console.log('WOW HERE >>> ', selection)),
         map(
           (selection: Selection): TextSelection =>
             this.getTextSelection(selection)
@@ -153,7 +148,6 @@ export class PlaySelectTextComponent
     const orderedArray = orderSelectionArray(newArray);
     const withoutSubsets = removeSubsets(orderedArray);
     const mergedAdjacents = mergeAdjacents(withoutSubsets);
-    console.log('current >>> ', mergedAdjacents);
     this.selectedText = mergedAdjacents;
   }
 
@@ -225,8 +219,6 @@ export class PlaySelectTextComponent
 
   getResults(): void {
     this.answers = this.setAnswers();
-    console.log('answers', this.answers);
-    console.log('scores', this.answers.scores);
     this.completed = true;
   }
 

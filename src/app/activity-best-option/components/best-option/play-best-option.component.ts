@@ -53,8 +53,6 @@ export class PlayBestOptionComponent implements OnInit, OnDestroy {
       this.game || this.activatedRoute.snapshot.paramMap.get('id');
     this.textWithQuestions = `Carregant l'activitat...`;
 
-    console.log('activityId', activityId);
-
     if (activityId) {
       this.activity$ = this.activitiesSharedService
         .getActivityById(activityId)

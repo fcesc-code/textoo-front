@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -11,7 +11,7 @@ import {
   templateUrl: './keywords-editor.component.html',
   styleUrls: ['./keywords-editor.component.sass'],
 })
-export class KeywordsEditorComponent implements OnInit {
+export class KeywordsEditorComponent {
   keywordsForm: FormGroup;
   newKeyword: FormControl;
 
@@ -24,10 +24,6 @@ export class KeywordsEditorComponent implements OnInit {
   }
   @Input() keywords: string[] = [];
   @Output() keywordsResponse: EventEmitter<string[]> = new EventEmitter();
-
-  ngOnInit(): void {
-    console.log('hi worlds');
-  }
 
   emit(): void {
     this.keywordsResponse.emit(this.keywords);

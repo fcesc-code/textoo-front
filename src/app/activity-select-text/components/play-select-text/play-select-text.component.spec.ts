@@ -9,10 +9,7 @@ import {
   DebugElement,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
-import {
-  MOCK_ACTIVITY_BEST_OPTION,
-  MOCK_ACTIVITY_SELECT_TEXT,
-} from 'mockdata/activity.mock';
+import { MOCK_ACTIVITY_SELECT_TEXT } from 'mockdata/activity.mock';
 import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
@@ -116,16 +113,4 @@ describe('PlaySelectTextComponent', () => {
     replayButton.triggerEventHandler('click', null);
     expect(component.completed).toBeFalse();
   });
-
-  // xit(`${TITLE} 4 > should select some text and get the selected text`, () => {
-  //   const question = debugElement.query(By.css('#activityMainText'));
-  //   const { x, y } = question.nativeElement.getBoundingClientRect();
-  //   // console.log('COORDINATES', x, y);
-  //   question.triggerEventHandler('mousedown', { pageX: x, pageY: y });
-  //   fixture.detectChanges();
-  //   question.triggerEventHandler('mouseup', { pageX: x + 250, pageY: y + 50 });
-  //   fixture.detectChanges();
-  //   const selection = component.getTextSelection();
-  //   expect(selection).not.toBeNull();
-  // });
 });

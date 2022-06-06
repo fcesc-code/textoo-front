@@ -1,33 +1,19 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { from, Subscription } from 'rxjs';
 import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import {
-  Classification,
-  Game,
-  gameInfo,
-  gameScore,
-  gameStatus,
-  GroupScore,
-} from '../../interfaces/game.dto';
+import { Game, gameScore, GroupScore } from '../../interfaces/game.dto';
 import { GroupGameService } from '../../services/group-game.service';
-import { ActivitiesSharedService } from 'src/app/activities-shared/services/activities-shared.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import {
-  CollectionReference,
   DocumentData,
   DocumentReference,
   DocumentSnapshot,
   FirestoreError,
   onSnapshot,
-  Query,
-  QueryConstraint,
-  QueryDocumentSnapshot,
-  QuerySnapshot,
 } from 'firebase/firestore';
 import { ActivityType } from 'src/app/activities-shared/models/Activity.dto';
 import { Player } from '../../interfaces/player.dto';
-import { limit, orderBy, query } from '@angular/fire/firestore';
 import { Unsubscribe } from '@firebase/util';
 import { Answer } from 'src/app/activities-shared/models/Answer.dto';
 
@@ -50,7 +36,6 @@ export class GameComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
-    private activitiesSharedService: ActivitiesSharedService,
     private sharedService: SharedService,
     private db: GroupGameService,
     private router: Router
@@ -147,7 +132,6 @@ export class GameComponent implements OnInit, OnDestroy {
       next: (snapshot: DocumentSnapshot<DocumentData>) => {
         const DOC = snapshot.data();
         if (DOC) {
-          console.log('update from DB received >>> ', DOC);
           this.game = DOC as Game;
         }
         this.allOnlineUsersHaveAnswered();
@@ -186,7 +170,6 @@ export class GameComponent implements OnInit, OnDestroy {
     }
   }
   updateGame() {
-    console.log('update game was called with game: ', this.game);
     this.db
       .updateGame(this.game.id, this.game)
       .then(() => {
@@ -197,17 +180,13 @@ export class GameComponent implements OnInit, OnDestroy {
       });
   }
 
-  success(message: string) {
-    console.log('SUCCESS: ', message);
-  }
+  success(message: string) {}
 
   failure(message: string, error: any) {
-    console.log('FAILURE: ', message);
     this.sharedService.errorLog(error);
   }
 
   onAnswerEvent(eventData: Answer) {
-    console.log('answerEvent!');
     const userHasAnswered = this.game.scores.find(
       (score) => score.userId === this.userId
     );
@@ -275,7 +254,6 @@ export class GameComponent implements OnInit, OnDestroy {
       .sort((a, b) => b.points - a.points);
 
     this.game.groupScores = GROUP_SCORES;
-    console.log('groupScores: ', this.game.groupScores);
   }
 
   getPlayerName(id: string): string {

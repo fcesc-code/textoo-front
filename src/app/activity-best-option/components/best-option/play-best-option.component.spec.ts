@@ -112,11 +112,9 @@ describe('PlayBestOptionComponent', () => {
     fixture.detectChanges();
     question.nativeElement.children[1].click();
     fixture.detectChanges();
-    // console.log('VALUE?', question.nativeElement.children[1].attributes.select.value);
     const validateButton = debugElement.query(By.css('#showResults'));
     validateButton.triggerEventHandler('click', null);
     const ANSWERS = component.answers.insights;
-    // console.log('ANSWERS', ANSWERS);
     const INCORRECT_ANSWERS = ANSWERS.insights.incorrect.length;
     const EXPECTED_INCORRECT_ANSWERS = 1;
     expect(INCORRECT_ANSWERS).toEqual(EXPECTED_INCORRECT_ANSWERS);

@@ -7,10 +7,7 @@ import {
 } from '@angular/forms';
 import { SupportedLanguages } from 'src/app/shared/interfaces/global.interfaces';
 import { LANGUAGES } from 'src/app/shared/constants/globals';
-import {
-  CommonData,
-  Score,
-} from 'src/app/activities-shared/models/Activity.dto';
+import { CommonData } from 'src/app/activities-shared/models/Activity.dto';
 
 @Component({
   selector: 'app-edit-common',
@@ -84,7 +81,6 @@ export class EditCommonComponent implements OnInit {
   }
 
   emit() {
-    console.log('ready to emit', this.commonForm.value);
     this.commonResponse.emit(this.commonForm.value);
   }
 }
