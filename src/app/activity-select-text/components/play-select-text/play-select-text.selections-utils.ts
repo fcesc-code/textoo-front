@@ -32,8 +32,7 @@ export function removeSubsets(arr: TextSelection[]): TextSelection[] {
   const orderedUniqueSubsets = Array.from(new Set(subsets)).sort(
     (a, b) => a - b
   );
-  const result = arr.filter((e, i) => !orderedUniqueSubsets.includes(i));
-  return result;
+  return arr.filter((_e, i) => !orderedUniqueSubsets.includes(i));
 }
 
 export function mergeAdjacents(arr: TextSelection[]): TextSelection[] {

@@ -1,4 +1,3 @@
-import { LANGUAGES } from 'src/app/shared/constants/globals';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({

@@ -16,14 +16,12 @@ export class HighlightTextPipe implements PipeTransform {
       highlightedText = `${highlightedText}${leftSlice}${PREFIX}${rightSlice}${SUFIX}`;
       pointer = selection.end + 1;
     }
-    const finalText = `${highlightedText}${CLEAN_TEXT.slice(pointer)}`;
-    return finalText;
+    return `${highlightedText}${CLEAN_TEXT.slice(pointer)}`;
   }
 
   removeDecorators(text: string): string {
     const PREFIX_EXP = new RegExp(PREFIX, 'gi');
     const SUFFIX_EXP = new RegExp(SUFIX, 'gi');
-    const CLEAN_TEXT = text.replace(PREFIX_EXP, '').replace(SUFFIX_EXP, '');
-    return CLEAN_TEXT;
+    return text.replace(PREFIX_EXP, '').replace(SUFFIX_EXP, '');
   }
 }

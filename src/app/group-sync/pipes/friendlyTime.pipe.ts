@@ -12,7 +12,6 @@ export class FriendlyTimePipe implements PipeTransform {
       userFriendlyTime.push(`${minutes} minut${minutes > 1 ? 's' : ''}`);
     if (seconds > 0)
       userFriendlyTime.push(`${seconds} segon${seconds > 1 ? 's' : ''}`);
-    const result = `${userFriendlyTime.join(' i ')}.`;
-    return result;
+    return `${userFriendlyTime.join(' i ')}.`;
   }
 }

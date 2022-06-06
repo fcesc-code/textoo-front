@@ -23,15 +23,13 @@ export function textSelection(
     rightWhitespaces -
     leftWhitespaces -
     (results.endParentNumber - results.startParentNumber);
-  const result = {
+  return {
     selected: stringSelection.trim(),
     start: calculatedStart,
     end: calculatedEnd,
     startParent: results.startParent,
     endParent: results.endParent,
   };
-
-  return result;
 }
 
 export interface CustomSelection {
@@ -156,7 +154,7 @@ export interface Piece {
 }
 
 export function deconstructText(text: string): Piece[] {
-  const partition = new RegExp(`<p id=\"activitySecondaryText-[0-9]+\">`, '');
+  const partition = /<p id=\"activitySecondaryText-\d+\">/;
   const pieces = text.split(partition);
   let count = 0;
   const cleanPieces = pieces

@@ -10,7 +10,7 @@ import {
   Font,
   Timestamps,
 } from 'src/app/activities-shared/models/Activity.dto';
-import { debounce, map, Subject, Subscription, timer } from 'rxjs';
+import { debounce, Subject, Subscription, timer } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CustomArrayMethods } from 'src/app/shared/utils/arrays';
 import { LANGUAGES } from 'src/app/shared/constants/globals';
@@ -204,7 +204,7 @@ export class EditBestOptionComponent implements OnInit, OnDestroy {
 
   removePlaceHolders(text: string): string {
     const exp = new RegExp(
-      /<strong style=\"background-color: yellow;\">PREGUNTA N\. [0-9]+<\/strong>/g
+      /<strong style=\"background-color: yellow;\">PREGUNTA N\. \d+<\/strong>/g
     );
     return text.replace(exp, '') || '';
   }

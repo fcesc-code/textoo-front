@@ -16,8 +16,6 @@ export interface ResponseError {
   providedIn: 'root',
 })
 export class SharedService {
-  constructor() {}
-
   async managementToast(
     element: string,
     validRequest: boolean,
@@ -54,7 +52,7 @@ export class SharedService {
     }
   }
 
-  errorLog(error: ResponseError): void {}
+  errorLog(_error: ResponseError): void {}
 
   async wait(ms: number) {
     return new Promise((resolve) => {
@@ -63,6 +61,6 @@ export class SharedService {
   }
 
   handleError(error: HttpErrorResponse | Error): Observable<never> {
-    return throwError(error);
+    return throwError(() => new Error(error.message));
   }
 }

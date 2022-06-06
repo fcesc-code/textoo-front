@@ -10,10 +10,10 @@ import { ActivitiesSharedService } from 'src/app/activities-shared/services/acti
 import {
   ActivityBestOption,
   Question_ActivityBestOption,
+  OptionSelection,
 } from '../../../activity-best-option/models/ActivityBestOption.dto';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { OptionSelection } from '../../../activity-best-option/models/ActivityBestOption.dto';
 import { CustomArrayMethods } from 'src/app/shared/utils/arrays';
 import { ID_PREFIX } from '../../pipes/add-option.marks';
 import {

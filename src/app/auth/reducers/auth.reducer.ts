@@ -18,7 +18,7 @@ const authInitialState: AuthState = {
 
 const _authReducer = createReducer(
   authInitialState,
-  on(AUTH_ACTIONS.login, (state, action) => ({
+  on(AUTH_ACTIONS.login, (state, _action) => ({
     ...state,
     loading: true,
     error: null,
@@ -36,7 +36,7 @@ const _authReducer = createReducer(
     loaded: false,
     error: payload,
   })),
-  on(AUTH_ACTIONS.logout, (state, action) => ({
+  on(AUTH_ACTIONS.logout, (state, _action) => ({
     ...state,
     loading: false,
     loaded: false,

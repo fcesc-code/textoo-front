@@ -75,11 +75,7 @@ export class LoginComponent {
               accessToken: accessToken,
             } as AuthToken);
             this.headerMenusService.authorize();
-            await this.sharedService.managementToast(
-              'loginFeedback',
-              loaded,
-              undefined
-            );
+            await this.sharedService.managementToast('loginFeedback', loaded);
             this.router.navigateByUrl('home');
           }
           if (error) {

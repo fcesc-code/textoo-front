@@ -7,6 +7,5 @@ import { Player } from '../../interfaces/player.dto';
   styleUrls: ['./users-online.component.sass'],
 })
 export class UsersOnlineComponent {
-  constructor() {}
   @Input() players: Player[] = [];
 }

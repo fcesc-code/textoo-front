@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { catchError, Observable, tap } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 import { API_ROUTES, API_CONTROLLERS } from 'src/routes/API_ROUTES';
 import { HttpClient } from '@angular/common/http';
 import { SharedService } from 'src/app/shared/services/shared.service';

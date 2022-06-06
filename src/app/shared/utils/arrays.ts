@@ -9,10 +9,7 @@ function arraySort(array: any[], sortProperty: string): any[] {
   if (array.length < 2) {
     return array;
   }
-
-  const result = [...array].sort((a, b) => a[sortProperty] - b[sortProperty]);
-
-  return result;
+  return [...array].sort((a, b) => a[sortProperty] - b[sortProperty]);
 }
 
 export const CustomArrayMethods = {

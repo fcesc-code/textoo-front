@@ -1,7 +1,4 @@
-import {
-  AnswerConstructor,
-  AnswerOption,
-} from 'src/app/activities-shared/models/Answer.dto';
+import { AnswerConstructor } from 'src/app/activities-shared/models/Answer.dto';
 import { Player } from './player.dto';
 
 export interface gameStatus {

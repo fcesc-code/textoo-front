@@ -246,11 +246,11 @@ export class GameDashboardComponent implements OnInit {
     }
   }
 
-  success(message: string) {
+  success(_message: string) {
     this.router.navigateByUrl('/games/dashboard');
   }
 
-  failure(message: string, error: any) {
+  failure(_message: string, error: any) {
     this.sharedService.errorLog(error);
   }
 

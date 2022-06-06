@@ -13,36 +13,17 @@ export class EditorComponent {
   editorOptions = {
     toolbar: {
       container: [
-        //  [{ 'placeholder': ['[GuestName]', '[HotelName]'] }], // my custom dropdown
         ['bold', 'italic', 'underline', 'strike'],
         ['blockquote', 'code-block'],
-
         [{ header: 1 }, { header: 2 }],
         [{ list: 'ordered' }, { list: 'bullet' }],
         [{ script: 'sub' }, { script: 'super' }],
         [{ indent: '-1' }, { indent: '+1' }],
-        //  [{ 'direction': 'rtl' }],
-
         [{ size: ['small', 'normal', 'large', 'huge'] }],
-        //  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
         [{ color: [] }, { background: [] }],
-        //  [{ 'font': [] }],
         [{ align: [] }],
-        // ['link', 'image', 'video'],
-        // ['emoji'],
-
         ['clean'],
       ],
-      // handlers: {
-      //  "placeholder": function (value) {
-      //      if (value) {
-      //          const cursorPosition = this.quill.getSelection().index;
-      //          this.quill.insertText(cursorPosition, value);
-      //          this.quill.setSelection(cursorPosition + value.length);
-      //      }
-      //  }
-      // },
     },
   };
 

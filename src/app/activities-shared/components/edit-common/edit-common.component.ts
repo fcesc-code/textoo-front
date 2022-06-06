@@ -52,9 +52,9 @@ export class EditCommonComponent implements OnInit {
       Validators.required,
       Validators.min(1),
       Validators.max(10),
-      Validators.pattern(/^[0-9]*$/),
+      Validators.pattern(/^\d*$/),
     ]);
-    this.timeToComplete = new FormControl(0, [Validators.pattern(/^[0-9]*$/)]);
+    this.timeToComplete = new FormControl(0, [Validators.pattern(/^\d*$/)]);
 
     this.commonForm = this.formBuilder.group({
       title: this.title,

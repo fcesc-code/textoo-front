@@ -6,7 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./button.component.sass'],
 })
 export class ButtonComponent {
-  constructor() {}
   @Input() text = '';
   @Input() disabled = false;
 }

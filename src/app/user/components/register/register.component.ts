@@ -122,11 +122,7 @@ export class RegisterComponent implements OnDestroy {
     this.subscription = this.store.select('user').subscribe({
       next: async ({ loaded, error }): Promise<void> => {
         if (loaded) {
-          await this.sharedService.managementToast(
-            'registerFeedback',
-            loaded,
-            undefined
-          );
+          await this.sharedService.managementToast('registerFeedback', loaded);
           if (this.registerForm.dirty) {
             this.router.navigateByUrl('welcome');
             this.registerForm.reset();

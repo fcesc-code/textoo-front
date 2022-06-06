@@ -21,7 +21,6 @@ export class SanitizePipe implements PipeTransform {
       ADD_ATTR: ['id', 'class'],
       FORBID_TAGS: ['script'],
     });
-    const RESULT = this.sanitizer.bypassSecurityTrustHtml(FILTERED_INPUT);
-    return RESULT;
+    return this.sanitizer.bypassSecurityTrustHtml(FILTERED_INPUT);
   }
 }

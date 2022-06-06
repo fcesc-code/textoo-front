@@ -12,7 +12,6 @@ import {
   updateDoc,
   where,
 } from '@angular/fire/firestore';
-import { Player } from '../interfaces/player.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -52,22 +51,4 @@ export class GroupGameService {
   updateGame(gameId: string, data: Partial<Game>): any {
     return updateDoc(doc(this.db, `${this.collection}/${gameId}`), data);
   }
-
-  // addPlayerToGame(gameId: string, player: Player): any {
-  //   return addDoc(this.refs.gameUsersCol(gameId), { ...player });
-  // }
-
-  // addAllPlayers(gameId: string, players: Partial<Player>[]) {
-  //   for (let player of players) {
-  //     addDoc(this.refs.gameUsersCol(gameId), {
-  //       ...player,
-  //     });
-  //   }
-  // }
-
-  // removePlayerFromGame(gameId: string, userId: string): any {
-  //   return deleteDoc(
-  //     doc(this.db, `${this.collection}/${gameId}/users/${userId}`)
-  //   );
-  // }
 }

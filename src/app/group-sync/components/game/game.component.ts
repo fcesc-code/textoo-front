@@ -105,8 +105,7 @@ export class GameComponent implements OnInit, OnDestroy {
   getEndDate(): Date {
     const start = this.getStartTime();
     const lag = this.game.status.maxTime * 1000;
-    const end = new Date(start + lag);
-    return end;
+    return new Date(start + lag);
   }
 
   hasStarted(): boolean {
@@ -180,9 +179,9 @@ export class GameComponent implements OnInit, OnDestroy {
       });
   }
 
-  success(message: string) {}
+  success(_message: string) {}
 
-  failure(message: string, error: any) {
+  failure(_message: string, error: any) {
     this.sharedService.errorLog(error);
   }
 
@@ -257,7 +256,9 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   getPlayerName(id: string): string {
-    const player = this.game.players.find((player) => player.userId === id);
+    const player = this.game.players.find(
+      (playerFromList) => playerFromList.userId === id
+    );
     return player ? player.userAlias : '';
   }
 }

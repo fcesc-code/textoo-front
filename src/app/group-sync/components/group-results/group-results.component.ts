@@ -1,8 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import {
-  Answer,
-  AnswerScores,
-} from 'src/app/activities-shared/models/Answer.dto';
+import { Component, Input } from '@angular/core';
 import { gameScore, GroupScore } from '../../interfaces/game.dto';
 
 @Component({

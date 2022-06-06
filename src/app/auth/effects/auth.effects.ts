@@ -2,18 +2,13 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AUTH_ACTIONS } from '../actions/auth.actions';
 import { AuthService } from '../services/auth.service';
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
-import { exhaustMap, map, catchError, tap } from 'rxjs/operators';
+import { exhaustMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AuthToken } from '../models/Auth.dto';
 
 @Injectable()
 export class AuthEffects {
-  constructor(
-    private actions$: Actions,
-    private authService: AuthService,
-    private localStorageService: LocalStorageService
-  ) {}
+  constructor(private actions$: Actions, private authService: AuthService) {}
 
   login$ = createEffect(() =>
     this.actions$.pipe(
@@ -40,7 +35,7 @@ export class AuthEffects {
   getLocalStorageToken$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AUTH_ACTIONS.getLocalStorageToken),
-      exhaustMap((action) =>
+      exhaustMap((_action) =>
         this.authService.getLocalStorageToken().pipe(
           map((auth: AuthToken) =>
             AUTH_ACTIONS.loginSuccess({

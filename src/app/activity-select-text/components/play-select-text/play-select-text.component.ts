@@ -10,7 +10,10 @@ import {
   Output,
 } from '@angular/core';
 import { ActivitiesSharedService } from '../../../activities-shared/services/activities-shared.service';
-import { ActivitySelectText } from '../../models/ActivitySelectText.dto';
+import {
+  ActivitySelectText,
+  TextSelection,
+} from '../../models/ActivitySelectText.dto';
 import {
   debounceTime,
   filter,
@@ -20,7 +23,6 @@ import {
   Subscription,
 } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { TextSelection } from '../../models/ActivitySelectText.dto';
 import { CustomArrayMethods } from 'src/app/shared/utils/arrays';
 import {
   Answer,
@@ -123,8 +125,8 @@ export class PlaySelectTextComponent
             this.getTextSelection(selection)
         )
       )
-      .subscribe((textSelection: TextSelection) => {
-        this.updateSelectionArray(textSelection);
+      .subscribe((selection: TextSelection) => {
+        this.updateSelectionArray(selection);
       });
   }
 
