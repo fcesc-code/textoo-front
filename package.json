@@ -46,7 +46,7 @@
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
     "@angular/service-worker": "~13.2.0",
-    "@ngrx/effects": "^13.1.0",
+    "@ngrx/effects": "^13.2.0",
     "@ngrx/store": "^13.2.0",
     "dompurify": "^3.0.3",
     "firebase": "^9.4.0",
